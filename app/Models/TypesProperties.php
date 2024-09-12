@@ -15,6 +15,7 @@ class TypesProperties extends Model
     protected $fillable = [
         'name',
         'slug',
+        'image',
     ];
 
     public function getRouteKeyName()

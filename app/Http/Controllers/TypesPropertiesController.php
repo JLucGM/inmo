@@ -33,6 +33,16 @@ class TypesPropertiesController extends Controller
     {
         $data = $request->only('name');
 
+        // AGREGAR image
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $nombreImagen = $image->getClientOriginalName();
+            $image->move(public_path('img/typeProperties'), $nombreImagen);
+            $data['image'] = $nombreImagen;
+        } else {
+            $data['image'] = "default.jpg";
+        }
+
         TypesProperties::create($data);
 
         return to_route('typesproperties.index');
@@ -60,6 +70,17 @@ class TypesPropertiesController extends Controller
     public function update(Request $request, TypesProperties $typeproperty)
     {
         $data = $request->only('name');
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $nombreImagen = $image->getClientOriginalName();
+            $image->move(public_path('img/typeProperties'), $nombreImagen);
+            $data['image'] = $nombreImagen;
+            if ($typeproperty->image != 'default.jpg') {
+                // Delete the existing image
+                unlink(public_path('img/typeProperties/' . $typeproperty->image));
+            }
+        } 
 
         $typeproperty->update($data);
 

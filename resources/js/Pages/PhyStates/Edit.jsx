@@ -6,10 +6,10 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
-export default function Edit({ auth, typeproperty }) {
+export default function Edit({ auth, phyState }) {
 
     const initialValues = {
-        name: typeproperty.name,
+        name: phyState.name,
 
     }
 
@@ -17,7 +17,7 @@ export default function Edit({ auth, typeproperty }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('typesproperties.update', typeproperty))
+        post(route('phyStates.update', phyState))
         console.log(data)
     }
     return (
@@ -26,7 +26,7 @@ export default function Edit({ auth, typeproperty }) {
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar tipo de propiedad</h2>
-                    <Link href={route('typesproperties.create')}
+                    <Link href={route('phyStates.create')}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >Crear tipo de propiedad
                     </Link>
@@ -65,21 +65,6 @@ export default function Edit({ auth, typeproperty }) {
                                     />
 
                                     <InputError message={errors.name} className="mt-2" />
-                                </div>
-
-                                <div>
-                                    <InputLabel htmlFor="image" value="image" />
-
-                                    <TextInput
-                                        id="image"
-                                        type="file"
-                                        name="image"
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) => setData('image', e.target.files[0])}
-                                    />
-
-                                    <InputError message={errors.image} className="mt-2" />
                                 </div>
 
                                 <div className="flex justify-end">

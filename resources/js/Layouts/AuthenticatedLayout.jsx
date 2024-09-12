@@ -26,6 +26,7 @@ export default function Authenticated({ user, header, children }) {
 
    const menuItems = [
       { label: 'Tipos de propiedades', route: 'typesproperties.index' },
+      { label: 'Estado fisico', route: 'phyStates.index' },
       
   ];
 

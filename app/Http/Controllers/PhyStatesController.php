@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PhyStates;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PhyStatesController extends Controller
 {
@@ -12,7 +13,9 @@ class PhyStatesController extends Controller
      */
     public function index()
     {
-        //
+        $phyStates = PhyStates::all();
+
+        return Inertia::render('PhyStates/Index', compact('phyStates'));
     }
 
     /**
@@ -20,7 +23,7 @@ class PhyStatesController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('PhyStates/Create');
     }
 
     /**
@@ -28,13 +31,17 @@ class PhyStatesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->only('name');
+
+        PhyStates::create($data);
+
+        return to_route('phyStates.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(PhyStates $phyStates)
+    public function show(PhyStates $phyState)
     {
         //
     }
@@ -42,24 +49,30 @@ class PhyStatesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PhyStates $phyStates)
+    public function edit(PhyStates $phyState)
     {
-        //
+        return Inertia::render('PhyStates/Edit', compact('phyState'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PhyStates $phyStates)
+    public function update(Request $request, PhyStates $phyState)
     {
-        //
+        $data = $request->only('name');
+
+        $phyState->update($data);
+
+        return to_route('phyStates.edit', $phyState);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PhyStates $phyStates)
+    public function destroy(PhyStates $phyState)
     {
-        //
+        $phyState->delete();
+
     }
 }

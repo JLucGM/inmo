@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PhyStatesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TypesPropertiesController;
 use App\Http\Controllers\UserController;
@@ -38,6 +39,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('typesproperties/{typeproperty}/edit', [TypesPropertiesController::class, 'edit'])->name('typesproperties.edit');
     Route::post('typesproperties/{typeproperty}', [TypesPropertiesController::class, 'update'])->name('typesproperties.update');
     Route::delete('typesproperties/{typeproperty}', [TypesPropertiesController::class, 'destroy'])->name('typesproperties.destroy');
+    
+    Route::get('phyStates', [PhyStatesController::class, 'index'])->name('phyStates.index');
+    Route::get('phyStates/create', [PhyStatesController::class, 'create'])->name('phyStates.create');
+    Route::post('phyStates', [PhyStatesController::class, 'store'])->name('phyStates.store');
+    Route::get('phyStates/{phyState}/edit', [PhyStatesController::class, 'edit'])->name('phyStates.edit');
+    Route::post('phyStates/{phyState}', [PhyStatesController::class, 'update'])->name('phyStates.update');
+    Route::delete('phyStates/{phyState}', [PhyStatesController::class, 'destroy'])->name('phyStates.destroy');
 });
 
 require __DIR__ . '/auth.php';

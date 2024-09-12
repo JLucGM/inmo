@@ -29,7 +29,9 @@ export default function Create({ auth }) {
             user={auth.user}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Crear Usuario</h2>
+                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        Crear Usuario
+                    </h2>
                 </div>
             }
         >
@@ -40,7 +42,7 @@ export default function Create({ auth }) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
                         <div className="text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit} className='space-y-4'>
-                                
+
                                 <div>
                                     <InputLabel htmlFor="name" value="Nombre" />
 
