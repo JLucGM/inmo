@@ -14,7 +14,7 @@ export default function MultiLevelMenu({ name, svg: SVGIcon, items, toggle }) {
                 onClick={() => setDropdownOpen(!dropdownOpen)}
             >
                 {SVGIcon && <SVGIcon className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />}
-                <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">{name}</span>
+                <span className="capitalize flex-1 ms-3 text-left rtl:text-right text-balance  whitespace-nowrap">{name}</span>
                 <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                 </svg>
@@ -27,7 +27,7 @@ export default function MultiLevelMenu({ name, svg: SVGIcon, items, toggle }) {
                             // href={item.route}
                             href={route(item.route)}
                         >
-                            <span>{item.label}</span>
+                            <span className='capitalize '>{item.label}</span>
                         </NavLink>
                     </li>
                 ))}

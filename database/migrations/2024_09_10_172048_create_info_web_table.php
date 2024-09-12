@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('info_web', function (Blueprint $table) {
             $table->id();
-            $table->text('title');
+            $table->text('name');
+            $table->string('slug')->unique();
             $table->text('text')->nullable();
             $table->timestamps();
         });

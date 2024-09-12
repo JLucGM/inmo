@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('phy_states', function (Blueprint $table) {
             $table->id();
             $table->text('name')->notNullable();
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

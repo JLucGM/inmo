@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('general_settings', function (Blueprint $table) {
             $table->id();
             $table->string('name')->notNullable(); // Nombre del sitio
+            $table->string('slug')->unique();
             $table->string('description')->notNullable(); // Descripción del sitio
             $table->foreignId('currency_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();

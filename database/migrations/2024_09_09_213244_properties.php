@@ -11,7 +11,8 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->text('name')->notNullable();
-            $table->text('value')->nullable();
+            $table->text('price')->nullable();
+            $table->string('slug')->unique();
             $table->foreignId('types_properties_id')->constrained();
             $table->foreignId('phy_states_id')->nullable()->constrained();
             $table->foreignId('types_businesses_id')->nullable()->constrained();

@@ -25,9 +25,7 @@ export default function Authenticated({ user, header, children }) {
    }, [darkMode]);
 
    const menuItems = [
-      { label: 'Dashboard', route: 'dashboard' },
-      { label: 'User', route: 'user.index' },
-      { label: 'typesproperties', route: 'typesproperties.index' },
+      { label: 'Tipos de propiedades', route: 'typesproperties.index' },
       
   ];
 
@@ -121,10 +119,10 @@ export default function Authenticated({ user, header, children }) {
 
                   <li>
                      <MultiLevelMenu 
-                     name={'Prueba1'}
+                     name={'Configuraciones globales'}
                      svg={UserIcon}
                      items={menuItems}
-                     toggle={'pruebasss'}
+                     toggle={'global-settings'}
                      />
                   </li>
                   

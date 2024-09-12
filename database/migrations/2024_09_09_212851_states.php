@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('states', function (Blueprint $table) {
             $table->id();
             $table->text('name')->notNullable();
+            $table->string('slug')->unique();
             $table->foreignId('country_id')->constrained();
             $table->timestamps();
         });

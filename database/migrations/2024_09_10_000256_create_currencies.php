@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('code', 3)->unique(); // Código de la moneda (máximo 3 caracteres)
             $table->string('name')->notNullable(); // Nombre de la moneda
             $table->string('symbol')->notNullable(); // Símbolo de la moneda
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

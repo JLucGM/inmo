@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
             $table->text('name')->nullable();
+            $table->string('slug')->unique();
             $table->text('text')->nullable();
             $table->text('avatar')->nullable();
             $table->timestamps();

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->notNullable();
             $table->string('email')->unique();
-            // $table->string('slug')->unique();
+            $table->string('slug')->unique();
             $table->string('phone')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->string('avatar')->default('default.jpg');
