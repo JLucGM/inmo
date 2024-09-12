@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('types_businesses', function (Blueprint $table) {
             $table->id();
             $table->text('name')->notNullable();
+            $table->timestamps();
         });
     }
 

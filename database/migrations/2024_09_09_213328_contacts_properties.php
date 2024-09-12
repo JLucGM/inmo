@@ -12,6 +12,7 @@ return new class extends Migration
             $table->foreignId('contact_id')->constrained();
             $table->foreignId('property_id')->constrained();
             $table->primary(['contact_id', 'property_id']);
+            $table->timestamps();
         });
     }
 

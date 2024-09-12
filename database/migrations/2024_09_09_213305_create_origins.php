@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('origins', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('name')->notNullable();
+            $table->timestamps();
         });
     }
 

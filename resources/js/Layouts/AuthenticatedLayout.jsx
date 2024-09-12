@@ -27,6 +27,7 @@ export default function Authenticated({ user, header, children }) {
    const menuItems = [
       { label: 'Dashboard', route: 'dashboard' },
       { label: 'User', route: 'user.index' },
+      { label: 'typesproperties', route: 'typesproperties.index' },
       
   ];
 
@@ -70,7 +71,7 @@ export default function Authenticated({ user, header, children }) {
                                     type="button"
                                     className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400   hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
                                  >
-                                    <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" />
+                                    <img className="w-8 h-8 rounded-full" src={`/img/profile/${user.avatar}`} alt="user photo" />
                                  </button>
                               </span>
                            </Dropdown.Trigger>
@@ -123,6 +124,7 @@ export default function Authenticated({ user, header, children }) {
                      name={'Prueba1'}
                      svg={UserIcon}
                      items={menuItems}
+                     toggle={'pruebasss'}
                      />
                   </li>
                   
@@ -140,7 +142,7 @@ export default function Authenticated({ user, header, children }) {
             </div>
          </aside>
 
-         <div className="p-4 sm:ml-64 bg-white dark:bg-gray-800 ">
+         <div className="p-4 sm:ml-64 bg-white dark:bg-gray-800 min-h-screen">
             <div className="p-4 mt-20">
                {header && (
                   <header className="">

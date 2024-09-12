@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->text('name')->notNullable();
             $table->foreignId('state_id')->constrained();
+            $table->timestamps();
         });
     }
 

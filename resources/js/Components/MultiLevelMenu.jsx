@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import NavLink from './NavLink';
 
-export default function MultiLevelMenu({ name, svg: SVGIcon, items }) {
+export default function MultiLevelMenu({ name, svg: SVGIcon, items, toggle }) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     return (
@@ -9,8 +9,8 @@ export default function MultiLevelMenu({ name, svg: SVGIcon, items }) {
             <button
                 type="button"
                 className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                aria-controls="ecommerce"
-                data-collapse-toggle="ecommerce"
+                aria-controls={name}
+                data-collapse-toggle={toggle}
                 onClick={() => setDropdownOpen(!dropdownOpen)}
             >
                 {SVGIcon && <SVGIcon className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />}
@@ -21,7 +21,7 @@ export default function MultiLevelMenu({ name, svg: SVGIcon, items }) {
             </button>
             <ul className={`${dropdownOpen ? 'block' : 'hidden'} py-2 space-y-2`}>
                 {items.map((item, index) => (
-                    <li key={index}>
+                    <li id={toggle} key={index}>
                         <NavLink
                             className='flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
                             // href={item.route}

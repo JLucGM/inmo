@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('types_contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('name')->notNullable();
+            $table->timestamps();
         });
     }
 

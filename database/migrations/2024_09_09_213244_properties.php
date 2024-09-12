@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('country_id')->nullable()->constrained();
             $table->foreignId('state_id')->nullable()->constrained();
             $table->foreignId('city_id')->nullable()->constrained();
+            $table->timestamps();
         });
     }
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->notNullable(); // Nombre del sitio
             $table->string('description')->notNullable(); // Descripción del sitio
             $table->foreignId('currency_id')->nullable()->constrained()->onDelete('cascade');
+            $table->timestamps();
 
         });
     }

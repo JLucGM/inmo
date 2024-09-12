@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->text('name')->notNullable();
             $table->foreignId('category_amenities_id')->constrained();
+            $table->timestamps();
         });
     }
 

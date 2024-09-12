@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TypesPropertiesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -19,17 +20,24 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     Route::get('users', [UserController::class, 'index'])->name('user.index');
-        Route::get('users/create', [UserController::class, 'create'])->name('user.create');
-        Route::post('users', [UserController::class, 'store'])->name('user.store');
-        Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
-        Route::post('users/{user}', [UserController::class, 'update'])->name('user.update');
-        Route::delete('users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::get('users/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('users', [UserController::class, 'store'])->name('user.store');
+    Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::post('users/{user}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+    
+    Route::get('typesproperties', [TypesPropertiesController::class, 'index'])->name('typesproperties.index');
+    Route::get('typesproperties/create', [TypesPropertiesController::class, 'create'])->name('typesproperties.create');
+    Route::post('typesproperties', [TypesPropertiesController::class, 'store'])->name('typesproperties.store');
+    Route::get('typesproperties/{typeproperty}/edit', [TypesPropertiesController::class, 'edit'])->name('typesproperties.edit');
+    Route::post('typesproperties/{typeproperty}', [TypesPropertiesController::class, 'update'])->name('typesproperties.update');
+    Route::delete('typesproperties/{typeproperty}', [TypesPropertiesController::class, 'destroy'])->name('typesproperties.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
