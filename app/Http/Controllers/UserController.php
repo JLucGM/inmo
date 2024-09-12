@@ -7,6 +7,7 @@ use App\Http\Requests\Users\UpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -39,10 +40,14 @@ class UserController extends Controller
 
         $data['password'] = bcrypt($request['password']);
 
-        if($request->hasFile('avatar')){
-            $file = $request->file('avatar');
-            $imageName = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/images/avatars', $imageName, 'public');            $data['avatar'] = 'images/avatars/' . $imageName;
+        // AGREGAR AVATAR
+        if ($request->hasFile('avatar')) {
+            $image = $request->file('avatar');
+            $nombreImagen = $image->getClientOriginalName();
+            $image->move(public_path('img/profile'), $nombreImagen);
+            $data['avatar'] = $nombreImagen;
+        } else {
+            $data['avatar'] = "default.jpg";
         }
 
         //$data['user_id'] =Auth::user()->id;
@@ -79,11 +84,16 @@ class UserController extends Controller
             $data['password'] = bcrypt($request['password']);
         }
 
-        if($request->hasFile('avatar')){
-            $file = $request->file('avatar');
-            $imageName = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/images/avatars', $imageName, 'public');            $data['avatar'] = 'images/avatars/' . $imageName;
-        }
+        if ($request->hasFile('avatar')) {
+            $image = $request->file('avatar');
+            $nombreImagen = $image->getClientOriginalName();
+            $image->move(public_path('img/profile'), $nombreImagen);
+            $data['avatar'] = $nombreImagen;
+            if ($user->avatar != 'default.jpg') {
+                // Delete the existing image
+                unlink(public_path('img/profile/' . $user->avatar));
+            }
+        } 
 
         $user->update($data);
 
@@ -94,7 +104,12 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(User $user)
-    {
-        $user->delete();
+{
+    // Eliminar el avatar del usuario, pero no el default.jpg
+    if ($user->avatar && $user->avatar != 'default.jpg' && file_exists(public_path('img/profile/' . $user->avatar))) {
+        unlink(public_path('img/profile/' . $user->avatar));
     }
+    
+    $user->delete();
+}
 }

@@ -28,19 +28,21 @@ export default function Edit({ auth, user }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className='flex justify-between'>
-
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Contactos</h2>
-                    <Link href={route('user.create')}>Crear usuario</Link>
+                <div className='flex justify-between items-center px-6'>
+                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Usuario</h2>
+                    <Link href={route('user.create')}
+                        className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    >Crear usuario
+                    </Link>
                 </div>
             }
         >
             <Head title="Usuarios" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
+            <div className="p-6">
+                <div className="max-w-7xl mx-auto ">
+                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
+                        <div className=" text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit} className='space-y-4'>
 
                                 <Transition
@@ -129,12 +131,8 @@ export default function Edit({ auth, user }) {
                                         <option value={1}>Activo</option>
                                     </select>
                                 </div>
-                               
-                                {/* {user.avatar && (
-    <div className="flex justify-center mb-4">
-        <img src={user.avatar} alt="{user.avatar}" className="rounded-full h-32 w-32 object-cover" />
-    </div>
-)} */}
+
+                                <img className='w-16' src={`/img/profile/${user.avatar}`} alt="" />
 
                                 <div>
                                     <InputLabel htmlFor="avatar" value="avatar" />
