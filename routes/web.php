@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AmenitiesController;
 use App\Http\Controllers\CategoryAmenitiesController;
 use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\CountriesController;
@@ -86,6 +87,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('category-amenities/{categoryAmenity}/edit', [CategoryAmenitiesController::class, 'edit'])->name('category-amenities.edit');
     Route::post('category-amenities/{categoryAmenity}', [CategoryAmenitiesController::class, 'update'])->name('category-amenities.update');
     Route::delete('category-amenities/{categoryAmenity}', [CategoryAmenitiesController::class, 'destroy'])->name('category-amenities.destroy');
+    
+    Route::get('amenities', [AmenitiesController::class, 'index'])->name('amenities.index');
+    Route::get('amenities/create', [AmenitiesController::class, 'create'])->name('amenities.create');
+    Route::post('amenities', [AmenitiesController::class, 'store'])->name('amenities.store');
+    Route::get('amenities/{amenity}/edit', [AmenitiesController::class, 'edit'])->name('amenities.edit');
+    Route::post('amenities/{amenity}', [AmenitiesController::class, 'update'])->name('amenities.update');
+    Route::delete('amenities/{amenity}', [AmenitiesController::class, 'destroy'])->name('amenities.destroy');
 });
 
 require __DIR__ . '/auth.php';
