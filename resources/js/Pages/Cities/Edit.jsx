@@ -34,7 +34,7 @@ export default function Edit({ auth, city, states, selectedStateId }) {
                 </div>
             }
         >
-            <Head className="capitalize" title="tipos de negocios" />
+            <Head className="capitalize" title="Actualizar ciudad" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto ">
@@ -76,9 +76,9 @@ export default function Edit({ auth, city, states, selectedStateId }) {
                                         id="states"
                                         className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                         value={data.state_id} // Set the value prop to the current state_id value
-    onChange={(e) => {
-        setData('state_id', parseInt(e.target.value), { merge: true });
-    }}
+                                        onChange={(e) => {
+                                            setData('state_id', parseInt(e.target.value), { merge: true });
+                                        }}
                                     >
                                         {states.map((states) => (
                                             <option value={states.id} key={states.id}>
@@ -90,9 +90,9 @@ export default function Edit({ auth, city, states, selectedStateId }) {
                                     <InputError message={errors.states} className="mt-2" />
                                 </div>
 
-                                <div className="flex justify-end">
+                                <div className="flex justify-end p-2.5">
                                     <PrimaryButton >
-                                        Actualizar
+                                        Guardar
                                     </PrimaryButton>
                                 </div>
 

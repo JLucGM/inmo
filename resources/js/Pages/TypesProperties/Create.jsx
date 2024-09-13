@@ -68,9 +68,9 @@ export default function Create({ auth }) {
                                     <InputError message={errors.image} className="mt-2" />
                                 </div>
 
-                                <div className="flex justify-end">
+                                <div className="flex justify-end p-2.5">
                                     <PrimaryButton >
-                                        Crear tipo de propiedad
+                                        Guardar
                                     </PrimaryButton>
                                 </div>
 

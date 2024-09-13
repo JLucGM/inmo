@@ -82,9 +82,9 @@ export default function Create({ auth, country }) {
                                     <InputError message={errors.country} className="mt-2" />
                                 </div>
 
-                                <div className="flex justify-end">
+                                <div className="flex justify-end p-2.5">
                                     <PrimaryButton >
-                                        Crear
+                                        Guardar
                                     </PrimaryButton>
                                 </div>
 

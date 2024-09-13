@@ -67,9 +67,9 @@ export default function Edit({ auth, phyState }) {
                                     <InputError message={errors.name} className="mt-2" />
                                 </div>
 
-                                <div className="flex justify-end">
+                                <div className="flex justify-end p-2.5">
                                     <PrimaryButton >
-                                        Actualizar tipo de propiedad
+                                        Guardar
                                     </PrimaryButton>
                                 </div>
 

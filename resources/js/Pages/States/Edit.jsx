@@ -92,9 +92,9 @@ export default function Edit({ auth, state, country,selectedCountryId }) {
                                     <InputError message={errors.country} className="mt-2" />
                                 </div>
 
-                                <div className="flex justify-end">
+                                <div className="flex justify-end p-2.5">
                                     <PrimaryButton >
-                                        Actualizar
+                                        Guardar
                                     </PrimaryButton>
                                 </div>
 

@@ -4,20 +4,19 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Transition } from '@headlessui/react';
+import DangerButton from '@/Components/DangerButton';
 
-export default function Edit({ auth, typesBusiness }) {
+export default function Create({ auth }) {
 
     const initialValues = {
-        name: typesBusiness.name,
-
+        name: "",
     }
 
-    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
+    const { data, setData, errors, post } = useForm(initialValues)
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('typesBusinesses.update', typesBusiness))
+        post(route('category-amenities.store'))
         console.log(data)
     }
     return (
@@ -25,32 +24,19 @@ export default function Edit({ auth, typesBusiness }) {
             user={auth.user}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar tipo de negocios</h2>
-                    <Link href={route('typesBusinesses.create')}
-                        className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >
-                        Crear tipo de negocios
-                    </Link>
+                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        Crear categoria de comodidades
+                    </h2>
                 </div>
             }
         >
-            <Head className="capitalize"  title="tipos de negocios" />
+            <Head className="capitalize" title="Crear categoria de comodidades" />
 
             <div className="p-6">
-                <div className="max-w-7xl mx-auto ">
+                <div className="max-w-7xl mx-auto">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                        <div className=" text-gray-900 dark:text-gray-100">
+                        <div className="text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit} className='space-y-4'>
-
-                                <Transition
-                                    show={recentlySuccessful}
-                                    enter="transition ease-in-out"
-                                    enterFrom="opacity-0"
-                                    leave="transition ease-in-out"
-                                    leaveTo="opacity-0"
-                                >
-                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
-                                </Transition>
 
                                 <div>
                                     <InputLabel htmlFor="name" value="Nombre" />

@@ -31,6 +31,7 @@ export default function Authenticated({ user, header, children }) {
       { label: 'Pais', route: 'countries.index' },
       { label: 'Estados', route: 'states.index' },
       { label: 'Ciudades', route: 'cities.index' },
+      { label: 'Categorias de comodidades', route: 'category-amenities.index' },
       
   ];
 

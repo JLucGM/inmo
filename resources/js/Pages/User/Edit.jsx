@@ -152,9 +152,9 @@ export default function Edit({ auth, user }) {
                                     <InputError message={errors.avatar} className="mt-2" />
                                 </div>
 
-                                <div className="flex justify-end">
+                                <div className="flex justify-end p-2.5">
                                     <PrimaryButton >
-                                        Actualizar usuario
+                                        Guardar
                                     </PrimaryButton>
                                 </div>
 
