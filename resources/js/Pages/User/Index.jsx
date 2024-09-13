@@ -19,7 +19,7 @@ export default function Index({ auth, users }) {
                 </div>
             }
         >
-            <Head title="Usuarios" />
+            <Head className="capitalize" title="Usuarios" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto ">

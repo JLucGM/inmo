@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\PhyStatesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatesController;
+use App\Http\Controllers\TypesBusinessesController;
 use App\Http\Controllers\TypesPropertiesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -46,6 +49,27 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('phyStates/{phyState}/edit', [PhyStatesController::class, 'edit'])->name('phyStates.edit');
     Route::post('phyStates/{phyState}', [PhyStatesController::class, 'update'])->name('phyStates.update');
     Route::delete('phyStates/{phyState}', [PhyStatesController::class, 'destroy'])->name('phyStates.destroy');
+    
+    Route::get('typesBusinesses', [TypesBusinessesController::class, 'index'])->name('typesBusinesses.index');
+    Route::get('typesBusinesses/create', [TypesBusinessesController::class, 'create'])->name('typesBusinesses.create');
+    Route::post('typesBusinesses', [TypesBusinessesController::class, 'store'])->name('typesBusinesses.store');
+    Route::get('typesBusinesses/{typesBusiness}/edit', [TypesBusinessesController::class, 'edit'])->name('typesBusinesses.edit');
+    Route::post('typesBusinesses/{typesBusiness}', [TypesBusinessesController::class, 'update'])->name('typesBusinesses.update');
+    Route::delete('typesBusinesses/{typesBusiness}', [TypesBusinessesController::class, 'destroy'])->name('typesBusinesses.destroy');
+    
+    Route::get('countries', [CountriesController::class, 'index'])->name('countries.index');
+    Route::get('countries/create', [CountriesController::class, 'create'])->name('countries.create');
+    Route::post('countries', [CountriesController::class, 'store'])->name('countries.store');
+    Route::get('countries/{country}/edit', [CountriesController::class, 'edit'])->name('countries.edit');
+    Route::post('countries/{country}', [CountriesController::class, 'update'])->name('countries.update');
+    Route::delete('countries/{country}', [CountriesController::class, 'destroy'])->name('countries.destroy');
+    
+    Route::get('states', [StatesController::class, 'index'])->name('states.index');
+    Route::get('states/create', [StatesController::class, 'create'])->name('states.create');
+    Route::post('states', [StatesController::class, 'store'])->name('states.store');
+    Route::get('states/{state}/edit', [StatesController::class, 'edit'])->name('states.edit');
+    Route::post('states/{state}', [StatesController::class, 'update'])->name('states.update');
+    Route::delete('states/{state}', [StatesController::class, 'destroy'])->name('states.destroy');
 });
 
 require __DIR__ . '/auth.php';

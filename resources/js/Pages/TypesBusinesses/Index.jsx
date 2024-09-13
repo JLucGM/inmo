@@ -1,22 +1,23 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Index({ auth, typesproperties }) {
-    console.log(typesproperties)
+export default function Index({ auth, typesBusinesses }) {
+    console.log(typesBusinesses)
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">tipos de propiedades</h2>
-                    <Link href={route('typesproperties.create')}
+                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Estados fisicos</h2>
+                    <Link href={route('typesBusinesses.create')}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >Crear tipo de propiedad
+                    >
+                        Crear Estado fisico
                     </Link>
                 </div>
             }
         >
-            <Head className="capitalize" title="tipo de propiedad" />
+            <Head className="capitalize" title="Estado fisico" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto ">
@@ -37,22 +38,22 @@ export default function Index({ auth, typesproperties }) {
                                     </thead>
                                     <tbody>
                                         {
-                                            typesproperties?.map((typeproperty) => (
+                                            typesBusinesses?.map((typesBusiness) => (
 
-                                                <tr key={typeproperty.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <tr key={typesBusiness.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                     <th scope="row" className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        {typeproperty.name}
+                                                        {typesBusiness.name}
                                                     </th>                                                    
                                                     <td className="border border-slate-200 px-6 py-4">
                                                         <div className='space-x-4'>
                                                             <Link
                                                                 className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                                                href={route('typesproperties.edit', [typeproperty])}>
+                                                                href={route('typesBusinesses.edit', [typesBusiness])}>
                                                                 Editar
                                                             </Link>
                                                             <Link
                                                                 className='inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
-                                                                href={route('typesproperties.destroy', [typeproperty])} method='delete' as="button">
+                                                                href={route('typesBusinesses.destroy', [typesBusiness])} method='delete' as="button">
                                                                 Eliminar
                                                             </Link>
                                                         </div>

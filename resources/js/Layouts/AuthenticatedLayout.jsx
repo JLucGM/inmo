@@ -26,7 +26,10 @@ export default function Authenticated({ user, header, children }) {
 
    const menuItems = [
       { label: 'Tipos de propiedades', route: 'typesproperties.index' },
-      { label: 'Estado fisico', route: 'phyStates.index' },
+      { label: 'Estados fisicos', route: 'phyStates.index' },
+      { label: 'Tipo de negocios', route: 'typesBusinesses.index' },
+      { label: 'Pais', route: 'countries.index' },
+      { label: 'Estados', route: 'states.index' },
       
   ];
 

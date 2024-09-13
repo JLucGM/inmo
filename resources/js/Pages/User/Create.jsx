@@ -35,7 +35,7 @@ export default function Create({ auth }) {
                 </div>
             }
         >
-            <Head title="Usuario" />
+            <Head className="capitalize" title="Usuario" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto">
