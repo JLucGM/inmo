@@ -21,10 +21,15 @@ class Countries extends Model
         return 'slug';
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
+    }
+
+    public function states()
+    {
+        return $this->hasMany(States::class);
     }
 }

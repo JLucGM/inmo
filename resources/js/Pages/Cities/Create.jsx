@@ -6,24 +6,24 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
 import { useEffect } from 'react';
 
-export default function Create({ auth, country }) {
+export default function Create({ auth, state }) {
 
     const initialValues = {
         name: "",
-        country_id: country[0].id,
+        state_id: state[0].id,
     }
 
     const { data, setData, errors, post } = useForm(initialValues)
 
     useEffect(() => {
-        setData('country_id', country[0].id); // Establecer el valor de country_id con el primer país
-    }, [country]); // Dependencia del efecto
+        setData('state_id', state[0].id); // Establecer el valor de state_id con el primer país
+    }, [state]); // Dependencia del efecto
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('states.store'))
-        //console.log(data)
+        post(route('cities.store'))
+        console.log(data)
     }
     return (
         <AuthenticatedLayout
@@ -31,12 +31,12 @@ export default function Create({ auth, country }) {
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear estado
+                        Crear ciudad
                     </h2>
                 </div>
             }
         >
-            <Head className="capitalize" title="Crear estado" />
+            <Head className="capitalize" title="Crear ciudad" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto">
@@ -61,25 +61,25 @@ export default function Create({ auth, country }) {
                                 </div>
 
                                 <div>
-                                    <InputLabel htmlFor="country" value="País" />
+                                    <InputLabel htmlFor="state" value="Estado" />
 
                                     <select
-                                        name="country_id"
-                                        id="country"
+                                        name="state_id"
+                                        id="state"
                                         className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                        value={data.country_id} // Establecer el valor del select con el valor de country_id
+                                        value={data.state_id} // Establecer el valor del select con el valor de state_id
                                         onChange={(e) => {
-                                            setData('country_id', parseInt(e.target.value));
+                                            setData('state_id', parseInt(e.target.value));
                                         }}
                                     >
-                                        {country.map((country) => (
-                                            <option value={country.id} key={country.id}>
-                                                {country.name}
+                                        {state.map((state) => (
+                                            <option value={state.id} key={state.id}>
+                                                {state.name}
                                             </option>
                                         ))}
                                     </select>
 
-                                    <InputError message={errors.country} className="mt-2" />
+                                    <InputError message={errors.state} className="mt-2" />
                                 </div>
 
                                 <div className="flex justify-end">

@@ -55,17 +55,18 @@ class StatesController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(States $state)
-    {
-        return Inertia::render('States/Edit', compact('state'));
-
-    }
+{
+    $country = Countries::all();
+    $selectedCountryId = $state->country_id; // Retrieve the currently selected country ID
+    return Inertia::render('States/Edit', compact('state', 'country', 'selectedCountryId'));
+}
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, States $state)
     {
-        $data = $request->only('name');
+        $data = $request->only('name','country_id');
 
         $state->update($data);
 

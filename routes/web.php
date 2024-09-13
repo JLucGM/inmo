@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\PhyStatesController;
 use App\Http\Controllers\ProfileController;
@@ -70,6 +71,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('states/{state}/edit', [StatesController::class, 'edit'])->name('states.edit');
     Route::post('states/{state}', [StatesController::class, 'update'])->name('states.update');
     Route::delete('states/{state}', [StatesController::class, 'destroy'])->name('states.destroy');
+    
+    Route::get('cities', [CitiesController::class, 'index'])->name('cities.index');
+    Route::get('cities/create', [CitiesController::class, 'create'])->name('cities.create');
+    Route::post('cities', [CitiesController::class, 'store'])->name('cities.store');
+    Route::get('cities/{city}/edit', [CitiesController::class, 'edit'])->name('cities.edit');
+    Route::post('cities/{city}', [CitiesController::class, 'update'])->name('cities.update');
+    Route::delete('cities/{city}', [CitiesController::class, 'destroy'])->name('cities.destroy');
 });
 
 require __DIR__ . '/auth.php';

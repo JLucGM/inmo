@@ -1,23 +1,23 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Index({ auth, states }) {
-    //console.log(states)
+export default function Index({ auth, cities }) {
+    console.log(cities)
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Estados</h2>
-                    <Link href={route('states.create')}
+                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Ciudades</h2>
+                    <Link href={route('cities.create')}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear Estados
+                        Crear Ciudades
                     </Link>
                 </div>
             }
         >
-            <Head className="capitalize" title="Estados" />
+            <Head className="capitalize" title="Ciudades" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto ">
@@ -38,22 +38,22 @@ export default function Index({ auth, states }) {
                                     </thead>
                                     <tbody>
                                         {
-                                            states?.map((state) => (
+                                            cities?.map((city) => (
 
-                                                <tr key={state.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <tr key={city.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                     <th scope="row" className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        {state.name}
+                                                        {city.name}
                                                     </th>                                                    
                                                     <td className="border border-slate-200 px-6 py-4">
                                                         <div className='space-x-4'>
                                                             <Link
                                                                 className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                                                href={route('states.edit', [state])}>
+                                                                href={route('cities.edit', [city])}>
                                                                 Editar
                                                             </Link>
                                                             <Link
                                                                 className='inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
-                                                                href={route('states.destroy', [state])} method='delete' as="button">
+                                                                href={route('cities.destroy', [city])} method='delete' as="button">
                                                                 Eliminar
                                                             </Link>
                                                         </div>

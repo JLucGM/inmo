@@ -6,36 +6,35 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
-export default function Edit({ auth, state, country,selectedCountryId }) {
+export default function Edit({ auth, city, states, selectedStateId }) {
 
     const initialValues = {
-        name: state.name,
-        country_id: selectedCountryId, // Set the country_id value to the selected country ID
+        name: city.name,
+        state_id: selectedStateId, // Set the state_id value to the selected state ID
     }
-    //console.log(initialValues); // Add this line
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('states.update', state))
-        //console.log(data)
+        post(route('cities.update', city))
+        console.log(data)
     }
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Estado</h2>
-                    <Link href={route('states.create')}
+                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar ciudad</h2>
+                    <Link href={route('cities.create')}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear Estado
+                        Crear ciudad
                     </Link>
                 </div>
             }
         >
-            <Head className="capitalize" title="Crear Estado" />
+            <Head className="capitalize" title="tipos de negocios" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto ">
@@ -70,26 +69,25 @@ export default function Edit({ auth, state, country,selectedCountryId }) {
                                 </div>
 
                                 <div>
-                                    <InputLabel htmlFor="country" value="País" />
+                                    <InputLabel htmlFor="states" value="Estado" />
 
                                     <select
-                                        name="country_id"
-                                        id="country"
+                                        name="state_id"
+                                        id="states"
                                         className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                        value={data.country_id} // Establecer el valor del select con el valor de country_id
-                                        onChange={(e) => {
-                                            setData('country_id', parseInt(e.target.value));
-                                        }}
-                                    > 
-
-                                        {country.map((country) => (
-                                            <option value={country.id} key={country.id}>
-                                                {country.name}
+                                        value={data.state_id} // Set the value prop to the current state_id value
+    onChange={(e) => {
+        setData('state_id', parseInt(e.target.value), { merge: true });
+    }}
+                                    >
+                                        {states.map((states) => (
+                                            <option value={states.id} key={states.id}>
+                                                {states.name}
                                             </option>
                                         ))}
                                     </select>
 
-                                    <InputError message={errors.country} className="mt-2" />
+                                    <InputError message={errors.states} className="mt-2" />
                                 </div>
 
                                 <div className="flex justify-end">

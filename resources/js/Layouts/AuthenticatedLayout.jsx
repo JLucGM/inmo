@@ -30,6 +30,7 @@ export default function Authenticated({ user, header, children }) {
       { label: 'Tipo de negocios', route: 'typesBusinesses.index' },
       { label: 'Pais', route: 'countries.index' },
       { label: 'Estados', route: 'states.index' },
+      { label: 'Ciudades', route: 'cities.index' },
       
   ];
 
