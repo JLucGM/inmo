@@ -8,6 +8,7 @@ use App\Http\Controllers\PhyStatesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatesController;
 use App\Http\Controllers\TypesBusinessesController;
+use App\Http\Controllers\TypesContactsController;
 use App\Http\Controllers\TypesPropertiesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -94,6 +95,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('amenities/{amenity}/edit', [AmenitiesController::class, 'edit'])->name('amenities.edit');
     Route::post('amenities/{amenity}', [AmenitiesController::class, 'update'])->name('amenities.update');
     Route::delete('amenities/{amenity}', [AmenitiesController::class, 'destroy'])->name('amenities.destroy');
+    
+    Route::get('types-contacts', [TypesContactsController::class, 'index'])->name('typesContacts.index');
+    Route::get('types-contacts/create', [TypesContactsController::class, 'create'])->name('typesContacts.create');
+    Route::post('types-contacts', [TypesContactsController::class, 'store'])->name('typesContacts.store');
+    Route::get('types-contacts/{typesContact}/edit', [TypesContactsController::class, 'edit'])->name('typesContacts.edit');
+    Route::post('types-contacts/{typesContact}', [TypesContactsController::class, 'update'])->name('typesContacts.update');
+    Route::delete('types-contacts/{typesContact}', [TypesContactsController::class, 'destroy'])->name('typesContacts.destroy');
 });
 
 require __DIR__ . '/auth.php';

@@ -33,6 +33,7 @@ export default function Authenticated({ user, header, children }) {
       { label: 'Ciudades', route: 'cities.index' },
       { label: 'Categorias de comodidades', route: 'category-amenities.index' },
       { label: 'Comodidades', route: 'amenities.index' },
+      { label: 'Tipos de contactos', route: 'typesContacts.index' },
       
   ];
 
