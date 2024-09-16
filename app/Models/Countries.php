@@ -32,4 +32,9 @@ class Countries extends Model
     {
         return $this->hasMany(States::class);
     }
+
+    public function properties()
+    {
+        return $this->hasManyThrough(Properties::class, States::class);
+    }
 }

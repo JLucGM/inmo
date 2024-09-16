@@ -24,7 +24,7 @@ class CitiesController extends Controller
      */
     public function create()
     {
-        $state = Cities::all();
+        $state = States::all();
 
         return Inertia::render('Cities/Create', compact('state'));
     }

@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->text('name')->notNullable();
             $table->string('slug')->unique();
-            $table->foreignId('category_amenities_id')->constrained();
             $table->timestamps();
         });
     }

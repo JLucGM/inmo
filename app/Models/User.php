@@ -62,4 +62,9 @@ class User extends Authenticatable
             ->saveSlugsTo('slug');
     }
 
+    public function properties()
+    {
+        return $this->hasMany(Properties::class);
+    }
+
 }

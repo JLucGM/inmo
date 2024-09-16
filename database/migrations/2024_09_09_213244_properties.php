@@ -11,8 +11,18 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->text('name')->notNullable();
-            $table->text('price')->nullable();
             $table->string('slug')->unique();
+            $table->text('price')->nullable();
+            $table->MediumText('description')->nullable();
+            $table->text('main')->default('default.jpg');
+            $table->MediumText('images')->default('default.jpg');
+            $table->text('bedrooms')->nullable();
+            $table->text('bathrooms')->nullable();
+            $table->text('totalMeters')->nullable();
+            $table->text('builtMeters')->nullable();
+            $table->text('garages')->nullable();
+            $table->text('direction')->nullable();
+            $table->foreignId('status_id')->constrained();
             $table->foreignId('types_properties_id')->constrained();
             $table->foreignId('phy_states_id')->nullable()->constrained();
             $table->foreignId('types_businesses_id')->nullable()->constrained();

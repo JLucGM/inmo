@@ -7,14 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Amenities extends Model
+class Amenity extends Model
 {
     use HasFactory, HasSlug;
 
     protected $fillable = [
         'name',
         'slug',
-        'category_amenities_id',
     ];
 
     public function getRouteKeyName()
@@ -29,8 +28,8 @@ class Amenities extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function categoryAmenities()
-    {
-        return $this->belongsTo(CategoryAmenities::class);
-    }
+    public function properties()
+{
+    return $this->belongsToMany(Property::class, 'property_amenities', 'amenity_id', 'property_id');
+}
 }

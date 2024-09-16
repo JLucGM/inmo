@@ -30,4 +30,9 @@ class TypesProperties extends Model
             ->saveSlugsTo('slug');
     }
 
+    public function properties()
+    {
+        return $this->hasMany(Properties::class);
+    }
+
 }

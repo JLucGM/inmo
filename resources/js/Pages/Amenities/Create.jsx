@@ -6,11 +6,10 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import DangerButton from '@/Components/DangerButton';
 
-export default function Create({ auth, categoryAmenities }) {
+export default function Create({ auth}) {
 
     const initialValues = {
         name: "",
-        category_amenities_id: categoryAmenities[0].id,
     }
 
     const { data, setData, errors, post } = useForm(initialValues)
@@ -53,28 +52,6 @@ export default function Create({ auth, categoryAmenities }) {
                                     />
 
                                     <InputError message={errors.name} className="mt-2" />
-                                </div>
-
-                                <div>
-                                    <InputLabel htmlFor="categoryAmenities" value="categoryAmenities" />
-
-                                    <select
-                                        name="category_amenities_id"
-                                        id="categoryAmenities"
-                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                        value={data.category_amenities_id} // Establecer el valor del select con el valor de category_amenities_id
-                                        onChange={(e) => {
-                                            setData('category_amenities_id', parseInt(e.target.value));
-                                        }}
-                                    >
-                                        {categoryAmenities.map((categoryAmenities) => (
-                                            <option value={categoryAmenities.id} key={categoryAmenities.id}>
-                                                {categoryAmenities.name}
-                                            </option>
-                                        ))}
-                                    </select>
-
-                                    <InputError message={errors.categoryAmenities} className="mt-2" />
                                 </div>
 
                                 <div className="flex justify-end p-2.5">

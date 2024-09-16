@@ -27,4 +27,9 @@ class TypesBusinesses extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
+    public function properties()
+    {
+        return $this->hasMany(Properties::class);
+    }
 }

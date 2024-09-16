@@ -6,6 +6,7 @@ use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\PhyStatesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PropertiesController;
 use App\Http\Controllers\StatesController;
 use App\Http\Controllers\TypesBusinessesController;
 use App\Http\Controllers\TypesContactsController;
@@ -82,13 +83,6 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::post('cities/{city}', [CitiesController::class, 'update'])->name('cities.update');
     Route::delete('cities/{city}', [CitiesController::class, 'destroy'])->name('cities.destroy');
     
-    Route::get('category-amenities', [CategoryAmenitiesController::class, 'index'])->name('category-amenities.index');
-    Route::get('category-amenities/create', [CategoryAmenitiesController::class, 'create'])->name('category-amenities.create');
-    Route::post('category-amenities', [CategoryAmenitiesController::class, 'store'])->name('category-amenities.store');
-    Route::get('category-amenities/{categoryAmenity}/edit', [CategoryAmenitiesController::class, 'edit'])->name('category-amenities.edit');
-    Route::post('category-amenities/{categoryAmenity}', [CategoryAmenitiesController::class, 'update'])->name('category-amenities.update');
-    Route::delete('category-amenities/{categoryAmenity}', [CategoryAmenitiesController::class, 'destroy'])->name('category-amenities.destroy');
-    
     Route::get('amenities', [AmenitiesController::class, 'index'])->name('amenities.index');
     Route::get('amenities/create', [AmenitiesController::class, 'create'])->name('amenities.create');
     Route::post('amenities', [AmenitiesController::class, 'store'])->name('amenities.store');
@@ -102,6 +96,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('types-contacts/{typesContact}/edit', [TypesContactsController::class, 'edit'])->name('typesContacts.edit');
     Route::post('types-contacts/{typesContact}', [TypesContactsController::class, 'update'])->name('typesContacts.update');
     Route::delete('types-contacts/{typesContact}', [TypesContactsController::class, 'destroy'])->name('typesContacts.destroy');
+    
+    Route::get('properties', [PropertiesController::class, 'index'])->name('properties.index');
+    Route::get('properties/create', [PropertiesController::class, 'create'])->name('properties.create');
+    Route::post('properties', [PropertiesController::class, 'store'])->name('properties.store');
+    Route::get('properties/{property}/edit', [PropertiesController::class, 'edit'])->name('properties.edit');
+    Route::post('properties/{property}', [PropertiesController::class, 'update'])->name('properties.update');
+    Route::delete('properties/{property}', [PropertiesController::class, 'destroy'])->name('properties.destroy');
 });
 
 require __DIR__ . '/auth.php';

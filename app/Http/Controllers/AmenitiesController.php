@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Amenities;
-use App\Models\CategoryAmenities;
+use App\Models\Amenity;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,7 +14,7 @@ class AmenitiesController extends Controller
      */
     public function index()
     {
-        $amenities = Amenities::all();
+        $amenities = Amenity::all();
 
         return Inertia::render('Amenities/Index', compact('amenities'));
     }
@@ -24,8 +24,7 @@ class AmenitiesController extends Controller
      */
     public function create()
     {
-        $categoryAmenities = CategoryAmenities::all();
-        return Inertia::render('Amenities/Create', compact('categoryAmenities'));
+        return Inertia::render('Amenities/Create');
     }
 
     /**
@@ -33,9 +32,9 @@ class AmenitiesController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only('name', 'category_amenities_id');
+        $data = $request->only('name');
 
-        Amenities::create($data);
+        Amenity::create($data);
 
         return to_route('amenities.index');
     }
@@ -43,7 +42,7 @@ class AmenitiesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Amenities $amenity)
+    public function show(Amenity $amenity)
     {
         //
     }
@@ -51,17 +50,15 @@ class AmenitiesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Amenities $amenity)
+    public function edit(Amenity $amenity)
     {
-        $categoryAmenities = CategoryAmenities::all();
-        $selectedCategoryAmenitiesId = $amenity->category_amenities_id; // Retrieve the currently selected state ID
-        return Inertia::render('Amenities/Edit', compact('amenity', 'categoryAmenities', 'selectedCategoryAmenitiesId'));
+        return Inertia::render('Amenities/Edit', compact('amenity'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Amenities $amenity)
+    public function update(Request $request, Amenity $amenity)
     {
         $data = $request->only('name', 'category_amenities_id');
 
@@ -73,7 +70,7 @@ class AmenitiesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Amenities $amenity)
+    public function destroy(Amenity $amenity)
     {
         $amenity->delete();
     }

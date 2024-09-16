@@ -23,7 +23,7 @@ class Cities extends Model
         return 'slug';
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
@@ -31,7 +31,12 @@ class Cities extends Model
     }
 
     public function state()
-{
-    return $this->belongsTo(States::class);
-}
+    {
+        return $this->belongsTo(States::class);
+    }
+
+    public function properties()
+    {
+        return $this->hasMany(Properties::class);
+    }
 }
