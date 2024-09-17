@@ -8,6 +8,7 @@ use App\Http\Controllers\PhyStatesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertiesController;
 use App\Http\Controllers\StatesController;
+use App\Http\Controllers\StatusContactController;
 use App\Http\Controllers\TypesBusinessesController;
 use App\Http\Controllers\TypesContactsController;
 use App\Http\Controllers\TypesPropertiesController;
@@ -103,6 +104,16 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('properties/{property}/edit', [PropertiesController::class, 'edit'])->name('properties.edit');
     Route::post('properties/{property}', [PropertiesController::class, 'update'])->name('properties.update');
     Route::delete('properties/{property}', [PropertiesController::class, 'destroy'])->name('properties.destroy');
+    
+    Route::post('/property/{id}/update-images', [PropertiesController::class, 'updateImages'])->name('property.updateImages');
+Route::post('/property/{id}/delete-image/{imageId}', [PropertiesController::class,'deleteImage'])->name('property.deleteImage');
+
+    Route::get('statuscontacts', [StatusContactController::class, 'index'])->name('statuscontacts.index');
+    Route::get('statuscontacts/create', [StatusContactController::class, 'create'])->name('statuscontacts.create');
+    Route::post('statuscontacts', [StatusContactController::class, 'store'])->name('statuscontacts.store');
+    Route::get('statuscontacts/{statusContact}/edit', [StatusContactController::class, 'edit'])->name('statuscontacts.edit');
+    Route::post('statuscontacts/{statusContact}', [StatusContactController::class, 'update'])->name('statuscontacts.update');
+    Route::delete('statuscontacts/{statusContact}', [StatusContactController::class, 'destroy'])->name('statuscontacts.destroy');
 });
 
 require __DIR__ . '/auth.php';

@@ -7,16 +7,15 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 import Select from 'react-select';
 import makeAnaimated from 'react-select/animated';
-import Collapse from '@/Components/Collapse';
 
-export default function Edit({ auth, property, state, country, typepropety, typebusiness, city, users, phystate, amenities, statuses, propertyAmenities }) {
+export default function Edit({ auth, property, state, country, typepropety, typebusiness, city, users, phystate, amenities, statuses, propertyAmenities, images, main }) {
 
     const initialValues = {
         name: property.name,
         price: property.price,
         description: property.description,
-        // main: property.main,
-        // images: property.images,
+        main: property.main,
+        images: property.images,
         bedrooms: property.bedrooms,
         bathrooms: property.bathrooms,
         totalMeters: property.totalMeters,
@@ -66,6 +65,17 @@ export default function Edit({ auth, property, state, country, typepropety, type
         setData('amenity', options.map((option) => option.value));
     };
 
+    const handleUpdateImages = (e, images) => {
+        e.preventDefault();
+        post(route('property.updateImages', property.id), {
+            main: data.main,
+            images: images,
+        });
+    };
+
+    const handleDeleteImage = (imageId, images) => {
+        post(route('property.deleteImage', [property.id, imageId]));
+    };
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
 
@@ -92,7 +102,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto ">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
+                    <div className="bg-white dark:bg-gray-800 overflow-hidden">
                         <div className=" text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit} className='space-y-4'>
 
@@ -442,7 +452,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
                                     <InputError message={errors.city} className="mt-2" />
                                 </div>
 
-                                <div>
+                                {/* <div>
                                     <InputLabel htmlFor="main" value="main" />
 
                                     <TextInput
@@ -470,7 +480,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
                                     />
 
                                     <InputError message={errors.images} className="mt-2" />
-                                </div>
+                                </div> */}
 
 
 
@@ -483,6 +493,31 @@ export default function Edit({ auth, property, state, country, typepropety, type
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div>
+
+                <img src={`/img/properties/${main}`} alt={main} className='w-40'/>
+
+                <form onSubmit={(e) => handleUpdateImages(e, images)}>
+                    <div>
+                        <label>Imagen de portada</label>
+                        <input type="file" name="main" onChange={(e) => setData('main', e.target.files[0])} />
+                    </div>
+                    <div>
+                        <label>Imágenes adicionales</label>
+                        <input type="file" name="images" multiple onChange={(e) => setImages(e.target.files)} />
+                    </div>
+                    <button type="submit">Actualizar imágenes</button>
+                </form>
+                <div>
+                    {images.map((image, index) => (
+                        <div key={index}>
+                            <img src={`/img/properties/${image.name}`} className='w-40' alt={image.name} />
+                            <button onClick={() => handleDeleteImage(image.id, images)}>Eliminar</button>
+                        </div>
+                    ))}
                 </div>
             </div>
         </AuthenticatedLayout>

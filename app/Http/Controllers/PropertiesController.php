@@ -152,8 +152,10 @@ class PropertiesController extends Controller
         $amenities = Amenity::all();
         $statuses = Status::all();
         $propertyAmenities = $property->amenities;
+        $main = $property->main;
+        $images = json_decode($property->images);
 
-        return Inertia::render('Properties/Edit', compact('property','country', 'typepropety', 'typebusiness', 'country', 'state', 'city', 'users', 'phystate', 'amenities', 'statuses','propertyAmenities'));
+        return Inertia::render('Properties/Edit', compact('property', 'country', 'typepropety', 'typebusiness', 'country', 'state', 'city', 'users', 'phystate', 'amenities', 'statuses', 'propertyAmenities', 'images', 'main',));
     }
 
     /**
@@ -182,59 +184,94 @@ class PropertiesController extends Controller
             'city_id',
         );
 
-//         // Actualizar imagen principal
-//     if ($request->hasFile('main')) {
-//         // Eliminar imagen principal anterior
-//         if ($property->main != 'default.jpg') {
-//             unlink(public_path('img/properties/' . $property->main));
-//         }
+        if ($request->has('amenity')) {
+            $currentAmenities = $property->amenities->pluck('id')->toArray();
+            $newAmenities = $request->input('amenity');
 
-//         $propertyId = $property->id;
-//     $folderPath = 'img/properties/property_' . $propertyId;
-//     $image = $request->file('main');
-//     $imageName = $image->getClientOriginalName();
-//     $image->move(public_path($folderPath), $imageName);
-//     $data['main'] = $imageName;
-//     }
+            // Remove amenities that are no longer selected
+            $amenitiesToRemove = array_diff($currentAmenities, $newAmenities);
+            $property->amenities()->detach($amenitiesToRemove);
 
-//     // Actualizar imágenes de galería
-// if ($request->hasFile('images')) {
-//     // Eliminar imágenes de galería anteriores
-//     $imagenesAnteriores = json_decode($property->images, true);
-//     if ($imagenesAnteriores !== null) {
-//         foreach ($imagenesAnteriores as $imagen) {
-//             unlink(public_path('img/properties/' . $imagen['name']));
-//         }
-//     }
-
-//     $images = $request->file('images');
-//     $nombreImagenes = [];
-//     foreach ($images as $index => $image) {
-//         $nombreImagenes[$index] = [
-//             'id' => $index + 1, // Asigna un ID basado en el índice del array
-//             'name' => $image->getClientOriginalName()
-//         ];
-//         $image->move(public_path('img/properties'), $image->getClientOriginalName());
-//     }
-//     $jsonImagenes = json_encode($nombreImagenes);
-//     $data['images'] = $jsonImagenes;
-// }
-
-
-if ($request->has('amenity')) {
-    $currentAmenities = $property->amenities->pluck('id')->toArray();
-    $newAmenities = $request->input('amenity');
-
-    // Remove amenities that are no longer selected
-    $amenitiesToRemove = array_diff($currentAmenities, $newAmenities);
-    $property->amenities()->detach($amenitiesToRemove);
-
-    // Add new amenities
-    $property->amenities()->sync($newAmenities);
-}
+            // Add new amenities
+            $property->amenities()->sync($newAmenities);
+        }
         $property->update($data);
 
         return to_route('properties.edit', $property);
+    }
+
+    public function updateImages(Request $request, $id)
+    {
+        $property = Property::find($id);
+
+        if ($request->hasFile('main')) {
+            // Eliminar la imagen de portada anterior
+            if ($property->main && file_exists(public_path("/img/properties/" . $property->main))) {
+                unlink(public_path("/img/properties/" . $property->main));
+            }
+
+            $image = $request->file('main');
+            $nombreImagen = $image->getClientOriginalName();
+            $image->move(public_path("/img/properties/"), $nombreImagen);
+
+            $property->main = $nombreImagen;
+            $property->save();
+        }
+
+        if ($request->hasFile('images')) {
+            $array = [];
+            $file = $request->file('images');
+            $count = count($file);
+
+            for ($i = 0; $i < $count; $i++) {
+                $filepath = "/img/properties/";
+                $filename = time() . '-' . $file[$i]->getClientOriginalName();
+                $uploadSucess = $file[$i]->move($filepath, $filename);
+                $array[] = [
+                    'id' => count($property->images) + $i + 1, // Asigna un nuevo ID basado en el número total de imágenes existentes más el índice actual
+                    'name' => $filename
+                ];
+            }
+
+            $property->images = json_encode(array_merge((array) $property->images, $array));
+
+            $property->save();
+            $property->images = array_merge((array) $property->images, $array);
+        }
+
+        return redirect()->route('properties.index')
+            ->with('property', $property)
+            ->with('images', $property->images)
+            ->with('success', 'Imagenes guardadas correctamente');
+    }
+
+    public function deleteImage($id, $imageId)
+    {
+        $property = Property::findOrFail($id);
+
+        $images = json_decode($property->images, true);
+
+        if (!is_array($images)) {
+            return redirect()->back()->with('error', 'No se pudo eliminar la imagen. El arreglo de imágenes no es válido.');
+        }
+
+        $position = array_search($imageId, array_column($images, 'id'));
+
+        if ($position !== false) {
+            $imagePath = public_path("/img/properties/" . $images[$position]['name']);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            unset($images[$position]);
+            $images = array_values($images);
+            $property->images = json_encode($images);
+            $property->save();
+
+            return redirect()->back()->with('success', 'Imagen eliminada correctamente');
+        }
+
+        return redirect()->back()->with('error', 'No se pudo encontrar la imagen para eliminar');
     }
 
     /**
