@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Amenities\StoreRequest;
+use App\Http\Requests\Amenities\UpdateRequest;
 use App\Models\Amenities;
 use App\Models\Amenity;
 use Illuminate\Http\Request;
@@ -30,7 +32,7 @@ class AmenitiesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->only('name');
 
@@ -58,7 +60,7 @@ class AmenitiesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Amenity $amenity)
+    public function update(UpdateRequest $request, Amenity $amenity)
     {
         $data = $request->only('name', 'category_amenities_id');
 

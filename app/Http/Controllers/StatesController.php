@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\States\StoreRequest;
+use App\Http\Requests\States\UpdateRequest;
 use App\Models\Countries;
 use App\Models\States;
 use Illuminate\Http\Request;
@@ -32,7 +34,7 @@ class StatesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
 
         //dd($request);
@@ -64,7 +66,7 @@ class StatesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, States $state)
+    public function update(UpdateRequest $request, States $state)
     {
         $data = $request->only('name','country_id');
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Cities\StoreRequest;
+use App\Http\Requests\Cities\UpdateRequest;
 use App\Models\Cities;
 use App\Models\States;
 use Illuminate\Http\Request;
@@ -32,7 +34,7 @@ class CitiesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         //dd($request);
         $data = $request->only('name', 'state_id');
@@ -63,7 +65,7 @@ class CitiesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cities $city)
+    public function update(UpdateRequest $request, Cities $city)
     {
         $data = $request->only('name', 'state_id');
 

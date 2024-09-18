@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StatusContacts\StoreRequest;
+use App\Http\Requests\StatusContacts\UpdateRequest;
 use App\Models\StatusContact;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -30,7 +32,7 @@ class StatusContactController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->only('name');
 
@@ -59,7 +61,7 @@ class StatusContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, StatusContact $statusContact)
+    public function update(UpdateRequest $request, StatusContact $statusContact)
     {
         $data = $request->only('name');
 

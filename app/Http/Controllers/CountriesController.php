@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Countries\StoreRequest;
+use App\Http\Requests\Countries\UpdateRequest;
 use App\Models\Countries;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -30,7 +32,7 @@ class CountriesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->only('name');
 
@@ -59,7 +61,7 @@ class CountriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Countries $country)
+    public function update(UpdateRequest $request, Countries $country)
     {
         $data = $request->only('name');
 

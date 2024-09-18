@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TypesProperties\StoreRequest;
+use App\Http\Requests\TypesProperties\UpdateRequest;
 use App\Models\TypesProperties;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -29,7 +31,7 @@ class TypesPropertiesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->only('name');
 
@@ -67,7 +69,7 @@ class TypesPropertiesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TypesProperties $typeproperty)
+    public function update(UpdateRequest $request, TypesProperties $typeproperty)
     {
         $data = $request->only('name');
 

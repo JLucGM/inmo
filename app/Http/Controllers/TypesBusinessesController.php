@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TypesBusinesses\StoreRequest;
+use App\Http\Requests\TypesBusinesses\UpdateRequest;
 use App\Models\TypesBusinesses;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -30,7 +32,7 @@ class TypesBusinessesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->only('name');
 
@@ -59,7 +61,7 @@ class TypesBusinessesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TypesBusinesses $typesBusiness)
+    public function update(UpdateRequest $request, TypesBusinesses $typesBusiness)
     {
         $data = $request->only('name');
 

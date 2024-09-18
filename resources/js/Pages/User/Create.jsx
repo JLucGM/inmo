@@ -17,6 +17,31 @@ export default function Create({ auth }) {
         avatar: null,
     }
 
+    const customStyles = {
+        control: (base, { isFocused }) => ({
+            ...base,
+            borderRadius: '30px',
+            backgroundColor: isFocused ? 'gray-500' : 'gray-200', // Cambia el fondo del control
+            borderColor: isFocused ? 'gray-500' : 'gray-200', // Cambia el borde del control
+            '&:hover': {
+                borderColor: 'gray-500', // Cambia el borde del control al pasar el mouse
+            },
+            '&.dark': {
+                backgroundColor: 'gray-700', // Cambia el fondo del control en dark mode
+                borderColor: 'gray-700', // Cambia el borde del control en dark mode
+            },
+        }),
+        option: (base, { isSelected, hover }) => ({
+            ...base,
+            backgroundColor: isSelected ? '#F7F7F7' : 'white', // Cambia el fondo de la opción seleccionada
+            color: isSelected ? 'black' : 'black', // Cambia el color de la opción seleccionada
+            '&.dark': {
+                backgroundColor: isSelected ? 'gray-700' : 'gray-900', // Cambia el fondo de la opción seleccionada en dark mode
+                color: isSelected ? 'white' : 'gray-300', // Cambia el color de la opción seleccionada en dark mode
+            },
+        }),
+    };
+
     const { data, setData, errors, post } = useForm(initialValues)
 
     const submit = (e) => {
@@ -112,7 +137,7 @@ export default function Create({ auth }) {
                                     <select
                                         name="status"
                                         id=""
-                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
                                         onChange={(e) => setData('status', e.target.value)}
                                     >
                                         <option value={0}>Inactivo</option>

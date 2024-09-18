@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TypesContacts\StoreRequest;
+use App\Http\Requests\TypesContacts\UpdateRequest;
 use App\Models\TypesContacts;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -30,7 +32,7 @@ class TypesContactsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->only('name');
 
@@ -58,7 +60,7 @@ class TypesContactsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TypesContacts $typesContact)
+    public function update(UpdateRequest $request, TypesContacts $typesContact)
     {
         $data = $request->only('name');
 

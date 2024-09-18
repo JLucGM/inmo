@@ -33,7 +33,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         //dd($request);
         $data = $request->only('name', 'email', 'phone', 'status');
@@ -76,7 +76,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateRequest $request, User $user)
     {
         $data = $request->only('name', 'email', 'phone', 'status');
 

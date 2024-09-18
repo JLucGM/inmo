@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PhyStates\StoreRequest;
+use App\Http\Requests\PhyStates\UpdateRequest;
 use App\Models\PhyStates;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -29,7 +31,7 @@ class PhyStatesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->only('name');
 
@@ -58,7 +60,7 @@ class PhyStatesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PhyStates $phyState)
+    public function update(UpdateRequest $request, PhyStates $phyState)
     {
         $data = $request->only('name');
 
