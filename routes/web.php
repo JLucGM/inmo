@@ -4,6 +4,7 @@ use App\Http\Controllers\AmenitiesController;
 use App\Http\Controllers\CategoryAmenitiesController;
 use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\CountriesController;
+use App\Http\Controllers\OriginsController;
 use App\Http\Controllers\PhyStatesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertiesController;
@@ -104,9 +105,8 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('properties/{property}/edit', [PropertiesController::class, 'edit'])->name('properties.edit');
     Route::post('properties/{property}', [PropertiesController::class, 'update'])->name('properties.update');
     Route::delete('properties/{property}', [PropertiesController::class, 'destroy'])->name('properties.destroy');
-    
     Route::post('/property/{id}/update-images', [PropertiesController::class, 'updateImages'])->name('property.updateImages');
-Route::post('/property/{id}/delete-image/{imageId}', [PropertiesController::class,'deleteImage'])->name('property.deleteImage');
+    Route::post('/property/{id}/delete-image/{imageId}', [PropertiesController::class,'deleteImage'])->name('property.deleteImage');
 
     Route::get('statuscontacts', [StatusContactController::class, 'index'])->name('statuscontacts.index');
     Route::get('statuscontacts/create', [StatusContactController::class, 'create'])->name('statuscontacts.create');
@@ -114,6 +114,13 @@ Route::post('/property/{id}/delete-image/{imageId}', [PropertiesController::clas
     Route::get('statuscontacts/{statusContact}/edit', [StatusContactController::class, 'edit'])->name('statuscontacts.edit');
     Route::post('statuscontacts/{statusContact}', [StatusContactController::class, 'update'])->name('statuscontacts.update');
     Route::delete('statuscontacts/{statusContact}', [StatusContactController::class, 'destroy'])->name('statuscontacts.destroy');
+    
+    Route::get('origins', [OriginsController::class, 'index'])->name('origins.index');
+    Route::get('origins/create', [OriginsController::class, 'create'])->name('origins.create');
+    Route::post('origins', [OriginsController::class, 'store'])->name('origins.store');
+    Route::get('origins/{origins}/edit', [OriginsController::class, 'edit'])->name('origins.edit');
+    Route::post('origins/{origins}', [OriginsController::class, 'update'])->name('origins.update');
+    Route::delete('origins/{origins}', [OriginsController::class, 'destroy'])->name('origins.destroy');
 });
 
 require __DIR__ . '/auth.php';
