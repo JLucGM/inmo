@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\OriginsController;
 use App\Http\Controllers\PhyStatesController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertiesController;
 use App\Http\Controllers\StatesController;
@@ -137,6 +138,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('category-post/{categoryPost}/edit', [CategoryPostController::class, 'edit'])->name('category-post.edit');
     Route::post('category-post/{categoryPost}', [CategoryPostController::class, 'update'])->name('category-post.update');
     Route::delete('category-post/{categoryPost}', [CategoryPostController::class, 'destroy'])->name('category-post.destroy');
+    
+    Route::get('post', [PostController::class, 'index'])->name('post.index');
+    Route::get('post/create', [PostController::class, 'create'])->name('post.create');
+    Route::post('post', [PostController::class, 'store'])->name('post.store');
+    Route::get('post/{post}/edit', [PostController::class, 'edit'])->name('post.edit');
+    Route::post('post/{post}', [PostController::class, 'update'])->name('post.update');
+    Route::delete('post/{post}', [PostController::class, 'destroy'])->name('post.destroy');
 });
 
 require __DIR__ . '/auth.php';
