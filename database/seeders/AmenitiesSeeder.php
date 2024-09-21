@@ -2,39 +2,58 @@
 
 namespace Database\Seeders;
 
-use App\Models\Amenities;
+use App\Models\Amenity;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AmenitiesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $amenities = [
-            ['name' => 'Generales','slug' => 'generales'],
-            ['name' =>'Acepta mascotas', 'slug' => 'Acepta mascotas'],
-            ['name' =>'Piscina', 'slug' => 'piscina'],
-            ['name' => 'Parrilla', 'slug' => 'parrilla'],
-            ['name' => 'Agua Corriente', 'slug' => 'agua-corriente'],
-            ['name' => 'Patio', 'slug' => 'patio'],
-            ['name' => 'Comedor', 'slug' => 'comedor'],
-            ['name' => 'Terraza', 'slug' => 'terraza'],
-            ['name' => 'Aire Acondicionado', 'slug' => 'aire-acondicionado'],
-            ['name' => 'Amoblado', 'slug' => 'amoblado'],
-            ['name' => 'Alarma', 'slug' => 'alarma'],
-            ['name' => 'Calefacción', 'slug' => 'calefaccion'],
-            ['name' => 'Portones eléctricos', 'slug' => 'portones-electricos'],
-            ['name' => 'Seguridad 24hs', 'slug' => 'seguridad-24hs'],
-            ['name' => 'Sauna', 'slug' => 'sauna'],
-            ['name' => 'Bosque', 'slug' => 'bosque'],
+        $Amenities = [
+            ['name' =>'pets allowed'],
+            ['name' =>'swimming pool'],
+            ['name' =>'garage'],
+            ['name' =>'gym'],
+            ['name' => 'grill'],
+            ['name' => 'bright'],
+            ['name' => 'perimeter walls'],
+            ['name' => 'individual electric meter'],
+            ['name' => 'security booth'],
+            ['name' => 'indoor pool'],
+            ['name' => 'running water'],
+            ['name' => 'sewer'],
+            ['name' => 'electricity'],
+            ['name' => 'natural gas network'],
+            ['name' => 'internet / wifi'],
+            ['name' => 'television'],
+            ['name' => 'balcony'],
+            ['name' => 'patio'],
+            ['name' => 'dining room'],
+            ['name' => 'terrace'],
+            ['name' => 'air conditioning'],
+            ['name' => 'furnished'],
+            ['name' => 'alarm'],
+            ['name' => 'heating'],
+            ['name' => 'public lighting'],
+            ['name' => 'asphalt'],
+            ['name' => 'microwave'],
+            ['name' => 'dishwasher'],
+            ['name' => 'washing machine'],
+            ['name' => 'dryer'],
+            ['name' => 'shared services'],
+            ['name' => 'electric gates'],
+            ['name' => '24/7 security'],
+            ['name' => 'swimming pool'],
+            ['name' => 'sauna'],
+            ['name' => 'forest'],
         ];
 
-        foreach ($amenities as $amenitiesData) {
-            Amenities::create($amenitiesData);
+        foreach ($Amenities as $AmenitiesData) {
+            Amenity::create($AmenitiesData);
         }
     }
 }

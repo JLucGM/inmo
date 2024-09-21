@@ -12,7 +12,15 @@ return new class extends Migration
             $table->id();
             $table->text('name')->notNullable();
             $table->string('slug')->unique();
-            $table->text('email')->unique()->notNullable();
+            $table->text('email')->nullable();
+            $table->text('phone')->nullable();
+            $table->date('birthdate')->nullable();
+            $table->text('min_budget')->nullable();
+            $table->text('max_budget')->nullable();
+            $table->text('bedrooms')->nullable();
+            $table->text('bathrooms')->nullable();
+            $table->mediumText('description')->nullable();
+            $table->mediumText('direction')->nullable();
             $table->foreignId('types_contacts_id')->nullable()->constrained();
             $table->foreignId('status_contacts_id')->nullable()->constrained();
             $table->foreignId('origin_id')->nullable()->constrained();

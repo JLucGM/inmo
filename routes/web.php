@@ -3,6 +3,7 @@
 use App\Http\Controllers\AmenitiesController;
 use App\Http\Controllers\CategoryAmenitiesController;
 use App\Http\Controllers\CitiesController;
+use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\OriginsController;
 use App\Http\Controllers\PhyStatesController;
@@ -121,6 +122,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('origins/{origins}/edit', [OriginsController::class, 'edit'])->name('origins.edit');
     Route::post('origins/{origins}', [OriginsController::class, 'update'])->name('origins.update');
     Route::delete('origins/{origins}', [OriginsController::class, 'destroy'])->name('origins.destroy');
+    
+    Route::get('contacts', [ContactsController::class, 'index'])->name('contacts.index');
+    Route::get('contacts/create', [ContactsController::class, 'create'])->name('contacts.create');
+    Route::post('contacts', [ContactsController::class, 'store'])->name('contacts.store');
+    Route::get('contacts/{contacts}/edit', [ContactsController::class, 'edit'])->name('contacts.edit');
+    Route::post('contacts/{contacts}', [ContactsController::class, 'update'])->name('contacts.update');
+    Route::delete('contacts/{contacts}', [ContactsController::class, 'destroy'])->name('contacts.destroy');
 });
 
 require __DIR__ . '/auth.php';

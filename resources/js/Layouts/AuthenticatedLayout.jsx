@@ -25,10 +25,11 @@ export default function Authenticated({ user, header, children }) {
    }, [darkMode]);
 
    const globalSettings = [
-      { label: 'Tipo de negocios', route: 'typesBusinesses.index' },
+      { label: 'Contactos', route: 'contacts.index' },
       { label: 'Tipos de contactos', route: 'typesContacts.index' },
       { label: 'Status de contactos', route: 'statuscontacts.index' },
       { label: 'origins', route: 'origins.index' },
+      { label: 'Tipo de negocios', route: 'typesBusinesses.index' },
   ];
 
    const locations = [

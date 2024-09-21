@@ -7,15 +7,30 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Cities extends Model
+class Contacts extends Model
 {
-
     use HasFactory, HasSlug;
 
     protected $fillable = [
         'name',
         'slug',
+        'email',
+        'phone',
+        'birthdate',
+        'min_budget',
+        'max_budget',
+        'bedrooms',
+        'bathrooms',
+        'direction',
+        'description',
+        'types_contacts_id',
+        'status_contacts_id',
+        'origin_id',
+        'types_properties_id',
+        'user_id',
+        'country_id',
         'state_id',
+        'city_id',
     ];
 
     public function getRouteKeyName()
@@ -28,15 +43,5 @@ class Cities extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
-    }
-
-    public function state()
-    {
-        return $this->belongsTo(States::class);
-    }
-
-    public function properties()
-    {
-        return $this->hasMany(Property::class);
     }
 }

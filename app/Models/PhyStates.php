@@ -31,6 +31,6 @@ class PhyStates extends Model
 
     public function properties()
     {
-        return $this->hasMany(Properties::class);
+        return $this->hasMany(Property::class);
     }
 }

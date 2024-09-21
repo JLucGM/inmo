@@ -6,8 +6,12 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
 import Select from 'react-select';
 import makeAnaimated from 'react-select/animated';
+import { useState } from 'react';
 
 export default function Create({ auth, typepropety, typebusiness, country, state, city, users, phystate, amenities, statuses }) {
+
+    const [selectedCountry, setSelectedCountry] = useState(country[0].id);;
+    const [selectedState, setSelectedState] = useState(state[0].id);
 
     const initialValues = {
         name: "",
@@ -369,6 +373,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                         value={data.country_id} // Establecer el valor del select con el valor de country_id
                                         onChange={(e) => {
                                             setData('country_id', parseInt(e.target.value));
+                                            setSelectedCountry(parseInt(e.target.value));
                                         }}
                                     >
                                         {country.map((country) => (
@@ -391,9 +396,11 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                         value={data.state_id} // Establecer el valor del select con el valor de state_id
                                         onChange={(e) => {
                                             setData('state_id', parseInt(e.target.value));
+                                            setSelectedState(parseInt(e.target.value));
+
                                         }}
                                     >
-                                        {state.map((state) => (
+                                        {state.filter((state) => state.country_id === selectedCountry).map((state) => (
                                             <option value={state.id} key={state.id}>
                                                 {state.name}
                                             </option>
@@ -415,7 +422,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                             setData('city_id', parseInt(e.target.value));
                                         }}
                                     >
-                                        {city.map((city) => (
+                                        {city.filter((city) => city.state_id === selectedState).map((city) => (
                                             <option value={city.id} key={city.id}>
                                                 {city.name}
                                             </option>
