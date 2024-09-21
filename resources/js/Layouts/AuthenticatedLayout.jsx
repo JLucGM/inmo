@@ -30,6 +30,7 @@ export default function Authenticated({ user, header, children }) {
       { label: 'Status de contactos', route: 'statuscontacts.index' },
       { label: 'origins', route: 'origins.index' },
       { label: 'Tipo de negocios', route: 'typesBusinesses.index' },
+      { label: 'CAtegoria de posts', route: 'category-post.index' },
   ];
 
    const locations = [
