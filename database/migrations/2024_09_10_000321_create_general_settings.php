@@ -11,10 +11,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('general_settings', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('name')->notNullable(); // Nombre del sitio
             $table->string('slug')->unique();
+            $table->string('email')->notNullable();
+            $table->string('phone')->nullable();
+            $table->string('logo')->default('default');
+            $table->string('logo_footer')->default('default');
+            $table->string('favicon')->default('default');
+            $table->mediumText('direction')->nullable();
             $table->string('description')->notNullable(); // Descripción del sitio
             $table->foreignId('currency_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
@@ -29,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('general_settings');
+        Schema::dropIfExists('settings');
     }
 };

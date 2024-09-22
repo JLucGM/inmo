@@ -11,6 +11,7 @@ use App\Http\Controllers\PhyStatesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertiesController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StatesController;
 use App\Http\Controllers\StatusContactController;
 use App\Http\Controllers\TypesBusinessesController;
@@ -145,6 +146,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('post/{post}/edit', [PostController::class, 'edit'])->name('post.edit');
     Route::post('post/{post}', [PostController::class, 'update'])->name('post.update');
     Route::delete('post/{post}', [PostController::class, 'destroy'])->name('post.destroy');
+    
+    Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::get('settings/create', [SettingController::class, 'create'])->name('settings.create');
+    Route::post('settings', [SettingController::class, 'store'])->name('settings.store');
+    Route::get('settings/{setting}/edit', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::post('settings/{setting}', [SettingController::class, 'update'])->name('settings.update');
+    Route::delete('settings/{setting}', [SettingController::class, 'destroy'])->name('settings.destroy');
 });
 
 require __DIR__ . '/auth.php';

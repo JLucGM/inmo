@@ -11,7 +11,7 @@ use Inertia\Inertia;
 class CountriesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource.s
      */
     public function index()
     {
