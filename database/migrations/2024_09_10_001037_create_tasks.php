@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('task_type');
             $table->string('start_time');
             $table->string('end_time');
-            $table->string('status')->nullable();
             $table->longText('description')->nullable();
+            $table->foreignId('status_contacts_id')->nullable()->constrained();
             $table->foreignId('contact_id')->constrained();
+            $table->foreignId('types_tasks_id')->constrained();
             $table->foreignId('property_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

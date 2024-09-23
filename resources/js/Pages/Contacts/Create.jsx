@@ -243,8 +243,9 @@ export default function Create({ auth, typepropety, country, state, city, users,
 
                                     <InputError message={errors.statuses} className="mt-2" />
                                 </div>
+                                
                                 <div>
-                                    <InputLabel htmlFor="statuses" value="Tipo de propiedad" />
+                                    <InputLabel htmlFor="typepropety" value="Tipo de propiedad" />
 
                                     <select
                                         name="types_properties_id"

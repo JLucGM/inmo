@@ -5,24 +5,7 @@ import NavLink from '@/Components/NavLink';
 import MultiLevelMenu from '@/Components/MultiLevelMenu';
 import UserIcon from '@/Components/Icon/UserIcon';
 
-
 export default function Authenticated({ user, header, children }) {
-
-   // const [darkMode, setDarkMode] = useState(() => {
-   //    return localStorage.getItem('darkMode') === 'true';
-   // });
-
-   // const toggleDarkMode = () => {
-   //    setDarkMode(prevMode => {
-   //       const newMode = !prevMode;
-   //       localStorage.setItem('darkMode', newMode);
-   //       return newMode;
-   //    });
-   // };
-   
-   // useEffect(() => {
-   //    document.body.classList.toggle('dark', darkMode);
-   // }, [darkMode]);
 
    const [theme, setTheme] = useState(() => {
       const storedTheme = localStorage.getItem('theme');
@@ -54,6 +37,7 @@ export default function Authenticated({ user, header, children }) {
       { label: 'Tipo de negocios', route: 'typesBusinesses.index' },
       { label: 'Categoria de posts', route: 'category-post.index' },
       { label: 'Posts', route: 'post.index' },
+      { label: 'tasks', route: 'tasks.index' },
   ];
 
    const locations = [

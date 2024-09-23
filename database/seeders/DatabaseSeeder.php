@@ -35,5 +35,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TypesContactsSeeder::class);
         $this->call(CurrenciesSeeder::class);
         $this->call(SettingSeeder::class);
+        $this->call(TypesTasksSeeder::class);
     }
 }

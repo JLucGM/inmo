@@ -14,6 +14,7 @@ use App\Http\Controllers\PropertiesController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StatesController;
 use App\Http\Controllers\StatusContactController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TypesBusinessesController;
 use App\Http\Controllers\TypesContactsController;
 use App\Http\Controllers\TypesPropertiesController;
@@ -153,6 +154,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('settings/{setting}/edit', [SettingController::class, 'edit'])->name('settings.edit');
     Route::post('settings/{setting}', [SettingController::class, 'update'])->name('settings.update');
     Route::delete('settings/{setting}', [SettingController::class, 'destroy'])->name('settings.destroy');
+    
+    Route::get('tasks', [TaskController::class, 'index'])->name('tasks.index');
+    Route::get('tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+    Route::post('tasks', [TaskController::class, 'store'])->name('tasks.store');
+    Route::get('tasks/{task}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
+    Route::post('tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
+    Route::delete('tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 });
 
 require __DIR__ . '/auth.php';
