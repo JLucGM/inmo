@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('end_time');
             $table->longText('description')->nullable();
             $table->foreignId('status_contacts_id')->nullable()->constrained();
-            $table->foreignId('contact_id')->constrained();
+            $table->foreignId('contact_id')->nullable()->constrained();
             $table->foreignId('types_tasks_id')->constrained();
-            $table->foreignId('property_id')->constrained();
+            $table->foreignId('property_id')->nullable()->constrained();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });

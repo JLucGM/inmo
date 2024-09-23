@@ -4,9 +4,9 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Transition } from '@headlessui/react';
+import { Select, Transition } from '@headlessui/react';
 
-export default function Edit({ auth, task, statuses,contacts,typetasks,properties }) {
+export default function Edit({ auth, task, statuses, contacts, typetasks, properties }) {
 
     const initialValues = {
         name: task.name,
@@ -123,7 +123,7 @@ export default function Edit({ auth, task, statuses,contacts,typetasks,propertie
                                 <div>
                                     <InputLabel htmlFor="statuses" value="Status de tarea" />
 
-                                    <select
+                                    <Select
                                         name="status_contacts_id"
                                         id="statuses"
                                         className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
@@ -137,15 +137,15 @@ export default function Edit({ auth, task, statuses,contacts,typetasks,propertie
                                                 {statuses.name}
                                             </option>
                                         ))}
-                                    </select>
+                                    </Select>
 
                                     <InputError message={errors.statuses} className="mt-2" />
                                 </div>
-                                
+
                                 <div>
                                     <InputLabel htmlFor="contacts" value="Contacto" />
 
-                                    <select
+                                    <Select
                                         name="contact_id"
                                         id="contacts"
                                         className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
@@ -154,20 +154,21 @@ export default function Edit({ auth, task, statuses,contacts,typetasks,propertie
                                             setData('contact_id', parseInt(e.target.value));
                                         }}
                                     >
+                                        <option value="">No seleccionar contacto</option>
                                         {contacts.map((contacts) => (
                                             <option value={contacts.id} key={contacts.id}>
                                                 {contacts.name}
                                             </option>
                                         ))}
-                                    </select>
+                                    </Select>
 
                                     <InputError message={errors.statuses} className="mt-2" />
                                 </div>
-                                
+
                                 <div>
                                     <InputLabel htmlFor="typetasks" value="tipo de tares" />
 
-                                    <select
+                                    <Select
                                         name="property_id"
                                         id="typetasks"
                                         className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
@@ -181,30 +182,33 @@ export default function Edit({ auth, task, statuses,contacts,typetasks,propertie
                                                 {typetasks.name}
                                             </option>
                                         ))}
-                                    </select>
+                                    </Select>
 
                                     <InputError message={errors.statuses} className="mt-2" />
                                 </div>
-                                
-                                <div>
-                                    <InputLabel htmlFor="properties" value="tipo de tares" />
 
-                                    <select
-                                        name="types_tasks_id"
+                                <div>
+                                    <InputLabel htmlFor="properties" value="propiedades" />
+
+                                    <Select
+                                        name="property_id"
                                         id="properties"
                                         className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                        value={data.types_tasks_id} // Establecer el valor del select con el valor de types_tasks_id
+                                        value={data.property_id} // Establecer el valor del select con el valor de property_id
                                         onChange={(e) => {
-                                            setData('types_tasks_id', parseInt(e.target.value));
+                                            setData('property_id', parseInt(e.target.value));
                                         }}
                                     >
+                                        <option value="">No seleccionar propiedades</option>
                                         {properties.map((properties) => (
                                             <option value={properties.id} key={properties.id}>
                                                 {properties.name}
                                             </option>
                                         ))}
-                                    </select>
-                                    </div>
+                                    </Select>
+
+                                    <InputError message={errors.statuses} className="mt-2" />
+                                </div>
 
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >

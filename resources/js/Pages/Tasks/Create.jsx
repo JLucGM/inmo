@@ -4,8 +4,9 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
+import { Select, Textarea } from '@headlessui/react';
 
-export default function Create({ auth, statuses,contacts,typetasks,properties }) {
+export default function Create({ auth, statuses, contacts, typetasks, properties }) {
 
     const initialValues = {
         name: "",
@@ -93,15 +94,13 @@ export default function Create({ auth, statuses,contacts,typetasks,properties })
                                 <div>
                                     <InputLabel htmlFor="description" value="descripcion" />
 
-                                    <TextInput
-                                        id="description"
-                                        type="text"
+                                    <Textarea
                                         name="description"
                                         value={data.description}
-                                        className="mt-1 block w-full"
+                                        className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                        onChange={(e) => setData('description', e.target.value)}>
 
-                                        onChange={(e) => setData('description', e.target.value)}
-                                    />
+                                    </Textarea>
 
                                     <InputError message={errors.description} className="mt-2" />
                                 </div>
@@ -109,7 +108,7 @@ export default function Create({ auth, statuses,contacts,typetasks,properties })
                                 <div>
                                     <InputLabel htmlFor="statuses" value="Status de tarea" />
 
-                                    <select
+                                    <Select
                                         name="status_contacts_id"
                                         id="statuses"
                                         className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
@@ -123,15 +122,15 @@ export default function Create({ auth, statuses,contacts,typetasks,properties })
                                                 {statuses.name}
                                             </option>
                                         ))}
-                                    </select>
+                                    </Select>
 
                                     <InputError message={errors.statuses} className="mt-2" />
                                 </div>
-                                
+
                                 <div>
                                     <InputLabel htmlFor="contacts" value="Contacto" />
 
-                                    <select
+                                    <Select
                                         name="contact_id"
                                         id="contacts"
                                         className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
@@ -140,56 +139,57 @@ export default function Create({ auth, statuses,contacts,typetasks,properties })
                                             setData('contact_id', parseInt(e.target.value));
                                         }}
                                     >
+                                        <option value="">No seleccionar contacto</option>
                                         {contacts.map((contacts) => (
                                             <option value={contacts.id} key={contacts.id}>
                                                 {contacts.name}
                                             </option>
                                         ))}
-                                    </select>
+                                    </Select>
 
                                     <InputError message={errors.statuses} className="mt-2" />
                                 </div>
-                                
-                                <div>
-                                    <InputLabel htmlFor="typetasks" value="tipo de tares" />
 
-                                    <select
-                                        name="property_id"
+                                <div>
+                                    <InputLabel htmlFor="typetasks" value="tipo de tarea" />
+
+                                    <Select
+                                        name="types_tasks_id"
                                         id="typetasks"
+                                        value={data.types_tasks_id} // Establecer el valor del select con el valor de types_tasks_id
+                                        className={'mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm '}
+                                        onChange={(e) => {
+                                            setData('types_tasks_id', parseInt(e.target.value));
+                                        }}                                >
+                                        {typetasks.map((typetasks) => (
+                                            <option value={typetasks.id} key={typetasks.id}>
+                                                {typetasks.name}
+                                            </option>
+                                        ))}
+                                    </Select>
+
+                                    <InputError message={errors.statuses} className="mt-2" />
+                                </div>
+
+                                <div>
+                                    <InputLabel htmlFor="properties" value="propiedades" />
+
+                                    <Select
+                                        name="property_id"
+                                        id="properties"
                                         className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                         value={data.property_id} // Establecer el valor del select con el valor de property_id
                                         onChange={(e) => {
                                             setData('property_id', parseInt(e.target.value));
                                         }}
                                     >
-                                        {typetasks.map((typetasks) => (
-                                            <option value={typetasks.id} key={typetasks.id}>
-                                                {typetasks.name}
-                                            </option>
-                                        ))}
-                                    </select>
-
-                                    <InputError message={errors.statuses} className="mt-2" />
-                                </div>
-                                
-                                <div>
-                                    <InputLabel htmlFor="properties" value="tipo de tares" />
-
-                                    <select
-                                        name="types_tasks_id"
-                                        id="properties"
-                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                        value={data.types_tasks_id} // Establecer el valor del select con el valor de types_tasks_id
-                                        onChange={(e) => {
-                                            setData('types_tasks_id', parseInt(e.target.value));
-                                        }}
-                                    >
+                                        <option value="">No seleccionar propiedades</option>
                                         {properties.map((properties) => (
                                             <option value={properties.id} key={properties.id}>
                                                 {properties.name}
                                             </option>
                                         ))}
-                                    </select>
+                                    </Select>
 
                                     <InputError message={errors.statuses} className="mt-2" />
                                 </div>

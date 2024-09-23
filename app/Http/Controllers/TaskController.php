@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Tasks\StoreRequest;
 use App\Models\Contacts;
 use App\Models\Property;
 use App\Models\StatusContact;
@@ -41,7 +42,7 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->only('name','start_time',
         'end_time',
