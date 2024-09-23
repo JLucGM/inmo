@@ -10,52 +10,59 @@ export default function Authenticated({ user, header, children }) {
    const [theme, setTheme] = useState(() => {
       const storedTheme = localStorage.getItem('theme');
       return storedTheme || 'light';
-    });
-    
-    useEffect(() => {
+   });
+
+   useEffect(() => {
       if (theme === 'dark') {
-        document.querySelector('html').classList.add('dark');
+         document.querySelector('html').classList.add('dark');
       } else {
-        document.querySelector('html').classList.remove('dark');
+         document.querySelector('html').classList.remove('dark');
       }
-    }, [theme]);
-    
-    const toggleDarkMode = () => {
+   }, [theme]);
+
+   const toggleDarkMode = () => {
       setTheme(prevTheme => {
-        const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-        localStorage.setItem('theme', newTheme);
-        return newTheme;
+         const newTheme = prevTheme === 'light' ? 'dark' : 'light';
+         localStorage.setItem('theme', newTheme);
+         return newTheme;
       });
-    };
+   };
 
    const globalSettings = [
       { label: 'settings', route: 'settings.index' },
+      { label: 'Tipo de negocios', route: 'typesBusinesses.index' },
+      { label: 'slide', route: 'slides.index' },
+   ];
+
+   const posts = [
+      { label: 'Posts', route: 'post.index' },
+      { label: 'Categoria de posts', route: 'category-post.index' },
+   ];
+
+   const crm = [
       { label: 'Contactos', route: 'contacts.index' },
+      { label: 'tasks', route: 'tasks.index' },
       { label: 'Tipos de contactos', route: 'typesContacts.index' },
       { label: 'Status de contactos', route: 'statuscontacts.index' },
       { label: 'origins', route: 'origins.index' },
-      { label: 'Tipo de negocios', route: 'typesBusinesses.index' },
-      { label: 'Categoria de posts', route: 'category-post.index' },
-      { label: 'Posts', route: 'post.index' },
-      { label: 'tasks', route: 'tasks.index' },
-  ];
+   ];
 
    const locations = [
       { label: 'Pais', route: 'countries.index' },
       { label: 'Estados', route: 'states.index' },
       { label: 'Ciudades', route: 'cities.index' },
-  ];
+   ];
 
    const propertiesMenu = [
       { label: 'Propiedades', route: 'properties.index' },
       { label: 'Comodidades', route: 'amenities.index' },
       { label: 'Tipos de propiedades', route: 'typesproperties.index' },
       { label: 'Estados fisicos', route: 'phyStates.index' },
-  ];
+   ];
 
    return (
       <>
-      
+
          <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div className="px-3 py-3 lg:px-5 lg:pl-3">
                <div className="flex items-center justify-between">
@@ -74,17 +81,17 @@ export default function Authenticated({ user, header, children }) {
                   <div className="flex items-center">
                      <div className="flex items-center ms-3">
 
-                     <button onClick={toggleDarkMode}>
-  {theme === 'light' ? (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-gray-700">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
-    </svg>
-  ) : (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-white">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-    </svg>
-  )}
-</button>
+                        <button onClick={toggleDarkMode}>
+                           {theme === 'light' ? (
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-gray-700">
+                                 <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                              </svg>
+                           ) : (
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-white">
+                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                              </svg>
+                           )}
+                        </button>
 
                         <Dropdown>
                            <Dropdown.Trigger>
@@ -142,31 +149,49 @@ export default function Authenticated({ user, header, children }) {
                   </li>
 
                   <li>
-                     <MultiLevelMenu 
-                     name={'Propiedades'}
-                     svg={UserIcon}
-                     items={propertiesMenu}
-                     toggle={'global-settings'}
-                     />
-                  </li>
-                  <li>
-                     <MultiLevelMenu 
-                     name={'Locaciones'}
-                     svg={UserIcon}
-                     items={locations}
-                     toggle={'locations'}
+                     <MultiLevelMenu
+                        name={'Propiedades'}
+                        svg={UserIcon}
+                        items={propertiesMenu}
+                        toggle={'global-settings'}
                      />
                   </li>
 
                   <li>
-                     <MultiLevelMenu 
-                     name={'Configuraciones globales'}
-                     svg={UserIcon}
-                     items={globalSettings}
-                     toggle={'global-settings'}
+                     <MultiLevelMenu
+                        name={'CRM'}
+                        svg={UserIcon}
+                        items={crm}
+                        toggle={'global-settings'}
                      />
                   </li>
-                  
+                  <li>
+                     <MultiLevelMenu
+                        name={'blog'}
+                        svg={UserIcon}
+                        items={posts}
+                        toggle={'global-settings'}
+                     />
+                  </li>
+
+                  <li>
+                     <MultiLevelMenu
+                        name={'Locaciones'}
+                        svg={UserIcon}
+                        items={locations}
+                        toggle={'locations'}
+                     />
+                  </li>
+
+                  <li>
+                     <MultiLevelMenu
+                        name={'Configuraciones globales'}
+                        svg={UserIcon}
+                        items={globalSettings}
+                        toggle={'global-settings'}
+                     />
+                  </li>
+
 
                   <li>
                      <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">

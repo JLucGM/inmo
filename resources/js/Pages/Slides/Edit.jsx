@@ -4,12 +4,16 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Transition } from '@headlessui/react';
+import { Select, Transition } from '@headlessui/react';
 
-export default function Edit({ auth, typeproperty }) {
+export default function Edit({ auth, slide }) {
 
     const initialValues = {
-        name: typeproperty.name,
+        name: slide.name,
+        text: slide.text,
+        link: slide.link,
+        active: slide.active,
+        image: null,
 
     }
 
@@ -17,7 +21,7 @@ export default function Edit({ auth, typeproperty }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('typesproperties.update', typeproperty))
+        post(route('slides.update', slide))
         console.log(data)
     }
     return (
@@ -25,15 +29,15 @@ export default function Edit({ auth, typeproperty }) {
             user={auth.user}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar tipo de propiedad</h2>
-                    <Link href={route('typesproperties.create')}
+                    <h2 className="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar slide</h2>
+                    <Link href={route('slides.create')}
                         className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >Crear tipo de propiedad
+                    >Crear slide
                     </Link>
                 </div>
             }
         >
-            <Head className="capitalize" title="tipos de propiedades" />
+            <Head title="Slide" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto ">
@@ -68,6 +72,47 @@ export default function Edit({ auth, typeproperty }) {
                                 </div>
 
                                 <div>
+                                    <InputLabel htmlFor="text" value="text" />
+
+                                    <TextInput
+                                        id="text"
+                                        type="text"
+                                        name="text"
+                                        value={data.text}
+                                        className="mt-1 block w-full"
+                                        onChange={(e) => setData('text', e.target.value)}
+                                    />
+
+                                    <InputError message={errors.text} className="mt-2" />
+                                </div>
+
+                                <div>
+                                    <InputLabel htmlFor="link" value="link" />
+
+                                    <TextInput
+                                        id="link"
+                                        type="text"
+                                        name="link"
+                                        value={data.link}
+                                        className="mt-1 block w-full"
+                                        onChange={(e) => setData('link', e.target.value)}
+                                    />
+
+                                    <InputError message={errors.link} className="mt-2" />
+                                </div>
+
+                                <Select
+                                    name="active"
+                                    aria-label="Project status"
+                                    value={data.active}
+                                    onChange={(e) => setData('active', e.target.value)}
+                                    className={'mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm '}
+                                >
+                                    <option value="0">Deactivate</option>
+                                    <option value="1">Active</option>
+                                </Select>
+
+                                <div>
                                     <InputLabel htmlFor="image" value="image" />
 
                                     <TextInput
@@ -75,7 +120,6 @@ export default function Edit({ auth, typeproperty }) {
                                         type="file"
                                         name="image"
                                         className="mt-1 block w-full"
-                                        isFocused={true}
                                         onChange={(e) => setData('image', e.target.files[0])}
                                     />
 

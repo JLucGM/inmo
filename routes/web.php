@@ -12,6 +12,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertiesController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SlideController;
 use App\Http\Controllers\StatesController;
 use App\Http\Controllers\StatusContactController;
 use App\Http\Controllers\TaskController;
@@ -161,6 +162,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('tasks/{task}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
     Route::post('tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+    
+    Route::get('slides', [SlideController::class, 'index'])->name('slides.index');
+    Route::get('slides/create', [SlideController::class, 'create'])->name('slides.create');
+    Route::post('slides', [SlideController::class, 'store'])->name('slides.store');
+    Route::get('slides/{slide}/edit', [SlideController::class, 'edit'])->name('slides.edit');
+    Route::post('slides/{slide}', [SlideController::class, 'update'])->name('slides.update');
+    Route::delete('slides/{slide}', [SlideController::class, 'destroy'])->name('slides.destroy');
 });
 
 require __DIR__ . '/auth.php';
