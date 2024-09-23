@@ -7,17 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Post extends Model
+class Infoweb extends Model
 {
     use HasFactory, HasSlug;
 
     protected $fillable = [
         'name',
         'slug',
-        'content',
+        'text',
         'image',
-        'category_post_id',
-        'user_id',
     ];
 
     public function getRouteKeyName()
@@ -30,5 +28,4 @@ class Post extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
-    }
-}
+    }}

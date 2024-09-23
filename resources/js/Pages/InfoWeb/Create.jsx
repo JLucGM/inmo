@@ -4,23 +4,19 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
-import { Textarea } from '@headlessui/react';
 
-export default function Create({ auth, categryposts }) {
+export default function Create({ auth }) {
 
     const initialValues = {
         name: "",
-        content: "",
-        category_post_id: categryposts[0].id,
+        text: "",
     }
 
     const { data, setData, errors, post } = useForm(initialValues)
 
     const submit = (e) => {
         e.preventDefault();
-        console.log('Data before submitting:', data);
-
-        post(route('post.store'))
+        post(route('info-web.store'))
         console.log(data)
     }
     return (
@@ -29,12 +25,12 @@ export default function Create({ auth, categryposts }) {
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear Posts
+                        Crear pais
                     </h2>
                 </div>
             }
         >
-            <Head className="capitalize" title="Crear Posts" />
+            <Head className="capitalize" title="Crear pais" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto">
@@ -57,44 +53,20 @@ export default function Create({ auth, categryposts }) {
 
                                     <InputError message={errors.name} className="mt-2" />
                                 </div>
-                                
                                 <div>
-                                    <InputLabel htmlFor="content" value="content" />
+                                    <InputLabel htmlFor="name" value="texto" />
 
-                                    <Textarea 
-                                    id="content"
-                                    type="text"
-                                    name="content"
-                                    value={data.content}
-                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                    onChange={(e) => setData('content', e.target.value)}
-                                    >
+                                    <TextInput
+                                        id="text"
+                                        type="text"
+                                        name="text"
+                                        value={data.text}
+                                        className="mt-1 block w-full"
+                                        isFocused={true}
+                                        onChange={(e) => setData('text', e.target.value)}
+                                    />
 
-                                    </Textarea>
-
-                                    <InputError message={errors.content} className="mt-2" />
-                                </div>
-
-                                <div>
-                                    <InputLabel htmlFor="categryposts" value="categryposts" />
-
-                                    <select
-                                        name="category_post_id"
-                                        id="categryposts"
-                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                        value={data.category_post_id}
-                                        onChange={(e) => {
-                                            setData('category_post_id', parseInt(e.target.value));
-                                        }}
-                                    >
-                                        {categryposts.map((categryposts) => (
-                                            <option value={categryposts.id} key={categryposts.id}>
-                                                {categryposts.name}
-                                            </option>
-                                        ))}
-                                    </select>
-
-                                    <InputError message={errors.categryposts} className="mt-2" />
+                                    <InputError message={errors.text} className="mt-2" />
                                 </div>
 
                                 <div>

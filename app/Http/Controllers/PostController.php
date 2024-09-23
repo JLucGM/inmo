@@ -15,9 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::all();
+        $posts = Post::all();
 
-        return Inertia::render('Posts/Index', compact('post'));
+        return Inertia::render('Posts/Index', compact('posts'));
     }
 
     /**
@@ -35,8 +35,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only('name','content','category_post_id');
+        $data = $request->only('name', 'content', 'category_post_id');
         $data['user_id'] = Auth::id();
+
+        // AGREGAR image
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $nombreImagen = $image->getClientOriginalName();
+            $image->move(public_path('img/posts'), $nombreImagen);
+            $data['image'] = $nombreImagen;
+        } else {
+            $data['image'] = "default.jpg";
+        }
 
         Post::create($data);
 
@@ -46,7 +56,7 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Post $posts)
     {
         //
     }
@@ -54,24 +64,46 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(Post $posts)
     {
-        //
+        $categryposts = CategoryPost::all();
+
+        return Inertia::render('Posts/Edit', compact('posts','categryposts'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Post $posts)
     {
-        //
+        $data = $request->only('name', 'content', 'category_post_id');
+        $data['user_id'] = Auth::id();
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $nombreImagen = $image->getClientOriginalName();
+            $image->move(public_path('img/posts'), $nombreImagen);
+            $data['image'] = $nombreImagen;
+            if ($posts->image != 'default.jpg') {
+                // Delete the existing image
+                unlink(public_path('img/posts/' . $posts->image));
+            }
+        }
+
+        $posts->update($data);
+
+        return to_route('post.edit', $posts);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Post $posts)
     {
-        //
+        if ($posts->image != 'default.jpg') {
+            // Delete the existing image
+            unlink(public_path('img/posts/' . $posts->image));
+        }
+        $posts->delete();
     }
 }

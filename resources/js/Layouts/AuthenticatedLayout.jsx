@@ -32,6 +32,7 @@ export default function Authenticated({ user, header, children }) {
       { label: 'settings', route: 'settings.index' },
       { label: 'Tipo de negocios', route: 'typesBusinesses.index' },
       { label: 'slide', route: 'slides.index' },
+      { label: 'Info web', route: 'info-web.index' },
    ];
 
    const posts = [

@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\CountriesController;
+use App\Http\Controllers\InfowebController;
 use App\Http\Controllers\OriginsController;
 use App\Http\Controllers\PhyStatesController;
 use App\Http\Controllers\PostController;
@@ -145,9 +146,9 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('post', [PostController::class, 'index'])->name('post.index');
     Route::get('post/create', [PostController::class, 'create'])->name('post.create');
     Route::post('post', [PostController::class, 'store'])->name('post.store');
-    Route::get('post/{post}/edit', [PostController::class, 'edit'])->name('post.edit');
-    Route::post('post/{post}', [PostController::class, 'update'])->name('post.update');
-    Route::delete('post/{post}', [PostController::class, 'destroy'])->name('post.destroy');
+    Route::get('post/{posts}/edit', [PostController::class, 'edit'])->name('post.edit');
+    Route::post('post/{posts}', [PostController::class, 'update'])->name('post.update');
+    Route::delete('post/{posts}', [PostController::class, 'destroy'])->name('post.destroy');
     
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::get('settings/create', [SettingController::class, 'create'])->name('settings.create');
@@ -169,6 +170,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('slides/{slide}/edit', [SlideController::class, 'edit'])->name('slides.edit');
     Route::post('slides/{slide}', [SlideController::class, 'update'])->name('slides.update');
     Route::delete('slides/{slide}', [SlideController::class, 'destroy'])->name('slides.destroy');
+    
+    Route::get('info-web', [InfowebController::class, 'index'])->name('info-web.index');
+    Route::get('info-web/create', [InfowebController::class, 'create'])->name('info-web.create');
+    Route::post('info-web', [InfowebController::class, 'store'])->name('info-web.store');
+    Route::get('info-web/{infoweb}/edit', [InfowebController::class, 'edit'])->name('info-web.edit');
+    Route::post('info-web/{infoweb}', [InfowebController::class, 'update'])->name('info-web.update');
+    Route::delete('info-web/{infoweb}', [InfowebController::class, 'destroy'])->name('info-web.destroy');
 });
 
 require __DIR__ . '/auth.php';

@@ -4,14 +4,13 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Textarea, Transition } from '@headlessui/react';
+import { Transition } from '@headlessui/react';
 
-export default function Edit({ auth, posts, categryposts }) {
+export default function Edit({ auth, infoweb }) {
 
     const initialValues = {
-        name: posts.name,
-        content: posts.content,
-        category_post_id: posts.category_post_id,
+        name: infoweb.name,
+        text: infoweb.text,
 
     }
 
@@ -19,7 +18,7 @@ export default function Edit({ auth, posts, categryposts }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('post.update', posts))
+        post(route('info-web.update', infoweb))
         console.log(data)
     }
     return (
@@ -27,16 +26,16 @@ export default function Edit({ auth, posts, categryposts }) {
             user={auth.user}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar posts</h2>
-                    <Link href={route('post.create')}
-                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar informacion web</h2>
+                    <Link href={route('countries.create')}
+                        className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear posts
+                        Crear informacion web
                     </Link>
                 </div>
             }
         >
-            <Head className="capitalize" title="Actualizar posts" />
+            <Head className="capitalize" title="Actualizar informacion web" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto ">
@@ -69,47 +68,24 @@ export default function Edit({ auth, posts, categryposts }) {
 
                                     <InputError message={errors.name} className="mt-2" />
                                 </div>
-
+                                
                                 <div>
-                                    <InputLabel htmlFor="content" value="content" />
+                                    <InputLabel htmlFor="name" value="texto" />
 
-                                    <Textarea
-                                    id="content"
-                                    type="text"
-                                    name="content"
-                                    value={data.content}
-                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                    onChange={(e) => setData('content', e.target.value)}
-                                    >
+                                    <TextInput
+                                        id="text"
+                                        type="text"
+                                        name="text"
+                                        value={data.text}
+                                        className="mt-1 block w-full"
+                                        isFocused={true}
+                                        onChange={(e) => setData('text', e.target.value)}
+                                    />
 
-                                    </Textarea>
-
-                                    <InputError message={errors.content} className="mt-2" />
+                                    <InputError message={errors.text} className="mt-2" />
                                 </div>
 
-                                <div>
-                                    <InputLabel htmlFor="categryposts" value="categryposts" />
-
-                                    <select
-                                        name="category_post_id"
-                                        id="categryposts"
-                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                        value={data.category_post_id}
-                                        onChange={(e) => {
-                                            setData('category_post_id', parseInt(e.target.value));
-                                        }}
-                                    >
-                                        {categryposts.map((categryposts) => (
-                                            <option value={categryposts.id} key={categryposts.id}>
-                                                {categryposts.name}
-                                            </option>
-                                        ))}
-                                    </select>
-
-                                    <InputError message={errors.categryposts} className="mt-2" />
-                                </div>
-
-                                                        <img src={`/img/posts/${posts.image}`} alt={posts.image} className='w-40' />
+                                <img src={`/img/setting/${infoweb.image}`} alt={infoweb.image} className='w-40' />
 
                                 <div>
                                     <InputLabel htmlFor="image" value="image" />

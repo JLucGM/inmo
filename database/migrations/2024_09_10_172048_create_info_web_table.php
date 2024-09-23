@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('info_web', function (Blueprint $table) {
+        Schema::create('infowebs', function (Blueprint $table) {
             $table->id();
             $table->text('name');
             $table->string('slug')->unique();
             $table->text('text')->nullable();
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('info_web');
+        Schema::dropIfExists('infowebs');
     }
 };
