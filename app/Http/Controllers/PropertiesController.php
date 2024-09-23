@@ -233,10 +233,10 @@ class PropertiesController extends Controller
                 ];
             }
 
-            $property->images = json_encode(array_merge((array) $property->images, $array));
+            $existingImages = json_decode($property->images, true);
+            $property->images = json_encode(array_merge($existingImages, $array));
 
             $property->save();
-            $property->images = array_merge((array) $property->images, $array);
         }
 
         return redirect()->route('properties.index')
@@ -279,6 +279,23 @@ class PropertiesController extends Controller
      */
     public function destroy(Property $property)
     {
+        PropertyAmenity::where('property_id', $property->id)->delete();
+
+        if ($property->main != 'default.jpg') {
+            // Delete the existing main
+            unlink(public_path('img/properties/' . $property->main));
+        }
+
+        if ($property->images != 'default.jpg') {
+            // Decodificar el JSON de imágenes
+            $images = json_decode($property->images, true);
+
+            // Eliminar cada imagen individualmente
+            foreach ($images as $image) {
+                unlink(public_path('img/properties/' . $image['name']));
+            }
+        }
+
         $property->delete();
     }
 }

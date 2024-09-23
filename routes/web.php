@@ -17,6 +17,7 @@ use App\Http\Controllers\SlideController;
 use App\Http\Controllers\StatesController;
 use App\Http\Controllers\StatusContactController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\TypesBusinessesController;
 use App\Http\Controllers\TypesContactsController;
 use App\Http\Controllers\TypesPropertiesController;
@@ -177,6 +178,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('info-web/{infoweb}/edit', [InfowebController::class, 'edit'])->name('info-web.edit');
     Route::post('info-web/{infoweb}', [InfowebController::class, 'update'])->name('info-web.update');
     Route::delete('info-web/{infoweb}', [InfowebController::class, 'destroy'])->name('info-web.destroy');
+    
+    Route::get('testimonial', [TestimonialController::class, 'index'])->name('testimonial.index');
+    Route::get('testimonial/create', [TestimonialController::class, 'create'])->name('testimonial.create');
+    Route::post('testimonial', [TestimonialController::class, 'store'])->name('testimonial.store');
+    Route::get('testimonial/{testimonial}/edit', [TestimonialController::class, 'edit'])->name('testimonial.edit');
+    Route::post('testimonial/{testimonial}', [TestimonialController::class, 'update'])->name('testimonial.update');
+    Route::delete('testimonial/{testimonial}', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
 });
 
 require __DIR__ . '/auth.php';

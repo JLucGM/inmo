@@ -29,10 +29,11 @@ export default function Authenticated({ user, header, children }) {
    };
 
    const globalSettings = [
-      { label: 'settings', route: 'settings.index' },
+      { label: 'Settings', route: 'settings.index' },
       { label: 'Tipo de negocios', route: 'typesBusinesses.index' },
-      { label: 'slide', route: 'slides.index' },
+      { label: 'Slide', route: 'slides.index' },
       { label: 'Info web', route: 'info-web.index' },
+      { label: 'Testimonial', route: 'testimonial.index' },
    ];
 
    const posts = [
