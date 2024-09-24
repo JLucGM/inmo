@@ -81,7 +81,7 @@ class PropertiesController extends Controller
         // AGREGAR main
         if ($request->hasFile('main')) {
             $image = $request->file('main');
-            $nombreImagen = $image->getClientOriginalName();
+            $nombreImagen = time() . '-' .$image->getClientOriginalName();
             $image->move(public_path('img/properties'), $nombreImagen);
             $data['main'] = $nombreImagen;
         } else {
@@ -98,7 +98,7 @@ class PropertiesController extends Controller
                         'id' => $index + 1, // Asigna un ID basado en el índice del array
                         'name' => $image->getClientOriginalName()
                     ];
-                    $image->move(public_path('img/properties'), $image->getClientOriginalName());
+                    $image->move(public_path('img/properties'), time() . '-' .$image->getClientOriginalName());
                 }
                 $jsonImagenes = json_encode($nombreImagen);
 
@@ -204,42 +204,58 @@ class PropertiesController extends Controller
     {
         $property = Property::find($id);
 
+        //dd($request->images);
         if ($request->hasFile('main')) {
-            // Eliminar la imagen de portada anterior
+            // Delete previous main image
             if ($property->main && file_exists(public_path("/img/properties/" . $property->main))) {
-                unlink(public_path("/img/properties/" . $property->main));
+                @unlink(public_path("/img/properties/" . $property->main));
             }
 
-            $image = $request->file('main');
-            $nombreImagen = $image->getClientOriginalName();
-            $image->move(public_path("/img/properties/"), $nombreImagen);
+            $mainImage = $request->file('main');
+            $mainImageName = time() . '-' .$mainImage->getClientOriginalName();
+            $mainImage->move(public_path("/img/properties/"), $mainImageName);
 
-            $property->main = $nombreImagen;
-            $property->save();
+            $property->main = $mainImageName;
         }
 
         if ($request->hasFile('images')) {
-            $array = [];
-            $file = $request->file('images');
-            $count = count($file);
+            $images = [];
+            $files = $request->file('images');
 
-            for ($i = 0; $i < $count; $i++) {
-                $filepath = "/img/properties/";
-                $filename = time() . '-' . $file[$i]->getClientOriginalName();
-                $uploadSucess = $file[$i]->move($filepath, $filename);
-                $array[] = [
-                    'id' => count($property->images) + $i + 1, // Asigna un nuevo ID basado en el número total de imágenes existentes más el índice actual
-                    'name' => $filename
-                ];
+            // Check if $files is an array (multiple files) or a single file instance
+            if (is_array($files)) {
+                foreach ($files as $file) {
+                    $filename = time() . '-' . $file->getClientOriginalName();
+                    $uploadSuccess = $file->move(public_path("/img/properties/"), $filename);
+
+                    if ($uploadSuccess) {
+                        $images[] = [
+                            'id' => count(json_decode($property->images, true)) + 1,
+                            'name' => $filename,
+                        ];
+                    }
+                }
+            } else {
+                // Single file upload
+                $filename = time() . '-' . $files->getClientOriginalName();
+                $uploadSuccess = $files->move(public_path("/img/properties/"), $filename);
+
+                if ($uploadSuccess) {
+                    $images[] = [
+                        'id' => count($property->images) + 1,
+                        'name' => $filename,
+                    ];
+                }
             }
 
             $existingImages = json_decode($property->images, true);
-            $property->images = json_encode(array_merge($existingImages, $array));
-
-            $property->save();
+            $property->images = json_encode(array_merge($existingImages, $images));
         }
 
-        return redirect()->route('properties.index')
+        // Save changes
+        $property->save();
+
+        return redirect()->route('properties.edit', $property)
             ->with('property', $property)
             ->with('images', $property->images)
             ->with('success', 'Imagenes guardadas correctamente');

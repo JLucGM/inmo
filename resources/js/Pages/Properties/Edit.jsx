@@ -15,7 +15,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
     const [selectedState, setSelectedState] = useState(state[0].id);
     const [statesByCountry, setStatesByCountry] = useState(state);
     const [citiesByState, setCitiesByState] = useState(city);
-
+    const [uploadedImages, setImages] = useState([]);
 
 
     const initialValues = {
@@ -75,9 +75,11 @@ export default function Edit({ auth, property, state, country, typepropety, type
 
     const handleUpdateImages = (e, images) => {
         e.preventDefault();
+        //setImages(images);
+        setData('images', uploadedImages); // Actualiza el campo images en el formulario
         post(route('property.updateImages', property.id), {
             main: data.main,
-            images: images,
+            images: data.images,
         });
     };
 
@@ -488,15 +490,19 @@ export default function Edit({ auth, property, state, country, typepropety, type
                     </div>
                     <div>
                         <label>Imágenes adicionales</label>
-                        <input type="file" name="images" multiple onChange={(e) => setImages(e.target.files)} />
+                        <input type="file" name="images" multiple onChange={(e) => setData('images',e.target.files)} />
                     </div>
-                    <button type="submit">Actualizar imágenes</button>
+                    <PrimaryButton >
+                                        Guardar
+                                    </PrimaryButton>
                 </form>
                 <div>
                     {images.map((image, index) => (
                         <div key={index}>
                             <img src={`/img/properties/${image.name}`} className='w-40' alt={image.name} />
-                            <button onClick={() => handleDeleteImage(image.id, images)}>Eliminar</button>
+                            <PrimaryButton onClick={() => handleDeleteImage(image.id, images)}>
+                                        Guardar
+                                    </PrimaryButton>
                         </div>
                     ))}
                 </div>
