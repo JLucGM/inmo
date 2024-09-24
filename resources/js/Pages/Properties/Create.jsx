@@ -8,7 +8,7 @@ import Select from 'react-select';
 import makeAnaimated from 'react-select/animated';
 import { useState } from 'react';
 
-export default function Create({ auth, typepropety, typebusiness, country, state, city, users, phystate, amenities, statuses }) {
+export default function Create({ auth, typepropety, typebusiness, country, state, city, phystate, amenities }) {
 
     const [selectedCountry, setSelectedCountry] = useState(country[0].id);;
     const [selectedState, setSelectedState] = useState(state[0].id);
@@ -34,11 +34,6 @@ export default function Create({ auth, typepropety, typebusiness, country, state
         city_id: city[0].id,
         phy_states_id: phystate[0].id,
     }
-
-    const options = statuses.map((status) => ({
-        value: status.id,
-        label: status.name,
-    }));
 
     const customStyles = {
         control: (base, { isFocused }) => ({
@@ -245,21 +240,6 @@ export default function Create({ auth, typepropety, typebusiness, country, state
 
                                     <InputError message={errors.direction} className="mt-2" />
                                 </div>
-
-
-
-                                {/* <div>
-                                    <InputLabel htmlFor="status_id" value="Publicar" />
-
-                                    <Select
-                                        options={statuses.map((status) => ({ value: status.id, label: status.name }))}
-                                        defaultValue={{ value: statuses[0].id, label: statuses[0].name }}
-                                        name='status_id'
-                                        styles={customStyles}
-                                    />
-
-                                    <InputError message={errors.status_id} className="mt-2" />
-                                </div> */}
 
                                 <div>
                                     <InputLabel htmlFor="status" value="Publicar" />

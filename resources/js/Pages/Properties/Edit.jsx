@@ -9,7 +9,7 @@ import Select from 'react-select';
 import makeAnaimated from 'react-select/animated';
 import { useState } from 'react';
 
-export default function Edit({ auth, property, state, country, typepropety, typebusiness, city, users, phystate, amenities, statuses, propertyAmenities, images, main }) {
+export default function Edit({ auth, property, state, country, typepropety, typebusiness, city, users, phystate, amenities, propertyAmenities, images, main }) {
 
     const [selectedCountry, setSelectedCountry] = useState(country[0].id);;
     const [selectedState, setSelectedState] = useState(state[0].id);

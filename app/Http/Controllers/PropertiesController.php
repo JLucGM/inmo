@@ -42,12 +42,10 @@ class PropertiesController extends Controller
         $city = Cities::all();
         $typepropety = TypesProperties::all();
         $typebusiness = TypesBusinesses::all();
-        $users = User::all();
         $phystate = PhyStates::all();
         $amenities = Amenity::all();
-        $statuses = Status::all();
 
-        return Inertia::render('Properties/Create', compact('country', 'state', 'city', 'typepropety', 'typebusiness', 'users', 'phystate', 'amenities', 'statuses'));
+        return Inertia::render('Properties/Create', compact('country', 'state', 'city', 'typepropety', 'typebusiness', 'phystate', 'amenities'));
     }
 
     /**
@@ -150,12 +148,11 @@ class PropertiesController extends Controller
         $users = User::all();
         $phystate = PhyStates::all();
         $amenities = Amenity::all();
-        $statuses = Status::all();
         $propertyAmenities = $property->amenities;
         $main = $property->main;
         $images = json_decode($property->images);
 
-        return Inertia::render('Properties/Edit', compact('property', 'country', 'typepropety', 'typebusiness', 'country', 'state', 'city', 'users', 'phystate', 'amenities', 'statuses', 'propertyAmenities', 'images', 'main',));
+        return Inertia::render('Properties/Edit', compact('property', 'country', 'typepropety', 'typebusiness', 'country', 'state', 'city', 'users', 'phystate', 'amenities', 'propertyAmenities', 'images', 'main',));
     }
 
     /**
