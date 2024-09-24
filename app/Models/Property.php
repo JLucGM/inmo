@@ -24,7 +24,7 @@ class Property extends Model
         'builtMeters',
         'garages',
         'direction',
-        'status_id',
+        'status',
         'types_properties_id',
         'phy_states_id',
         'types_businesses_id',

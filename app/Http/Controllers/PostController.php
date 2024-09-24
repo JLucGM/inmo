@@ -35,7 +35,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only('name', 'content', 'category_post_id');
+        $data = $request->only('name', 'content','status', 'category_post_id');
         $data['user_id'] = Auth::id();
 
         // AGREGAR image
@@ -76,7 +76,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $posts)
     {
-        $data = $request->only('name', 'content', 'category_post_id');
+        $data = $request->only('name', 'content', 'status', 'category_post_id');
         $data['user_id'] = Auth::id();
 
         if ($request->hasFile('image')) {

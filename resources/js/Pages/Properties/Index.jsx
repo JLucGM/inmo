@@ -29,7 +29,13 @@ export default function Index({ auth, properties }) {
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="border-slate-300 border px-6 py-3">
+                                                Image
+                                            </th>
+                                            <th scope="col" className="border-slate-300 border px-6 py-3">
                                                 Nombre
+                                            </th>
+                                            <th scope="col" className="border-slate-300 border px-6 py-3">
+                                                Status
                                             </th>
                                             <th scope="col" className="border-slate-300 border px-6 py-3">
                                                 Acciones
@@ -42,8 +48,22 @@ export default function Index({ auth, properties }) {
 
                                                 <tr key={property.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                     <th scope="row" className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    <img src={`/img/properties/${property.image}`} alt={property.image} className='w-40' />
+                                                    </th>   
+                                                    <th className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                         {property.name}
-                                                    </th>                                                    
+                                                    </th>   
+                                                    <th className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {property.status == 0 ? (
+                                                            <span className="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded-full">
+                                                                Inactivo
+                                                            </span>
+                                                        ) : (
+                                                            <span className="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full">
+                                                                Activo
+                                                            </span>
+                                                        )}
+                                                    </th>                                                 
                                                     <td className="border border-slate-200 px-6 py-4">
                                                         <div className='space-x-4'>
                                                             <Link

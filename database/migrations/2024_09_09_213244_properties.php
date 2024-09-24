@@ -22,7 +22,8 @@ return new class extends Migration
             $table->text('builtMeters')->nullable();
             $table->text('garages')->nullable();
             $table->text('direction')->nullable();
-            $table->foreignId('status_id')->constrained();
+            $table->enum('status',['0','1'])->default('0');
+            // $table->foreignId('status_id')->constrained();
             $table->foreignId('types_properties_id')->constrained();
             $table->foreignId('phy_states_id')->nullable()->constrained();
             $table->foreignId('types_businesses_id')->nullable()->constrained();

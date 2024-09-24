@@ -26,7 +26,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
         garages: "",
         direction: "",
         amenitiy: "",
-        status_id: statuses[0].id,
+        status: "0",
         types_properties_id: typepropety[0].id,
         types_businesses_id: typebusiness[0].id,
         country_id: country[0].id,
@@ -248,7 +248,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
 
 
 
-                                <div>
+                                {/* <div>
                                     <InputLabel htmlFor="status_id" value="Publicar" />
 
                                     <Select
@@ -259,6 +259,23 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                     />
 
                                     <InputError message={errors.status_id} className="mt-2" />
+                                </div> */}
+
+                                <div>
+                                    <InputLabel htmlFor="status" value="Publicar" />
+
+                                    <select
+                                        name="status"
+                                        id="status"
+                                        value={data.status}
+                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                        onChange={(e) => setData('status', e.target.value)}
+                                    >
+                                        <option value={0}>Borrador</option>
+                                        <option value={1}>Publicar</option>
+                                    </select>
+
+                                    <InputError message={errors.status} className="mt-2" />
                                 </div>
 
                                 <div>
@@ -318,7 +335,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                     <InputError message={errors.phystate} className="mt-2" />
                                 </div>
 
-                            
+
 
                                 <div>
                                     <InputLabel htmlFor="typebusiness" value="typebusiness" />

@@ -67,7 +67,7 @@ class PropertiesController extends Controller
             'builtMeters',
             'garages',
             'direction',
-            'status_id',
+            'status',
             'types_properties_id',
             'phy_states_id',
             'types_businesses_id',
@@ -174,7 +174,7 @@ class PropertiesController extends Controller
             'builtMeters',
             'garages',
             'direction',
-            'status_id',
+            'status',
             'types_properties_id',
             'phy_states_id',
             'types_businesses_id',
@@ -184,7 +184,7 @@ class PropertiesController extends Controller
         );
 
         $data['user_id'] = Auth::id();
-        
+
         if ($request->has('amenity')) {
             $currentAmenities = $property->amenities->pluck('id')->toArray();
             $newAmenities = $request->input('amenity');

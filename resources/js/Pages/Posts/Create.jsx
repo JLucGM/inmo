@@ -11,6 +11,7 @@ export default function Create({ auth, categryposts }) {
     const initialValues = {
         name: "",
         content: "",
+        status: "0",
         category_post_id: categryposts[0].id,
     }
 
@@ -95,6 +96,23 @@ export default function Create({ auth, categryposts }) {
                                     </select>
 
                                     <InputError message={errors.categryposts} className="mt-2" />
+                                </div>
+
+                                <div>
+                                    <InputLabel htmlFor="status" value="Publicar" />
+
+                                    <select
+                                        name="status"
+                                        id="status"
+                                        value={data.status}
+                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                        onChange={(e) => setData('status', e.target.value)}
+                                    >
+                                        <option value={0}>Borrador</option>
+                                        <option value={1}>Publicar</option>
+                                    </select>
+
+                                    <InputError message={errors.status} className="mt-2" />
                                 </div>
 
                                 <div>

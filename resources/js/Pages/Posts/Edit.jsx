@@ -11,6 +11,7 @@ export default function Edit({ auth, posts, categryposts }) {
     const initialValues = {
         name: posts.name,
         content: posts.content,
+        status: posts.status,
         category_post_id: posts.category_post_id,
 
     }
@@ -74,12 +75,12 @@ export default function Edit({ auth, posts, categryposts }) {
                                     <InputLabel htmlFor="content" value="content" />
 
                                     <Textarea
-                                    id="content"
-                                    type="text"
-                                    name="content"
-                                    value={data.content}
-                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                    onChange={(e) => setData('content', e.target.value)}
+                                        id="content"
+                                        type="text"
+                                        name="content"
+                                        value={data.content}
+                                        className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                        onChange={(e) => setData('content', e.target.value)}
                                     >
 
                                     </Textarea>
@@ -109,7 +110,25 @@ export default function Edit({ auth, posts, categryposts }) {
                                     <InputError message={errors.categryposts} className="mt-2" />
                                 </div>
 
-                                                        <img src={`/img/posts/${posts.image}`} alt={posts.image} className='w-40' />
+                                <div>
+                                    <InputLabel htmlFor="status" value="Publicar" />
+
+                                    <select
+                                        name="status"
+                                        id="status"
+                                        value={data.status}
+                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                        onChange={(e) => setData('status', e.target.value)}
+                                    >
+                                        <option value={0}>Borrador</option>
+                                        <option value={1}>Publicar</option>
+                                    </select>
+
+                                    <InputError message={errors.status} className="mt-2" />
+                                </div>
+
+
+                                <img src={`/img/posts/${posts.image}`} alt={posts.image} className='w-40' />
 
                                 <div>
                                     <InputLabel htmlFor="image" value="image" />
