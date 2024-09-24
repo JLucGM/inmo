@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\InfowebController;
 use App\Http\Controllers\OriginsController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PhyStatesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -186,6 +187,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('testimonial/{testimonial}/edit', [TestimonialController::class, 'edit'])->name('testimonial.edit');
     Route::post('testimonial/{testimonial}', [TestimonialController::class, 'update'])->name('testimonial.update');
     Route::delete('testimonial/{testimonial}', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
+    
+    Route::get('pages', [PageController::class, 'index'])->name('pages.index');
+    Route::get('pages/create', [PageController::class, 'create'])->name('pages.create');
+    Route::post('pages', [PageController::class, 'store'])->name('pages.store');
+    Route::get('pages/{page}/edit', [PageController::class, 'edit'])->name('pages.edit');
+    Route::post('pages/{page}', [PageController::class, 'update'])->name('pages.update');
+    Route::delete('pages/{page}', [PageController::class, 'destroy'])->name('pages.destroy');
 });
 
 require __DIR__ . '/auth.php';

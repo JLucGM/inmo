@@ -13,6 +13,7 @@ return new class extends Migration
             $table->longText('name')->notNullable();
             $table->string('slug')->unique();
             $table->longText('content')->notNullable();
+            $table->text('extract')->nullable();
             $table->enum('status',['0','1'])->default('0');
             $table->longText('image')->nullable();
             $table->foreignId('category_post_id')->constrained();
