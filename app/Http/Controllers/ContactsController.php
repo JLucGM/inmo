@@ -15,6 +15,7 @@ use App\Models\TypesContacts;
 use App\Models\TypesProperties;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ContactsController extends Controller
@@ -70,11 +71,11 @@ class ContactsController extends Controller
             'status_contacts_id',
             'origin_id',
             'types_properties_id',
-            'user_id',
             'country_id',
             'state_id',
             'city_id',
         );
+        $data['user_id'] = Auth::id();
 
         Contacts::create($data);
 
@@ -130,12 +131,13 @@ class ContactsController extends Controller
             'status_contacts_id',
             'origin_id',
             'types_properties_id',
-            'user_id',
             'country_id',
             'state_id',
             'city_id',
         );
 
+        $data['user_id'] = Auth::id();
+        
         $contacts->update($data);
 
         return to_route('contacts.edit');

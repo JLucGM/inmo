@@ -16,6 +16,7 @@ use App\Models\TypesBusinesses;
 use App\Models\TypesProperties;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PropertiesController extends Controller
@@ -70,13 +71,12 @@ class PropertiesController extends Controller
             'types_properties_id',
             'phy_states_id',
             'types_businesses_id',
-            'user_id',
             'country_id',
             'state_id',
             'city_id',
         );
 
-        // $data = $request->input('publish', 0);
+        $data['user_id'] = Auth::id();
 
         // AGREGAR main
         if ($request->hasFile('main')) {
@@ -178,12 +178,13 @@ class PropertiesController extends Controller
             'types_properties_id',
             'phy_states_id',
             'types_businesses_id',
-            'user_id',
             'country_id',
             'state_id',
             'city_id',
         );
 
+        $data['user_id'] = Auth::id();
+        
         if ($request->has('amenity')) {
             $currentAmenities = $property->amenities->pluck('id')->toArray();
             $newAmenities = $request->input('amenity');

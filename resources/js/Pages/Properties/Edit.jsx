@@ -37,7 +37,6 @@ export default function Edit({ auth, property, state, country, typepropety, type
         country_id: property.country_id,
         state_id: property.state_id,
         city_id: property.city_id,
-        user_id: property.user_id,
         phy_states_id: property.phy_states_id,
     }
     console.log(property);
@@ -348,28 +347,6 @@ export default function Edit({ auth, property, state, country, typepropety, type
                                     </select>
 
                                     <InputError message={errors.phystate} className="mt-2" />
-                                </div>
-
-                                <div>
-                                    <InputLabel htmlFor="users" value="Agente" />
-
-                                    <select
-                                        name="user_id"
-                                        id="users"
-                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                        value={data.user_id} // Establecer el valor del select con el valor de user_id
-                                        onChange={(e) => {
-                                            setData('user_id', parseInt(e.target.value));
-                                        }}
-                                    >
-                                        {users.map((users) => (
-                                            <option value={users.id} key={users.id}>
-                                                {users.name}
-                                            </option>
-                                        ))}
-                                    </select>
-
-                                    <InputError message={errors.users} className="mt-2" />
                                 </div>
 
                                 <div>

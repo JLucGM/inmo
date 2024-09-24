@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Jean Gouirand',
             'email' => 'elluc09@gmail.com',
             'password' => bcrypt('123456789'),
-            'phone' => 0,
-            'status' => 1,
+            'phone' => '0',
+            'status' => '1',
             'avatar' => 'default.jpg',
         ]);
 
