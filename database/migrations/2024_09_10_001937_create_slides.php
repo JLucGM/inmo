@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('image');
             $table->longText('text')->nullable();
             $table->string('link')->nullable();
-            $table->boolean('active')->default(0);
+            $table->enum('status',['0','1'])->default('0');
             $table->timestamps();
         });
     }

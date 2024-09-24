@@ -18,7 +18,7 @@ class Slide extends Model
         'image',
         'text',
         'link',
-        'active',
+        'status',
     ];
 
     public function getRouteKeyName()

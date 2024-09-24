@@ -13,7 +13,7 @@ export default function Create({ auth }) {
         name: "",
         text: "",
         link: "",
-        active: "0",
+        status: "0",
         image: null,
     }
 
@@ -23,7 +23,7 @@ export default function Create({ auth }) {
         e.preventDefault();
         post(route('slides.store'))
         console.log(data)
-        console.log(data.active)
+        console.log(data.status)
     }
     return (
         <AuthenticatedLayout
@@ -91,14 +91,14 @@ export default function Create({ auth }) {
                                 </div>
 
                                 <Select
-                                    name="active"
+                                    name="status"
                                     aria-label="Project status"
-                                    value={data.active}
-                                    onChange={(e) => setData('active', e.target.value)}
+                                    value={data.status}
+                                    onChange={(e) => setData('status', e.target.value)}
                                     className={'mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm '}
                                 >
-                                    <option defaultValue="0">Canceled</option>
-                                    <option value="1">Active</option>
+                                    <option defaultValue="0">Borrador</option>
+                                    <option value="1">Publicar</option>
                                 </Select>
 
                                 <div>

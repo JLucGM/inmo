@@ -171,6 +171,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('slides/{slide}/edit', [SlideController::class, 'edit'])->name('slides.edit');
     Route::post('slides/{slide}', [SlideController::class, 'update'])->name('slides.update');
     Route::delete('slides/{slide}', [SlideController::class, 'destroy'])->name('slides.destroy');
+    Route::post('toggle-status/{slide}', [SlideController::class, 'toggleStatus'])->name('slides.toggle-status');
     
     Route::get('info-web', [InfowebController::class, 'index'])->name('info-web.index');
     Route::get('info-web/create', [InfowebController::class, 'create'])->name('info-web.create');

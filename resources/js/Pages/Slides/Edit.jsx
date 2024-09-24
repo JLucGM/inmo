@@ -12,7 +12,7 @@ export default function Edit({ auth, slide }) {
         name: slide.name,
         text: slide.text,
         link: slide.link,
-        active: slide.active,
+        status: slide.status,
         image: null,
 
     }
@@ -102,14 +102,14 @@ export default function Edit({ auth, slide }) {
                                 </div>
 
                                 <Select
-                                    name="active"
+                                    name="status"
                                     aria-label="Project status"
-                                    value={data.active}
-                                    onChange={(e) => setData('active', e.target.value)}
+                                    value={data.status}
+                                    onChange={(e) => setData('status', e.target.value)}
                                     className={'mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm '}
                                 >
-                                    <option value="0">Deactivate</option>
-                                    <option value="1">Active</option>
+                                    <option value="0">Borrador</option>
+                                    <option value="1">Publicar</option>
                                 </Select>
 
                                 <div>

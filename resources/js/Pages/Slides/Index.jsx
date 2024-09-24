@@ -35,6 +35,9 @@ export default function Index({ auth, slide }) {
                                                 Nombre
                                             </th>
                                             <th scope="col" className="border-slate-300 border px-6 py-3">
+                                                Status
+                                            </th>
+                                            <th scope="col" className="border-slate-300 border px-6 py-3">
                                                 Acciones
                                             </th>
                                         </tr>
@@ -47,10 +50,22 @@ export default function Index({ auth, slide }) {
                                                     <th scope="row" className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                         <img className='w-16 mx-auto' src={`/img/slides/${slide.image}`} alt="" />
 
-                                                    </th>                                                    
+                                                    </th>
                                                     <th scope="row" className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                         {slide.name}
-                                                    </th>                                                    
+                                                    </th>
+                                                    <th scope="row" className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {slide.status == 0 ? (
+                                                            <span className="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded-full">
+                                                                Inactivo
+                                                            </span>
+                                                        ) : (
+                                                            <span className="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full">
+                                                                Activo
+                                                            </span>
+                                                        )}
+
+                                                    </th>
                                                     <td className="border border-slate-200 px-6 py-4">
                                                         <div className='space-x-4'>
                                                             <Link

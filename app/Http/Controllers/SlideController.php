@@ -35,7 +35,7 @@ class SlideController extends Controller
         $data = $request->only('name',
         'text',
         'link',
-        'active',);
+        'status',);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -73,7 +73,7 @@ class SlideController extends Controller
         $data = $request->only('name',
         'text',
         'link',
-        'active',);
+        'status',);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -103,4 +103,10 @@ class SlideController extends Controller
 
         $slide->delete();
     }
+
+    public function toggleStatus(Request $request, Slide $slide)
+{
+    $slide->update(['status' => $slide->status === 0 ? 1 : 0]);
+    return redirect()->back();
+}
 }
