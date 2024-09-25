@@ -13,10 +13,10 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
         start_time: "",
         end_time: "",
         description: "",
-        contact_id: contacts[0].id,
-        types_tasks_id: typetasks[0].id,
-        property_id: properties[0].id,
-        status_contacts_id: statuses[0].id,
+        contact_id: contacts.length > 0 ? contacts[0].id : "",
+        types_tasks_id: typetasks.length > 0 ? typetasks[0].id : "",
+        property_id: properties.length > 0 ? properties[0].id : "",
+        status_contacts_id: statuses.length > 0 ? statuses[0].id : "",
     }
 
     const { data, setData, errors, post } = useForm(initialValues)
@@ -139,12 +139,17 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
                                             setData('contact_id', parseInt(e.target.value));
                                         }}
                                     >
-                                        <option value="">No seleccionar contacto</option>
-                                        {contacts.map((contacts) => (
-                                            <option value={contacts.id} key={contacts.id}>
-                                                {contacts.name}
+                                        {contacts.length === 0 ? (
+                                            <option value="" disabled>
+                                                No contacts created
                                             </option>
-                                        ))}
+                                        ) : (
+                                            contacts.map((contact) => (
+                                                <option value={contact.id} key={contact.id}>
+                                                    {contact.name}
+                                                </option>
+                                            ))
+                                        )}
                                     </Select>
 
                                     <InputError message={errors.statuses} className="mt-2" />
@@ -183,12 +188,17 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
                                             setData('property_id', parseInt(e.target.value));
                                         }}
                                     >
-                                        <option value="">No seleccionar propiedades</option>
-                                        {properties.map((properties) => (
-                                            <option value={properties.id} key={properties.id}>
-                                                {properties.name}
+                                        {properties.length === 0 ? (
+                                            <option value="" disabled>
+                                                No properties created
                                             </option>
-                                        ))}
+                                        ) : (
+                                            properties.map((property) => (
+                                                <option value={property.id} key={property.id}>
+                                                    {property.name}
+                                                </option>
+                                            ))
+                                        )}
                                     </Select>
 
                                     <InputError message={errors.statuses} className="mt-2" />

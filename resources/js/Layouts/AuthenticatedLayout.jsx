@@ -35,6 +35,7 @@ export default function Authenticated({ user, header, children }) {
       { label: 'Info web', route: 'info-web.index' },
       { label: 'Testimonial', route: 'testimonial.index' },
       { label: 'page', route: 'pages.index' },
+      { label: 'Faq', route: 'faqs.index' },
    ];
 
    const posts = [

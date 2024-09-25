@@ -4,8 +4,7 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Select, Switch, Transition } from '@headlessui/react';
-import { useState } from 'react';
+import { Select} from '@headlessui/react';
 
 export default function Create({ auth }) {
 

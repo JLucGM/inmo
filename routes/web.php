@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\CountriesController;
+use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\InfowebController;
 use App\Http\Controllers\OriginsController;
 use App\Http\Controllers\PageController;
@@ -194,6 +195,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('pages/{page}/edit', [PageController::class, 'edit'])->name('pages.edit');
     Route::post('pages/{page}', [PageController::class, 'update'])->name('pages.update');
     Route::delete('pages/{page}', [PageController::class, 'destroy'])->name('pages.destroy');
+    
+    Route::get('faqs', [FaqsController::class, 'index'])->name('faqs.index');
+    Route::get('faqs/create', [FaqsController::class, 'create'])->name('faqs.create');
+    Route::post('faqs', [FaqsController::class, 'store'])->name('faqs.store');
+    Route::get('faqs/{faqs}/edit', [FaqsController::class, 'edit'])->name('faqs.edit');
+    Route::post('faqs/{faqs}', [FaqsController::class, 'update'])->name('faqs.update');
+    Route::delete('faqs/{faqs}', [FaqsController::class, 'destroy'])->name('faqs.destroy');
 });
 
 require __DIR__ . '/auth.php';
