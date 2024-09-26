@@ -39,7 +39,7 @@ class Property extends Model
         return 'slug';
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
@@ -88,7 +88,12 @@ class Property extends Model
     }
 
     public function amenities()
-{
-    return $this->belongsToMany(Amenity::class, 'property_amenities', 'property_id', 'amenity_id');
-}
+    {
+        return $this->belongsToMany(Amenity::class, 'property_amenities', 'property_id', 'amenity_id');
+    }
+
+    public function contacts()
+    {
+        return $this->belongsToMany(Contacts::class, 'contact_properties', 'property_id', 'contact_id');
+    }
 }

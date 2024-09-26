@@ -44,4 +44,49 @@ class Contacts extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
+    public function properties()
+    {
+        return $this->belongsToMany(Property::class, 'contact_properties', 'contact_id', 'property_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    
+    public function typecontact()
+    {
+        return $this->belongsTo(TypesContacts::class, 'types_contacts_id');
+    }
+
+    public function statuscontact()
+    {
+        return $this->belongsTo(StatusContact::class, 'status_contacts_id');
+    }
+
+    public function origin()
+    {
+        return $this->belongsTo(Origins::class, 'origin_id');
+    }
+    
+    public function typeproperty()
+    {
+        return $this->belongsTo(TypesProperties::class, 'types_properties_id');
+    }
+    
+    public function country()
+    {
+        return $this->belongsTo(Countries::class, 'country_id');
+    }
+    
+    public function state()
+    {
+        return $this->belongsTo(States::class, 'state_id');
+    }
+    
+    public function city()
+    {
+        return $this->belongsTo(Cities::class, 'city_id');
+    }
 }

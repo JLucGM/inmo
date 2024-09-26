@@ -138,7 +138,9 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('contacts/{contacts}/edit', [ContactsController::class, 'edit'])->name('contacts.edit');
     Route::post('contacts/{contacts}', [ContactsController::class, 'update'])->name('contacts.update');
     Route::delete('contacts/{contacts}', [ContactsController::class, 'destroy'])->name('contacts.destroy');
-    
+    Route::post('contacts-properties/cross', [ContactsController::class, 'cross'])->name('contacts-properties.cross');
+    Route::delete('contacts-properties/delete', [ContactsController::class, 'deleteProperty'])->name('contacts-properties.delete');
+            
     Route::get('category-post', [CategoryPostController::class, 'index'])->name('category-post.index');
     Route::get('category-post/create', [CategoryPostController::class, 'create'])->name('category-post.create');
     Route::post('category-post', [CategoryPostController::class, 'store'])->name('category-post.store');

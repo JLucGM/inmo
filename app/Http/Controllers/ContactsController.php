@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Contacts\StoreRequest;
 use App\Http\Requests\Contacts\UpdateRequest;
 use App\Models\Cities;
+use App\Models\ContactProperty;
 use App\Models\Contacts;
 use App\Models\Countries;
 use App\Models\Origins;
+use App\Models\Property;
 use App\Models\States;
 use App\Models\Status;
 use App\Models\StatusContact;
@@ -25,9 +27,10 @@ class ContactsController extends Controller
      */
     public function index()
     {
-        $contacts = Contacts::all();
+        $contacts = Contacts::with('user')->with('typecontact')->with('statuscontact')->with('origin')->with('typeproperty')->with('country')->with('state')->with('city')->orderBy('name', 'asc')->get();
+        $properties = Property::all();
 
-        return Inertia::render('Contacts/Index', compact('contacts'));
+        return Inertia::render('Contacts/Index', compact('contacts', 'properties'));
     }
 
     /**
@@ -104,7 +107,7 @@ class ContactsController extends Controller
         $typecontacts = TypesContacts::all();
         $origins = Origins::all();
 
-        return Inertia::render('Contacts/Edit', compact('contacts','country', 'state', 'city', 'typepropety', 'users', 'statuses', 'typecontacts', 'origins'));
+        return Inertia::render('Contacts/Edit', compact('contacts', 'country', 'state', 'city', 'typepropety', 'users', 'statuses', 'typecontacts', 'origins'));
     }
 
     /**
@@ -137,7 +140,7 @@ class ContactsController extends Controller
         );
 
         $data['user_id'] = Auth::id();
-        
+
         $contacts->update($data);
 
         return to_route('contacts.edit');
@@ -149,5 +152,34 @@ class ContactsController extends Controller
     public function destroy(Contacts $contacts)
     {
         $contacts->delete();
+    }
+
+    public function cross(Request $request)
+    {
+        //dd($request);
+        $contactId = $request->input('contact_id');
+        $propertyId = $request->input('property_id');
+
+        ContactProperty::create([
+            'contact_id' => $contactId,
+            'property_id' => $propertyId,
+        ]);
+
+        // Resto de la lógica del controlador
+    }
+
+    public function deleteProperty(Request $request, $propertyId)
+    {
+        $contactId = $request->input('contactId');
+        $contactProperty = ContactProperty::where('contact_id', $contactId)
+            ->where('property_id', $propertyId)
+            ->first();
+
+        if ($contactProperty) {
+            $contactProperty->delete();
+            return response()->json(['message' => 'Relación eliminada con éxito']);
+        } else {
+            return response()->json(['message' => 'No se encontró la relación'], 404);
+        }
     }
 }
