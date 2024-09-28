@@ -11,12 +11,25 @@ export default function Index({ auth, contacts, properties }) {
     //console.log(contacts)
     let [isOpen, setIsOpen] = useState(false)
     const [selectedContact, setSelectedContact] = useState(null);
+    const [contactProperties, setContactProperties] = useState([]);
+    
 
     const initialValues = {
         contact_id: selectedContact ? selectedContact.id : "",
-
         property_id: properties[0].id,
     }
+
+    useEffect(() => {
+        if (selectedContact) {
+            axios.get(route('contacts.get-contact-properties', [selectedContact.id]))
+                .then(response => {
+                    setContactProperties(response.data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    }, [selectedContact]);
 
     useEffect(() => {
         if (selectedContact) {
@@ -30,6 +43,12 @@ export default function Index({ auth, contacts, properties }) {
         setData('property_id', propertyId);
         post(route('contacts-properties.cross'));
     };
+
+    // const deleteProperty = (propertyId) => {
+    //     Inertia.form({
+    //         _method: 'DELETE',
+    //     }).post(route('contacts-properties.delete', [selectedContact.id, propertyId]));
+    // };
 
     return (
         <AuthenticatedLayout
@@ -211,12 +230,25 @@ export default function Index({ auth, contacts, properties }) {
                                                                     {properties.map((property) => (
                                                                         <li key={property.id}>
                                                                             {property.name}
-                                                                            <button
-                                                                                className="btn btn-primary"
-                                                                                onClick={() => crossProperty(property.id)}
-                                                                            >
-                                                                                Asignar a contacto
-                                                                            </button>
+                                                                            {contactProperties.find(cp => cp.property_id === property.id) ? (
+                                                                                <Link
+                                                                                    className='inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
+                                                                                    href={route('contacts-properties.delete', [selectedContact.id, property.id])}
+                                                                                    method='delete'
+                                                                                    as="button"
+                                                                                >
+                                                                                    Eliminar
+                                                                                </Link>
+
+                                                                            ) : (
+
+                                                                                <PrimaryButton
+                                                                                    className="btn btn-primary"
+                                                                                    onClick={() => crossProperty(property.id)}
+                                                                                >
+                                                                                    Asignar a contacto
+                                                                                </PrimaryButton>
+                                                                            )}
                                                                         </li>
                                                                     ))}
                                                                 </ul>

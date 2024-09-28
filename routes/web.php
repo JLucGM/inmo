@@ -139,8 +139,10 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::post('contacts/{contacts}', [ContactsController::class, 'update'])->name('contacts.update');
     Route::delete('contacts/{contacts}', [ContactsController::class, 'destroy'])->name('contacts.destroy');
     Route::post('contacts-properties/cross', [ContactsController::class, 'cross'])->name('contacts-properties.cross');
-    Route::delete('contacts-properties/delete', [ContactsController::class, 'deleteProperty'])->name('contacts-properties.delete');
-            
+    //Route::delete('contacts-properties/delete', [ContactsController::class, 'deleteProperty'])->name('contacts-properties.delete');
+    Route::get('/contacts/{contactId}/properties', [ContactsController::class, 'getContactProperties'])->name('contacts.get-contact-properties');
+    Route::delete('/contacts-properties/{contactId}/{propertyId}', [ContactsController::class, 'deleteProperty'])->name('contacts-properties.delete');
+    
     Route::get('category-post', [CategoryPostController::class, 'index'])->name('category-post.index');
     Route::get('category-post/create', [CategoryPostController::class, 'create'])->name('category-post.create');
     Route::post('category-post', [CategoryPostController::class, 'store'])->name('category-post.store');

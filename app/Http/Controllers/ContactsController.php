@@ -168,18 +168,19 @@ class ContactsController extends Controller
         // Resto de la lógica del controlador
     }
 
-    public function deleteProperty(Request $request, $propertyId)
+    public function deleteProperty(Request $request, $contactId, $propertyId)
     {
-        $contactId = $request->input('contactId');
+
+        // dd("contactId".$contactId."propertyId".$propertyId);
+
         $contactProperty = ContactProperty::where('contact_id', $contactId)
             ->where('property_id', $propertyId)
-            ->first();
+            ->delete();
+    }
 
-        if ($contactProperty) {
-            $contactProperty->delete();
-            return response()->json(['message' => 'Relación eliminada con éxito']);
-        } else {
-            return response()->json(['message' => 'No se encontró la relación'], 404);
-        }
+    public function getContactProperties(Request $request, $contactId)
+    {
+        $contactProperties = ContactProperty::where('contact_id', $contactId)->get();
+        return response()->json($contactProperties);
     }
 }

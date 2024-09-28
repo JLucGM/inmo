@@ -13,6 +13,7 @@ return new class extends Migration
             $table->text('name')->notNullable();
             $table->string('slug')->unique();
             $table->text('price')->nullable();
+            $table->text('identification')->nullable();
             $table->MediumText('description')->nullable();
             $table->text('main')->default('default.jpg');
             $table->MediumText('images')->default('default.jpg');
