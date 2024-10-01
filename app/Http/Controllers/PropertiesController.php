@@ -59,6 +59,7 @@ class PropertiesController extends Controller
             'price',
             'slug',
             'description',
+            'identification',
             'bedrooms',
             'bathrooms',
             'totalMeters',
@@ -94,7 +95,7 @@ class PropertiesController extends Controller
                 foreach ($images as $index => $image) {
                     $nombreImagen[$index] = [
                         'id' => $index + 1, // Asigna un ID basado en el índice del array
-                        'name' => $image->getClientOriginalName()
+                        'name' => time() . '-' .$image->getClientOriginalName()
                     ];
                     $image->move(public_path('img/properties'), time() . '-' .$image->getClientOriginalName());
                 }
@@ -165,6 +166,7 @@ class PropertiesController extends Controller
             'price',
             'slug',
             'description',
+            'identification',
             'bedrooms',
             'bathrooms',
             'totalMeters',

@@ -32,6 +32,9 @@ export default function Index({ auth, properties }) {
                                                 Image
                                             </th>
                                             <th scope="col" className="border-slate-300 border px-6 py-3">
+                                                dentificador
+                                            </th>
+                                            <th scope="col" className="border-slate-300 border px-6 py-3">
                                                 Nombre
                                             </th>
                                             <th scope="col" className="border-slate-300 border px-6 py-3">
@@ -48,7 +51,10 @@ export default function Index({ auth, properties }) {
 
                                                 <tr key={property.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                     <th scope="row" className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    <img src={`/img/properties/${property.image}`} alt={property.image} className='w-40' />
+                                                    <img src={`/img/properties/${property.main}`} alt={property.main} className='w-40 mx-auto' />
+                                                    </th>   
+                                                    <th className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {property.identification}
                                                     </th>   
                                                     <th className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                         {property.name}

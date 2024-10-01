@@ -16,6 +16,7 @@ class Property extends Model
         'price',
         'slug',
         'description',
+        'identification',
         'main',
         'images',
         'bedrooms',
