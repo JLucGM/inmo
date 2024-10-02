@@ -17,8 +17,9 @@ class StatesController extends Controller
     public function index()
     {
         $states = States::all();
+        $country = Countries::all();
 
-        return Inertia::render('States/Index', compact('states'));
+        return Inertia::render('States/Index', compact('states', 'country'));
     }
 
     /**

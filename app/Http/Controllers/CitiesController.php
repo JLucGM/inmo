@@ -17,8 +17,9 @@ class CitiesController extends Controller
     public function index()
     {
         $cities = Cities::all();
+        $state = States::all();
 
-        return Inertia::render('Cities/Index', compact('cities'));
+        return Inertia::render('Cities/Index', compact('cities','state'));
     }
 
     /**
