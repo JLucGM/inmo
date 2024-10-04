@@ -16,8 +16,9 @@ class StatesController extends Controller
      */
     public function index()
     {
-        $states = States::all();
+        $states = States::with('country')->get();
         $country = Countries::all();
+        // $cities = Cities::with('state')->get();
 
         return Inertia::render('States/Index', compact('states', 'country'));
     }

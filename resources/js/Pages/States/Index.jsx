@@ -6,6 +6,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
+import DataTable from '@/Components/DataTable';
 
 export default function Index({ auth, states, country }) {
     //console.log(states)
@@ -13,8 +14,27 @@ export default function Index({ auth, states, country }) {
     const { data, setData, errors, post } = useForm({
         name: "",
         country_id: country[0].id,
-
     })
+
+    const columns = [
+        {
+            header: "#id",
+            accessorKey: "id",
+        },
+        {
+            header: "Nombre",
+            accessorKey: "name",
+            expanded: (row) => {
+                // Aquí puedes agregar la información adicional que deseas mostrar
+                return (
+                    <div>
+                        <p>Nombre: {row.original.name}</p>
+                        <p>Pais: {row.original.country.name}</p>
+                    </div>
+                );
+            },
+        }
+    ]
 
     const submit = (e) => {
         e.preventDefault();
@@ -54,7 +74,7 @@ export default function Index({ auth, states, country }) {
                         <div className=" text-gray-900 dark:text-gray-100">
 
                             <div className="relative overflow-x-auto">
-                                <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
+                                {/* <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="border-slate-300 border px-6 py-3">
@@ -91,7 +111,14 @@ export default function Index({ auth, states, country }) {
                                             ))}
 
                                     </tbody>
-                                </table>
+                                </table> */}
+
+<DataTable
+                                    columns={columns}
+                                    data={states}
+                                    routeEdit={'states.edit'}
+                                    routeDestroy={'states.destroy'}
+                                />
                             </div>
 
                         </div>

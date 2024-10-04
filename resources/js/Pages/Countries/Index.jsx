@@ -6,6 +6,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
+import DataTable from '@/Components/DataTable';
 
 export default function Index({ auth, countries }) {
     console.log(countries)
@@ -13,6 +14,26 @@ export default function Index({ auth, countries }) {
     const { data, setData, errors, post } = useForm({
         name: "",
     })
+
+    const columns = [
+        {
+            header: "#id",
+            accessorKey: "id",
+        },
+        {
+            header: "Nombre",
+            accessorKey: "name",
+            // expanded: (row) => {
+            //     // Aquí puedes agregar la información adicional que deseas mostrar
+            //     return (
+            //         <div>
+            //             <p>Nombre: {row.original.name}</p>
+                        
+            //         </div>
+            //     );
+            // },
+        }
+    ]
 
     const submit = (e) => {
         e.preventDefault();
@@ -47,7 +68,7 @@ export default function Index({ auth, countries }) {
                         <div className=" text-gray-900 dark:text-gray-100">
 
                             <div className="relative overflow-x-auto">
-                                <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
+                                {/* <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="border-slate-300 border px-6 py-3">
@@ -84,7 +105,14 @@ export default function Index({ auth, countries }) {
                                             ))}
 
                                     </tbody>
-                                </table>
+                                </table> */}
+
+<DataTable
+                                    columns={columns}
+                                    data={countries}
+                                    routeEdit={'countries.edit'}
+                                    routeDestroy={'countries.destroy'}
+                                />
                             </div>
 
                         </div>
