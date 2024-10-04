@@ -58,6 +58,7 @@ class ContactsController extends Controller
         //dd($request);
         $data = $request->only(
             'name',
+            'identificación_contact',
             'slug',
             'description',
             'bedrooms',
@@ -118,6 +119,7 @@ class ContactsController extends Controller
         //dd($request);
         $data = $request->only(
             'name',
+            'identificación_contact',
             'slug',
             'description',
             'bedrooms',
@@ -143,7 +145,7 @@ class ContactsController extends Controller
 
         $contacts->update($data);
 
-        return to_route('contacts.edit');
+        return to_route('contacts.edit', $contacts);
     }
 
     /**

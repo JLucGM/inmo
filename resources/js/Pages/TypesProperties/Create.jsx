@@ -5,6 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import DangerButton from '@/Components/DangerButton';
+import ContainerTitle from '@/Components/ContainerTitle';
 
 export default function Create({ auth }) {
 
@@ -25,7 +26,7 @@ export default function Create({ auth }) {
             user={auth.user}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Crear tipo de propiedad</h2>
+                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Crear tipo de propiedad</h2>
                 </div>
             }
         >
@@ -35,7 +36,8 @@ export default function Create({ auth }) {
                 <div className="max-w-7xl mx-auto">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
                         <div className="text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
+                            <form onSubmit={submit} >
+                            <ContainerTitle className='space-y-4'>
 
                                 <div>
                                     <InputLabel htmlFor="name" value="Nombre" />
@@ -73,6 +75,7 @@ export default function Create({ auth }) {
                                         Guardar
                                     </PrimaryButton>
                                 </div>
+                                </ContainerTitle>
 
                             </form>
                         </div>

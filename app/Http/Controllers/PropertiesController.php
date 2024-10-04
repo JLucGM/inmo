@@ -26,7 +26,7 @@ class PropertiesController extends Controller
      */
     public function index()
     {
-        $properties = Property::all();
+        $properties = Property::with('country', 'state', 'city','user')->get();
 
         return Inertia::render('Properties/Index', compact('properties'));
     }

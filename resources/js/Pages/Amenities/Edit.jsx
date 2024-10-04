@@ -5,6 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
+import ContainerTitle from '@/Components/ContainerTitle';
 
 export default function Edit({ auth, amenity}) {
 
@@ -24,22 +25,22 @@ export default function Edit({ auth, amenity}) {
             user={auth.user}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar comodidades</h2>
+                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Comodidades</h2>
                     <Link href={route('amenities.create')}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear comodidades
+                        Crear
                     </Link>
                 </div>
             }
         >
-            <Head className="capitalize" title="Actualizar comodidades" />
+            <Head className="capitalize" title="Actualizar Comodidades" />
 
-            <div className="p-6">
+            <div className="">
                 <div className="max-w-7xl mx-auto">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
                         <div className=" text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4 '>
+                            <form onSubmit={submit}>
 
                                 <Transition
                                     show={recentlySuccessful}
@@ -50,6 +51,8 @@ export default function Edit({ auth, amenity}) {
                                 >
                                     <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
                                 </Transition>
+
+                                <ContainerTitle className='space-y-4'>
 
                                 <div>
                                     <InputLabel htmlFor="name" value="Nombre" />
@@ -72,7 +75,7 @@ export default function Edit({ auth, amenity}) {
                                         Guardar
                                     </PrimaryButton>
                                 </div>
-
+</ContainerTitle>
                             </form>
                         </div>
                     </div>

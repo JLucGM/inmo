@@ -10,7 +10,7 @@ import makeAnaimated from 'react-select/animated';
 import { useState } from 'react';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Edit({ auth, property, state, country, typepropety, typebusiness, city, users, phystate, amenities, propertyAmenities, images, main }) {
+export default function Edit({ auth, property, state, country, typepropety, typebusiness, city, phystate, amenities, propertyAmenities, images, main }) {
 
     const [selectedCountry, setSelectedCountry] = useState(country[0].id);;
     const [selectedState, setSelectedState] = useState(state[0].id);
@@ -104,7 +104,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
                     <Link href={route('properties.create')}
                         className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear propiedad
+                        Crear
                     </Link>
                 </div>
             }

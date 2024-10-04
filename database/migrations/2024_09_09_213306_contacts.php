@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('email')->nullable();
             $table->text('phone')->nullable();
+            $table->text('identificación_contact')->nullable();
             $table->date('birthdate')->nullable();
             $table->text('min_budget')->nullable();
             $table->text('max_budget')->nullable();
