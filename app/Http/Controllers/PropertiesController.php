@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Properties\StoreRequest;
 use App\Models\Amenities;
 use App\Models\Amenity;
 use App\Models\Cities;
@@ -51,7 +52,7 @@ class PropertiesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         //dd($request);
         $data = $request->only(

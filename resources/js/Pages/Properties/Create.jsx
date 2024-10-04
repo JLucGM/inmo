@@ -434,6 +434,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                     name='amenitiy'
                                                     styles={customStyles}
                                                 />
+                                                <InputError message={errors.amenitiy} className="mt-2" />
                                             </div>
                                         </ContainerTitle>
 
