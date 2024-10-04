@@ -27,15 +27,15 @@ export default function Edit({ auth, page }) {
             user={auth.user}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar tipo de propiedad</h2>
+                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar pagina</h2>
                     <Link href={route('pages.create')}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >Crear tipo de propiedad
+                    >Crear
                     </Link>
                 </div>
             }
         >
-            <Head title="tipos de propiedades" />
+            <Head title="Crear Pagina" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto ">
@@ -78,7 +78,6 @@ export default function Edit({ auth, page }) {
                                         name="body"
                                         value={data.body}
                                         className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                        isFocused={true}
                                         onChange={(e) => setData('body', e.target.value)}
                                     />
 
@@ -110,7 +109,6 @@ export default function Edit({ auth, page }) {
                                         type="file"
                                         name="image"
                                         className="mt-1 block w-full"
-                                        isFocused={true}
                                         onChange={(e) => setData('image', e.target.files[0])}
                                     />
 

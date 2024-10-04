@@ -30,7 +30,7 @@ export default function Authenticated({ user, header, children }) {
 
    const globalSettings = [
       { label: 'Settings', route: 'settings.index' },
-      { label: 'Tipo de negocios', route: 'typesBusinesses.index' },
+      { label: 'Tipo de negocios quitar', route: 'typesBusinesses.index' },
       { label: 'Slide', route: 'slides.index' },
       { label: 'Info web', route: 'info-web.index' },
       { label: 'Testimonial', route: 'testimonial.index' },
@@ -47,8 +47,8 @@ export default function Authenticated({ user, header, children }) {
       { label: 'Contactos', route: 'contacts.index' },
       { label: 'tasks', route: 'tasks.index' },
       { label: 'Tipos de contactos', route: 'typesContacts.index' },
-      { label: 'Status de contactos', route: 'statuscontacts.index' },
-      { label: 'origins', route: 'origins.index' },
+      { label: 'Status de contactos quitar', route: 'statuscontacts.index' },
+      { label: 'origins quitar', route: 'origins.index' },
    ];
 
    const locations = [
@@ -61,7 +61,7 @@ export default function Authenticated({ user, header, children }) {
       { label: 'Propiedades', route: 'properties.index' },
       { label: 'Comodidades', route: 'amenities.index' },
       { label: 'Tipos de propiedades', route: 'typesproperties.index' },
-      { label: 'Estados fisicos', route: 'phyStates.index' },
+      { label: 'Estados fisicos quitar', route: 'phyStates.index' },
    ];
 
    return (

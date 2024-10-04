@@ -1,8 +1,31 @@
+import Badge from '@/Components/Badge';
+import DataTable from '@/Components/DataTable';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Index({ auth, faqs }) {
     console.log(faqs)
+    const columns = [
+        {
+            header: "#id",
+            accessorKey: "id",
+        },
+        {
+            header: "Nombre",
+            accessorKey: "name",
+        },
+        {
+            header: "Estado",
+            accessorKey: "status",
+            cell: ({ row }) => {
+                return (
+                    <Badge className={` ${row.original.status === "1" ? 'bg-green-600' : 'bg-red-600'}`}>
+                        {row.original.status === "1" ? 'Activo' : 'Inactivo'}
+                    </Badge>
+                )
+            },
+        },
+    ]
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -25,7 +48,14 @@ export default function Index({ auth, faqs }) {
                         <div className=" text-gray-900 dark:text-gray-100">
 
                             <div className="relative overflow-x-auto">
-                                <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
+
+                            <DataTable
+                                    columns={columns}
+                                    data={faqs}
+                                    routeEdit={'faqs.edit'}
+                                    routeDestroy={'faqs.destroy'}
+                                />
+                                {/* <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="capitalize border-slate-300 border px-6 py-3">
@@ -76,7 +106,7 @@ export default function Index({ auth, faqs }) {
                                             ))}
 
                                     </tbody>
-                                </table>
+                                </table> */}
                             </div>
 
                         </div>

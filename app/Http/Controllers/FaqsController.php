@@ -31,7 +31,7 @@ class FaqsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only('title','content','status');
+        $data = $request->only('name','content','status');
 
         Faqs::create($data);
 
@@ -59,7 +59,7 @@ class FaqsController extends Controller
      */
     public function update(Request $request, Faqs $faqs)
     {
-        $data = $request->only('title','content','status');
+        $data = $request->only('name','content','status');
 
         $faqs->update($data);
 

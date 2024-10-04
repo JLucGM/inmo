@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
+import DataTable from '@/Components/DataTable';
 
 export default function Index({ auth, categoryPost }) {
     console.log(categoryPost)
@@ -13,6 +14,26 @@ export default function Index({ auth, categoryPost }) {
     const { data, setData, errors, post } = useForm({
         name: "",
     })
+
+    const columns = [
+        {
+            header: "#id",
+            accessorKey: "id",
+        },
+        {
+            header: "Nombre",
+            accessorKey: "name",
+            // expanded: (row) => {
+            //     // Aquí puedes agregar la información adicional que deseas mostrar
+            //     return (
+            //         <div>
+            //             <p>id {row.original.id}</p>
+            //             <p>Nombre: {row.original.name}</p>
+            //         </div>
+            //     );
+            // },
+        }
+    ]
 
     const submit = (e) => {
         e.preventDefault();
@@ -37,7 +58,7 @@ export default function Index({ auth, categoryPost }) {
                     <Button
                         onClick={() => setIsOpen(true)}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"                    >
-                        Crear Categoria de posts
+                        Crear
                     </Button>
                 </div>
             }
@@ -50,46 +71,15 @@ export default function Index({ auth, categoryPost }) {
                         <div className=" text-gray-900 dark:text-gray-100">
 
                             <div className="relative overflow-x-auto">
-                                <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
-                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                        <tr>
-                                            <th scope="col" className="border-slate-300 border px-6 py-3">
-                                                Nombre
-                                            </th>
-                                            <th scope="col" className="border-slate-300 border px-6 py-3">
-                                                Acciones
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            categoryPost?.map((categoryPost) => (
 
-                                                <tr key={categoryPost.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                    <th scope="row" className="capitalize border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        {categoryPost.name}
-                                                    </th>
-                                                    <td className="border border-slate-200 px-6 py-4">
-                                                        <div className='space-x-4'>
-                                                            <Link
-                                                                className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                                                href={route('category-post.edit', [categoryPost])}>
-                                                                Editar
-                                                            </Link>
-                                                            <Link
-                                                                className='inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
-                                                                href={route('category-post.destroy', [categoryPost])} method='delete' as="button">
-                                                                Eliminar
-                                                            </Link>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            ))}
+                                <DataTable
+                                    columns={columns}
+                                    data={categoryPost}
+                                    routeEdit={'category-post.edit'}
+                                    routeDestroy={'category-post.destroy'}
+                                />
 
-                                    </tbody>
-                                </table>
                             </div>
-
                         </div>
                     </div>
                 </div>

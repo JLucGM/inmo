@@ -58,17 +58,33 @@ export default function Create({ auth, categryposts }) {
 
                                     <InputError message={errors.name} className="mt-2" />
                                 </div>
-                                
+
+                                <div>
+                                    <InputLabel htmlFor="extract" value="extract" />
+
+                                    <Textarea
+                                        id="extract"
+                                        type="text"
+                                        name="extract"
+                                        value={data.extract}
+                                        className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                        onChange={(e) => setData('extract', e.target.value)}
+                                    >
+
+                                    </Textarea>
+
+                                    <InputError message={errors.extract} className="mt-2" />
+                                </div>
                                 <div>
                                     <InputLabel htmlFor="content" value="content" />
 
-                                    <Textarea 
-                                    id="content"
-                                    type="text"
-                                    name="content"
-                                    value={data.content}
-                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                    onChange={(e) => setData('content', e.target.value)}
+                                    <Textarea
+                                        id="content"
+                                        type="text"
+                                        name="content"
+                                        value={data.content}
+                                        className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                        onChange={(e) => setData('content', e.target.value)}
                                     >
 
                                     </Textarea>

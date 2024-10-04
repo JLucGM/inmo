@@ -7,6 +7,8 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
+import DataTable from '@/Components/DataTable';
+import Badge from '@/Components/Badge';
 
 export default function Index({ auth, users }) {
     //console.log(users)
@@ -19,6 +21,50 @@ export default function Index({ auth, users }) {
         status: "0", // o 1, dependiendo del valor predeterminado que desees
         avatar: null,
     });
+
+    const columns = [
+        {
+            header: "#id",
+            accessorKey: "id",
+        },
+        {
+            header: "Avatar",
+            accessorKey: "avatar",
+            cell: ({ row }) => {
+                return (
+                    <img className='w-16 mx-auto' src={`/img/profile/${row.original.avatar}`} alt={`${row.original.avatar}`} />
+
+                )
+            },
+        },
+        {
+            header: "Nombre",
+            accessorKey: "name",
+            expanded: (row) => {
+                // Aquí puedes agregar la información adicional que deseas mostrar
+                return (
+                    <div className='flex'>
+                        <div className="ms-4">
+                            <p>Email: {row.original.email}</p>
+                            <p>phone: {row.original.phone}</p>
+                        </div>
+                    </div>
+                );
+            },
+        },
+        {
+            header: "Estado",
+            accessorKey: "status",
+            cell: ({ row }) => {
+                return (
+                    <Badge className={` ${row.original.status === "1" ? 'bg-green-600' : 'bg-red-600'}`}>
+                        {row.original.status === "1" ? 'Activo' : 'Inactivo'}
+                    </Badge>
+                )
+            },
+        },
+        
+    ]
 
     const submit = (e) => {
         e.preventDefault();
@@ -64,7 +110,14 @@ export default function Index({ auth, users }) {
                         <div className=" text-gray-900 dark:text-gray-100">
 
                             <div className="relative overflow-x-auto">
-                                <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
+
+                            <DataTable
+                                    columns={columns}
+                                    data={users}
+                                    routeEdit={'user.edit'}
+                                    routeDestroy={'user.destroy'}
+                                />
+                                {/* <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="border-slate-300 border px-6 py-3">
@@ -121,7 +174,7 @@ export default function Index({ auth, users }) {
                                             ))}
 
                                     </tbody>
-                                </table>
+                                </table> */}
                             </div>
 
                         </div>

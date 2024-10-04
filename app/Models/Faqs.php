@@ -12,7 +12,7 @@ class Faqs extends Model
     use HasFactory, HasSlug;
 
     protected $fillable = [
-        'title',
+        'name',
         'slug',
         'content',
         'status',
@@ -26,7 +26,7 @@ class Faqs extends Model
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('title')
+            ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
 }

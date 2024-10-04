@@ -1,8 +1,44 @@
+import Badge from '@/Components/Badge';
+import DataTable from '@/Components/DataTable';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Index({ auth, page }) {
-    console.log(page)
+    const columns = [
+        {
+            header: "#id",
+            accessorKey: "id",
+        },
+        {
+            header: "Nombre",
+            accessorKey: "name",
+
+            // expanded: (row) => {
+            //     // Aquí puedes agregar la información adicional que deseas mostrar
+            //     return (
+            //         <div className='flex'>
+            //             <img src={`/img/slides/${row.original.image}`} alt={row.original.image} className='w-40' />
+
+            //             <div className="ms-4">
+            //                 <p>Link: {row.original.link}</p>
+            //                 <p>{row.original.text}</p>
+            //             </div>
+            //         </div>
+            //     );
+            // },
+        },
+        {
+            header: "Estado",
+            accessorKey: "status",
+            cell: ({ row }) => {
+                return (
+                    <Badge className={` ${row.original.status === "1" ? 'bg-green-600' : 'bg-red-600'}`}>
+                        {row.original.status === "1" ? 'Activo' : 'Inactivo'}
+                    </Badge>
+                )
+            },
+        },
+    ]
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -12,7 +48,7 @@ export default function Index({ auth, page }) {
                     <Link href={route('pages.create')}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear Paginas
+                        Crear
                     </Link>
                 </div>
             }
@@ -25,7 +61,14 @@ export default function Index({ auth, page }) {
                         <div className=" text-gray-900 dark:text-gray-100">
 
                             <div className="relative overflow-x-auto">
-                                <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
+
+                            <DataTable
+                                    columns={columns}
+                                    data={page}
+                                    routeEdit={'pages.edit'}
+                                    routeDestroy={'pages.destroy'}
+                                />
+                                {/* <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="border-slate-300 border px-6 py-3">
@@ -62,7 +105,7 @@ export default function Index({ auth, page }) {
                                             ))}
 
                                     </tbody>
-                                </table>
+                                </table> */}
                             </div>
 
                         </div>

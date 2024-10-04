@@ -1,8 +1,45 @@
+import Badge from '@/Components/Badge';
+import DataTable from '@/Components/DataTable';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Index({ auth, posts }) {
-    console.log(posts)
+
+    const columns = [
+        {
+            header: "#id",
+            accessorKey: "id",
+        },
+        {
+            header: "Nombre",
+            accessorKey: "name",
+            
+            expanded: (row) => {
+                // Aquí puedes agregar la información adicional que deseas mostrar
+                return (
+                    <div className='flex'>
+                        <img src={`/img/posts/${row.original.image}`} alt={row.original.image} className='w-40' />
+                        
+                        <div className="ms-4">
+                            <p>Extracto: {row.original.extract}</p>
+                        </div>
+                    </div>
+                );
+            },
+        },
+        {
+            header: "Estado",
+            accessorKey: "status",
+            cell: ({row}) => {
+                return (
+                <Badge className={` ${row.original.status === 1 ? 'bg-green-600' : 'bg-red-600'}`}>
+                    {row.original.status === 1 ? 'Activo' : 'Inactivo'}
+                </Badge>
+            )
+            }, 
+        }, 
+    ]
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -23,69 +60,16 @@ export default function Index({ auth, posts }) {
                 <div className="max-w-7xl mx-auto ">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden ">
                         <div className=" text-gray-900 dark:text-gray-100">
-
                             <div className="relative overflow-x-auto">
-                                <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
-                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                        <tr>
-                                            <th scope="col" className="border-slate-300 border px-6 py-3">
-                                                Image
-                                            </th>
-                                            <th scope="col" className="border-slate-300 border px-6 py-3">
-                                                Nombre
-                                            </th>
-                                            <th scope="col" className="border-slate-300 border px-6 py-3">
-                                                Status
-                                            </th>
-                                            <th scope="col" className="border-slate-300 border px-6 py-3">
-                                                Acciones
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            posts?.map((posts) => (
 
-                                                <tr key={posts.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                    <th scope="row" className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        <img src={`/img/posts/${posts.image}`} alt={posts.image} className='w-40' />
-                                                    </th>
+                            <DataTable
+                                    columns={columns}
+                                    data={posts}
+                                    routeEdit={'post.edit'}
+                                    routeDestroy={'post.destroy'}
+                                />
 
-                                                    <th className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        {posts.name}
-                                                    </th>
-                                                    <th className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        {posts.status == 0 ? (
-                                                            <span className="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded-full">
-                                                                Inactivo
-                                                            </span>
-                                                        ) : (
-                                                            <span className="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full">
-                                                                Activo
-                                                            </span>
-                                                        )}
-                                                    </th>
-                                                    <td className="border border-slate-200 px-6 py-4">
-                                                        <div className='space-x-4'>
-                                                            <Link
-                                                                className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                                                href={route('post.edit', [posts])}>
-                                                                Editar
-                                                            </Link>
-                                                            <Link
-                                                                className='inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
-                                                                href={route('post.destroy', [posts])} method='delete' as="button">
-                                                                Eliminar
-                                                            </Link>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            ))}
-
-                                    </tbody>
-                                </table>
                             </div>
-
                         </div>
                     </div>
                 </div>

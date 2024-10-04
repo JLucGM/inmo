@@ -4,7 +4,7 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
-import { Select} from '@headlessui/react';
+import { Select, Textarea} from '@headlessui/react';
 
 export default function Create({ auth }) {
 
@@ -62,12 +62,12 @@ export default function Create({ auth }) {
                                 <div>
                                     <InputLabel htmlFor="text" value="text" />
 
-                                    <TextInput
+                                    <Textarea
                                         id="text"
                                         type="text"
                                         name="text"
                                         value={data.text}
-                                        className="mt-1 block w-full"
+                                        className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                         onChange={(e) => setData('text', e.target.value)}
                                     />
 

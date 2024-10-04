@@ -9,7 +9,7 @@ import { Select, Textarea } from '@headlessui/react';
 export default function Create({ auth }) {
 
     const initialValues = {
-        title: "",
+        name: "",
         content: "",
         status: "0",
     }
@@ -32,7 +32,7 @@ export default function Create({ auth }) {
                 </div>
             }
         >
-            <Head className="capitalize" title="Crear faqs" />
+            <Head className="capitalize" name="Crear faqs" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto">
@@ -41,19 +41,19 @@ export default function Create({ auth }) {
                             <form onSubmit={submit} className='space-y-4'>
 
                                 <div>
-                                    <InputLabel htmlFor="title" value="Titulo" />
+                                    <InputLabel htmlFor="name" value="Titulo" />
 
                                     <TextInput
-                                        id="title"
+                                        id="name"
                                         type="text"
-                                        name="title"
-                                        value={data.title}
+                                        name="name"
+                                        value={data.name}
                                         className="mt-1 block w-full"
                                         isFocused={true}
-                                        onChange={(e) => setData('title', e.target.value)}
+                                        onChange={(e) => setData('name', e.target.value)}
                                     />
 
-                                    <InputError message={errors.title} className="mt-2" />
+                                    <InputError message={errors.name} className="mt-2" />
                                 </div>
 
                                 <div>

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
-            $table->longText('title')->notNullable();
+            $table->longText('name')->notNullable();
             $table->string('slug')->nullable();
             $table->longText('content')->notNullable();
             $table->enum('status',['0','1'])->default('0');

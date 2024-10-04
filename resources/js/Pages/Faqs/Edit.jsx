@@ -9,7 +9,7 @@ import { Select, Textarea, Transition } from '@headlessui/react';
 export default function Edit({ auth, faqs }) {
 
     const initialValues = {
-        title: faqs.title,
+        name: faqs.name,
         content: faqs.content,
         status: faqs.status,
 
@@ -36,7 +36,7 @@ export default function Edit({ auth, faqs }) {
                 </div>
             }
         >
-            <Head className="capitalize" title="Actualizar pais" />
+            <Head className="capitalize" name="Actualizar pais" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto ">
@@ -55,19 +55,19 @@ export default function Edit({ auth, faqs }) {
                                 </Transition>
 
                                 <div>
-                                    <InputLabel htmlFor="title" value="Titulo" />
+                                    <InputLabel htmlFor="name" value="Titulo" />
 
                                     <TextInput
-                                        id="title"
+                                        id="name"
                                         type="text"
-                                        name="title"
-                                        value={data.title}
+                                        name="name"
+                                        value={data.name}
                                         className="mt-1 block w-full"
                                         isFocused={true}
-                                        onChange={(e) => setData('title', e.target.value)}
+                                        onChange={(e) => setData('name', e.target.value)}
                                     />
 
-                                    <InputError message={errors.title} className="mt-2" />
+                                    <InputError message={errors.name} className="mt-2" />
                                 </div>
 
                                 <div>

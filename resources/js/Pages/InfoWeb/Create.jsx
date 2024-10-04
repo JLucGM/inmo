@@ -4,6 +4,7 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
+import { Textarea } from '@headlessui/react';
 
 export default function Create({ auth }) {
 
@@ -25,12 +26,12 @@ export default function Create({ auth }) {
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear pais
+                        Crear información
                     </h2>
                 </div>
             }
         >
-            <Head className="capitalize" title="Crear pais" />
+            <Head className="capitalize" title="Crear" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto">
@@ -56,13 +57,12 @@ export default function Create({ auth }) {
                                 <div>
                                     <InputLabel htmlFor="name" value="texto" />
 
-                                    <TextInput
+                                    <Textarea
                                         id="text"
                                         type="text"
                                         name="text"
                                         value={data.text}
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
+                                        className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm "
                                         onChange={(e) => setData('text', e.target.value)}
                                     />
 
@@ -77,7 +77,6 @@ export default function Create({ auth }) {
                                         type="file"
                                         name="image"
                                         className="mt-1 block w-full"
-                                        isFocused={true}
                                         onChange={(e) => setData('image', e.target.files[0])}
                                     />
 

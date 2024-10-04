@@ -1,8 +1,42 @@
+import DataTable from '@/Components/DataTable';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Index({ auth, testimonial }) {
-    console.log(testimonial)
+    const columns = [
+        {
+            header: "#id",
+            accessorKey: "id",
+        },
+        {
+            header: "avatar",
+            accessorKey: "avatar",
+            cell: ({ row }) => {
+                return (
+                    <img src={`/img/testimonials/${row.original.avatar}`} alt={row.original.avatar} className='w-20' />
+
+                )
+            },
+        },
+        {
+            header: "Nombre",
+            accessorKey: "name",
+
+            // expanded: (row) => {
+            //     // Aquí puedes agregar la información adicional que deseas mostrar
+            //     return (
+            //         <div className='flex'>
+            //             <img src={`/img/testimonials/${row.original.image}`} alt={row.original.image} className='w-40' />
+
+            //             <div className="ms-4">
+            //                 <p>Link: {row.original.image}</p>
+            //             </div>
+            //         </div>
+            //     );
+            // },
+        },
+        
+    ]
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -25,7 +59,14 @@ export default function Index({ auth, testimonial }) {
                         <div className=" text-gray-900 dark:text-gray-100">
 
                             <div className="relative overflow-x-auto">
-                                <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
+                                <DataTable
+                                    columns={columns}
+                                    data={testimonial}
+                                    routeEdit={'testimonial.edit'}
+                                    routeDestroy={'testimonial.destroy'}
+                                />
+
+                                {/* <table className="w-full border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse">
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="border-slate-300 border px-6 py-3">
@@ -69,7 +110,7 @@ export default function Index({ auth, testimonial }) {
                                             ))}
 
                                     </tbody>
-                                </table>
+                                </table> */}
                             </div>
 
                         </div>
