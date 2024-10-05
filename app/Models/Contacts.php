@@ -90,4 +90,9 @@ class Contacts extends Model
     {
         return $this->belongsTo(Cities::class, 'city_id');
     }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'contact_id');
+    }
 }

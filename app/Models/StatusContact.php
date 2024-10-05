@@ -26,4 +26,11 @@ class StatusContact extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
-    }}
+    }
+
+    public function tasks()
+{
+    return $this->hasMany(Task::class);
+}
+
+}

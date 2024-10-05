@@ -8,7 +8,7 @@ export default function ContainerTitle({ className = '',title, children, ...prop
                 className
             }
         >
-            <p className="text-lg capitalize font-medium">{title}</p>
+            <p className="text-lg capitalize font-medium col-span-full">{title}</p>
             {children}
         </div>
     );

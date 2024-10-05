@@ -9,6 +9,7 @@ import Select from 'react-select';
 import makeAnaimated from 'react-select/animated';
 import { useState } from 'react';
 import ContainerTitle from '@/Components/ContainerTitle';
+import Breadcrumb from '@/Components/Breadcrumb';
 
 export default function Edit({ auth, property, state, country, typepropety, typebusiness, city, phystate, amenities, propertyAmenities, images, main }) {
 
@@ -41,7 +42,30 @@ export default function Edit({ auth, property, state, country, typepropety, type
         city_id: property.city_id,
         phy_states_id: property.phy_states_id,
     }
-    console.log(property);
+    // console.log(property);
+
+    const items = [
+        {
+            name: 'Dashboard',
+            href: 'dashboard',
+            icon: {
+                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
+            },
+        },
+        {
+            name: 'Lista de propiedades',
+            href: 'properties.index',
+            icon: {
+                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
+            },
+        },
+        {
+            name: 'Actualizar propiedad',
+            icon: {
+                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
+            },
+        },
+    ];
 
     const customStyles = {
         control: (base, { isFocused }) => ({
@@ -109,22 +133,25 @@ export default function Edit({ auth, property, state, country, typepropety, type
                 </div>
             }
         >
+
+            <Breadcrumb items={items} />
+
             <Head className="capitalize" title="Actualizar propiedad" />
 
-            <div className="">
+            <div className=" mb-5">
                 <div className="max-w-7xl mx-auto ">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
                         <div className=" text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit}>
-                                    <Transition
-                                        show={recentlySuccessful}
-                                        enter="transition ease-in-out"
-                                        enterFrom="opacity-0"
-                                        leave="transition ease-in-out"
-                                        leaveTo="opacity-0"
-                                    >
-                                        <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
-                                    </Transition>
+                                <Transition
+                                    show={recentlySuccessful}
+                                    enter="transition ease-in-out"
+                                    enterFrom="opacity-0"
+                                    leave="transition ease-in-out"
+                                    leaveTo="opacity-0"
+                                >
+                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
+                                </Transition>
                                 <div className="xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4">
 
 
@@ -441,13 +468,12 @@ export default function Edit({ auth, property, state, country, typepropety, type
                                             <div className='col-span-2'>
                                                 <InputLabel htmlFor="direction" value="direction" />
 
-                                                <TextInput
+                                                <Textarea
                                                     id="direction"
                                                     type="text"
                                                     name="direction"
                                                     value={data.direction}
-                                                    className="block w-full"
-
+                                                    className="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                                     onChange={(e) => setData('direction', e.target.value)}
                                                 />
 
@@ -475,11 +501,11 @@ export default function Edit({ auth, property, state, country, typepropety, type
                                     </div>
 
                                 </div>
-                                    <div className="flex justify-end p-2.5">
-                                        <PrimaryButton >
-                                            Guardar
-                                        </PrimaryButton>
-                                    </div>
+                                <div className="flex justify-end p-2.5">
+                                    <PrimaryButton >
+                                        Guardar
+                                    </PrimaryButton>
+                                </div>
 
                             </form>
                         </div>
@@ -488,11 +514,11 @@ export default function Edit({ auth, property, state, country, typepropety, type
             </div>
 
             <div>
-                <ContainerTitle title={'Imagenes'} className='grid grid-cols-1 gap-4'>
 
-                    <img src={`/img/properties/${main}`} alt={main} className='w-40' />
 
-                    <form onSubmit={(e) => handleUpdateImages(e, images)}>
+                <form onSubmit={(e) => handleUpdateImages(e, images)}>
+                    <ContainerTitle title={'Imagenes'} className='grid grid-cols-1 gap-4'>
+                        <img src={`/img/properties/${main}`} alt={main} className='w-40' />
                         <div className='flex flex-col '>
                             <InputLabel>Imagen de portada</InputLabel>
                             <TextInput type="file" name="main" onChange={(e) => setData('main', e.target.files[0])} />
@@ -500,29 +526,28 @@ export default function Edit({ auth, property, state, country, typepropety, type
 
                         <div className="flex flex-row flex-nowrap gap-4 my-4">
 
-                        {images.map((image, index) => (
-                            <div key={index}>
+                            {images.map((image, index) => (
+                                <div key={index}>
                                     <div className="border rounded-lg">
                                         <img src={`/img/properties/${image.name}`} className='w-40 rounded-t-lg' alt={image.name} />
                                         <PrimaryButton className='my-2' onClick={() => handleDeleteImage(image.id, images)}>
                                             Eliminar
                                         </PrimaryButton>
                                     </div>
-                            </div>
-                        ))}
+                                </div>
+                            ))}
                         </div>
-                        <div  className='flex flex-col my-4'>
+                        <div className='flex flex-col my-4'>
                             <InputLabel>Imágenes adicionales</InputLabel>
                             <TextInput type="file" name="images" multiple onChange={(e) => setData('images', e.target.files)} />
                         </div>
+                    </ContainerTitle>
+                    <div className="flex justify-end p-2.5">
                         <PrimaryButton >
                             Guardar
                         </PrimaryButton>
-                    </form>
-                    <div>
-                        
                     </div>
-                </ContainerTitle>
+                </form>
             </div>
         </AuthenticatedLayout>
     )

@@ -21,8 +21,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
-
+        $tasks = Task::with('contact', 'user','property','typeTask')->get();
+        // dd($tasks);
         return Inertia::render('Tasks/Index', compact('tasks'));
     }
 

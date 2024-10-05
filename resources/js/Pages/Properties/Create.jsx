@@ -9,6 +9,7 @@ import makeAnaimated from 'react-select/animated';
 import { useState } from 'react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import { Textarea } from '@headlessui/react';
+import Breadcrumb from '@/Components/Breadcrumb';
 
 export default function Create({ auth, typepropety, typebusiness, country, state, city, phystate, amenities }) {
 
@@ -63,6 +64,29 @@ export default function Create({ auth, typepropety, typebusiness, country, state
         }),
     };
 
+    const items = [
+        {
+            name: 'Dashboard',
+            href: 'dashboard',
+            icon: {
+                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
+            },
+        },
+        {
+            name: 'Lista de propiedades',
+            href: 'properties.index',
+            icon: {
+                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
+            },
+        },
+        {
+            name: 'Crear propiedad',
+            icon: {
+                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
+            },
+        },
+    ];
+
     const animatedComponents = makeAnaimated()
 
     const handleAmenityChange = (options) => {
@@ -92,6 +116,9 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                 </div>
             }
         >
+
+            <Breadcrumb items={items} />
+
             <Head className="capitalize" title="Crear propiedad" />
 
             <div className="p-">
@@ -406,13 +433,12 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                             <div className='col-span-2'>
                                                 <InputLabel htmlFor="direction" value="direction" />
 
-                                                <TextInput
+                                                <Textarea
                                                     id="direction"
                                                     type="text"
                                                     name="direction"
                                                     value={data.direction}
-                                                    className="block w-full"
-
+                                                    className="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                                     onChange={(e) => setData('direction', e.target.value)}
                                                 />
 

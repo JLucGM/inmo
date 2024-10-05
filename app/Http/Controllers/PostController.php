@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Posts\StoreRequest;
 use App\Models\CategoryPost;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->only('name', 'content','status', 'extract','category_post_id');
         $data['user_id'] = Auth::id();

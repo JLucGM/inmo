@@ -4,6 +4,7 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import MultiLevelMenu from '@/Components/MultiLevelMenu';
 import UserIcon from '@/Components/Icon/UserIcon';
+import { Link } from '@inertiajs/react';
 
 export default function Authenticated({ user, header, children }) {
 
@@ -210,16 +211,23 @@ export default function Authenticated({ user, header, children }) {
             </div>
          </aside>
 
-         <div className="p-4 sm:ml-64 bg-white dark:bg-gray-800 min-h-screen">
-            <div className="p-4 mt-20">
+         <div className="sm:ml-64 bg-white dark:bg-gray-800 min-h-screen flex flex-col">
+            <div className="p-8 mt-20">
                {header && (
                   <header className="">
-                     <div className="max-w-7xl mx-auto py-6 ">{header}</div>
+                     <div className="max-w-7xl mx-auto py- ">{header}</div>
                   </header>
                )}
                <main className=''>{children}</main>
             </div>
+            <footer className='flex flex-col justify-end w-auto mt-auto border-t dark:border-t-gray-700'>
+               <div className="flex justify-center p-4 text-gray-800 dark:text-gray-200">
+
+               <p>© 2024 <Link href="#">Knots Agency</Link>. All rights reserved.</p>
+               </div>
+            </footer>
          </div>
+
 
       </>
    );
