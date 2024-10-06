@@ -156,19 +156,14 @@ class ContactsController extends Controller
         $contacts->delete();
     }
 
-    public function cross(Request $request)
-    {
-        //dd($request);
-        $contactId = $request->input('contact_id');
-        $propertyId = $request->input('property_id');
-
-        ContactProperty::create([
-            'contact_id' => $contactId,
-            'property_id' => $propertyId,
-        ]);
-
-        // Resto de la lógica del controlador
-    }
+    public function cross($contact_id, $property_id)
+{
+    // Resto de la lógica del controlador
+    ContactProperty::create([
+        'contact_id' => $contact_id,
+        'property_id' => $property_id,
+    ]);
+}
 
     public function deleteProperty(Request $request, $contactId, $propertyId)
     {

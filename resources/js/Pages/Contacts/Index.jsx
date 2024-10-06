@@ -16,7 +16,7 @@ export default function Index({ auth, contacts, properties }) {
 
     const initialValues = {
         contact_id: selectedContact ? selectedContact.id : "",
-        property_id: properties[0].id,
+        property_id: "",
     }
 
     useEffect(() => {
@@ -42,8 +42,8 @@ export default function Index({ auth, contacts, properties }) {
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
 
     const crossProperty = (propertyId) => {
-        setData('property_id', propertyId);
-        post(route('contacts-properties.cross'));
+        console.log(propertyId)
+        post(route('contacts-properties.cross', { contact_id: data.contact_id, property_id: propertyId }));
     };
 
     // const deleteProperty = (propertyId) => {

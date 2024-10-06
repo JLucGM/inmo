@@ -138,8 +138,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('contacts/{contacts}/edit', [ContactsController::class, 'edit'])->name('contacts.edit');
     Route::post('contacts/{contacts}', [ContactsController::class, 'update'])->name('contacts.update');
     Route::delete('contacts/{contacts}', [ContactsController::class, 'destroy'])->name('contacts.destroy');
-    Route::post('contacts-properties/cross', [ContactsController::class, 'cross'])->name('contacts-properties.cross');
-    //Route::delete('contacts-properties/delete', [ContactsController::class, 'deleteProperty'])->name('contacts-properties.delete');
+    Route::post('contacts-properties/cross/{contact_id}/{property_id}', [ContactsController::class, 'cross'])->name('contacts-properties.cross');    //Route::delete('contacts-properties/delete', [ContactsController::class, 'deleteProperty'])->name('contacts-properties.delete');
     Route::get('/contacts/{contactId}/properties', [ContactsController::class, 'getContactProperties'])->name('contacts.get-contact-properties');
     Route::delete('/contacts-properties/{contactId}/{propertyId}', [ContactsController::class, 'deleteProperty'])->name('contacts-properties.delete');
     
