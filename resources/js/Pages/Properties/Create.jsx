@@ -152,7 +152,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                 <select
                                                     name="typepropety_id"
                                                     id="typepropety"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                    className="capitalize border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                                     value={data.typepropety_id} // Establecer el valor del select con el valor de typepropety_id
                                                     onChange={(e) => {
                                                         setData('typepropety_id', parseInt(e.target.value));
@@ -174,7 +174,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                 <select
                                                     name="typebusiness_id"
                                                     id="typebusiness"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                    className="capitalize border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                                     value={data.typebusiness_id} // Establecer el valor del select con el valor de typebusiness_id
                                                     onChange={(e) => {
                                                         setData('typebusiness_id', parseInt(e.target.value));

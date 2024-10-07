@@ -5,6 +5,11 @@ import NavLink from '@/Components/NavLink';
 import MultiLevelMenu from '@/Components/MultiLevelMenu';
 import UserIcon from '@/Components/Icon/UserIcon';
 import { Link } from '@inertiajs/react';
+import HomeModern from '@/Components/Icon/HomeModern';
+import Folder from '@/Components/Icon/Folder';
+import DocumentText from '@/Components/Icon/DocumenteText';
+import PinMap from '@/Components/Icon/PinMap';
+import Gear from '@/Components/Icon/Gear';
 
 export default function Authenticated({ user, header, children }) {
 
@@ -59,7 +64,8 @@ export default function Authenticated({ user, header, children }) {
    ];
 
    const propertiesMenu = [
-      { label: 'Propiedades', route: 'properties.index' },
+      { label: 'Lista de Propiedades', route: 'properties.index' },
+      { label: 'Crear Propiedades', route: 'properties.create' },
       { label: 'Comodidades', route: 'amenities.index' },
       { label: 'Tipos de propiedades', route: 'typesproperties.index' },
       { label: 'Estados fisicos quitar', route: 'phyStates.index' },
@@ -156,7 +162,7 @@ export default function Authenticated({ user, header, children }) {
                   <li>
                      <MultiLevelMenu
                         name={'Propiedades'}
-                        svg={UserIcon}
+                        svg={HomeModern}
                         items={propertiesMenu}
                         toggle={'global-settings'}
                      />
@@ -165,7 +171,7 @@ export default function Authenticated({ user, header, children }) {
                   <li>
                      <MultiLevelMenu
                         name={'CRM'}
-                        svg={UserIcon}
+                        svg={Folder}
                         items={crm}
                         toggle={'global-settings'}
                      />
@@ -173,7 +179,7 @@ export default function Authenticated({ user, header, children }) {
                   <li>
                      <MultiLevelMenu
                         name={'blog'}
-                        svg={UserIcon}
+                        svg={DocumentText}
                         items={posts}
                         toggle={'global-settings'}
                      />
@@ -182,7 +188,7 @@ export default function Authenticated({ user, header, children }) {
                   <li>
                      <MultiLevelMenu
                         name={'Locaciones'}
-                        svg={UserIcon}
+                        svg={PinMap}
                         items={locations}
                         toggle={'locations'}
                      />
@@ -191,14 +197,14 @@ export default function Authenticated({ user, header, children }) {
                   <li>
                      <MultiLevelMenu
                         name={'Configuraciones globales'}
-                        svg={UserIcon}
+                        svg={Gear}
                         items={globalSettings}
                         toggle={'global-settings'}
                      />
                   </li>
 
 
-                  <li>
+                  {/* <li>
                      <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <svg className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                            <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z" />
@@ -206,7 +212,7 @@ export default function Authenticated({ user, header, children }) {
                         <span className="flex-1 ms-3 whitespace-nowrap">Inbox</span>
                         <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
                      </a>
-                  </li>
+                  </li> */}
                </ul>
             </div>
          </aside>

@@ -28,7 +28,7 @@ class ContactsController extends Controller
     public function index()
     {
         $contacts = Contacts::with('user')->with('typecontact')->with('statuscontact')->with('origin')->with('typeproperty')->with('country')->with('state')->with('city')->orderBy('name', 'asc')->get();
-        $properties = Property::all();
+        $properties = Property::with('country','state','city','typeproperty')->get();
 
         return Inertia::render('Contacts/Index', compact('contacts', 'properties'));
     }

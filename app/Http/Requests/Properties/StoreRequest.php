@@ -28,7 +28,7 @@ class StoreRequest extends FormRequest
             'images' => 'required',
             // 'price'  => 'required',
             //'description'  => 'required',
-            'identification' => 'required|numeric|max:20',
+            'identification' => 'required|numeric',
             //'bedrooms'  => 'required',
             //'bathrooms'  => 'required',
             //'totalMeters'  => 'required',
