@@ -10,6 +10,9 @@ import { useState } from 'react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import { Textarea } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
+import MapView from '@/Components/MapView';
+import { Marker, Popup, useMapEvents } from 'react-leaflet';
+
 
 export default function Create({ auth, typepropety, typebusiness, country, state, city, phystate, amenities }) {
 
@@ -105,6 +108,20 @@ export default function Create({ auth, typepropety, typebusiness, country, state
         })
         console.log(data)
     }
+
+
+    const [selectedLocation, setSelectedLocation] = useState(null);
+
+    function MapEventHandler() {
+        const map = useMapEvents({
+            click: (event) => {
+                const { lat, lng } = event.latlng;
+                setSelectedLocation([lat, lng]);
+            },
+        });
+        return null;
+    }
+console.log(selectedLocation)
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -443,6 +460,21 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                 />
 
                                                 <InputError message={errors.direction} className="mt-2" />
+                                            </div>
+
+                                            <div className="col-span-2">
+
+                                                <MapView>
+                                                    <MapEventHandler />
+                                                    {selectedLocation && (
+                                                        <Marker position={selectedLocation}>
+                                                            <Popup>
+                                                                Selected location: <br /> {selectedLocation[0]}, {selectedLocation[1]}
+                                                            </Popup>
+                                                        </Marker>
+                                                    )}
+                                                </MapView>
+
                                             </div>
 
                                         </ContainerTitle>
