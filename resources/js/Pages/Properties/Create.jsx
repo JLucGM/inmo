@@ -32,6 +32,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
         builtMeters: "",
         garages: "",
         direction: "",
+        coordinate: "",
         amenitiy: "",
         status: "0",
         types_properties_id: typepropety[0].id,
@@ -117,11 +118,13 @@ export default function Create({ auth, typepropety, typebusiness, country, state
             click: (event) => {
                 const { lat, lng } = event.latlng;
                 setSelectedLocation([lat, lng]);
+                setData('coordinate', `${lat},${lng}`);
             },
         });
         return null;
     }
-console.log(selectedLocation)
+
+    console.log(selectedLocation)
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -463,7 +466,6 @@ console.log(selectedLocation)
                                             </div>
 
                                             <div className="col-span-2">
-
                                                 <MapView>
                                                     <MapEventHandler />
                                                     {selectedLocation && (
@@ -474,7 +476,7 @@ console.log(selectedLocation)
                                                         </Marker>
                                                     )}
                                                 </MapView>
-
+                                                <input type="hidden" name="coordinate" value={data?.coordinate} />
                                             </div>
 
                                         </ContainerTitle>

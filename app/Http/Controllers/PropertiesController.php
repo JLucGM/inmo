@@ -67,6 +67,7 @@ class PropertiesController extends Controller
             'builtMeters',
             'garages',
             'direction',
+            'coordinate',
             'status',
             'types_properties_id',
             'phy_states_id',

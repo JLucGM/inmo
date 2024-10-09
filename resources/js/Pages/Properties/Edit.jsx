@@ -10,6 +10,8 @@ import makeAnaimated from 'react-select/animated';
 import { useState } from 'react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
+import { Marker } from 'react-leaflet';
+import MapView from '@/Components/MapView';
 
 export default function Edit({ auth, property, state, country, typepropety, typebusiness, city, phystate, amenities, propertyAmenities, images, main }) {
 
@@ -18,7 +20,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
     const [statesByCountry, setStatesByCountry] = useState(state);
     const [citiesByState, setCitiesByState] = useState(city);
     const [uploadedImages, setImages] = useState([]);
-
+    
 
     const initialValues = {
         name: property.name,
@@ -33,6 +35,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
         builtMeters: property.builtMeters,
         garages: property.garages,
         direction: property.direction,
+        coordinate: property.coordinate,
         amenitiy: property.amenitiy,
         status: property.status,
         types_properties_id: property.types_properties_id,
@@ -119,6 +122,16 @@ export default function Edit({ auth, property, state, country, typepropety, type
         post(route('properties.update', property))
         console.log(data)
     }
+
+    const [selectedCoordinate, setSelectedCoordinate] = useState(data.coordinate);
+
+    const handleMapClick = (e) => {
+        const coordinate = [e.latlng.lat, e.latlng.lng].join(',');
+        console.log()
+        setSelectedCoordinate(coordinate);
+        setData('coordinate', coordinate);
+      };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -479,6 +492,20 @@ export default function Edit({ auth, property, state, country, typepropety, type
 
                                                 <InputError message={errors.direction} className="mt-2" />
                                             </div>
+
+                                            <div className="col-span-2">
+                                            <MapView center={selectedCoordinate.split(',').map(Number)} onClick={handleMapClick}>
+  {selectedCoordinate && (
+    <Marker position={selectedCoordinate.split(',').map(Number)}>
+      {/* <Popup>
+        A pretty CSS3 popup. <br /> Easily customizable.
+      </Popup> */}
+    </Marker>
+  )}
+</MapView>
+<input type="hidden" name="coordinate" value={selectedCoordinate} />
+                                            </div>
+
                                         </ContainerTitle>
 
                                         <ContainerTitle title={'Caracteristicas'} className='grid grid-cols-1 gap-4'>
