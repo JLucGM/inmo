@@ -93,7 +93,7 @@ class UserController extends Controller
                 // Delete the existing image
                 unlink(public_path('img/profile/' . $user->avatar));
             }
-        } 
+        }
 
         $user->update($data);
 
@@ -104,12 +104,12 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(User $user)
-{
-    // Eliminar el avatar del usuario, pero no el default.jpg
-    if ($user->avatar && $user->avatar != 'default.jpg' && file_exists(public_path('img/profile/' . $user->avatar))) {
-        unlink(public_path('img/profile/' . $user->avatar));
+    {
+        // Eliminar el avatar del usuario, pero no el default.jpg
+        if ($user->avatar && $user->avatar != 'default.jpg' && file_exists(public_path('img/profile/' . $user->avatar))) {
+            unlink(public_path('img/profile/' . $user->avatar));
+        }
+
+        $user->delete();
     }
-    
-    $user->delete();
-}
 }

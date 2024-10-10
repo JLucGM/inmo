@@ -1,10 +1,12 @@
 import Breadcrumb from '@/Components/Breadcrumb';
+import ExclamationCircle from '@/Components/Icon/ExclamationCircleIcon';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Dialog, Description, DialogPanel, DialogTitle, Select, Transition, TabGroup, TabList, Tab, TabPanels, TabPanel, DialogBackdrop } from '@headlessui/react';
+import { Dialog, Description, DialogPanel, DialogTitle, Select, Transition, TabGroup, TabList, Tab, TabPanels, TabPanel, DialogBackdrop, Button } from '@headlessui/react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import PDF from '@/Components/PDF/PDF';
 
 export default function Index({ auth, contacts, properties }) {
     //console.log(contacts)
@@ -109,17 +111,23 @@ export default function Index({ auth, contacts, properties }) {
                             <div className="grid grid-cols-4">
                                 <TabList className="flex flex-col overflow-y-auto rounded-lg h-screen-[-175] border-e">
                                     {
-                                        contacts?.map((contact) => (
-                                            <Tab
-                                                key={contact.id}
-                                                className="py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
-                                                onClick={() => setSelectedContact(contact)}
-                                            >
-                                                {contact.name}
-
-                                            </Tab>
-                                        ))}
-
+                                        contacts?.length > 0 ? (
+                                            contacts.map((contact) => (
+                                                <Tab
+                                                    key={contact.id}
+                                                    className="py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
+                                                    onClick={() => setSelectedContact(contact)}
+                                                >
+                                                    {contact.name}
+                                                </Tab>
+                                            ))
+                                        ) : (
+                                            <div className="flex flex-col items-center p-4 text-gray-700 dark:text-gray-400">
+                                                <ExclamationCircle className="size-8" />
+                                                <p> No hay contactos creados.</p>
+                                            </div>
+                                        )
+                                    }
                                 </TabList>
                                 <TabPanels className="col-span-3 p-4">
                                     {
@@ -145,7 +153,7 @@ export default function Index({ auth, contacts, properties }) {
                                                         </div>
                                                         <TabList className={'flex justify-between'}>
                                                             <Tab className={'p-4 rounded-full data-[selected]:bg-blue-500 data-[selected]:text-white data-[hover]:underline capitalize'}>Información básica</Tab>
-                                                            <Tab className={'p-4 rounded-full data-[selected]:bg-blue-500 data-[selected]:text-white data-[hover]:underline capitalize'}>Demandas del inmueble</Tab>
+                                                            <Tab className={'p-4 rounded-full data-[selected]:bg-blue-500 data-[selected]:text-white data-[hover]:underline capitalize'}>Demandas del cliente</Tab>
                                                             <Tab className={'p-4 rounded-full data-[selected]:bg-blue-500 data-[selected]:text-white data-[hover]:underline capitalize'}>Cruce de propiedades</Tab>
                                                         </TabList>
                                                         <TabPanels className={'p-4 '}>
@@ -200,14 +208,11 @@ export default function Index({ auth, contacts, properties }) {
                                                                     </div>
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>Min budget:</span>
-                                                                        <p className='capitalize'> {selectedContact.min_budget}</p>
+                                                                        <span className='capitalize font-semibold text-lg'>budget:</span>
+                                                                        <p className='capitalize'> {selectedContact.min_budget} - {selectedContact.max_budget}</p>
                                                                     </div>
 
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold text-lg'>Max budget:</span>
-                                                                        <p className='capitalize'> {selectedContact.max_budget}</p>
-                                                                    </div>
+
 
                                                                     <div>
                                                                         <span className='capitalize font-semibold text-lg'>bedrooms:</span>
@@ -238,12 +243,12 @@ export default function Index({ auth, contacts, properties }) {
                                                                         <span className='capitalize font-semibold text-lg'>direction:</span>
                                                                         <p className='capitalize'> {selectedContact.direction}</p>
                                                                     </div>
+                                                                    <div className='col-span-full'>
+                                                                        <span className='capitalize font-semibold text-lg '>description:</span>
+                                                                        <p> {selectedContact.description}</p>
+                                                                    </div>
                                                                 </div>
 
-                                                                <div className='mt-4'>
-                                                                    <span className='capitalize font-semibold text-lg '>description:</span>
-                                                                    <p> {selectedContact.description}</p>
-                                                                </div>
                                                             </TabPanel>
                                                             <TabPanel>
                                                                 <Transition
@@ -279,7 +284,7 @@ export default function Index({ auth, contacts, properties }) {
                                                                                                 {property.name}
                                                                                             </button>
                                                                                         </td>
-                                                                                        <td className="px-4 py-2">
+                                                                                        <td className="px-4 py-2 flex justify-center space-x-4">
                                                                                             {contactProperties.find((cp) => cp.property_id === property.id) ? (
                                                                                                 <Link
                                                                                                     className='inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
@@ -292,12 +297,22 @@ export default function Index({ auth, contacts, properties }) {
                                                                                                 </Link>
                                                                                             ) : (
                                                                                                 <PrimaryButton
-                                                                                                    className="btn btn-primary"
                                                                                                     onClick={() => crossProperty(property.id)}
                                                                                                 >
                                                                                                     Asignar
                                                                                                 </PrimaryButton>
                                                                                             )}
+
+                                                                                            <PDFDownloadLink document={<PDF data={property} />} fileName='pfdprueba1.pdf'>
+
+                                                                                                <Button
+                                                                                                    className='inline-flex items-center px-4 py-2 bg-orange-800 dark:bg-orange-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
+                                                                                                >
+                                                                                                    PDF
+                                                                                                </Button>
+                                                                                            </PDFDownloadLink>
+
+
                                                                                         </td>
                                                                                     </tr>
                                                                                 ))
@@ -332,21 +347,36 @@ export default function Index({ auth, contacts, properties }) {
                     <DialogPanel className="w-[50rem] space-y-4 border bg-white text-white p-8 dark:bg-gray-800 dark:text-gray-400 rounded-2xl">
                         {selectedProperty ? (
                             <>
-                                <DialogTitle className="font-bold text-lg">{selectedProperty.name}</DialogTitle>
+                                <DialogTitle className="font-bold text-xl">{selectedProperty.name}</DialogTitle>
                                 <Description>Información de la propiedad</Description>
                                 <div className="xs:grid md:grid xs:grid-cols-1 md:grid-cols-3 gap-4">
 
-                                    <img src={`/img/properties/${selectedProperty.main}`} alt={selectedProperty.main} className='w-auto mb-4 rounded-lg' />
+                                    <div className="xs:col-span-1 md:col-span-1">
+                                        <img src={`/img/properties/${selectedProperty.main}`} alt={selectedProperty.main} className='w-auto mb-4 rounded-lg' />
+                                    </div>
 
                                     <div className="xs:col-span-1 md:col-span-2">
                                         <p className='capitalize'>N. Identification: {selectedProperty.identification}</p>
                                         <p className='capitalize'>Nombre: {selectedProperty.name}</p>
+                                        <p className='capitalize'>Precio: {selectedProperty.price}</p>
                                         <p className='capitalize'>typeproperty: {selectedProperty.typeproperty.name}</p>
-                                        <p className='capitalize'>Dirección: {selectedProperty.direction}, {selectedProperty.country.name}, {selectedProperty.state.name}, {selectedProperty.city.name}</p>
                                         <p className='capitalize'>bathrooms: {selectedProperty.bathrooms}</p>
+                                        <p className='capitalize'>totalMeters: {selectedProperty.totalMeters}</p>
+                                        <p className='capitalize'>builtMeters: {selectedProperty.builtMeters}</p>
                                         <p className='capitalize'>bedrooms: {selectedProperty.bedrooms}</p>
                                         <p className='capitalize'>garages: {selectedProperty.garages}</p>
-                                        <p className='capitalize'>Precio: {selectedProperty.price}</p>
+                                        <p className='capitalize'>Dirección: {selectedProperty.direction}, {selectedProperty.country.name}, {selectedProperty.state.name}, {selectedProperty.city.name}</p>
+                                    </div>
+
+                                    <div className="col-span-full">
+                                        <p className='text-lg'>Comodidades</p>
+                                        {selectedProperty.amenities.map((amenity, index) => (
+                                            <p key={index}>{amenity.name}</p>
+                                        ))}
+                                    </div>
+                                    <div className="col-span-full">
+                                        <p className='capitalize'>description: {selectedProperty.description}</p>
+
                                     </div>
                                 </div>
                             </>
