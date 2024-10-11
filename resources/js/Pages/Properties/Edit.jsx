@@ -35,7 +35,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
         builtMeters: property.builtMeters,
         garages: property.garages,
         direction: property.direction,
-        coordinate: property.coordinate,
+        // coordinate: property.coordinate,
         amenitiy: property.amenitiy,
         status: property.status,
         types_properties_id: property.types_properties_id,
@@ -123,14 +123,14 @@ export default function Edit({ auth, property, state, country, typepropety, type
         console.log(data)
     }
 
-    const [selectedCoordinate, setSelectedCoordinate] = useState(data.coordinate);
+    // const [selectedCoordinate, setSelectedCoordinate] = useState(data.coordinate);
 
-    const handleMapClick = (e) => {
-        const coordinate = [e.latlng.lat, e.latlng.lng].join(',');
-        console.log()
-        setSelectedCoordinate(coordinate);
-        setData('coordinate', coordinate);
-      };
+    // const handleMapClick = (e) => {
+    //     const coordinate = [e.latlng.lat, e.latlng.lng].join(',');
+    //     console.log()
+    //     setSelectedCoordinate(coordinate);
+    //     setData('coordinate', coordinate);
+    //   };
 
     return (
         <AuthenticatedLayout
@@ -493,18 +493,18 @@ export default function Edit({ auth, property, state, country, typepropety, type
                                                 <InputError message={errors.direction} className="mt-2" />
                                             </div>
 
-                                            <div className="col-span-2">
+                                            {/* <div className="col-span-2">
                                             <MapView center={selectedCoordinate.split(',').map(Number)} onClick={handleMapClick}>
   {selectedCoordinate && (
     <Marker position={selectedCoordinate.split(',').map(Number)}>
-      {/* <Popup>
+       <Popup>
         A pretty CSS3 popup. <br /> Easily customizable.
-      </Popup> */}
+      </Popup> 
     </Marker>
   )}
 </MapView>
 <input type="hidden" name="coordinate" value={selectedCoordinate} />
-                                            </div>
+                                            </div> */}
 
                                         </ContainerTitle>
 

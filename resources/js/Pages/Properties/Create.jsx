@@ -32,7 +32,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
         builtMeters: "",
         garages: "",
         direction: "",
-        coordinate: "",
+        // coordinate: "",
         amenitiy: "",
         status: "0",
         types_properties_id: typepropety[0].id,
@@ -111,20 +111,20 @@ export default function Create({ auth, typepropety, typebusiness, country, state
     }
 
 
-    const [selectedLocation, setSelectedLocation] = useState(null);
+    // const [selectedLocation, setSelectedLocation] = useState(null);
 
-    function MapEventHandler() {
-        const map = useMapEvents({
-            click: (event) => {
-                const { lat, lng } = event.latlng;
-                setSelectedLocation([lat, lng]);
-                setData('coordinate', `${lat},${lng}`);
-            },
-        });
-        return null;
-    }
+    // function MapEventHandler() {
+    //     const map = useMapEvents({
+    //         click: (event) => {
+    //             const { lat, lng } = event.latlng;
+    //             setSelectedLocation([lat, lng]);
+    //             setData('coordinate', `${lat},${lng}`);
+    //         },
+    //     });
+    //     return null;
+    // }
 
-    console.log(selectedLocation)
+    // console.log(selectedLocation)
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -170,12 +170,12 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                 <InputLabel htmlFor="typepropety" value="Tipo de propiedad" />
 
                                                 <select
-                                                    name="typepropety_id"
+                                                    name="types_properties_id"
                                                     id="typepropety"
                                                     className="capitalize border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.typepropety_id} // Establecer el valor del select con el valor de typepropety_id
+                                                    value={data.types_properties_id} // Establecer el valor del select con el valor de types_properties_id
                                                     onChange={(e) => {
-                                                        setData('typepropety_id', parseInt(e.target.value));
+                                                        setData('types_properties_id', parseInt(e.target.value));
                                                     }}
                                                 >
                                                     {typepropety.map((typepropety) => (
@@ -192,12 +192,12 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                 <InputLabel htmlFor="typebusiness" value="typebusiness" />
 
                                                 <select
-                                                    name="typebusiness_id"
+                                                    name="types_businesses_id"
                                                     id="typebusiness"
                                                     className="capitalize border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.typebusiness_id} // Establecer el valor del select con el valor de typebusiness_id
+                                                    value={data.types_businesses_id} // Establecer el valor del select con el valor de types_businesses_id
                                                     onChange={(e) => {
-                                                        setData('typebusiness_id', parseInt(e.target.value));
+                                                        setData('types_businesses_id', parseInt(e.target.value));
                                                     }}
                                                 >
                                                     {typebusiness.map((typebusiness) => (
@@ -465,7 +465,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                 <InputError message={errors.direction} className="mt-2" />
                                             </div>
 
-                                            <div className="col-span-2">
+                                            {/* <div className="col-span-2">
                                                 <MapView>
                                                     <MapEventHandler />
                                                     {selectedLocation && (
@@ -477,7 +477,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                     )}
                                                 </MapView>
                                                 <input type="hidden" name="coordinate" value={data?.coordinate} />
-                                            </div>
+                                            </div> */}
 
                                         </ContainerTitle>
 
