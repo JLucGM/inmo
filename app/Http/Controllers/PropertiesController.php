@@ -27,7 +27,7 @@ class PropertiesController extends Controller
      */
     public function index()
     {
-        $properties = Property::with('country', 'state', 'city','user')->get();
+        $properties = Property::with('country', 'state', 'city', 'user')->get();
 
         return Inertia::render('Properties/Index', compact('properties'));
     }
@@ -82,7 +82,7 @@ class PropertiesController extends Controller
         // AGREGAR main
         if ($request->hasFile('main')) {
             $image = $request->file('main');
-            $nombreImagen = time() . '-' .$image->getClientOriginalName();
+            $nombreImagen = time() . '-' . $image->getClientOriginalName();
             $image->move(public_path('img/properties'), $nombreImagen);
             $data['main'] = $nombreImagen;
         } else {
@@ -97,9 +97,9 @@ class PropertiesController extends Controller
                 foreach ($images as $index => $image) {
                     $nombreImagen[$index] = [
                         'id' => $index + 1, // Asigna un ID basado en el índice del array
-                        'name' => time() . '-' .$image->getClientOriginalName()
+                        'name' => time() . '-' . $image->getClientOriginalName()
                     ];
-                    $image->move(public_path('img/properties'), time() . '-' .$image->getClientOriginalName());
+                    $image->move(public_path('img/properties'), time() . '-' . $image->getClientOriginalName());
                 }
                 $jsonImagenes = json_encode($nombreImagen);
 
@@ -214,7 +214,7 @@ class PropertiesController extends Controller
             }
 
             $mainImage = $request->file('main');
-            $mainImageName = time() . '-' .$mainImage->getClientOriginalName();
+            $mainImageName = time() . '-' . $mainImage->getClientOriginalName();
             $mainImage->move(public_path("/img/properties/"), $mainImageName);
 
             $property->main = $mainImageName;
@@ -315,5 +315,10 @@ class PropertiesController extends Controller
         }
 
         $property->delete();
+    }
+
+    public function frontendShow(Property $property)
+    {
+        return Inertia::render('Frontend/Property', compact('property'));
     }
 }

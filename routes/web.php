@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\AmenitiesController;
-use App\Http\Controllers\CategoryAmenitiesController;
 use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\FaqsController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\InfowebController;
 use App\Http\Controllers\OriginsController;
 use App\Http\Controllers\PageController;
@@ -28,14 +28,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [FrontendController::class, 'welcome']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -206,5 +199,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::post('faqs/{faqs}', [FaqsController::class, 'update'])->name('faqs.update');
     Route::delete('faqs/{faqs}', [FaqsController::class, 'destroy'])->name('faqs.destroy');
 });
+
+Route::get('property/{property}', [PropertiesController::class, 'frontendShow'])->name('property.show');
 
 require __DIR__ . '/auth.php';
