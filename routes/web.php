@@ -200,6 +200,6 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::delete('faqs/{faqs}', [FaqsController::class, 'destroy'])->name('faqs.destroy');
 });
 
-Route::get('property/{property}', [PropertiesController::class, 'frontendShow'])->name('property.show');
+Route::get('property/{property}', [FrontendController::class, 'frontendShow'])->name('property.show');
 
 require __DIR__ . '/auth.php';

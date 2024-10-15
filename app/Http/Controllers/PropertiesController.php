@@ -317,8 +317,5 @@ class PropertiesController extends Controller
         $property->delete();
     }
 
-    public function frontendShow(Property $property)
-    {
-        return Inertia::render('Frontend/Property', compact('property'));
-    }
+    
 }
