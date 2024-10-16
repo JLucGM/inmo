@@ -78,8 +78,9 @@ class ContactsController extends Controller
             'country_id',
             'state_id',
             'city_id',
+            'user_id',
         );
-        $data['user_id'] = Auth::id();
+        // $data['user_id'] = Auth::id();
 
         Contacts::create($data);
 

@@ -8,8 +8,13 @@ export default function ProductsList({ auth, property, images, propertyAmenities
     <FrontedLayout auth={auth} setting={setting}>
       <Head title={property.name} />
 
-      <PropertySection data={property} images={images} amenities={propertyAmenities} />
-      
+      <PropertySection
+        datas={property}
+        images={images}
+        amenities={propertyAmenities}
+        setting={setting}
+      />
+
     </FrontedLayout>
   )
 }

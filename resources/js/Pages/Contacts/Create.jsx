@@ -46,7 +46,7 @@ export default function Create({ auth, typepropety, country, state, city, users,
         e.preventDefault();
 
         post(route('contacts.store'))
-        console.log(data)
+        // console.log(data)
     }
 
     const items = [

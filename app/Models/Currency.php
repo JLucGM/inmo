@@ -23,10 +23,15 @@ class Currency extends Model
         return 'slug';
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
+    }
+
+    public function settings()
+    {
+        return $this->hasMany(Setting::class);
     }
 }

@@ -35,4 +35,9 @@ class Setting extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
+    }
 }

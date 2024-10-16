@@ -201,5 +201,6 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 });
 
 Route::get('property/{property}', [FrontendController::class, 'frontendShow'])->name('property.show');
+Route::post('contact/{property}', [FrontendController::class, 'storeContact'])->name('storeContact.store');
 
 require __DIR__ . '/auth.php';

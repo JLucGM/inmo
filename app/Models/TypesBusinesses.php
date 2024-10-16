@@ -21,7 +21,7 @@ class TypesBusinesses extends Model
         return 'slug';
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
@@ -30,6 +30,6 @@ class TypesBusinesses extends Model
 
     public function properties()
     {
-        return $this->hasMany(Property::class);
+        return $this->hasMany(Property::class, 'types_businesses_id');
     }
 }
