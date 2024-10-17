@@ -32,18 +32,20 @@ const products = [
     { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
 ]
 const callsToAction = [
-    { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-    { name: 'Contact sales', href: '#', icon: PhoneIcon },
+    { name: 'Watch demo', href: 'ContactPage.index', icon: PlayCircleIcon },
+    { name: 'Contact sales', href: 'ContactPage.index', icon: PhoneIcon },
 ]
 
 export default function MegaMenu({ auth, setting }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
+    // console.log(setting.logo)
     return (
         <header className="bg-white">
             <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
                 <div className="flex lg:flex-1">
-                    <a href="#" className="-m-1.5 p-1.5">
+                    <Link
+                        href={route('home')}
+                        className="-m-1.5 p-1.5">
                         <span className="sr-only">Your Company</span>
                         <img
                             alt=""
@@ -51,7 +53,7 @@ export default function MegaMenu({ auth, setting }) {
                             className="h-8 w-auto"
                         />
 
-                    </a>
+                    </Link>
                 </div>
                 <div className="flex lg:hidden">
                     <button
@@ -66,7 +68,7 @@ export default function MegaMenu({ auth, setting }) {
                 <PopoverGroup className="hidden lg:flex lg:gap-x-12">
                     <Popover className="relative">
                         <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-                            Product 
+                            Product
                             <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
                         </PopoverButton>
 
@@ -95,22 +97,23 @@ export default function MegaMenu({ auth, setting }) {
                             </div>
                             <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
                                 {callsToAction.map((item) => (
-                                    <a
+                                    <Link
                                         key={item.name}
-                                        href={item.href}
+                                        // href={item.href}
+                                        href={route(item.href)}
                                         className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
                                     >
                                         <item.icon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
                                         {item.name}
-                                    </a>
+                                    </Link>
                                 ))}
                             </div>
                         </PopoverPanel>
                     </Popover>
 
-                    <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-                        Features
-                    </a>
+                    <Link href={route('blog.show')} className="text-sm font-semibold leading-6 text-gray-900">
+                        Blog
+                    </Link>
                     <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
                         Marketplace
                     </a>
@@ -176,14 +179,14 @@ export default function MegaMenu({ auth, setting }) {
                                     </DisclosureButton>
                                     <DisclosurePanel className="mt-2 space-y-2">
                                         {[...products, ...callsToAction].map((item) => (
-                                            <DisclosureButton
+                                            <Link
                                                 key={item.name}
                                                 as="a"
                                                 href={item.href}
                                                 className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                             >
                                                 {item.name}
-                                            </DisclosureButton>
+                                            </Link>
                                         ))}
                                     </DisclosurePanel>
                                 </Disclosure>

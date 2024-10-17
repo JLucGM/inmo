@@ -28,7 +28,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', [FrontendController::class, 'welcome']);
+Route::get('/', [FrontendController::class, 'welcome'])->name('home');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -202,5 +202,9 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 
 Route::get('property/{property}', [FrontendController::class, 'frontendShow'])->name('property.show');
 Route::post('contact/{property}', [FrontendController::class, 'storeContact'])->name('storeContact.store');
+Route::get('contact', [FrontendController::class, 'ContactPage'])->name('ContactPage.index');
+Route::post('contact', [FrontendController::class, 'storeContactPages'])->name('ContactPage.store');
+Route::get('faqs', [FrontendController::class, 'faqs'])->name('faqs.show');
+Route::get('blog', [FrontendController::class, 'blog'])->name('blog.show');
 
 require __DIR__ . '/auth.php';

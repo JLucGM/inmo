@@ -9,7 +9,7 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import PDF from '@/Components/PDF/PDF';
 
 export default function Index({ auth, contacts, properties }) {
-    //console.log(contacts)
+    console.log(contacts)
     let [isOpen, setIsOpen] = useState(false)
     const [selectedProperty, setSelectedProperty] = useState(null);
     const [selectedContact, setSelectedContact] = useState(null);
@@ -137,7 +137,7 @@ export default function Index({ auth, contacts, properties }) {
                                                     <TabGroup className={'dark:text-gray-400'}>
                                                         <div className="flex justify-between mb-4">
 
-                                                            <p className='capitalize font-semibold'>{selectedContact.name}</p>
+                                                            <p className='capitalize font-semibold'>{selectedContact.name ? selectedContact.name : 'no disponible'}</p>
                                                             <div className='space-x-4'>
                                                                 <Link
                                                                     className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -161,12 +161,12 @@ export default function Index({ auth, contacts, properties }) {
                                                                 <div className="grid grid-cols-3 gap-5">
                                                                     <div>
                                                                         <span className='capitalize font-semibold text-lg'> Nombre:</span>
-                                                                        <p className='capitalize'> {selectedContact.name}</p>
+                                                                        <p className='capitalize'> {selectedContact.name ? selectedContact.name : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
                                                                         <span className='capitalize font-semibold text-lg'>Email:</span>
-                                                                        <p className='capitalize'> {selectedContact.email}</p>
+                                                                        <p className='capitalize'> {selectedContact.email ? selectedContact.email : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
@@ -176,27 +176,27 @@ export default function Index({ auth, contacts, properties }) {
 
                                                                     <div>
                                                                         <span className='capitalize font-semibold text-lg'>Teléfono:</span>
-                                                                        <p className='capitalize'>{selectedContact.phone}</p>
+                                                                        <p className='capitalize'>{selectedContact.phone ? selectedContact.phone : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>Encargado:</span>
-                                                                        <p className='capitalize'> {selectedContact.user.name}</p>
-                                                                    </div>
+    <span className='capitalize font-semibold text-lg'>Encargado:</span>
+    <p className='capitalize'>{selectedContact?.user?.name || 'no disponible'}</p>
+</div>
 
                                                                     <div>
                                                                         <span className='capitalize font-semibold text-lg'>tipo de contacto:</span>
-                                                                        <p className='capitalize'>{selectedContact.typecontact.name}</p>
+                                                                        <p className='capitalize'>{selectedContact.typecontact.name ? selectedContact.typecontact.name : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
                                                                         <span className='capitalize font-semibold text-lg'>status de contacto:</span>
-                                                                        <p className='capitalize'> {selectedContact.statuscontact.name}</p>
+                                                                        <p className='capitalize'> {selectedContact.statuscontact.name ? selectedContact.statuscontact.name : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
                                                                         <span className='capitalize font-semibold text-lg'>Medio de captacion:</span>
-                                                                        <p className='capitalize'> {selectedContact.origin.name}</p>
+                                                                        <p className='capitalize'> {selectedContact.origin.name ? selectedContact.origin.name : 'no disponible'}</p>
                                                                     </div>
                                                                 </div>
                                                             </TabPanel>
@@ -204,7 +204,7 @@ export default function Index({ auth, contacts, properties }) {
                                                                 <div className="grid grid-cols-3 gap-5">
                                                                     <div>
                                                                         <span className='capitalize font-semibold text-lg'>tipo de propiedad:</span>
-                                                                        <p className='capitalize'> {selectedContact.typeproperty.name}</p>
+                                                                        <p className='capitalize'> {selectedContact.typeproperty.name ? selectedContact.typeproperty.name : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
@@ -226,17 +226,17 @@ export default function Index({ auth, contacts, properties }) {
 
                                                                     <div>
                                                                         <span className='capitalize font-semibold text-lg'>Pais:</span>
-                                                                        <p className='capitalize'> {selectedContact.country.name}</p>
+                                                                        <p className='capitalize'> {selectedContact.country.name ? selectedContact.country.name : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
                                                                         <span className='capitalize font-semibold text-lg'>Estado:</span>
-                                                                        <p className='capitalize'> {selectedContact.state.name}</p>
+                                                                        <p className='capitalize'> {selectedContact.state.name ? selectedContact.state.name : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
                                                                         <span className='capitalize font-semibold text-lg'>Ciudad:</span>
-                                                                        <p className='capitalize'> {selectedContact.city.name}</p>
+                                                                        <p className='capitalize'> {selectedContact.city.name ? selectedContact.city.name : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
@@ -347,7 +347,7 @@ export default function Index({ auth, contacts, properties }) {
                     <DialogPanel className="w-[50rem] space-y-4 border bg-white text-white p-8 dark:bg-gray-800 dark:text-gray-400 rounded-2xl">
                         {selectedProperty ? (
                             <>
-                                <DialogTitle className="font-bold text-xl">{selectedProperty.name || 'Nombre no disponible'}</DialogTitle>
+                                <DialogTitle className="font-bold text-xl">{selectedProperty.name ? selectedContact.name : 'no disponible'}</DialogTitle>
                                 <Description>Información de la propiedad</Description>
                                 <div className="xs:grid md:grid xs:grid-cols-1 md:grid-cols-3 gap-4">
 
@@ -356,16 +356,16 @@ export default function Index({ auth, contacts, properties }) {
                                     </div>
 
                                     <div className="xs:col-span-1 md:col-span-2">
-                                        <p className='capitalize'>N. Identification: {selectedProperty.identification}</p>
-                                        <p className='capitalize'>Nombre: {selectedProperty.name || 'Nombre no disponible'}</p>
-                                        <p className='capitalize'>Precio: {selectedProperty.price || 'Nombre no disponible'}</p>
-                                        <p className='capitalize'>typeproperty: {selectedProperty.typeproperty.name || 'Nombre no disponible'}</p>
-                                        <p className='capitalize'>bathrooms: {selectedProperty.bathrooms || 'Nombre no disponible'}</p>
-                                        <p className='capitalize'>totalMeters: {selectedProperty.totalMeters || 'Nombre no disponible'}</p>
-                                        <p className='capitalize'>builtMeters: {selectedProperty.builtMeters || 'Nombre no disponible'}</p>
-                                        <p className='capitalize'>bedrooms: {selectedProperty.bedrooms || 'Nombre no disponible'}</p>
-                                        <p className='capitalize'>garages: {selectedProperty.garages || 'Nombre no disponible'}</p>
-                                        <p className='capitalize'>Dirección: {selectedProperty.direction || 'Nombre no disponible'}, {selectedProperty.country.name}, {selectedProperty.state.name}, {selectedProperty.city.name}</p>
+                                        <p className='capitalize'>N. Identification: {selectedProperty.identification ? selectedContact.identification : 'no disponible'}</p>
+                                        <p className='capitalize'>Nombre: {selectedProperty.name ? selectedContact.name : 'no disponible'}</p>
+                                        <p className='capitalize'>Precio: {selectedProperty.price ? selectedContact.price : 'no disponible'}</p>
+                                        <p className='capitalize'>typeproperty: {selectedProperty.typeproperty.name ? selectedContact.typeproperty.name : 'no disponible'}</p>
+                                        <p className='capitalize'>bathrooms: {selectedProperty.bathrooms ? selectedContact.bathrooms : 'no disponible'}</p>
+                                        <p className='capitalize'>totalMeters: {selectedProperty.totalMeters ? selectedContact.totalMeters : 'no disponible'}</p>
+                                        <p className='capitalize'>builtMeters: {selectedProperty.builtMeters ? selectedContact.builtMeters : 'no disponible'}</p>
+                                        <p className='capitalize'>bedrooms: {selectedProperty.bedrooms ? selectedContact.bedrooms : 'no disponible'}</p>
+                                        <p className='capitalize'>garages: {selectedProperty.garages ? selectedContact.garages : 'no disponible'}</p>
+                                        <p className='capitalize'>Dirección: {selectedProperty.direction ? selectedContact.direction : 'no disponible'}, {selectedProperty.country.name}, {selectedProperty.state.name}, {selectedProperty.city.name}</p>
                                     </div>
 
                                     <div className="col-span-full">
@@ -375,7 +375,7 @@ export default function Index({ auth, contacts, properties }) {
                                         ))}
                                     </div>
                                     <div className="col-span-full">
-                                        <p className='capitalize'>description: {selectedProperty.description}</p>
+                                        <p className='capitalize'>description: {selectedProperty.description ? selectedContact.description : 'no disponible'}</p>
 
                                     </div>
                                 </div>

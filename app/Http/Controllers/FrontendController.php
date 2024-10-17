@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contacts;
+use App\Models\Faqs;
 use App\Models\Infoweb;
+use App\Models\Post;
 use App\Models\Property;
 use App\Models\Setting;
 use App\Models\Slide;
@@ -36,6 +38,50 @@ class FrontendController extends Controller
         return Inertia::render('Frontend/Property', compact('property', 'setting', 'images', 'propertyAmenities'));
     }
 
+    
+    public function blog()
+    {
+        $setting = Setting::with('currency')->first();
+        $posts = Post::where('status', 1)->get();
+        
+        return Inertia::render('Frontend/Blog', compact('setting', 'posts'));
+    }
+    public function faqs()
+    {
+        $setting = Setting::with('currency')->first();
+        $faqs = Faqs::all();
+        
+        return Inertia::render('Frontend/Faqs', compact('setting', 'faqs'));
+    }
+    
+    public function ContactPage()
+    {
+        $setting = Setting::with('currency')->first();
+
+        return Inertia::render('Frontend/Contact', compact('setting'));
+
+    }
+
+    public function storeContactPages(Request $request)
+    {
+        //  dd($request, $property);
+        $data = $request->only(
+            'name',
+            'email',
+            'phone',
+            'description',
+            'types_contacts_id',
+            'types_properties_id',
+            'status_contacts_id',
+            'origin_id',
+            'country_id',
+            'state_id',
+            'city_id',
+        );
+
+        Contacts::create($data);
+    }
+    
     public function storeContact(Request $request, $property)
     {
         //  dd($request, $property);
@@ -43,6 +89,7 @@ class FrontendController extends Controller
             'name',
             'email',
             'phone',
+            'description',
             'types_contacts_id',
             'types_properties_id',
             'status_contacts_id',
@@ -54,7 +101,7 @@ class FrontendController extends Controller
         );
 
         Contacts::create($data);
-
-        // return to_route('property.show', $property);
     }
+
+
 }

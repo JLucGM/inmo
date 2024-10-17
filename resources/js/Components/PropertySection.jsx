@@ -1,4 +1,4 @@
-import { Button, Radio, RadioGroup, Transition } from '@headlessui/react'
+import { Transition } from '@headlessui/react'
 import SwiperCustom from './SwiperCustom'
 import { SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
@@ -14,6 +14,7 @@ export default function PropertySection({ datas, images, amenities, setting }) {
     name: "",
     email: "",
     phone: "",
+    description: "",
     status_contacts_id: 1,
     types_contacts_id: 1,
     types_properties_id: 1,
@@ -103,7 +104,8 @@ export default function PropertySection({ datas, images, amenities, setting }) {
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-
+            <h2 className="capitalize text-lg font-medium text-gray-900">Contactanos</h2>
+            <p className=" text-sm font-medium text-gray-900">Si esta interesado con la propiedad, escribenos y el agente inmobiliario de contactara.</p>
             <div className="mt-4 ">
               <div className="flex flex-col items-center">
 
@@ -135,6 +137,7 @@ export default function PropertySection({ datas, images, amenities, setting }) {
 
                   <InputError message={errors.name} className="mt-2" />
                 </div>
+                
                 <div>
                   <InputLabel htmlFor="email" value="email" />
 
@@ -164,6 +167,22 @@ export default function PropertySection({ datas, images, amenities, setting }) {
                   />
 
                   <InputError message={errors.phone} className="mt-2" />
+                </div>
+
+                <div>
+                  <InputLabel htmlFor="description" value="description" />
+
+                  <TextInput
+                    id="description"
+                    type="text"
+                    name="description"
+                    value={data.description}
+                    className="mt-1 block w-full"
+                    isFocused={true}
+                    onChange={(e) => setData('description', e.target.value)}
+                  />
+
+                  <InputError message={errors.description} className="mt-2" />
                 </div>
 
                 <div className="flex justify-end p-2.5">
