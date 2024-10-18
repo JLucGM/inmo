@@ -38,14 +38,14 @@ export default function Edit({ auth, document, contacts, properties, users }) {
             },
         },
         {
-            name: 'Lista de tareas',
+            name: 'Lista de documentos',
             href: 'documents.index',
             icon: {
                 path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
             },
         },
         {
-            name: 'Actualizar Tarea',
+            name: 'Actualizar documento',
             icon: {
                 path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
             },
@@ -58,7 +58,7 @@ export default function Edit({ auth, document, contacts, properties, users }) {
 
                 <>
                     <div className='flex justify-between items-center'>
-                        <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Tarea</h2>
+                        <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar documento</h2>
                         <Link href={route('documents.create')}
                             className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                         >
@@ -70,7 +70,7 @@ export default function Edit({ auth, document, contacts, properties, users }) {
         >
             <Breadcrumb items={items} />
 
-            <Head className="capitalize" title="Actualizar Tarea" />
+            <Head className="capitalize" title="Actualizar documento" />
 
             <div className="">
                 <div className="max-w-7xl mx-auto ">
