@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\CountriesController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\InfowebController;
@@ -198,6 +199,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('faqs/{faqs}/edit', [FaqsController::class, 'edit'])->name('faqs.edit');
     Route::post('faqs/{faqs}', [FaqsController::class, 'update'])->name('faqs.update');
     Route::delete('faqs/{faqs}', [FaqsController::class, 'destroy'])->name('faqs.destroy');
+    
+    Route::get('documents', [DocumentController::class, 'index'])->name('documents.index');
+    Route::get('documents/create', [DocumentController::class, 'create'])->name('documents.create');
+    Route::post('documents', [DocumentController::class, 'store'])->name('documents.store');
+    Route::get('documents/{document}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
+    Route::post('documents/{document}', [DocumentController::class, 'update'])->name('documents.update');
+    Route::delete('documents/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
 });
 
 Route::get('property/{property}', [FrontendController::class, 'frontendShow'])->name('property.show');

@@ -222,6 +222,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                 >
                                                     <option value={0}>Borrador</option>
                                                     <option value={1}>Publicar</option>
+                                                    <option value={2}>Vendido</option>
                                                 </select>
 
                                                 <InputError message={errors.status} className="mt-2" />

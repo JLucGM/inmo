@@ -98,4 +98,9 @@ class Property extends Model
     {
         return $this->belongsToMany(Contacts::class, 'contact_properties', 'property_id', 'contact_id');
     }
+
+    public function property()
+    {
+        return $this->belongsTo(Property::class, 'property_id');
+    }
 }

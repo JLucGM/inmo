@@ -244,6 +244,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
                                                 >
                                                     <option value={0}>Borrador</option>
                                                     <option value={1}>Publicar</option>
+                                                    <option value={2}>Vendido</option>
                                                 </select>
 
                                                 <InputError message={errors.status} className="mt-2" />
