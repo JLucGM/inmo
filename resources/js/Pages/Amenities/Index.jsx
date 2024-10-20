@@ -25,15 +25,15 @@ export default function Index({ auth, amenities }) {
         {
             header: "Nombre",
             accessorKey: "name",
-            expanded: (row) => {
-                // Aquí puedes agregar la información adicional que deseas mostrar
-                return (
-                    <div>
-                        <p>id {row.original.id}</p>
-                        <p>Nombre: {row.original.name}</p>
-                    </div>
-                );
-            },
+            // expanded: (row) => {
+            //     // Aquí puedes agregar la información adicional que deseas mostrar
+            //     return (
+            //         <div>
+            //             <p>id {row.original.id}</p>
+            //             <p>Nombre: {row.original.name}</p>
+            //         </div>
+            //     );
+            // },
         }
     ]
 

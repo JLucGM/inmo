@@ -214,5 +214,6 @@ Route::get('contact', [FrontendController::class, 'ContactPage'])->name('Contact
 Route::post('contact', [FrontendController::class, 'storeContactPages'])->name('ContactPage.store');
 Route::get('faqs', [FrontendController::class, 'faqs'])->name('faqs.show');
 Route::get('blog', [FrontendController::class, 'blog'])->name('blog.show');
+Route::get('posts/{slug}', [FrontendController::class, 'postsShow'])->name('posts.show');
 
 require __DIR__ . '/auth.php';

@@ -33,4 +33,14 @@ class Post extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
+    public function categoryPost()
+    {
+        return $this->belongsTo(CategoryPost::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

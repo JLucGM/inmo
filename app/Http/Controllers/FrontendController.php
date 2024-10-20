@@ -20,7 +20,7 @@ class FrontendController extends Controller
     {
         $setting = Setting::first();
         $slides = Slide::where('status', '1')->first();
-        $properties = Property::with('country', 'state', 'city')->get();
+        $properties = Property::with('country', 'state', 'city')->where('status', '1')->get();
         $infoweb = Infoweb::all();
         $testimonials = Testimonial::all();
         $user = User::all();
@@ -42,10 +42,23 @@ class FrontendController extends Controller
     public function blog()
     {
         $setting = Setting::with('currency')->first();
-        $posts = Post::where('status', 1)->get();
+        $posts = Post::with('categoryPost', 'user')->where('status', 1)->get();
         
         return Inertia::render('Frontend/Blog', compact('setting', 'posts'));
     }
+    
+    public function postsShow($slug)
+    {
+        $posts = Post::with('categoryPost', 'user')->where('slug', $slug)->firstOrFail(); // Esto lanzará un 404 si no se encuentra el post
+        $setting = Setting::with('currency')->first();
+
+        // dd($posts);
+        // $posts = Post::with('categoryPost', 'user')->where('status', 1)->get();
+        
+        return Inertia::render('Frontend/PostShow', compact('setting', 'posts'));
+    }
+
+
     public function faqs()
     {
         $setting = Setting::with('currency')->first();

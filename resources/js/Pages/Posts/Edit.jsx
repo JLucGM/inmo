@@ -13,6 +13,7 @@ export default function Edit({ auth, posts, categryposts }) {
     const initialValues = {
         name: posts.name,
         content: posts.content,
+        extract: posts.extract,
         status: posts.status,
         category_post_id: posts.category_post_id,
 

@@ -27,4 +27,9 @@ class CategoryPost extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
