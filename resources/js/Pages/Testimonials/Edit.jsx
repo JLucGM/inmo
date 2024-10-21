@@ -116,7 +116,7 @@ export default function Edit({ auth, testimonial }) {
                                 </div>
 
                                 <div className='col-span-2'>
-                                    <InputLabel htmlFor="text" value="text" />
+                                    <InputLabel htmlFor="text" value="Testimonio" />
 
                                     <Textarea 
                                     id="text"

@@ -7,6 +7,9 @@ import { Head, useForm } from '@inertiajs/react';
 import { Textarea } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
+import TextAreaRich from '@/Components/TextAreaRich';
+import React, { useRef } from 'react';
+
 
 export default function Create({ auth, categryposts }) {
 
@@ -18,7 +21,7 @@ export default function Create({ auth, categryposts }) {
     }
 
     const { data, setData, errors, post } = useForm(initialValues)
-
+    // console.log(data.content)
     const submit = (e) => {
         e.preventDefault();
         console.log('Data before submitting:', data);
@@ -26,6 +29,8 @@ export default function Create({ auth, categryposts }) {
         post(route('post.store'))
         console.log(data)
     }
+
+    const textAreaRef = useRef();
 
     const items = [
         {
@@ -159,22 +164,15 @@ export default function Create({ auth, categryposts }) {
 
                                         <InputError message={errors.extract} className="mt-2" />
                                     </div>
-                                    
+
                                     <div className='col-span-2'>
                                         <InputLabel htmlFor="content" value="content" />
-
-                                        <Textarea
-                                            id="content"
-                                            type="text"
+                                        <TextAreaRich
+                                            initialValue={data.content}
+                                            ref={textAreaRef}
                                             name="content"
-                                            value={data.content}
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            onChange={(e) => setData('content', e.target.value)}
-                                        >
-
-                                        </Textarea>
-
-                                        <InputError message={errors.content} className="mt-2" />
+                                            onChange={(newText) => setData('content', newText)}
+                                        />
                                     </div>
 
                                 </ContainerTitle>
@@ -185,6 +183,7 @@ export default function Create({ auth, categryposts }) {
                                 </div>
 
                             </form>
+
                         </div>
                     </div>
                 </div>

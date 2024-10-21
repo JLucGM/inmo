@@ -7,14 +7,17 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { Textarea, Transition } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
+import TextAreaRich from '@/Components/TextAreaRich';
+import { useRef } from 'react';
 
 export default function Edit({ auth, page }) {
+
+    const textAreaRef = useRef();
 
     const initialValues = {
         name: page.name,
         body: page.body,
         status: page.status,
-
     }
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
@@ -63,7 +66,7 @@ export default function Edit({ auth, page }) {
         >
             <Breadcrumb items={items} />
 
-            <Head title="Crear Pagina" />
+            <Head title="Actualizar Pagina" />
 
             <div className="">
                 <div className="max-w-7xl mx-auto ">
@@ -80,77 +83,81 @@ export default function Edit({ auth, page }) {
                                 >
                                     <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
                                 </Transition>
+                                <div className="xs:grid md:grid xs:grid-cols-full lg:grid-cols-3 gap-4">
+                                    <div className="xs:col-span-full lg:col-span-2">
+                                        <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="name" value="Nombre" />
 
-                                <div className='col-span-2'>
-                                <img src={`/img/pages/${page.image}`} alt={page.image} className='w-56 mx-auto rounded' />
+                                                <TextInput
+                                                    id="name"
+                                                    type="text"
+                                                    name="name"
+                                                    value={data.name}
+                                                    className="mt-1 block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('name', e.target.value)}
+                                                />
 
-                                    <InputLabel htmlFor="image" value="image" />
+                                                <InputError message={errors.name} className="mt-2" />
+                                            </div>
 
-                                    <TextInput
-                                        id="image"
-                                        type="file"
-                                        name="image"
-                                        className="mt-1 block w-full"
-                                        onChange={(e) => setData('image', e.target.files[0])}
-                                    />
 
-                                    <InputError message={errors.image} className="mt-2" />
+                                            <div className='col-span-2'>
+                                                <InputLabel htmlFor="body" value="Descripcion" />
+
+                                                <TextAreaRich
+                                                    initialValue={data.body}
+                                                    ref={textAreaRef}
+                                                    name="body"
+                                                    onChange={(newText) => setData('body', newText)}
+                                                />
+
+                                                <InputError message={errors.body} className="mt-2" />
+                                            </div>
+
+                                        </ContainerTitle>
+                                    </div>
+                                    <div className="xs:col-span-full lg:col-span-">
+                                        <ContainerTitle title={'Datos secundarias'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                            <div className='col-span-2'>
+                                                <img src={`/img/pages/${page.image}`} alt={page.image} className='w-56 mx-auto rounded' />
+
+                                                <InputLabel htmlFor="image" value="image" />
+
+                                                <TextInput
+                                                    id="image"
+                                                    type="file"
+                                                    name="image"
+                                                    className="mt-1 block w-full"
+                                                    onChange={(e) => setData('image', e.target.files[0])}
+                                                />
+
+                                                <InputError message={errors.image} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="status" value="Publicar" />
+
+                                                <select
+                                                    name="status"
+                                                    id="status"
+                                                    value={data.status}
+                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                                    onChange={(e) => setData('status', e.target.value)}
+                                                >
+                                                    <option value={0}>Borrador</option>
+                                                    <option value={1}>Publicar</option>
+                                                </select>
+
+                                                <InputError message={errors.status} className="mt-2" />
+                                            </div>
+
+                                        </ContainerTitle>
+                                    </div>
                                 </div>
-
-                                <div>
-                                    <InputLabel htmlFor="name" value="Nombre" />
-
-                                    <TextInput
-                                        id="name"
-                                        type="text"
-                                        name="name"
-                                        value={data.name}
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) => setData('name', e.target.value)}
-                                    />
-
-                                    <InputError message={errors.name} className="mt-2" />
-                                </div>
-
-                                
-
-                                <div>
-                                    <InputLabel htmlFor="status" value="Publicar" />
-
-                                    <select
-                                        name="status"
-                                        id="status"
-                                        value={data.status}
-                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
-                                        onChange={(e) => setData('status', e.target.value)}
-                                    >
-                                        <option value={0}>Borrador</option>
-                                        <option value={1}>Publicar</option>
-                                    </select>
-
-                                    <InputError message={errors.status} className="mt-2" />
-                                </div>
-
-                                <div className='col-span-2'>
-                                    <InputLabel htmlFor="body" value="Descripcion" />
-
-                                    <Textarea
-                                        id="body"
-                                        type="text"
-                                        name="body"
-                                        value={data.body}
-                                        className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                        onChange={(e) => setData('body', e.target.value)}
-                                    />
-
-                                    <InputError message={errors.body} className="mt-2" />
-                                </div>
-
-                                </ContainerTitle>
-
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >
                                         Guardar

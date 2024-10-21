@@ -25,6 +25,7 @@
         "@tanstack/react-table": "^8.20.5",
         "leaflet": "^1.9.4",
         "react-leaflet": "^4.2.1",
+        "react-quill": "^2.0.0",
         "react-select": "^5.8.0",
         "swiper": "^11.1.14"
     }

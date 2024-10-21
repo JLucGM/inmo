@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ql-toolbar.ql-snow {
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+
+    border: 1px solid #ccc !important;
+border-bottom: 0px !important;    
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border: 1px solid #ccc !important;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+}
+

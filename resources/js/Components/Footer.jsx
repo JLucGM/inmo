@@ -2,9 +2,9 @@ import { Link } from "@inertiajs/react";
 
 export default function Footer({ setting }) {
   return (
-    <footer className="py-16 px-10 text-center text-sm text-black dark:text-white/70">
+    <footer className="pb-16 px-10 text-center text-sm text-black dark:text-white/70">
 
-      <footer className="border-t mt-12 pt-12 pb-32 px-4 lg:px-0">
+      <footer className="border-t pt-12 pb-32 px-4 lg:px-0">
       <div> 
       <img src={`/img/setting/${setting.logo_footer}`} alt={setting.logo_footer} className="h-12 w-12" />
 

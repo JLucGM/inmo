@@ -102,7 +102,7 @@ export default function Create({ auth }) {
                                     </div>
 
                                     <div className='col-span-2'>
-                                        <InputLabel htmlFor="text" value="text" />
+                                        <InputLabel htmlFor="text" value="Testimonio" />
 
                                         <Textarea
                                             id="text"

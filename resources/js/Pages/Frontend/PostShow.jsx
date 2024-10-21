@@ -39,7 +39,7 @@ export default function PostShow({ auth, setting, posts }) {
                 <div className="flex flex-col lg:flex-row lg:space-x-12">
 
                     <div className="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full lg:w-3/4">
-                        <p className="pb-6">{posts.content}</p>
+                    <div className="pb-6" dangerouslySetInnerHTML={{ __html: posts.content }} />
 
                     </div>
 
