@@ -98,6 +98,8 @@ export default function Edit({ auth, typeproperty }) {
                                     </div>
 
                                     <div>
+                                    <img src={`${typeproperty.image}`} alt={typeproperty.image} className='w-40 rounded-3xl' />
+
                                         <InputLabel htmlFor="image" value="image" />
 
                                         <TextInput

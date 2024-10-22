@@ -18,7 +18,7 @@ export default function Index({ auth, typesproperties }) {
                 // Aquí puedes agregar la información adicional que deseas mostrar
                 return (
                     <div className='flex'>
-                        <img src={`/img/typeProperties/${row.original.image}`} alt={row.original.image} className='w-40' />
+                        <img src={`${row.original.image}`} alt={row.original.image} className='w-40 rounded-3xl' />
                         <div className="ms-4">
                             <p>id {row.original.id}</p>
                             <p>Nombre: {row.original.name}</p>

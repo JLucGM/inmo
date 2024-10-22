@@ -84,7 +84,7 @@ export default function Edit({ auth, testimonial }) {
                                 <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                 <div className='col-span-2'>
-                                <img src={`/img/testimonials/${testimonial.avatar}`} alt={testimonial.avatar} className='w-40 mx-auto rounded-full' />
+                                <img src={`${testimonial.avatar}`} alt={testimonial.avatar} className='w-40 mx-auto rounded-full' />
                                     <InputLabel htmlFor="avatar" value="avatar" />
 
                                     <TextInput

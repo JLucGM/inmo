@@ -2,10 +2,10 @@ import FrontedLayout from "@/Layouts/FrontedLayout";
 import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { Head } from "@inertiajs/react";
 
-export default function Faqs({ auth, setting, faqs }) {
+export default function Faqs({ auth, setting, faqs, pages }) {
 
     return (
-        <FrontedLayout auth={auth} setting={setting}>
+        <FrontedLayout auth={auth} setting={setting} pages={pages}>
             <Head title='Faqs' />
 
             {faqs.map((item) => (

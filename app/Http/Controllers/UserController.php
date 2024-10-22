@@ -35,7 +35,6 @@ class UserController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        //dd($request);
         $data = $request->only('name', 'email', 'phone', 'status');
 
         $data['password'] = bcrypt($request['password']);
@@ -43,18 +42,18 @@ class UserController extends Controller
         // AGREGAR AVATAR
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
-            $nombreImagen = $image->getClientOriginalName();
+            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
             $image->move(public_path('img/profile'), $nombreImagen);
-            $data['avatar'] = $nombreImagen;
+
+            // Guardar la ruta completa del avatar
+            $data['avatar'] = asset('img/profile/' . $nombreImagen); // Guarda la URL completa
         } else {
-            $data['avatar'] = "default.jpg";
+            $data['avatar'] = asset('img/profile/default.jpg'); // Guarda la URL por defecto
         }
 
-        //$data['user_id'] =Auth::user()->id;
+        User::create($data); // Crear el nuevo usuario
 
-        User::create($data);
-
-        return to_route('user.index');
+        return to_route('user.index'); // Redirigir a la lista de usuarios
     }
 
     /**
@@ -86,18 +85,25 @@ class UserController extends Controller
 
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
-            $nombreImagen = $image->getClientOriginalName();
+            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
             $image->move(public_path('img/profile'), $nombreImagen);
-            $data['avatar'] = $nombreImagen;
+
+            // Guardar la ruta completa del avatar
+            $data['avatar'] = asset('img/profile/' . $nombreImagen); // Guarda la URL completa
+
+            // Eliminar la imagen existente si no es el por defecto
             if ($user->avatar != 'default.jpg') {
-                // Delete the existing image
-                unlink(public_path('img/profile/' . $user->avatar));
+                // Eliminar la imagen existente
+                unlink(public_path('img/profile/' . basename($user->avatar)));
             }
+        } else {
+            // Si no se sube una nueva imagen, conservar la existente
+            $data['avatar'] = $user->avatar; // Mantener la URL existente
         }
 
-        $user->update($data);
+        $user->update($data); // Actualizar el usuario con los nuevos datos
 
-        return to_route('user.edit', $user);
+        return to_route('user.edit', $user); // Redirigir a la edición del usuario
     }
 
     /**

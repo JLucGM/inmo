@@ -19,7 +19,7 @@ export default function Index({ auth, properties }) {
                 // Aquí puedes agregar la información adicional que deseas mostrar
                 return (
                     <div className='flex'>
-                        <img src={`/img/properties/${row.original.main}`} alt={row.original.main} className='w-40' />
+                        <img src={`${row.original.main}`} alt={row.original.main} className='w-40' />
 
                         <div className="ms-4">
                             {/* <p>Creado: {row.original.created_at}</p> */}

@@ -80,41 +80,44 @@ class PropertiesController extends Controller
         $data['user_id'] = Auth::id();
 
         // AGREGAR main
+        // Manejo de la imagen principal
         if ($request->hasFile('main')) {
             $image = $request->file('main');
             $nombreImagen = time() . '-' . $image->getClientOriginalName();
             $image->move(public_path('img/properties'), $nombreImagen);
-            $data['main'] = $nombreImagen;
+            $data['main'] = asset('img/properties/' . $nombreImagen); // Guarda la URL completa
         } else {
-            $data['main'] = "default.jpg";
+            $data['main'] = asset('img/properties/default.jpg'); // Guarda la URL del default si no hay imagen
         }
 
-        // GUARDA NOMBRE Y GUARDA IMAGENES DE GALLERIA
+        // Manejo de las imágenes de galería
         if ($request->hasFile('images')) {
             $images = $request->file('images');
+            $nombreImagenes = [];
+
             if (is_array($images)) {
-                $nombreImagen = [];
                 foreach ($images as $index => $image) {
-                    $nombreImagen[$index] = [
+                    $nombreImagen = time() . '-' . $image->getClientOriginalName();
+                    $image->move(public_path('img/properties'), $nombreImagen);
+                    $nombreImagenes[] = [
                         'id' => $index + 1, // Asigna un ID basado en el índice del array
-                        'name' => time() . '-' . $image->getClientOriginalName()
+                        'name' => asset('img/properties/' . $nombreImagen) // Guarda la URL completa
                     ];
-                    $image->move(public_path('img/properties'), time() . '-' . $image->getClientOriginalName());
                 }
-                $jsonImagenes = json_encode($nombreImagen);
-
-                $data['images'] = $jsonImagenes;
+                $data['images'] = json_encode($nombreImagenes);
             } else {
-                $nombreImagen = [
+                $nombreImagen = time() . '-' . $images->getClientOriginalName();
+                $images->move(public_path('img/properties'), $nombreImagen);
+                $data['images'] = json_encode([[
                     'id' => 1, // Asigna un ID de 1 para la única imagen
-                    'name' => $images->getClientOriginalName()
-                ];
-                $images->move(public_path('img/properties'), $images->getClientOriginalName());
-
-                $data['images'] = json_encode($nombreImagen);
+                    'name' => asset('img/properties/' . $nombreImagen) // Guarda la URL completa
+                ]]);
             }
         } else {
-            $data['images'] = "default.jpg";
+            $data['images'] = json_encode([[
+                'id' => 1, // ID por defecto si no hay imágenes
+                'name' => asset('img/properties/default.jpg') // Guarda la URL del default
+            ]]);
         }
 
         $property = Property::create($data);
@@ -208,16 +211,17 @@ class PropertiesController extends Controller
 
         //dd($request->images);
         if ($request->hasFile('main')) {
-            // Delete previous main image
-            if ($property->main && file_exists(public_path("/img/properties/" . $property->main))) {
-                @unlink(public_path("/img/properties/" . $property->main));
+            // Eliminar la imagen principal anterior
+            if ($property->main && file_exists(public_path("/img/properties/" . basename($property->main)))) {
+                @unlink(public_path("/img/properties/" . basename($property->main)));
             }
 
             $mainImage = $request->file('main');
             $mainImageName = time() . '-' . $mainImage->getClientOriginalName();
             $mainImage->move(public_path("/img/properties/"), $mainImageName);
 
-            $property->main = $mainImageName;
+            // Guardar la URL completa de la imagen principal
+            $property->main = asset('img/properties/' . $mainImageName);
         }
 
         if ($request->hasFile('images')) {
@@ -233,19 +237,19 @@ class PropertiesController extends Controller
                     if ($uploadSuccess) {
                         $images[] = [
                             'id' => count(json_decode($property->images, true)) + 1,
-                            'name' => $filename,
+                            'name' => asset('img/properties/' . $filename), // Guarda la URL completa
                         ];
                     }
                 }
             } else {
-                // Single file upload
+                // Carga de un solo archivo
                 $filename = time() . '-' . $files->getClientOriginalName();
                 $uploadSuccess = $files->move(public_path("/img/properties/"), $filename);
 
                 if ($uploadSuccess) {
                     $images[] = [
-                        'id' => count($property->images) + 1,
-                        'name' => $filename,
+                        'id' => count(json_decode($property->images, true)) + 1,
+                        'name' => asset('img/properties/' . $filename), // Guarda la URL completa
                     ];
                 }
             }
@@ -273,14 +277,19 @@ class PropertiesController extends Controller
             return redirect()->back()->with('error', 'No se pudo eliminar la imagen. El arreglo de imágenes no es válido.');
         }
 
+        // Buscar la posición de la imagen a eliminar
         $position = array_search($imageId, array_column($images, 'id'));
 
         if ($position !== false) {
-            $imagePath = public_path("/img/properties/" . $images[$position]['name']);
+            // Obtener la ruta completa de la imagen
+            $imagePath = public_path("/img/properties/" . basename($images[$position]['name']));
+
+            // Eliminar el archivo si existe
             if (file_exists($imagePath)) {
-                unlink($imagePath);
+                @unlink($imagePath);
             }
 
+            // Eliminar la imagen del array y reindexar
             unset($images[$position]);
             $images = array_values($images);
             $property->images = json_encode($images);
@@ -297,25 +306,32 @@ class PropertiesController extends Controller
      */
     public function destroy(Property $property)
     {
+        // Eliminar las amenidades asociadas a la propiedad
         PropertyAmenity::where('property_id', $property->id)->delete();
 
-        if ($property->main != 'default.jpg') {
-            // Delete the existing main
-            unlink(public_path('img/properties/' . $property->main));
+        // Eliminar la imagen principal si no es la imagen por defecto
+        if ($property->main && $property->main !== 'default.jpg') {
+            $mainImagePath = public_path('img/properties/' . basename($property->main));
+            if (file_exists($mainImagePath)) {
+                @unlink($mainImagePath);
+            }
         }
 
-        if ($property->images != 'default.jpg') {
+        // Eliminar las imágenes de la galería si no son la imagen por defecto
+        if ($property->images && $property->images !== 'default.jpg') {
             // Decodificar el JSON de imágenes
             $images = json_decode($property->images, true);
 
             // Eliminar cada imagen individualmente
             foreach ($images as $image) {
-                unlink(public_path('img/properties/' . $image['name']));
+                $imagePath = public_path('img/properties/' . basename($image['name']));
+                if (file_exists($imagePath)) {
+                    @unlink($imagePath);
+                }
             }
         }
 
+        // Eliminar la propiedad de la base de datos
         $property->delete();
     }
-
-    
 }

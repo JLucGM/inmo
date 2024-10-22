@@ -6,10 +6,10 @@ import { SwiperSlide } from "swiper/react";
 import { Autoplay } from 'swiper/modules';
 
 
-export default function Faqs({ auth, setting, posts }) {
+export default function Faqs({ auth, setting, posts, pages }) {
     console.log(posts)
     return (
-        <FrontedLayout auth={auth} setting={setting}>
+        <FrontedLayout auth={auth} setting={setting} pages={pages}>
             <Head title='Blog' />
 
             <SwiperCustom
@@ -25,14 +25,14 @@ export default function Faqs({ auth, setting, posts }) {
                     <SwiperSlide
                         className="bg-center bg-repeat bg-cover rounded-3xl relative content-center "
                         style={{
-                            backgroundImage: `url(/img/posts/${post.image})`,
+                            backgroundImage: `url(${post.image})`,
                             height: '30rem',
                         }}
                     >
                         <div className="absolute inset-0 ">
                             <div className="rounded-3xl bg-gradient-to-r from-blue-600 to-blue-400 opacity-50 h-full w-full"></div>
                         </div>
-                        <div             className={`pt-20 md:pt-0  bg-local  bg-no-repeat bg-cover bg-center rounded-3xl relative flex flex-col items-center md:justify-center`}
+                        <div className={`pt-20 md:pt-0  bg-local  bg-no-repeat bg-cover bg-center rounded-3xl relative flex flex-col items-center md:justify-center`}
                         > {/* Agregamos z-10 para que esté por encima del gradiente */}
                             <div className="max-w-3xl text-center text-white">
                                 <h2 className="text-5xl font-semibold">{post.name}</h2>

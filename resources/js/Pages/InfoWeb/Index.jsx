@@ -17,7 +17,7 @@ export default function Index({ auth, infoweb }) {
                 // Aquí puedes agregar la información adicional que deseas mostrar
                 return (
                     <div className='flex'>
-                        <img src={`/img/setting/${row.original.image}`} alt={row.original.image} className='w-40' />
+                        <img src={`${row.original.image}`} alt={row.original.image} className='w-auto h-40' />
 
                         <div className="ms-4">
                             <p>{row.original.text}</p>

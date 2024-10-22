@@ -18,7 +18,7 @@ export default function Index({ auth, slide }) {
                 // Aquí puedes agregar la información adicional que deseas mostrar
                 return (
                     <div className='flex'>
-                        <img src={`/img/slides/${row.original.image}`} alt={row.original.image} className='w-40' />
+                        <img src={`${row.original.image}`} alt={row.original.image} className='w-40' />
 
                         <div className="ms-4">
                             <p>Link: {row.original.link}</p>

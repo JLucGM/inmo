@@ -32,21 +32,23 @@ class TestimonialController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $data = $request->only('name','text');
+        $data = $request->only('name', 'text');
 
         // AGREGAR avatar
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
-            $nombreavatar = $avatar->getClientOriginalName();
-            $avatar->move(public_path('img/testimonials'), $nombreavatar);
-            $data['avatar'] = $nombreavatar;
+            $nombreAvatar = time() . '_' . $avatar->getClientOriginalName(); // Asegúrate de que el nombre sea único
+            $avatar->move(public_path('img/testimonials'), $nombreAvatar);
+
+            // Guardar la ruta completa
+            $data['avatar'] = asset('img/testimonials/' . $nombreAvatar); // Guarda la URL completa
         } else {
-            $data['avatar'] = "default.jpg";
+            $data['avatar'] = asset('img/testimonials/default.jpg'); // Guarda la URL por defecto
         }
 
-        Testimonial::create($data);
+        Testimonial::create($data); // Crea el nuevo testimonio
 
-        return to_route('testimonial.index');
+        return to_route('testimonial.index'); // Redirige a la lista de testimonios
     }
 
     /**
@@ -74,19 +76,25 @@ class TestimonialController extends Controller
 
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
-            $nombreavatar = $avatar->getClientOriginalName();
-            $avatar->move(public_path('img/testimonials'), $nombreavatar);
-            $data['avatar'] = $nombreavatar;
+            $nombreAvatar = time() . '_' . $avatar->getClientOriginalName(); // Asegúrate de que el nombre sea único
+            $avatar->move(public_path('img/testimonials'), $nombreAvatar);
+
+            // Guardar la ruta completa
+            $data['avatar'] = asset('img/testimonials/' . $nombreAvatar); // Guarda la URL completa
+
+            // Eliminar el avatar existente si no es el por defecto
             if ($testimonial->avatar != 'default.jpg') {
-                // Delete the existing avatar
-                unlink(public_path('img/testimonials/' . $testimonial->avatar));
-                
+                // Eliminar el avatar existente
+                unlink(public_path('img/testimonials/' . basename($testimonial->avatar)));
             }
+        } else {
+            // Si no se sube un nuevo avatar, conservar el existente
+            $data['avatar'] = $testimonial->avatar; // Mantener la URL existente
         }
 
-        $testimonial->update($data);
+        $testimonial->update($data); // Actualizar el testimonio con los nuevos datos
 
-        return to_route('testimonial.edit', $testimonial);
+        return to_route('testimonial.edit', $testimonial); // Redirigir a la edición del testimonio
     }
 
     /**

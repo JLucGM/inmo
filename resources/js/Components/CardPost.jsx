@@ -11,7 +11,7 @@ export default function CardPost({ data }) {
   return (
     <div className="">
       <Link key={data.id} href={route('posts.show', data.slug)} className="flex max-w-xl flex-col items-start justify-between">
-        <img alt="" src={`/img/posts/${data.image}`} className="h-48 w-full object-cover rounded-xl bg-gray-50" />
+        <img alt="" src={`${data.image}`} className="h-48 w-full object-cover rounded-xl bg-gray-50" />
 
         <div className="flex items-center gap-x-4 text-xs">
           <time dateTime={data.created_at} className="text-gray-500">

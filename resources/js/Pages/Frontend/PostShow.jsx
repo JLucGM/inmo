@@ -3,7 +3,7 @@ import FrontedLayout from "@/Layouts/FrontedLayout";
 import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { Head } from "@inertiajs/react";
 
-export default function PostShow({ auth, setting, posts }) {
+export default function PostShow({ auth, setting, posts, pages }) {
     // console.log(posts)
 
     const formattedDate = new Intl.DateTimeFormat('es-ES', {
@@ -13,7 +13,7 @@ export default function PostShow({ auth, setting, posts }) {
     }).format(new Date(posts.created_at));
 
     return (
-        <FrontedLayout auth={auth} setting={setting}>
+        <FrontedLayout auth={auth} setting={setting} pages={pages}>
             <Head title={posts.name} />
 
 
@@ -32,7 +32,7 @@ export default function PostShow({ auth, setting, posts }) {
                             {posts.category_post.name}
                         </a>
                     </div>
-                    <img src={`/img/posts/${posts.image}`} alt={posts.image} className="w-full h-[28em] object-cover rounded-xl" />
+                    <img src={`${posts.image}`} alt={posts.image} className="w-full h-[28em] object-cover rounded-xl" />
 
                 </div>
 
@@ -46,7 +46,7 @@ export default function PostShow({ auth, setting, posts }) {
                     <div className="w-full lg:w-1/4 m-auto mt-12 max-w-screen-sm">
                         <div className="p-4 border-t border-b md:border md:rounded">
                             <div className="flex py-2">
-                                <img src={`/img/posts/${posts.image}`} alt={posts.image} className="h-10 w-10 rounded-full mr-2 object-cover" />
+                                <img src={`${posts.user.avatar}`} alt={posts.image} className="h-10 w-10 rounded-full mr-2 object-cover" />
                                 <div>
                                     <p className="font-semibold text-gray-700 text-sm"> {posts.user.name} </p>
                                     <p className="font-semibold text-gray-600 text-xs"> Editor </p>

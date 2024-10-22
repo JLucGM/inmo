@@ -6,7 +6,7 @@ import FrontedLayout from "@/Layouts/FrontedLayout";
 import { Transition } from "@headlessui/react";
 import { Head, useForm } from "@inertiajs/react";
 
-export default function ProductsList({ auth, setting }) {
+export default function ProductsList({ auth, setting, pages }) {
 
     const initialValues = {
         name: "",
@@ -31,7 +31,7 @@ export default function ProductsList({ auth, setting }) {
       }
 
   return (
-    <FrontedLayout auth={auth} setting={setting}>
+    <FrontedLayout auth={auth} setting={setting} pages={pages}>
       <Head title="Contact" />
 
       <form onSubmit={submit}>

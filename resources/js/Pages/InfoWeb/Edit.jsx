@@ -101,7 +101,7 @@ export default function Edit({ auth, infoweb }) {
 
                                 
 
-                                <img src={`/img/setting/${infoweb.image}`} alt={infoweb.image} className='w-40' />
+                                <img src={`${infoweb.image}`} alt={infoweb.image} className='w-40' />
 
                                 <div>
                                     <InputLabel htmlFor="image" value="image" />

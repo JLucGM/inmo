@@ -14,7 +14,7 @@ export default function Index({ auth, testimonial }) {
             accessorKey: "avatar",
             cell: ({ row }) => {
                 return (
-                    <img src={`/img/testimonials/${row.original.avatar}`} alt={row.original.avatar} className='w-20 rounded-full mx-auto' />
+                    <img src={`${row.original.avatar}`} alt={row.original.avatar} className='w-20 rounded-full mx-auto' />
 
                 )
             },

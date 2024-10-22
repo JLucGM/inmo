@@ -36,11 +36,13 @@ class InfowebController extends Controller
         // AGREGAR image
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $nombreImagen = $image->getClientOriginalName();
+            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
             $image->move(public_path('img/setting'), $nombreImagen);
-            $data['image'] = $nombreImagen;
+            
+            // Guardar la ruta completa
+            $data['image'] = asset('img/setting/' . $nombreImagen); // Guarda la URL completa
         } else {
-            $data['image'] = "default.jpg";
+            $data['image'] = asset('img/setting/default.jpg'); // Guarda la URL del default
         }
 
         Infoweb::create($data);
@@ -74,14 +76,17 @@ class InfowebController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $nombreImagen = $image->getClientOriginalName();
+            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
             $image->move(public_path('img/setting'), $nombreImagen);
-            $data['image'] = $nombreImagen;
-            if ($infoweb->image != 'default.jpg') {
-                // Delete the existing image
-                unlink(public_path('img/setting/' . $infoweb->image));
+            
+            // Guardar la ruta completa
+            $data['image'] = asset('img/setting/' . $nombreImagen); // Guarda la URL completa
+    
+            // Eliminar la imagen anterior si no es la imagen por defecto
+            if ($infoweb->image != asset('img/setting/default.jpg')) {
+                unlink(public_path('img/setting/' . basename($infoweb->image))); // Elimina la imagen anterior
             }
-        } 
+        }
 
         $infoweb->update($data);
 

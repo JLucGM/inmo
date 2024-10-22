@@ -17,7 +17,8 @@ class SlideController extends Controller
     {
         $slide = Slide::all();
 
-        return Inertia::render('Slides/Index', compact('slide'));    }
+        return Inertia::render('Slides/Index', compact('slide'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -32,21 +33,21 @@ class SlideController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $data = $request->only('name',
-        'text',
-        'link',
-        'status',);
+        $data = $request->only('name', 'text', 'link', 'status');
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $nombreImagen = $image->getClientOriginalName();
+            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
             $image->move(public_path('img/slides'), $nombreImagen);
-            $data['image'] = $nombreImagen;
+
+            // Guardar la ruta completa
+            $data['image'] = asset('img/slides/' . $nombreImagen); // Guarda la URL completa
         }
 
         Slide::create($data);
 
-        return to_route('slides.index');    }
+        return to_route('slides.index');
+    }
 
     /**
      * Display the specified resource.
@@ -62,7 +63,6 @@ class SlideController extends Controller
     public function edit(Slide $slide)
     {
         return Inertia::render('Slides/Edit', compact('slide'));
-
     }
 
     /**
@@ -70,23 +70,23 @@ class SlideController extends Controller
      */
     public function update(UpdateRequest $request, Slide $slide)
     {
-        $data = $request->only('name',
-        'text',
-        'link',
-        'status',);
+        $data = $request->only('name', 'text', 'link', 'status');
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $nombreImagen = $image->getClientOriginalName();
+            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
             $image->move(public_path('img/slides'), $nombreImagen);
-            $data['image'] = $nombreImagen;
-            if ($slide->image != 'default.jpg') {
-                // Delete the existing image
-                unlink(public_path('img/slides/' . $slide->image));
-            }
-        } 
 
-        $slide->update($data);
+            // Guardar la ruta completa
+            $data['image'] = asset('img/slides/' . $nombreImagen); // Guarda la URL completa
+
+            // Eliminar la imagen existente si no es la imagen por defecto
+            if ($slide->image && $slide->image != asset('img/slides/default.jpg')) {
+                unlink(public_path('img/slides/' . basename($slide->image))); // Elimina la imagen anterior
+            }
+        }
+
+        $slide->update($data); // Actualiza el slide con los nuevos datos
 
         return to_route('slides.edit', $slide);
     }
@@ -105,8 +105,8 @@ class SlideController extends Controller
     }
 
     public function toggleStatus(Request $request, Slide $slide)
-{
-    $slide->update(['status' => $slide->status === 0 ? 1 : 0]);
-    return redirect()->back();
-}
+    {
+        $slide->update(['status' => $slide->status === 0 ? 1 : 0]);
+        return redirect()->back();
+    }
 }

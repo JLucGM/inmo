@@ -130,6 +130,8 @@ export default function Edit({ auth, slide }) {
                                     </Select>
 
                                     <div>
+                                    <img src={`${slide.image}`} alt={slide.image} className='w-40' />
+
                                         <InputLabel htmlFor="image" value="image" />
 
                                         <TextInput

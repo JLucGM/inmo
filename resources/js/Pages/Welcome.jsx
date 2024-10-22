@@ -9,13 +9,13 @@ import { Autoplay } from 'swiper/modules';
 import TeamSection from '@/Components/TeamSection';
 
 
-export default function Welcome({ auth, setting, slides, properties, infoweb, testimonials, user }) {
+export default function Welcome({ auth, setting, slides, properties, infoweb, testimonials, user, pages }) {
 
-    console.log(testimonials)
+    // console.log(pages)
 
     return (
         <>
-            <FrontedLayout auth={auth} setting={setting}>
+            <FrontedLayout auth={auth} setting={setting} pages={pages}>
 
                 <Head title="Welcome" />
 
@@ -38,7 +38,7 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
                         <SwiperSlide
                             className="bg-center bg-repeat bg-cover rounded-3xl relative content-center "
                             style={{
-                                backgroundImage: `url(/img/testimonials/${testimonial.avatar})`,
+                                backgroundImage: `url(${testimonial.avatar})`,
                                 height: '30rem',
                             }}
                         >
@@ -49,7 +49,7 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
                                 <div className="col-span-full md:col-span-2 px-10 font-semibold text-slate-900 text-lg ">
                                     <img
                                         alt={setting.logo}
-                                        src={`/img/setting/${setting.logo}`}
+                                        src={`${setting.logo}`}
                                         className="h-10 w-auto"
                                     />
                                     <p className='my-4'>"{testimonial.text}"</p>

@@ -7,7 +7,7 @@ export default function Banner({ data }) {
 
     return (
         <div
-            style={{ backgroundImage: `url(/img/slides/${data.image})` }}
+            style={{ backgroundImage: `url(${data.image})` }}
             className={`pt-20 md:pt-0 min-h-[80vh] bg-local bg-slate-400 bg-no-repeat bg-cover bg-center rounded-3xl relative flex flex-col items-center md:justify-center`}
         >
             <div className="max-w-3xl text-center text-white">

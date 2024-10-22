@@ -123,7 +123,7 @@ export default function Edit({ auth, page }) {
                                         <ContainerTitle title={'Datos secundarias'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                             <div className='col-span-2'>
-                                                <img src={`/img/pages/${page.image}`} alt={page.image} className='w-56 mx-auto rounded' />
+                                                <img src={`${page.image}`} alt={page.image} className='w-56 mx-auto rounded-3xl' />
 
                                                 <InputLabel htmlFor="image" value="image" />
 

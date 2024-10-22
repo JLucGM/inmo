@@ -44,11 +44,13 @@ class PostController extends Controller
         // AGREGAR image
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $nombreImagen = $image->getClientOriginalName();
+            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
             $image->move(public_path('img/posts'), $nombreImagen);
-            $data['image'] = $nombreImagen;
+            
+            // Guardar la ruta completa
+            $data['image'] = asset('img/posts/' . $nombreImagen); // Guarda la URL completa
         } else {
-            $data['image'] = "default.jpg";
+            $data['image'] = asset('img/posts/default.jpg'); // Guarda la URL del default si no hay imagen
         }
 
         Post::create($data);
@@ -84,12 +86,15 @@ class PostController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $nombreImagen = $image->getClientOriginalName();
+            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
             $image->move(public_path('img/posts'), $nombreImagen);
-            $data['image'] = $nombreImagen;
-            if ($posts->image != 'default.jpg') {
-                // Delete the existing image
-                unlink(public_path('img/posts/' . $posts->image));
+            
+            // Guardar la ruta completa
+            $data['image'] = asset('img/posts/' . $nombreImagen); // Guarda la URL completa
+    
+            // Eliminar la imagen anterior si no es la imagen por defecto
+            if ($posts->image != asset('img/posts/default.jpg')) {
+                unlink(public_path('img/posts/' . basename($posts->image))); // Elimina la imagen anterior
             }
         }
 

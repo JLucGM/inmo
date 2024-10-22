@@ -35,19 +35,21 @@ class TypesPropertiesController extends Controller
     {
         $data = $request->only('name');
 
-        // AGREGAR image
+        // AGREGAR imagen
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $nombreImagen = $image->getClientOriginalName();
+            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
             $image->move(public_path('img/typeProperties'), $nombreImagen);
-            $data['image'] = $nombreImagen;
+
+            // Guardar la ruta completa
+            $data['image'] = asset('img/typeProperties/' . $nombreImagen); // Guarda la URL completa
         } else {
-            $data['image'] = "default.jpg";
+            $data['image'] = asset('img/typeProperties/default.jpg'); // Guarda la URL por defecto
         }
 
-        TypesProperties::create($data);
+        TypesProperties::create($data); // Crea el nuevo tipo de propiedad
 
-        return to_route('typesproperties.index');
+        return to_route('typesproperties.index'); // Redirige a la lista de tipos de propiedades
     }
 
     /**
@@ -75,18 +77,25 @@ class TypesPropertiesController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $nombreImagen = $image->getClientOriginalName();
+            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
             $image->move(public_path('img/typeProperties'), $nombreImagen);
-            $data['image'] = $nombreImagen;
+
+            // Guardar la ruta completa
+            $data['image'] = asset('img/typeProperties/' . $nombreImagen); // Guarda la URL completa
+
+            // Eliminar la imagen existente si no es el por defecto
             if ($typeproperty->image != 'default.jpg') {
-                // Delete the existing image
-                unlink(public_path('img/typeProperties/' . $typeproperty->image));
+                // Eliminar la imagen existente
+                unlink(public_path('img/typeProperties/' . basename($typeproperty->image)));
             }
-        } 
+        } else {
+            // Si no se sube una nueva imagen, conservar la existente
+            $data['image'] = $typeproperty->image; // Mantener la URL existente
+        }
 
-        $typeproperty->update($data);
+        $typeproperty->update($data); // Actualizar el tipo de propiedad con los nuevos datos
 
-        return to_route('typesproperties.edit', $typeproperty);
+        return to_route('typesproperties.edit', $typeproperty); // Redirigir a la edición del tipo de propiedad
     }
 
     /**

@@ -546,7 +546,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
 
                 <form onSubmit={(e) => handleUpdateImages(e, images)}>
                     <ContainerTitle title={'Imagenes'} className='grid grid-cols-1 gap-4'>
-                        <img src={`/img/properties/${main}`} alt={main} className='w-40' />
+                        <img src={`${main}`} alt={main} className='w-40' />
                         <div className='flex flex-col '>
                             <InputLabel>Imagen de portada</InputLabel>
                             <TextInput type="file" name="main" onChange={(e) => setData('main', e.target.files[0])} />
@@ -557,7 +557,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
                             {images.map((image, index) => (
                                 <div key={index}>
                                     <div className="border rounded-lg">
-                                        <img src={`/img/properties/${image.name}`} className='w-40 rounded-t-lg' alt={image.name} />
+                                        <img src={`${image.name}`} className='w-40 rounded-t-lg' alt={image.name} />
                                         <PrimaryButton className='my-2' onClick={() => handleDeleteImage(image.id, images)}>
                                             Eliminar
                                         </PrimaryButton>

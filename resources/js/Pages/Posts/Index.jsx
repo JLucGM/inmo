@@ -19,7 +19,7 @@ export default function Index({ auth, posts }) {
                 // Aquí puedes agregar la información adicional que deseas mostrar
                 return (
                     <div className='flex'>
-                        <img src={`/img/posts/${row.original.image}`} alt={row.original.image} className='w-40' />
+                        <img src={`${row.original.image}`} alt={row.original.image} className='w-40' />
                         
                         <div className="ms-4">
                             <p>Extracto: {row.original.extract}</p>

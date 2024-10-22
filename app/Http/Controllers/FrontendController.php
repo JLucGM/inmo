@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Contacts;
 use App\Models\Faqs;
 use App\Models\Infoweb;
+use App\Models\Page;
 use App\Models\Post;
 use App\Models\Property;
 use App\Models\Setting;
@@ -20,12 +21,13 @@ class FrontendController extends Controller
     {
         $setting = Setting::first();
         $slides = Slide::where('status', '1')->first();
+        $pages = Page::where('status', '1')->get();
         $properties = Property::with('country', 'state', 'city')->where('status', '1')->get();
         $infoweb = Infoweb::all();
         $testimonials = Testimonial::all();
         $user = User::all();
-
-        return Inertia::render('Welcome', compact('setting', 'slides', 'properties', 'infoweb', 'testimonials', 'user'));
+// dd($pages);
+        return Inertia::render('Welcome', compact('setting', 'slides', 'properties', 'infoweb', 'testimonials', 'user','pages'));
     }
 
     public function frontendShow(Property $property)
@@ -34,8 +36,9 @@ class FrontendController extends Controller
         $setting = Setting::with('currency')->first();
         $images = json_decode($property->images);
         $propertyAmenities = $property->amenities;
+        $pages = Page::all();
         //  dd( $setting->currency);
-        return Inertia::render('Frontend/Property', compact('property', 'setting', 'images', 'propertyAmenities'));
+        return Inertia::render('Frontend/Property', compact('property', 'setting', 'images', 'propertyAmenities','pages'));
     }
 
     
@@ -43,19 +46,21 @@ class FrontendController extends Controller
     {
         $setting = Setting::with('currency')->first();
         $posts = Post::with('categoryPost', 'user')->where('status', 1)->get();
+        $pages = Page::all();
         
-        return Inertia::render('Frontend/Blog', compact('setting', 'posts'));
+        return Inertia::render('Frontend/Blog', compact('setting', 'posts','pages'));
     }
     
     public function postsShow($slug)
     {
         $posts = Post::with('categoryPost', 'user')->where('slug', $slug)->firstOrFail(); // Esto lanzará un 404 si no se encuentra el post
         $setting = Setting::with('currency')->first();
+        $pages = Page::all();
 
         // dd($posts);
         // $posts = Post::with('categoryPost', 'user')->where('status', 1)->get();
         
-        return Inertia::render('Frontend/PostShow', compact('setting', 'posts'));
+        return Inertia::render('Frontend/PostShow', compact('setting', 'posts', 'pages'));
     }
 
 
@@ -63,15 +68,29 @@ class FrontendController extends Controller
     {
         $setting = Setting::with('currency')->first();
         $faqs = Faqs::all();
+        $pages = Page::all();
         
-        return Inertia::render('Frontend/Faqs', compact('setting', 'faqs'));
+        return Inertia::render('Frontend/Faqs', compact('setting', 'faqs', 'pages'));
     }
     
     public function ContactPage()
     {
         $setting = Setting::with('currency')->first();
+        $pages = Page::all();
 
-        return Inertia::render('Frontend/Contact', compact('setting'));
+        return Inertia::render('Frontend/Contact', compact('setting','pages'));
+
+    }
+    
+    public function pagesShow($slug)
+    {
+        $page = Page::where('slug', $slug)->firstOrFail(); // Esto lanzará un 404 si no se encuentra el post
+        $pages = Page::all(); // Esto lanzará un 404 si no se encuentra el post
+
+        // dd($pages);
+        $setting = Setting::with('currency')->first();
+
+        return Inertia::render('Frontend/Pages', compact('setting','pages','page'));
 
     }
 

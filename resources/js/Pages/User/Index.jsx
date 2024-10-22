@@ -49,7 +49,7 @@ export default function Index({ auth, users }) {
             accessorKey: "avatar",
             cell: ({ row }) => {
                 return (
-                    <img className='w-16 mx-auto' src={`/img/profile/${row.original.avatar}`} alt={`${row.original.avatar}`} />
+                    <img className='w-40 mx-auto' src={`${row.original.avatar}`} alt={`${row.original.avatar}`} />
 
                 )
             },

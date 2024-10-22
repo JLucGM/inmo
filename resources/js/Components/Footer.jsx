@@ -6,7 +6,7 @@ export default function Footer({ setting }) {
 
       <footer className="border-t pt-12 pb-32 px-4 lg:px-0">
       <div> 
-      <img src={`/img/setting/${setting.logo_footer}`} alt={setting.logo_footer} className="h-12 w-12" />
+      <img src={`${setting.logo_footer}`} alt={setting.logo_footer} className="h-12 w-12" />
 
       </div>
       <div className="flex flex-wrap ">

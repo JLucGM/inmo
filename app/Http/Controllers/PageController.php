@@ -33,14 +33,18 @@ class PageController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $data = $request->only('name','body','status');
+        $data = $request->only('name', 'body', 'status');
 
         // AGREGAR image
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $nombreImagen = $image->getClientOriginalName();
+            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
             $image->move(public_path('img/pages'), $nombreImagen);
-            $data['image'] = $nombreImagen;
+
+            // Guardar la ruta completa
+            $data['image'] = asset('img/pages/' . $nombreImagen); // Guarda la URL completa
+        } else {
+            $data['image'] = asset('img/pages/default.jpg'); // Guarda la URL del default si no hay imagen
         }
 
         Page::create($data);
@@ -62,7 +66,6 @@ class PageController extends Controller
     public function edit(Page $page)
     {
         return Inertia::render('Pages/Edit', compact('page'));
-
     }
 
     /**
@@ -70,18 +73,21 @@ class PageController extends Controller
      */
     public function update(UpdateRequest $request, Page $page)
     {
-        $data = $request->only('name','body','status');
+        $data = $request->only('name', 'body', 'status');
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $nombreImagen = $image->getClientOriginalName();
+            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
             $image->move(public_path('img/pages'), $nombreImagen);
-            $data['image'] = $nombreImagen;
-            if ($page->image != 'default.jpg') {
-                // Delete the existing image
-                unlink(public_path('img/pages/' . $page->image));
+
+            // Guardar la ruta completa
+            $data['image'] = asset('img/pages/' . $nombreImagen); // Guarda la URL completa
+
+            // Eliminar la imagen anterior si no es la imagen por defecto
+            if ($page->image != asset('img/pages/default.jpg')) {
+                unlink(public_path('img/pages/' . basename($page->image))); // Elimina la imagen anterior
             }
-        } 
+        }
 
         $page->update($data);
 
@@ -98,6 +104,5 @@ class PageController extends Controller
         }
 
         $page->delete();
-
     }
 }

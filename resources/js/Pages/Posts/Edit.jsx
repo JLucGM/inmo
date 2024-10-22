@@ -146,7 +146,7 @@ export default function Edit({ auth, posts, categryposts }) {
                                     </div>
 
 
-                                    <img src={`/img/posts/${posts.image}`} alt={posts.image} className='w-40' />
+                                    <img src={`${posts.image}`} alt={posts.image} className='w-40' />
 
                                     <div className='col-span-2'>
                                         <InputLabel htmlFor="image" value="image" />

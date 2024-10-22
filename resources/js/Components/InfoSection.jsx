@@ -21,7 +21,7 @@ export default function InfoSection({data}) {
 
             {/* Image Block */}
             <div className="md:w-7/12 max-w-lg">
-              <img className="rounded-3xl border-none" src={`/img/setting/${feature.image}`} alt={feature.alt} />
+              <img className="rounded-3xl border-none" src={`${feature.image}`} alt={feature.alt} />
 
               {/* <img
                             alt=""

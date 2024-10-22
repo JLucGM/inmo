@@ -160,7 +160,7 @@ export default function Edit({ auth, setting, currencies }) {
                                     </div>
 
                                     <div className=''>
-                                        <img src={`/img/setting/${setting.logo}`} alt={setting.logo} className='w-40' />
+                                        <img src={`${setting.logo}`} alt={setting.logo} className='w-40' />
 
                                         <InputLabel htmlFor="logo" value="logo" />
 
@@ -176,7 +176,7 @@ export default function Edit({ auth, setting, currencies }) {
                                     </div>
 
                                     <div>
-                                        <img src={`/img/setting/${setting.logo_footer}`} alt={setting.logo_footer} className='w-40' />
+                                        <img src={`${setting.logo_footer}`} alt={setting.logo_footer} className='w-40' />
 
                                         <InputLabel htmlFor="logo_footer" value="logo_footer" />
 
@@ -192,7 +192,7 @@ export default function Edit({ auth, setting, currencies }) {
                                     </div>
                                     <div className=''>
 
-                                        <img src={`/img/setting/${setting.favicon}`} alt={setting.favicon} className='w-40' />
+                                        <img src={`${setting.favicon}`} alt={setting.favicon} className='w-40' />
 
                                         <InputLabel htmlFor="favicon" value="favicon" />
 
