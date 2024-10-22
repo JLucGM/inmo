@@ -19,7 +19,7 @@ class FrontendController extends Controller
 {
     public function welcome()
     {
-        $setting = Setting::first();
+        $setting = Setting::with('currency')->first();
         $slides = Slide::where('status', '1')->first();
         $pages = Page::where('status', '1')->get();
         $properties = Property::with('country', 'state', 'city')->where('status', '1')->get();

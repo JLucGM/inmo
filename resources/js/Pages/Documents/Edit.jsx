@@ -164,20 +164,6 @@ export default function Edit({ auth, document, contacts, properties, users }) {
                                         <InputError message={errors.property_id} className="mt-2" />
                                     </div>
 
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="body" value="descripcion" />
-
-                                        <Textarea
-                                            name="body"
-                                            value={data.body}
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            onChange={(e) => setData('body', e.target.value)}>
-
-                                        </Textarea>
-
-                                        <InputError message={errors.body} className="mt-2" />
-                                    </div>
-
                                     <div>
                                         <InputLabel htmlFor="users" value="Agente" />
 
@@ -217,6 +203,22 @@ export default function Edit({ auth, document, contacts, properties, users }) {
                                         </select>
 
                                         <InputError message={errors.status} className="mt-2" />
+                                    </div>
+
+
+                                    <div className='col-span-2'>
+                                        <InputLabel htmlFor="body" value="descripcion" />
+
+                                        <Textarea
+                                            name="body"
+                                            value={data.body}
+                                            rows={10}
+                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                            onChange={(e) => setData('body', e.target.value)}>
+
+                                        </Textarea>
+
+                                        <InputError message={errors.body} className="mt-2" />
                                     </div>
 
                                 </ContainerTitle>

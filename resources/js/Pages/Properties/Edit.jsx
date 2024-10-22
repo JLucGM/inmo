@@ -391,6 +391,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
                                                     id="description"
                                                     type="text"
                                                     name="description"
+                                                    rows={10}
                                                     value={data.description}
                                                     className="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
 
@@ -486,6 +487,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
                                                     id="direction"
                                                     type="text"
                                                     name="direction"
+                                                    rows={5}
                                                     value={data.direction}
                                                     className="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                                     onChange={(e) => setData('direction', e.target.value)}

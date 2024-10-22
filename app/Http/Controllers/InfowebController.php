@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InfoWeb\StoreRequest;
+use App\Http\Requests\InfoWeb\UpdateRequest;
 use App\Models\Infoweb;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -29,7 +31,7 @@ class InfowebController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->only('name','text');
 
@@ -70,7 +72,7 @@ class InfowebController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Infoweb $infoweb)
+    public function update(UpdateRequest $request, Infoweb $infoweb)
     {
         $data = $request->only('name','text');
 

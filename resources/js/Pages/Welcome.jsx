@@ -21,7 +21,7 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
 
                 <Banner data={slides} />
 
-                <ProductsList data={properties} />
+                <ProductsList data={properties} setting={setting}/>
 
                 <InfoSection data={infoweb} />
 

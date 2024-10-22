@@ -9,7 +9,7 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import PDF from '@/Components/PDF/PDF';
 
 export default function Index({ auth, contacts, properties }) {
-    console.log(contacts)
+    // console.log(contacts)
     let [isOpen, setIsOpen] = useState(false)
     const [selectedProperty, setSelectedProperty] = useState(null);
     const [selectedContact, setSelectedContact] = useState(null);

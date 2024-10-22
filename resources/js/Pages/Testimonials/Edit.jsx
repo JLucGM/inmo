@@ -122,6 +122,7 @@ export default function Edit({ auth, testimonial }) {
                                     id="text"
                                     type="text"
                                     name="text"
+                                    rows={10}
                                     value={data.text}
                                     className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                     onChange={(e) => setData('text', e.target.value)}

@@ -155,6 +155,7 @@ export default function Create({ auth, categryposts }) {
                                             id="extract"
                                             type="text"
                                             name="extract"
+                                            rows={5}
                                             value={data.extract}
                                             className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                             onChange={(e) => setData('extract', e.target.value)}
@@ -168,6 +169,7 @@ export default function Create({ auth, categryposts }) {
                                     <div className='col-span-2'>
                                         <InputLabel htmlFor="content" value="content" />
                                         <TextAreaRich
+                                        
                                             initialValue={data.content}
                                             ref={textAreaRef}
                                             name="content"

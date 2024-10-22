@@ -7,6 +7,7 @@ import { Head, useForm } from '@inertiajs/react';
 import { Textarea } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
+import { useState } from 'react';
 
 export default function Create({ auth }) {
 
@@ -16,11 +17,24 @@ export default function Create({ auth }) {
     }
 
     const { data, setData, errors, post } = useForm(initialValues)
+    const [charCount, setCharCount] = useState(0); // Estado para contar caracteres
 
     const submit = (e) => {
         e.preventDefault();
         post(route('info-web.store'))
         console.log(data)
+    }
+
+    const handleTextChange = (e) => {
+        const { value } = e.target;
+        if (value.length <= 500) { // Limitar a 500 caracteres
+            setData('text', value); // Actualizar el estado con el nuevo texto
+            setCharCount(value.length); // Actualizar contador de caracteres
+        } else {
+            // Si se excede, puedes actualizar el contador para mostrar el límite
+            setData('text', value.substring(0, 500)); // Limitar el texto a 500 caracteres
+            setCharCount(500); // Mantener el contador en 500
+        }
     }
 
     const items = [
@@ -52,7 +66,7 @@ export default function Create({ auth }) {
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear 
+                        Crear
                     </h2>
                 </div>
             }
@@ -70,6 +84,20 @@ export default function Create({ auth }) {
                                 <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                     <div className='col-span-2'>
+                                        <InputLabel htmlFor="image" value="image" />
+
+                                        <TextInput
+                                            id="image"
+                                            type="file"
+                                            name="image"
+                                            className="mt-1 block w-full"
+                                            onChange={(e) => setData('image', e.target.files[0])}
+                                        />
+
+                                        <InputError message={errors.image} className="mt-2" />
+                                    </div>
+
+                                    <div className='col-span-2'>
                                         <InputLabel htmlFor="name" value="Nombre" />
 
                                         <TextInput
@@ -85,33 +113,17 @@ export default function Create({ auth }) {
                                         <InputError message={errors.name} className="mt-2" />
                                     </div>
 
-
-                                    <div>
-                                        <InputLabel htmlFor="image" value="image" />
-
-                                        <TextInput
-                                            id="image"
-                                            type="file"
-                                            name="image"
-                                            className="mt-1 block w-full"
-                                            onChange={(e) => setData('image', e.target.files[0])}
-                                        />
-
-                                        <InputError message={errors.image} className="mt-2" />
-                                    </div>
-
                                     <div className='col-span-2'>
-                                        <InputLabel htmlFor="name" value="texto" />
-
+                                        <InputLabel htmlFor="text" value="Texto" />
                                         <Textarea
                                             id="text"
-                                            type="text"
                                             name="text"
+                                            rows={10}
                                             value={data.text}
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm "
-                                            onChange={(e) => setData('text', e.target.value)}
+                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                            onChange={handleTextChange} // Usar la nueva función
                                         />
-
+                                        <p className="text-sm text-gray-500">{charCount}/500 caracteres</p> {/* Mostrar contador */}
                                         <InputError message={errors.text} className="mt-2" />
                                     </div>
 

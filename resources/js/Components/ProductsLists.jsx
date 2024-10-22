@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 
-export default function ProductsList({ data }) {
+export default function ProductsList({ data, setting }) {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -27,7 +27,7 @@ export default function ProductsList({ data }) {
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">{product.country.name}, {product.state.name}</p>
                 </div>
-                <p className="text-sm font-medium text-gray-900">{product.price}</p>
+                <p className="text-sm font-medium text-gray-900">{setting.currency.symbol}{product.price}</p>
               </div>
             </Link>
           ))}

@@ -171,6 +171,7 @@ export default function Edit({ auth, posts, categryposts }) {
                                             type="text"
                                             name="extract"
                                             value={data.extract}
+                                            rows={5}
                                             className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                             onChange={(e) => setData('extract', e.target.value)}
                                         >

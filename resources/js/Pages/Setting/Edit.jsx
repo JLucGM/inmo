@@ -18,7 +18,7 @@ export default function Edit({ auth, setting, currencies }) {
         favicon: setting.favicon,
         direction: setting.direction,
         description: setting.description,
-        currency_id: currencies.currency_id,
+        currency_id: setting.currency_id || (currencies.length > 0 ? currencies[0].id : null), // Usar el valor de setting si existe
     }
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
@@ -214,6 +214,7 @@ export default function Edit({ auth, setting, currencies }) {
                                             id="description"
                                             type="text"
                                             name="description"
+                                            rows={10}
                                             value={data.description}
                                             className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                             onChange={(e) => setData('description', e.target.value)}

@@ -137,7 +137,7 @@ export default function PropertySection({ datas, images, amenities, setting }) {
 
                   <InputError message={errors.name} className="mt-2" />
                 </div>
-                
+
                 <div>
                   <InputLabel htmlFor="email" value="email" />
 
