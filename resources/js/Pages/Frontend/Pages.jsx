@@ -14,10 +14,10 @@ export default function Faqs({ auth, setting, pages, page }) {
             <Head title='Blog' />
 
             <Banner data={page} />
- {/* <img src={page.image} /> */}
-{page.name}
+            {/* <img src={page.image} /> */}
+            {page.name}
 
-<div className="pb-6" dangerouslySetInnerHTML={{ __html: page.body }} />
+            <div className="pb-6" dangerouslySetInnerHTML={{ __html: page.body }} />
 
 
 

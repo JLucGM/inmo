@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cities;
 use App\Models\Contacts;
+use App\Models\Countries;
 use App\Models\Faqs;
 use App\Models\Infoweb;
 use App\Models\Page;
+use App\Models\PhyStates;
 use App\Models\Post;
 use App\Models\Property;
 use App\Models\Setting;
 use App\Models\Slide;
+use App\Models\States;
 use App\Models\Testimonial;
+use App\Models\TypesBusinesses;
+use App\Models\TypesProperties;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -22,7 +28,7 @@ class FrontendController extends Controller
         $setting = Setting::with('currency')->first();
         $slides = Slide::where('status', '1')->first();
         $pages = Page::where('status', '1')->get();
-        $properties = Property::with('country', 'state', 'city')->where('status', '1')->get();
+        $properties =Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'user')->where('status', '1')->get();
         $infoweb = Infoweb::all();
         $testimonials = Testimonial::all();
         $user = User::all();
@@ -135,5 +141,20 @@ class FrontendController extends Controller
         Contacts::create($data);
     }
 
+    public function propertiesList()
+    {
+        $pages = Page::all();
+        $setting = Setting::with('currency')->first();
+        $properties = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'typeProperty', 'user')->where('status', '1')->get();
+        $countries = Countries::all();
+        $states = States::all();
+        $cities = Cities::all();
+        $phyStates = PhyStates::all();
+        $typeBusinesses = TypesBusinesses::all();
+        $typeProperties = TypesProperties::all(); // Asegúrate de que este modelo exista y esté relacionado
+        
+        return Inertia::render('Frontend/PropertiesList', compact('setting','pages','properties','countries','states','cities','phyStates','typeBusinesses','typeProperties'));
+
+    }
 
 }

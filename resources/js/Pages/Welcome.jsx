@@ -11,7 +11,7 @@ import TeamSection from '@/Components/TeamSection';
 
 export default function Welcome({ auth, setting, slides, properties, infoweb, testimonials, user, pages }) {
 
-    // console.log(pages)
+    console.log(properties)
 
     return (
         <>

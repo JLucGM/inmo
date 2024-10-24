@@ -19,9 +19,9 @@ class SettingSeeder extends Seeder
             [
                 'name' => 'Inmobilia2',
                 'currency_id' => 1,
-                'logo' => 'default.png',
-                'logo_footer' => 'default.png',
-                'favicon' => 'favicon.ico',
+                'logo' => asset('img/setting/default.png'), // URL completa para el logo
+                'logo_footer' => asset('img/setting/default.png'), // URL completa para el logo del pie de página
+                'favicon' => asset('img/setting/favicon.ico'),
                 'phone' => '+58 424-290-9870',
                 'direction' => 'Av. Américo Vespucio, CC Caribean Mall C3-105',
                 'email' => 'soporte@softandnet.com',

@@ -46,7 +46,7 @@ export default function PropertySection({ datas, images, amenities, setting }) {
               key={image.id}
               className="bg-center bg-repeat bg-cover rounded-3xl relative content-center "
               style={{
-                backgroundImage: `url(/img/properties/${image.name})`,
+                backgroundImage: `url(${image.name})`,
                 height: '30rem',
               }}
             >

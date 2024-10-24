@@ -1,44 +1,16 @@
-'use client'
-
 import { useState } from 'react'
 import {
-    Dialog,
-    DialogPanel,
-    Disclosure,
-    DisclosureButton,
-    DisclosurePanel,
-    Popover,
-    PopoverButton,
-    PopoverGroup,
-    PopoverPanel,
+    Dialog, DialogPanel, Disclosure, DisclosureButton, DisclosurePanel, Popover, PopoverButton, PopoverGroup, PopoverPanel,
 } from '@headlessui/react'
 import {
-    ArrowPathIcon,
-    Bars3Icon,
-    ChartPieIcon,
-    CursorArrowRaysIcon,
-    FingerPrintIcon,
-    SquaresPlusIcon,
-    XMarkIcon,
+    ArrowPathIcon, Bars3Icon, ChartPieIcon, CursorArrowRaysIcon, FingerPrintIcon, SquaresPlusIcon, XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 import { Link } from '@inertiajs/react'
 
-const products = [
-    { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
-    { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-    { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
-    { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
-    { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
-]
-const callsToAction = [
-    { name: 'Watch demo', href: 'ContactPage.index', icon: PlayCircleIcon },
-    { name: 'Contact sales', href: 'ContactPage.index', icon: PhoneIcon },
-]
-
-export default function MegaMenu({ auth, setting, pages }) {
+export default function MegaMenu({ auth, setting  }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-    console.log(pages)
+
     return (
         <header className="bg-white">
             <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
@@ -65,8 +37,9 @@ export default function MegaMenu({ auth, setting, pages }) {
                         <Bars3Icon aria-hidden="true" className="h-6 w-6" />
                     </button>
                 </div>
+
                 <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-                    <Popover className="relative">
+                    {/* <Popover className="relative">
                         <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
                             Product
                             <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
@@ -93,7 +66,9 @@ export default function MegaMenu({ auth, setting, pages }) {
                                             <p className="mt-1 text-gray-600">{item.description}</p>
                                         </div>
                                     </div>
+
                                 ))}
+
                             </div>
                             <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
                                 {callsToAction.map((item) => (
@@ -109,17 +84,23 @@ export default function MegaMenu({ auth, setting, pages }) {
                                 ))}
                             </div>
                         </PopoverPanel>
-                    </Popover>
+                    </Popover> */}
 
+                    <Link href={route('propertiesList.show')} className="text-sm font-semibold leading-6 text-gray-900">
+                        Propieades
+                    </Link>
                     <Link href={route('blog.show')} className="text-sm font-semibold leading-6 text-gray-900">
                         Blog
                     </Link>
                     <Link href={route('faqs.show')} className="text-sm font-semibold leading-6 text-gray-900">
                         FAQS
-                        </Link>
-                        <Popover className="relative">
+                    </Link>
+                    <Link href={route('ContactPage.index')} className="text-sm font-semibold leading-6 text-gray-900">
+                        Contactanos
+                    </Link>
+                    {/* <Popover className="relative">
                         <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-                            Product
+                            Compañia
                             <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
                         </PopoverButton>
 
@@ -133,9 +114,9 @@ export default function MegaMenu({ auth, setting, pages }) {
                                         key={item.name}
                                         className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
                                     >
-                                        {/* <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                                        <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                                             <item.icon aria-hidden="true" className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
-                                        </div> */}
+                                        </div>
                                         <div className="flex-auto">
                                             <Link href={route('pages.show', item.slug)} className="block font-semibold text-gray-900">
                                                 {item.name}
@@ -160,7 +141,7 @@ export default function MegaMenu({ auth, setting, pages }) {
                                 ))}
                             </div>
                         </PopoverPanel>
-                    </Popover>
+                    </Popover> */}
                 </PopoverGroup>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
 
@@ -197,7 +178,7 @@ export default function MegaMenu({ auth, setting, pages }) {
                             <span className="sr-only">Your Company</span>
                             <img
                                 alt=""
-                                src={`/img/setting/${setting.logo}`}
+                                src={`${setting.logo}`}
                                 className="h-8 w-auto"
                             />
                         </a>
@@ -213,13 +194,13 @@ export default function MegaMenu({ auth, setting, pages }) {
                     <div className="mt-6 flow-root">
                         <div className="-my-6 divide-y divide-gray-500/10">
                             <div className="space-y-2 py-6">
-                                <Disclosure as="div" className="-mx-3">
+                                {/* <Disclosure as="div" className="-mx-3">
                                     <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                                         Product
                                         <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none group-data-[open]:rotate-180" />
                                     </DisclosureButton>
                                     <DisclosurePanel className="mt-2 space-y-2">
-                                        {[...products, ...callsToAction].map((item) => (
+                                        {[...products].map((item) => (
                                             <Link
                                                 key={item.name}
                                                 as="a"
@@ -230,25 +211,54 @@ export default function MegaMenu({ auth, setting, pages }) {
                                             </Link>
                                         ))}
                                     </DisclosurePanel>
-                                </Disclosure>
-                                <a
-                                    href="#"
+                                </Disclosure> */}
+                                <Link href={route('propertiesList.show')} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                >
+                                    Propiedades
+                                </Link>
+                                <Link href={route('blog.show')} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                >
+                                    Blog
+                                </Link>
+                                <Link href={route('faqs.show')} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                >
+                                    FAQS
+                                </Link>
+
+                                <Link
+                                    href={route('ContactPage.index')}
                                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 >
-                                    Features
-                                </a>
-                                <a
-                                    href="#"
-                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                >
-                                    Marketplace
-                                </a>
-                                <a
-                                    href="#"
-                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                >
-                                    Company
-                                </a>
+                                    Contactanos
+                                </Link>
+                                {/* <Disclosure as="div" className="-mx-3">
+                                    <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                                        Compañia
+                                        <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none group-data-[open]:rotate-180" />
+                                    </DisclosureButton>
+                                    <DisclosurePanel className="mt-2 space-y-2">
+                                        {[...pages].map((item) => (
+                                            <Link
+                                                key={item.name}
+                                                as="a"
+                                                href={route('pages.show', item.slug)}
+                                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        ))},
+                                         {[...callsToAction].map((item) => (
+                                            <Link
+                                                key={item.name}
+                                                as="a"
+                                                href={route(item.href)}
+                                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        ))} 
+                                    </DisclosurePanel>
+                                </Disclosure> */}
                             </div>
                             <div className="py-6">
                                 {auth.user ? (
