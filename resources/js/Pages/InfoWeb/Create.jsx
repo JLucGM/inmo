@@ -8,6 +8,7 @@ import { Textarea } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 import { useState } from 'react';
+import CharacterCounter from '@/Components/CharacterCounter';
 
 export default function Create({ auth }) {
 
@@ -18,6 +19,7 @@ export default function Create({ auth }) {
 
     const { data, setData, errors, post } = useForm(initialValues)
     const [charCount, setCharCount] = useState(0); // Estado para contar caracteres
+    const charLimit = 500; // Límite de caracteres
 
     const submit = (e) => {
         e.preventDefault();
@@ -27,13 +29,13 @@ export default function Create({ auth }) {
 
     const handleTextChange = (e) => {
         const { value } = e.target;
-        if (value.length <= 500) { // Limitar a 500 caracteres
+        if (value.length <= charLimit) { // Limitar a 500 caracteres
             setData('text', value); // Actualizar el estado con el nuevo texto
             setCharCount(value.length); // Actualizar contador de caracteres
         } else {
             // Si se excede, puedes actualizar el contador para mostrar el límite
-            setData('text', value.substring(0, 500)); // Limitar el texto a 500 caracteres
-            setCharCount(500); // Mantener el contador en 500
+            setData('text', value.substring(0, charLimit)); // Limitar el texto a 500 caracteres
+            setCharCount(charLimit); // Mantener el contador en 500
         }
     }
 
@@ -123,7 +125,7 @@ export default function Create({ auth }) {
                                             className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                             onChange={handleTextChange} // Usar la nueva función
                                         />
-                                        <p className="text-sm text-gray-500">{charCount}/500 caracteres</p> {/* Mostrar contador */}
+                                        <CharacterCounter currentCount={charCount} limit={500} /> {/* Usar el componente aquí */}
                                         <InputError message={errors.text} className="mt-2" />
                                     </div>
 

@@ -25,6 +25,7 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required|min:2|max:250',
             'image' => 'required',
+            'text' => 'max:250',
         ];
     }
 }

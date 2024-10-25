@@ -9,6 +9,8 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 import { useRef } from 'react';
 import TextAreaRich from '@/Components/TextAreaRich';
+import CharacterCounter from '@/Components/CharacterCounter';
+import { useState } from 'react';
 
 export default function Edit({ auth, posts, categryposts }) {
 
@@ -24,11 +26,24 @@ export default function Edit({ auth, posts, categryposts }) {
     }
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
+    const [charCount, setCharCount] = useState(posts.extract.length);
+    const charLimit = 150; 
 
     const submit = (e) => {
         e.preventDefault();
         post(route('post.update', posts))
         console.log(data)
+    }
+
+    const handleExtractChange = (e) => {
+        const { value } = e.target;
+        if (value.length <= charLimit) {
+            setData('extract', value);
+            setCharCount(value.length); 
+        } else {
+            setData('extract', value.substring(0, charLimit));
+            setCharCount(charLimit); 
+        }
     }
 
     const items = [
@@ -173,10 +188,11 @@ export default function Edit({ auth, posts, categryposts }) {
                                             value={data.extract}
                                             rows={5}
                                             className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            onChange={(e) => setData('extract', e.target.value)}
+                                            onChange={handleExtractChange}
                                         >
 
                                         </Textarea>
+                                        <CharacterCounter currentCount={charCount} limit={150} /> {/* Usar el componente aquí */}
 
                                         <InputError message={errors.extract} className="mt-2" />
                                     </div>

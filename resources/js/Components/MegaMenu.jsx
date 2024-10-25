@@ -87,7 +87,7 @@ export default function MegaMenu({ auth, setting  }) {
                     </Popover> */}
 
                     <Link href={route('propertiesList.show')} className="text-sm font-semibold leading-6 text-gray-900">
-                        Propieades
+                        Propiedades
                     </Link>
                     <Link href={route('blog.show')} className="text-sm font-semibold leading-6 text-gray-900">
                         Blog

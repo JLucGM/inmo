@@ -9,6 +9,8 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 import TextAreaRich from '@/Components/TextAreaRich';
 import React, { useRef } from 'react';
+import CharacterCounter from '@/Components/CharacterCounter';
+import { useState } from 'react';
 
 
 export default function Create({ auth, categryposts }) {
@@ -21,13 +23,27 @@ export default function Create({ auth, categryposts }) {
     }
 
     const { data, setData, errors, post } = useForm(initialValues)
-    // console.log(data.content)
+    const [charCount, setCharCount] = useState(0); // Estado para contar caracteres
+    const charLimit = 150; // Límite de caracteres
+
     const submit = (e) => {
         e.preventDefault();
         console.log('Data before submitting:', data);
 
         post(route('post.store'))
         console.log(data)
+    }
+
+    const handleExtractChange = (e) => {
+        const { value } = e.target;
+        if (value.length <= charLimit) { // Limitar a 500 caracteres
+            setData('extract', value); // Actualizar el estado con el nuevo texto
+            setCharCount(value.length); // Actualizar contador de caracteres
+        } else {
+            // Si se excede, puedes actualizar el contador para mostrar el límite
+            setData('extract', value.substring(0, charLimit)); // Limitar el texto a 500 caracteres
+            setCharCount(charLimit); // Mantener el contador en 500
+        }
     }
 
     const textAreaRef = useRef();
@@ -158,10 +174,11 @@ export default function Create({ auth, categryposts }) {
                                             rows={5}
                                             value={data.extract}
                                             className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            onChange={(e) => setData('extract', e.target.value)}
+                                            onChange={handleExtractChange} // Llamar a la función directamente
                                         >
 
                                         </Textarea>
+                                        <CharacterCounter currentCount={charCount} limit={150} /> {/* Usar el componente aquí */}
 
                                         <InputError message={errors.extract} className="mt-2" />
                                     </div>
@@ -169,7 +186,7 @@ export default function Create({ auth, categryposts }) {
                                     <div className='col-span-2'>
                                         <InputLabel htmlFor="content" value="content" />
                                         <TextAreaRich
-                                        
+
                                             initialValue={data.content}
                                             ref={textAreaRef}
                                             name="content"
