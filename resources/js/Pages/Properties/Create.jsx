@@ -273,7 +273,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                     }}
                                                 >
                                                     {phystate.map((phystate) => (
-                                                        <option value={phystate.id} key={phystate.id}>
+                                                        <option className="capitalize" value={phystate.id} key={phystate.id}>
                                                             {phystate.name}
                                                         </option>
                                                     ))}

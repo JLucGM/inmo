@@ -17,11 +17,23 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('email')->notNullable();
             $table->string('phone')->nullable();
-            $table->string('logo')->default('default');
-            $table->string('logo_footer')->default('default');
-            $table->string('favicon')->default('default');
+            $table->string('logo')->nullable();
+            $table->string('logo_footer')->nullable();
+            $table->string('favicon')->nullable();
             $table->mediumText('direction')->nullable();
             $table->string('description')->notNullable(); // Descripción del sitio
+            $table->string('portadaBlog')->default();
+            $table->string('portadaFaq')->default();
+            $table->string('portadaContact')->default();
+            $table->string('portadaAnunciar')->default();
+            $table->string('titleBlog')->default();
+            $table->string('titleFaq')->default();
+            $table->string('titleContact')->default();
+            $table->string('titleAnunciar')->default();
+            $table->text('descriptionBlog')->default();
+            $table->text('descriptionFaq')->default();
+            $table->text('descriptionContact')->default();
+            $table->text('descriptionAnunciar')->default();
             $table->foreignId('currency_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
 

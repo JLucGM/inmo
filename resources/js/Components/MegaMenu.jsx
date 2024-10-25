@@ -1,14 +1,9 @@
 import { useState } from 'react'
-import {
-    Dialog, DialogPanel, Disclosure, DisclosureButton, DisclosurePanel, Popover, PopoverButton, PopoverGroup, PopoverPanel,
-} from '@headlessui/react'
-import {
-    ArrowPathIcon, Bars3Icon, ChartPieIcon, CursorArrowRaysIcon, FingerPrintIcon, SquaresPlusIcon, XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import { Dialog, DialogPanel, PopoverGroup, } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon, } from '@heroicons/react/24/outline'
 import { Link } from '@inertiajs/react'
 
-export default function MegaMenu({ auth, setting  }) {
+export default function MegaMenu({ auth, setting }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
@@ -86,6 +81,11 @@ export default function MegaMenu({ auth, setting  }) {
                         </PopoverPanel>
                     </Popover> */}
 
+                    <Link
+                        href={route('home')}
+                        className="text-sm font-semibold leading-6 text-gray-900">
+                        Inicio
+                    </Link>
                     <Link href={route('propertiesList.show')} className="text-sm font-semibold leading-6 text-gray-900">
                         Propiedades
                     </Link>
@@ -212,6 +212,11 @@ export default function MegaMenu({ auth, setting  }) {
                                         ))}
                                     </DisclosurePanel>
                                 </Disclosure> */}
+                                <Link
+                                    href={route('home')}
+                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                                    Inicio
+                                </Link>
                                 <Link href={route('propertiesList.show')} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 >
                                     Propiedades
