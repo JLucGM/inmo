@@ -13,18 +13,18 @@ export default function Index({ auth, infoweb }) {
             header: "Nombre",
             accessorKey: "name",
 
-            expanded: (row) => {
-                // Aquí puedes agregar la información adicional que deseas mostrar
-                return (
-                    <div className='flex'>
-                        <img src={`${row.original.image}`} alt={row.original.image} className='w-auto h-40' />
+            // expanded: (row) => {
+            //     // Aquí puedes agregar la información adicional que deseas mostrar
+            //     return (
+            //         <div className='flex'>
+            //             <img src={`${row.original.image}`} alt={row.original.image} className='w-auto h-40' />
 
-                        <div className="ms-4">
-                            <p>{row.original.text}</p>
-                        </div>
-                    </div>
-                );
-            },
+            //             <div className="ms-4">
+            //                 <p>{row.original.text}</p>
+            //             </div>
+            //         </div>
+            //     );
+            // },
         },
         // {
         //     header: "Estado",

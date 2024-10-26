@@ -57,7 +57,10 @@ class SettingController extends Controller
      */
     public function update(Request $request, Setting $setting)
     {
-        $data = $request->only('name', 'email', 'phone', 'direction', 'description', 'currency_id');
+        $data = $request->only('name', 'email', 'phone', 'direction', 'description','titleBlog',
+'titleFaq',
+'titleContact',
+'titleAnunciar', 'descriptionBlog','descriptionFaq','descriptionContact','descriptionAnunciar', 'currency_id');
 
         // Manejo del logo
         if ($request->hasFile('logo')) {

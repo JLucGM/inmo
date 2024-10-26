@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'phone' => '0',
             'status' => '1',
-            'avatar' => 'default.jpg',
+            'avatar' => asset('img/profile/default.png'),
         ]);
 
         $this->call(AmenitiesSeeder::class);

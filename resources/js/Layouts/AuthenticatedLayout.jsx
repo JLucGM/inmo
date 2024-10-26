@@ -92,7 +92,7 @@ export default function Authenticated({ user, header, children }) {
                         data-drawer-toggle="logo-sidebar"
                         aria-controls="logo-sidebar"
                         type="button"
-                        className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                        className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                         onClick={toggleSidebar}
                      >
                         <span className="sr-only">Open sidebar</span>
@@ -152,7 +152,7 @@ export default function Authenticated({ user, header, children }) {
 
          <aside
             id="logo-sidebar"
-            className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} sm:translate-x-0 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700`} 
+            className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700`} 
             
             aria-label="Sidebar">
             <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
@@ -233,7 +233,7 @@ export default function Authenticated({ user, header, children }) {
             </div>
          </aside>
 
-         <div className="sm:ml-64 bg-white dark:bg-gray-800 min-h-screen flex flex-col">
+         <div className="md:ml-64 bg-white dark:bg-gray-800 min-h-screen flex flex-col">
             <div className="p-8 mt-20">
                {header && (
                   <header className="">

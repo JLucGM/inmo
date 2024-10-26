@@ -21,6 +21,14 @@ class Setting extends Model
         'favicon',
         'direction',
         'description',
+        'titleBlog',
+'titleFaq',
+'titleContact',
+'titleAnunciar',
+        'descriptionBlog',
+        'descriptionFaq',
+        'descriptionContact',
+        'descriptionAnunciar',
         'currency_id',
     ];
 

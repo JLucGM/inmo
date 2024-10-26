@@ -18,6 +18,14 @@ export default function Edit({ auth, setting, currencies }) {
         favicon: setting.favicon,
         direction: setting.direction,
         description: setting.description,
+        descriptionBlog: setting.descriptionBlog,
+        descriptionFaq: setting.descriptionFaq,
+        descriptionContact: setting.descriptionContact,
+        descriptionAnunciar: setting.descriptionAnunciar,
+        titleBlog: setting.descriptionAnunciar,
+        titleFaq: setting.descriptionAnunciar,
+        titleContact: setting.descriptionAnunciar,
+        titleAnunciar: setting.descriptionAnunciar,
         currency_id: setting.currency_id || (currencies.length > 0 ? currencies[0].id : null), // Usar el valor de setting si existe
     }
 
@@ -26,7 +34,7 @@ export default function Edit({ auth, setting, currencies }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('settings.update', setting))
-        console.log(data)
+        // console.log(data)
     }
 
     const items = [
@@ -39,17 +47,10 @@ export default function Edit({ auth, setting, currencies }) {
         },
         {
             name: 'Configuraciones',
-            // href: 'cities.index',
             icon: {
                 path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
             },
         },
-        // {
-        //     name: 'Crear ciudad',
-        //     icon: {
-        //         path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-        //     },
-        // },
     ];
 
     return (
@@ -220,7 +221,135 @@ export default function Edit({ auth, setting, currencies }) {
                                             onChange={(e) => setData('description', e.target.value)}
                                         />
 
-                                        <InputError message={errors.phone} className="mt-2" />
+                                        <InputError message={errors.description} className="mt-2" />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel htmlFor="titleBlog" value="titleBlog" />
+
+                                        <TextInput
+                                            id="titleBlog"
+                                            type="text"
+                                            name="titleBlog"
+                                            value={data.titleBlog}
+                                            className="mt-1 block w-full"
+                                            isFocused={true}
+                                            onChange={(e) => setData('titleBlog', e.target.value)}
+                                        />
+
+                                        <InputError message={errors.titleBlog} className="mt-2" />
+                                    </div>
+
+                                    <div className='col-span-2'>
+                                        <InputLabel htmlFor="descriptionBlog" value="descriptionBlog" />
+
+                                        <Textarea
+                                            id="descriptionBlog"
+                                            type="text"
+                                            name="descriptionBlog"
+                                            rows={10}
+                                            value={data.descriptionBlog}
+                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                            onChange={(e) => setData('descriptionBlog', e.target.value)}
+                                        />
+
+                                        <InputError message={errors.descriptionBlog} className="mt-2" />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel htmlFor="titleFaq" value="titleFaq" />
+
+                                        <TextInput
+                                            id="titleFaq"
+                                            type="text"
+                                            name="titleFaq"
+                                            value={data.titleFaq}
+                                            className="mt-1 block w-full"
+                                            isFocused={true}
+                                            onChange={(e) => setData('titleFaq', e.target.value)}
+                                        />
+
+                                        <InputError message={errors.titleFaq} className="mt-2" />
+                                    </div>
+
+                                    <div className='col-span-2'>
+                                        <InputLabel htmlFor="descriptionFaq" value="descriptionFaq" />
+
+                                        <Textarea
+                                            id="descriptionFaq"
+                                            type="text"
+                                            name="descriptionFaq"
+                                            rows={10}
+                                            value={data.descriptionFaq}
+                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                            onChange={(e) => setData('descriptionFaq', e.target.value)}
+                                        />
+
+                                        <InputError message={errors.descriptionFaq} className="mt-2" />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel htmlFor="titleContact" value="titleContact" />
+
+                                        <TextInput
+                                            id="titleContact"
+                                            type="text"
+                                            name="titleContact"
+                                            value={data.titleContact}
+                                            className="mt-1 block w-full"
+                                            isFocused={true}
+                                            onChange={(e) => setData('titleContact', e.target.value)}
+                                        />
+
+                                        <InputError message={errors.titleContact} className="mt-2" />
+                                    </div>
+
+                                    <div className='col-span-2'>
+                                        <InputLabel htmlFor="descriptionContact" value="descriptionContact" />
+
+                                        <Textarea
+                                            id="descriptionContact"
+                                            type="text"
+                                            name="descriptionContact"
+                                            rows={10}
+                                            value={data.descriptionContact}
+                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                            onChange={(e) => setData('descriptionContact', e.target.value)}
+                                        />
+
+                                        <InputError message={errors.descriptionContact} className="mt-2" />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel htmlFor="titleAnunciar" value="titleAnunciar" />
+
+                                        <TextInput
+                                            id="titleAnunciar"
+                                            type="text"
+                                            name="titleAnunciar"
+                                            value={data.titleAnunciar}
+                                            className="mt-1 block w-full"
+                                            isFocused={true}
+                                            onChange={(e) => setData('titleAnunciar', e.target.value)}
+                                        />
+
+                                        <InputError message={errors.titleAnunciar} className="mt-2" />
+                                    </div>
+
+                                    <div className='col-span-2'>
+                                        <InputLabel htmlFor="descriptionAnunciar" value="descriptionAnunciar" />
+
+                                        <Textarea
+                                            id="descriptionAnunciar"
+                                            type="text"
+                                            name="descriptionAnunciar"
+                                            rows={10}
+                                            value={data.descriptionAnunciar}
+                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                            onChange={(e) => setData('descriptionAnunciar', e.target.value)}
+                                        />
+
+                                        <InputError message={errors.descriptionAnunciar} className="mt-2" />
                                     </div>
 
                                 </ContainerTitle>

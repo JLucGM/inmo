@@ -105,11 +105,11 @@ export default function Index({ auth, contacts, properties }) {
             <Head className="capitalize" title="Contactos" />
 
             <div className="">
-                <div className="max-w-7xl mx-auto ">
+                <div className="max-w-7xl mx-auto p-4">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden ">
-                        <TabGroup className={'rounded-lg h-screen-[-175] border'} vertical>
-                            <div className="grid grid-cols-4">
-                                <TabList className="flex flex-col overflow-y-auto rounded-lg h-screen-[-175] border-e">
+                        <TabGroup className={'rounded-lg md:h-screen-[-175] border'} vertical>
+                            <div className="grid grid-cols-1 md:grid-cols-4">
+                            <TabList className="flex flex-col overflow-y-auto rounded-lg h-44 md:h-screen-[-175] md:border-b md:flex-rowf md:overflow-hidden border-e">
                                     {
                                         contacts?.length > 0 ? (
                                             contacts.map((contact) => (
@@ -158,44 +158,44 @@ export default function Index({ auth, contacts, properties }) {
                                                         </TabList>
                                                         <TabPanels className={'p-4 '}>
                                                             <TabPanel>
-                                                                <div className="grid grid-cols-3 gap-5">
+                                                                <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'> Nombre:</span>
+                                                                        <span className='capitalize font-semibold '> Nombre:</span>
                                                                         <p className='capitalize'> {selectedContact.name ? selectedContact.name : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>Email:</span>
+                                                                        <span className='capitalize font-semibold '>Email:</span>
                                                                         <p className='capitalize'> {selectedContact.email ? selectedContact.email : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>Fecha de nacimiento:</span>
+                                                                        <span className='capitalize font-semibold '>Fecha de nacimiento:</span>
                                                                         <p className='capitalize'>{selectedContact.birthdate ? selectedContact.birthdate : 'no disponible'}                                                                        </p>
                                                                     </div>
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>Teléfono:</span>
+                                                                        <span className='capitalize font-semibold '>Teléfono:</span>
                                                                         <p className='capitalize'>{selectedContact.phone ? selectedContact.phone : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
-    <span className='capitalize font-semibold text-lg'>Encargado:</span>
-    <p className='capitalize'>{selectedContact?.user?.name || 'no disponible'}</p>
-</div>
+                                                                        <span className='capitalize font-semibold '>Encargado:</span>
+                                                                        <p className='capitalize'>{selectedContact?.user?.name || 'no disponible'}</p>
+                                                                    </div>
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>tipo de contacto:</span>
+                                                                        <span className='capitalize font-semibold '>tipo de contacto:</span>
                                                                         <p className='capitalize'>{selectedContact.typecontact.name ? selectedContact.typecontact.name : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>status de contacto:</span>
+                                                                        <span className='capitalize font-semibold '>status de contacto:</span>
                                                                         <p className='capitalize'> {selectedContact.statuscontact.name ? selectedContact.statuscontact.name : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>Medio de captacion:</span>
+                                                                        <span className='capitalize font-semibold '>Medio de captacion:</span>
                                                                         <p className='capitalize'> {selectedContact.origin.name ? selectedContact.origin.name : 'no disponible'}</p>
                                                                     </div>
                                                                 </div>
@@ -203,48 +203,48 @@ export default function Index({ auth, contacts, properties }) {
                                                             <TabPanel>
                                                                 <div className="grid grid-cols-3 gap-5">
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>tipo de propiedad:</span>
+                                                                        <span className='capitalize font-semibold '>tipo de propiedad:</span>
                                                                         <p className='capitalize'> {selectedContact.typeproperty.name ? selectedContact.typeproperty.name : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>budget:</span>
+                                                                        <span className='capitalize font-semibold '>budget:</span>
                                                                         <p className='capitalize'> {selectedContact.min_budget ? selectedContact.min_budget : 'no disponible'} - {selectedContact.max_budget ? selectedContact.max_budget : ' no disponible'}</p>
                                                                     </div>
 
 
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>bedrooms:</span>
+                                                                        <span className='capitalize font-semibold '>bedrooms:</span>
                                                                         <p className='capitalize'> {selectedContact.bedrooms ? selectedContact.bedrooms : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>bathrooms:</span>
+                                                                        <span className='capitalize font-semibold '>bathrooms:</span>
                                                                         <p className='capitalize'> {selectedContact.bathrooms ? selectedContact.bathrooms : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>Pais:</span>
+                                                                        <span className='capitalize font-semibold '>Pais:</span>
                                                                         <p className='capitalize'> {selectedContact.country.name ? selectedContact.country.name : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>Estado:</span>
+                                                                        <span className='capitalize font-semibold '>Estado:</span>
                                                                         <p className='capitalize'> {selectedContact.state.name ? selectedContact.state.name : 'no disponible'}</p>
                                                                     </div>
 
                                                                     <div>
-                                                                        <span className='capitalize font-semibold text-lg'>Ciudad:</span>
+                                                                        <span className='capitalize font-semibold '>Ciudad:</span>
                                                                         <p className='capitalize'> {selectedContact.city.name ? selectedContact.city.name : 'no disponible'}</p>
                                                                     </div>
 
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold text-lg'>direction:</span>
+                                                                    <div className='col-span-2'>
+                                                                        <span className='capitalize font-semibold '>direction:</span>
                                                                         <p className='capitalize'> {selectedContact.direction ? selectedContact.direction : 'no disponible'}</p>
                                                                     </div>
                                                                     <div className='col-span-full'>
-                                                                        <span className='capitalize font-semibold text-lg '>description:</span>
+                                                                        <span className='capitalize font-semibold  '>description:</span>
                                                                         <p> {selectedContact.description ? selectedContact.description : 'no disponible'}</p>
                                                                     </div>
                                                                 </div>
@@ -260,8 +260,8 @@ export default function Index({ auth, contacts, properties }) {
                                                                 >
                                                                     <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
                                                                 </Transition>
-                                                                <h2>Inmuebles</h2>
-                                                                <ul>
+                                                                <h6>Inmuebles</h6>
+                                                                <ul className='overflow-y-auto max-h-96'>
                                                                     <table className="table-auto w-full">
                                                                         <thead className=''>
                                                                             <tr className='border dark:border-gray-700'>
@@ -279,7 +279,7 @@ export default function Index({ auth, contacts, properties }) {
                                                                                                     setIsOpen(true);
                                                                                                     setSelectedProperty(property);
                                                                                                 }}
-                                                                                                className=" text-white font-bold"
+                                                                                                className="capitalize text-white font-bold"
                                                                                             >
                                                                                                 {property.name}
                                                                                             </button>

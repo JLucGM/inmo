@@ -40,7 +40,7 @@ export default function PDF({ data }) {
         <Document>
             <Page size="A4" style={styles.page}>
                 <View style={styles.section}>
-                    <Image src={`/img/properties/${data.main}`} alt={data.main} />
+                    <Image src={`${data.main}`} alt={data.main} />
 
                     {/* {data.images.map((image, index) => (
                                 <div key={index}>
