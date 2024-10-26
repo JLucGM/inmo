@@ -28,7 +28,7 @@ class FrontendController extends Controller
         $setting = Setting::with('currency')->first();
         $slides = Slide::where('status', '1')->first();
         $pages = Page::where('status', '1')->get();
-        $properties =Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'user')->where('status', '1')->get();
+        $properties =Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'user')->where('status', '1')->take(8)->get();
         $infoweb = Infoweb::all();
         $testimonials = Testimonial::all();
         $user = User::all();
