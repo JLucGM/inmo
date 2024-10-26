@@ -13,7 +13,7 @@ export default function FrontedLayout({children , auth, setting, pages}) {
                 {children}
             </main>
 
-           <Footer setting={setting}/>
+           <Footer setting={setting} pages={pages}/>
            </>
     );
 }

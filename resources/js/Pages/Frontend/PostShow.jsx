@@ -1,4 +1,5 @@
 import CardPost from "@/Components/CardPost";
+import CoverPage from "@/Components/CoverPage";
 import FrontedLayout from "@/Layouts/FrontedLayout";
 import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { Head } from "@inertiajs/react";
@@ -32,14 +33,15 @@ export default function PostShow({ auth, setting, posts, pages }) {
                             {posts.category_post.name}
                         </a>
                     </div>
-                    <img src={`${posts.image}`} alt={posts.image} className="w-full h-[28em] object-cover rounded-xl" />
-
+                    <CoverPage
+                        image={posts.image}
+                    />
                 </div>
 
                 <div className="flex flex-col lg:flex-row lg:space-x-12">
 
                     <div className="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full lg:w-3/4">
-                    <div className="pb-6" dangerouslySetInnerHTML={{ __html: posts.content }} />
+                        <div className="pb-6" dangerouslySetInnerHTML={{ __html: posts.content }} />
 
                     </div>
 

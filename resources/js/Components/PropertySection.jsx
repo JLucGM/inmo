@@ -239,7 +239,9 @@ export default function PropertySection({ datas, images, amenities, setting }) {
               <h2 className="capitalize text-sm font-medium text-gray-900">description</h2>
 
               <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600">{datas.description}</p>
+                {/* <p className="text-sm text-gray-600">{datas.description}</p> */}
+                <div className="pb-6" dangerouslySetInnerHTML={{ __html: datas.description }} />
+
               </div>
             </div>
 

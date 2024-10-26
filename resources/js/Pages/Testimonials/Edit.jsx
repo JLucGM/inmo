@@ -7,8 +7,13 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { Textarea, Transition } from '@headlessui/react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
+import { useState } from 'react';
+import CharacterCounter from '@/Components/CharacterCounter';
 
 export default function Edit({ auth, testimonial }) {
+    const [charCount, setCharCount] = useState(testimonial.text.length);
+    // Estado para contar caracteres
+    const charLimit = 500; // Límite de caracteres
 
     const initialValues = {
         name: testimonial.name,
@@ -22,6 +27,18 @@ export default function Edit({ auth, testimonial }) {
         e.preventDefault();
         post(route('testimonial.update', testimonial))
         // console.log(data)
+    }
+
+    const handleTextChange = (e) => {
+        const { value } = e.target;
+        if (value.length <= charLimit) { // Limitar a 500 caracteres
+            setData('text', value); // Actualizar el estado con el nuevo texto
+            setCharCount(value.length); // Actualizar contador de caracteres
+        } else {
+            // Si se excede, puedes actualizar el contador para mostrar el límite
+            setData('text', value.substring(0, charLimit)); // Limitar el texto a 500 caracteres
+            setCharCount(charLimit); // Mantener el contador en 500
+        }
     }
 
     const items = [
@@ -83,55 +100,55 @@ export default function Edit({ auth, testimonial }) {
 
                                 <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                <div className='col-span-2'>
-                                <img src={`${testimonial.avatar}`} alt={testimonial.avatar} className='w-40 mx-auto rounded-full' />
-                                    <InputLabel htmlFor="avatar" value="avatar" />
+                                    <div className='col-span-2'>
+                                        <img src={`${testimonial.avatar}`} alt={testimonial.avatar} className='w-40 mx-auto rounded-full' />
+                                        <InputLabel htmlFor="avatar" value="avatar" />
 
-                                    <TextInput
-                                        id="avatar"
-                                        type="file"
-                                        name="avatar"
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) => setData('avatar', e.target.files[0])}
-                                    />
+                                        <TextInput
+                                            id="avatar"
+                                            type="file"
+                                            name="avatar"
+                                            className="mt-1 block w-full"
+                                            isFocused={true}
+                                            onChange={(e) => setData('avatar', e.target.files[0])}
+                                        />
 
-                                    <InputError message={errors.avatar} className="mt-2" />
-                                </div>
+                                        <InputError message={errors.avatar} className="mt-2" />
+                                    </div>
 
-                                <div className='col-span-2'>
-                                    <InputLabel htmlFor="name" value="Nombre" />
+                                    <div className='col-span-2'>
+                                        <InputLabel htmlFor="name" value="Nombre" />
 
-                                    <TextInput
-                                        id="name"
-                                        type="text"
-                                        name="name"
-                                        value={data.name}
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) => setData('name', e.target.value)}
-                                    />
+                                        <TextInput
+                                            id="name"
+                                            type="text"
+                                            name="name"
+                                            value={data.name}
+                                            className="mt-1 block w-full"
+                                            isFocused={true}
+                                            onChange={(e) => setData('name', e.target.value)}
+                                        />
 
-                                    <InputError message={errors.name} className="mt-2" />
-                                </div>
+                                        <InputError message={errors.name} className="mt-2" />
+                                    </div>
 
-                                <div className='col-span-2'>
-                                    <InputLabel htmlFor="text" value="Testimonio" />
+                                    <div className='col-span-2'>
+                                        <InputLabel htmlFor="text" value="Testimonio" />
 
-                                    <Textarea 
-                                    id="text"
-                                    type="text"
-                                    name="text"
-                                    rows={10}
-                                    value={data.text}
-                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                    onChange={(e) => setData('text', e.target.value)}
-                                    >
+                                        <Textarea
+                                            id="text"
+                                            type="text"
+                                            name="text"
+                                            rows={10}
+                                            value={data.text}
+                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                            onChange={handleTextChange}
+                                        >
+                                        </Textarea>
+                                        <CharacterCounter currentCount={charCount} limit={500} /> {/* Usar el componente aquí */}
 
-                                    </Textarea>
-
-                                    <InputError message={errors.text} className="mt-2" />
-                                </div>
+                                        <InputError message={errors.text} className="mt-2" />
+                                    </div>
 
                                 </ContainerTitle>
 

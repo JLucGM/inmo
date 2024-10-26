@@ -173,7 +173,6 @@ export default function Edit({ auth, user }) {
 
 
                                     <div className='col-span-2'>
-                                    <img className='w-40 mx-auto rounded-full ' src={`${user.avatar}`} alt={`${user.avatar}`} />
 
                                         <InputLabel htmlFor="avatar" value="avatar" />
 

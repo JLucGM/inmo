@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Testimonials\StoreRequest;
+use App\Http\Requests\Testimonials\UpdateRequest;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -70,7 +71,7 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Testimonial $testimonial)
+    public function update(UpdateRequest $request, Testimonial $testimonial)
     {
         $data = $request->only('name', 'text');
 

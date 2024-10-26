@@ -5,7 +5,7 @@ const AccordionItem = ({ name, content, isOpen, onToggle }) => {
     return (
         <div className="accordion-item border rounded-3xl mb-4">
             <div className="accordion-header bordser flex justify-between p-5" onClick={onToggle}>
-                <h2>{name}</h2>
+                <h6>{name}</h6>
                 <span>
                     {
                         isOpen

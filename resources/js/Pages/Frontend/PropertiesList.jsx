@@ -4,9 +4,9 @@ import ProductsList from '@/Components/ProductsLists';
 import { useState } from "react";
 import InputLabel from "@/Components/InputLabel";
 import { Select } from "@headlessui/react";
+import PaginationPage from "@/Components/PaginationPage";
 
 export default function PropertiesList({ auth, setting, pages, properties, countries, states, cities, phyStates, typeBusinesses, typeProperties }) {
-    //console.log(properties)
     const [filters, setFilters] = useState({
         priceRange: [0, 100000000000000],
         country: '',
@@ -16,6 +16,9 @@ export default function PropertiesList({ auth, setting, pages, properties, count
         typeBusiness: '',
         typeProperty: '',
     });
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const postsPerPage = 12;
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
@@ -40,7 +43,6 @@ export default function PropertiesList({ auth, setting, pages, properties, count
     };
 
     const filteredProperties = properties.filter((property) => {
-        console.log(property)
         const matchesPrice = property.price >= filters.priceRange[0] && property.price <= filters.priceRange[1];
         const matchesCountry = filters.country ? property.country?.id === parseInt(filters.country) : true;
         const matchesState = filters.state ? property.state?.id === parseInt(filters.state) : true;
@@ -52,13 +54,29 @@ export default function PropertiesList({ auth, setting, pages, properties, count
         return matchesPrice && matchesCountry && matchesState && matchesCity && matchesPhyState && matchesTypeBusiness && matchesTypeProperty;
     });
 
-    console.log(filteredProperties)
+    // Lógica de paginación
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = filteredProperties.slice(indexOfFirstPost, indexOfLastPost); // Asegúrate de usar currentPosts aquí
+    const totalPages = Math.ceil(filteredProperties.length / postsPerPage);
+
+    const nextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const prevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
 
     return (
         <FrontedLayout auth={auth} setting={setting} pages={pages}>
             <Head title='Lista de propiedades' />
 
-
+            <div className="mx-auto max-w-7xl">
             <div className=" px-4 ">
                 <h2 className="text-lg font-bold">Filtros</h2>
                 <div className="grid grid-cols-4 gap-4">
@@ -134,8 +152,18 @@ export default function PropertiesList({ auth, setting, pages, properties, count
                 </div>
             </div>
 
-            <ProductsList data={filteredProperties} setting={setting} />
+            <ProductsList data={currentPosts} setting={setting} />
 
+
+            {/* Componente de Paginación */}
+            <PaginationPage
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onNext={nextPage}
+                onPrev={prevPage}
+                />
+
+                </div>
         </FrontedLayout>
     );
 }

@@ -12,6 +12,8 @@ import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
 import { Marker } from 'react-leaflet';
 import MapView from '@/Components/MapView';
+import TextAreaRich from '@/Components/TextAreaRich';
+import { useRef } from 'react';
 
 export default function Edit({ auth, property, state, country, typepropety, typebusiness, city, phystate, amenities, propertyAmenities, images, main }) {
 
@@ -20,7 +22,8 @@ export default function Edit({ auth, property, state, country, typepropety, type
     const [statesByCountry, setStatesByCountry] = useState(state);
     const [citiesByState, setCitiesByState] = useState(city);
     const [uploadedImages, setImages] = useState([]);
-    
+
+    const textAreaRef = useRef();
 
     const initialValues = {
         name: property.name,
@@ -165,11 +168,10 @@ export default function Edit({ auth, property, state, country, typepropety, type
                                 >
                                     <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
                                 </Transition>
-                                <div className="xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="xs:grid md:grid xs:grid-cols-1 lg:grid-cols-3 gap-4">
 
 
-                                    <div>
-
+                                    <div className="col-span-full lg:col-span-2">
                                         <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                             <div className='md:col-span-2'>
@@ -387,7 +389,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
                                             <div className='col-span-2'>
                                                 <InputLabel htmlFor="description" value="descripcion" />
 
-                                                <Textarea
+                                                {/* <Textarea
                                                     id="description"
                                                     type="text"
                                                     name="description"
@@ -396,6 +398,13 @@ export default function Edit({ auth, property, state, country, typepropety, type
                                                     className="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
 
                                                     onChange={(e) => setData('description', e.target.value)}
+                                                /> */}
+
+                                                <TextAreaRich
+                                                    initialValue={data.description}
+                                                    ref={textAreaRef}
+                                                    name="description"
+                                                    onChange={(newText) => setData('description', newText)}
                                                 />
 
                                                 <InputError message={errors.description} className="mt-2" />
@@ -405,7 +414,7 @@ export default function Edit({ auth, property, state, country, typepropety, type
 
                                     </div>
 
-                                    <div>
+                                    <div className="col-span-full lg:col-span-1">
                                         <ContainerTitle title={'Ubicación geográfica'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
                                             <div className='col-span-2'>
                                                 <InputLabel htmlFor="country" value="Paises" />

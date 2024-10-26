@@ -10,12 +10,15 @@ export default function Faqs({ auth, setting, faqs, pages }) {
             <Head title='Faqs' />
 
             <CoverPage
-          title={setting.titleFaq}
-          image={setting.portadaFaq}
-        />
+                title={setting.titleFaq}
+                image={setting.portadaFaq}
+                text={setting.descriptionFaq}
+            />
 
-{setting.descriptionFaq}
-            <Accordion items={faqs} />
+            <div className="my-20">
+
+                <Accordion items={faqs} />
+            </div>
 
         </FrontedLayout>
     )
