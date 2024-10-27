@@ -1,11 +1,14 @@
 import Badge from '@/Components/Badge';
 import Breadcrumb from '@/Components/Breadcrumb';
 import DataTable from '@/Components/DataTable';
+import PDFDocuments from '@/Components/PDF/PDFDocuments';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Button } from '@headlessui/react';
 import { Head, Link } from '@inertiajs/react';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 
 export default function Index({ auth, documents }) {
-
+    console.log(documents)
     const items = [
         {
             name: 'Dashboard',
@@ -37,7 +40,7 @@ export default function Index({ auth, documents }) {
                         <p className='capitalize'>Contacto: {row.original.contact.name}</p>
                         <p className='capitalize'>Agente: {row.original.user.name}</p>
                         <p className='capitalize'>Propiedad: {row.original.property.name}</p>
-                        
+
                     </div>
                 );
             },
@@ -45,10 +48,10 @@ export default function Index({ auth, documents }) {
         {
             header: "Estado",
             accessorKey: "status",
-            cell: ({row}) => {
+            cell: ({ row }) => {
                 let badgeClass = '';
                 let badgeText = '';
-    
+
                 switch (row.original.status) {
                     case 0:
                         badgeClass = 'bg-green-600';
@@ -70,14 +73,28 @@ export default function Index({ auth, documents }) {
                         badgeClass = 'bg-red-600';
                         badgeText = 'Desconocido';
                 }
-    
+
                 return (
                     <Badge className={` ${badgeClass}`}>
                         {badgeText}
                     </Badge>
                 );
-            }, 
-        }, 
+            },
+        },
+        // {
+        //     header: "bptpm",
+        //     cell: ({ row }) => {
+        //         return (
+        //             <PDFDownloadLink document={<PDFDocuments data={row} />} fileName='pfdprueba1.pdf'>
+        //                 <Button
+        //                     className='inline-flex items-center px-4 py-2 bg-orange-800 dark:bg-orange-500 border border-transparent rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
+        //                 >
+        //                     PDF
+        //                 </Button>
+        //             </PDFDownloadLink>
+        //         )
+        //     },
+        // }
     ]
 
     return (
@@ -114,7 +131,7 @@ export default function Index({ auth, documents }) {
                                 ) : (
                                     <p className='text-sm'>No hay documentos disponibles.</p>
                                 )}
-                                
+
                             </div>
                         </div>
                     </div>

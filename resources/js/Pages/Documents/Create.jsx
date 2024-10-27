@@ -7,6 +7,8 @@ import { Head, useForm } from '@inertiajs/react';
 import { Select, Textarea } from '@headlessui/react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
+import { useRef } from 'react';
+import TextAreaRich from '@/Components/TextAreaRich';
 
 export default function Create({ auth, contacts, properties, users }) {
 
@@ -20,6 +22,7 @@ export default function Create({ auth, contacts, properties, users }) {
     }
 
     const { data, setData, errors, post } = useForm(initialValues)
+    const textAreaRef = useRef();
 
     const submit = (e) => {
         e.preventDefault();
@@ -194,14 +197,22 @@ export default function Create({ auth, contacts, properties, users }) {
                                     <div className='col-span-2'>
                                         <InputLabel htmlFor="body" value="descripcion" />
 
-                                        <Textarea
+                                        {/* <Textarea
                                             name="body"
                                             value={data.body}
                                             rows={10}
                                             className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                             onChange={(e) => setData('body', e.target.value)}>
 
-                                        </Textarea>
+                                        </Textarea> */}
+
+                                        <TextAreaRich
+
+initialValue={data.body}
+ref={textAreaRef}
+name="body"
+onChange={(newText) => setData('body', newText)}
+/>
 
                                         <InputError message={errors.body} className="mt-2" />
                                     </div>

@@ -35,22 +35,23 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function PDF({ data }) {
+
+export default function PDFDocuments({ data }) {
     return (
         <Document>
             <Page size="A4" style={styles.page}>
                 <View style={styles.section}>
-                    
 
-                    <Text style={styles.subtitle}>Datos de la propiedad:</Text>
-                    <Text style={styles.text}>Nombre: {data.name}</Text>
                     
-                   
-                    
-                    <Text style={styles.subtitle}>Datos del agente</Text>
-                    <Text style={styles.text}>Agente: {data.user.name}</Text>
-                    
-                   
+                            <View >
+                                <Text style={styles.text}>Nombre: {data.name}</Text>
+                                <Text style={styles.text}>Contacto: {data.contact?.name || 'N/A'}</Text>
+                                <Text style={styles.text}>Agente: {data.user?.name || 'N/A'}</Text>
+                                <Text style={styles.text}>Propiedad: {data.property?.name || 'N/A'}</Text>
+                                <Text style={styles.text}>Estado: {data.status}</Text>
+
+                            </View>
+                        
                 </View>
                 {/* <Text style={styles.footer} render={({pageNumber, totalPages}) => 
                     `${pageNumber}/${totalPages}`
