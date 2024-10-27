@@ -11,6 +11,7 @@ import ChevronRight from './Icon/ChevronRight';
 import MagnifyingGlass from './Icon/MagnifyingGlass';
 import ChevronDown from './Icon/ChevronDown';
 import ChevronUp from './Icon/ChevronUp';
+import { MinusIcon, PencilSquareIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 export default function DataTable({ className = '', data, columns, routeEdit, routeDestroy, ...props }) {
 
@@ -109,18 +110,18 @@ export default function DataTable({ className = '', data, columns, routeEdit, ro
                                                 className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                                 onClick={() => row.toggleExpanded()}
                                             >
-                                                {row.getIsExpanded() ? '-' : '+'}
+                                                {row.getIsExpanded() ? <MinusIcon className='size-4'/> : <PlusIcon className='size-4'/>}
                                             </Button>
                                         )}
                                         <Link
                                             className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                             href={route(routeEdit, [row.original.slug])}>
-                                            Editar
+                                            <PencilSquareIcon className='size-4'/>
                                         </Link>
                                         <Link
                                             className='inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-red-400 focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
                                             href={route(routeDestroy, [row.original.slug])} method='delete' as="button">
-                                            Eliminar
+                                            <TrashIcon className='size-4'/>
                                         </Link>
                                     </td>
                                 </tr>

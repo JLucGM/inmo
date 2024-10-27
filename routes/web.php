@@ -163,6 +163,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('tasks/{task}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
     Route::post('tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+    Route::get('calendary', [TaskController::class, 'calendary'])->name('tasks.calendary');
     
     Route::get('slides', [SlideController::class, 'index'])->name('slides.index');
     Route::get('slides/create', [SlideController::class, 'create'])->name('slides.create');

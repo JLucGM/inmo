@@ -59,6 +59,7 @@ export default function Authenticated({ user, header, children }) {
 
    const crm = [
       { label: 'Contactos', route: 'contacts.index' },
+      { label: 'calendary', route: 'tasks.calendary' },
       { label: 'tasks', route: 'tasks.index' },
       { label: 'Documentos', route: 'documents.index' },
       { label: 'Tipos de contactos', route: 'typesContacts.index' },

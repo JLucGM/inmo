@@ -68,3 +68,44 @@ h6 {
     font-weight: bold;
     /* Peso de la fuente */
 }
+
+.rbc-event{
+    /* padding: 0!important; */
+    background-color: rgba(0, 0, 0, 0)!important;
+    border: none!important;
+}
+
+/* calendar.css */
+.rbc-event.event-new {
+    background-color: #3b82f6 !important; /* bg-blue-500 */
+    color: white !important;
+    padding: 5px!important;
+}
+
+.rbc-event.event-in-progress {
+    background-color: #f59e0b !important; /* bg-yellow-500 */
+    color: white !important;
+    padding: 5px!important;
+}
+
+.rbc-event.event-recovered {
+    background-color: #f97316 !important; /* bg-orange-500 */
+    color: white !important;
+    padding: 5px!important;
+}
+
+.rbc-event.event-converted {
+    background-color: #22c55e !important; /* bg-green-500 */
+    color: white !important;
+    padding: 5px!important;
+}
+
+.rbc-event.event-lost {
+    background-color: #ef4444 !important; /* bg-red-500 */
+    color: white !important;
+    padding: 5px!important;
+}
+
+.rbc-today {
+    background-color: rgba(0, 0, 0, 0)!important;
+}

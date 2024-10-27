@@ -21,7 +21,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('contact', 'user','property','typeTask')->get();
+        $tasks = Task::with('contact', 'user','property','typeTask','statusContact')->get();
         // dd($tasks);
         return Inertia::render('Tasks/Index', compact('tasks'));
     }
@@ -107,5 +107,12 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $task->delete();
+    }
+    
+    public function calendary()
+    {
+        $tasks = Task::with('typeTask','statusContact')->get();
+
+        return Inertia::render('Tasks/Calendary', compact('tasks'));
     }
 }

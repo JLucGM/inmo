@@ -96,7 +96,7 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
 
                                         <TextInput
                                             id="start_time"
-                                            type="date"
+                                            type="datetime-local"
                                             name="start_time"
                                             value={data.start_time}
                                             className="mt-1 block w-full"
@@ -111,7 +111,7 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
 
                                         <TextInput
                                             id="end_time"
-                                            type="date"
+                                            type="datetime-local"
                                             name="end_time"
                                             value={data.end_time}
                                             className="mt-1 block w-full"
