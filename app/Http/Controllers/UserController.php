@@ -5,21 +5,33 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Users\StoreRequest;
 use App\Http\Requests\Users\UpdateRequest;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+
+    //     $this->middleware('can:admin.user.index')->only('index');
+    //     $this->middleware('can:admin.user.create')->only('create', 'store');
+    //     $this->middleware('can:admin.user.edit')->only('edit', 'update');
+    //     // $this->middleware('can:admin.user.delete')->only('delete');
+    // }
+    
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
         $users = User::all();
+        $roles = Role::all();
 
-        return Inertia::render('User/Index', compact('users'));
+        return Inertia::render('User/Index', compact('users', 'roles'));
     }
 
     /**
@@ -27,7 +39,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('User/Create');
+        $roles = Role::all();
+
+        return Inertia::render('User/Create', compact('roles'));
     }
 
     /**
@@ -35,7 +49,7 @@ class UserController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $data = $request->only('name', 'email', 'phone', 'status');
+        $data = $request->only('name', 'email', 'phone', 'status', 'role');
 
         $data['password'] = bcrypt($request['password']);
 
@@ -51,7 +65,12 @@ class UserController extends Controller
             $data['avatar'] = asset('img/profile/default.jpg'); // Guarda la URL por defecto
         }
 
-        User::create($data); // Crear el nuevo usuario
+        $user = User::create($data); // Crear el nuevo usuario
+
+        // Asignar el rol al usuario
+        if ($request->filled('role')) {
+            $user->assignRole($request->input('role'));
+        }
 
         return to_route('user.index'); // Redirigir a la lista de usuarios
     }
@@ -69,7 +88,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return Inertia::render('User/Edit', compact('user'));
+        $user->load('roles');
+
+        $roles = Role::all();
+// dd($user->roles);
+        return Inertia::render('User/Edit', compact('user','roles'));
     }
 
     /**
@@ -77,7 +100,7 @@ class UserController extends Controller
      */
     public function update(UpdateRequest $request, User $user)
     {
-        $data = $request->only('name', 'email', 'phone', 'status');
+        $data = $request->only('name', 'email', 'phone', 'status', 'role');
 
         if ($request->filled('password')) {
             $data['password'] = bcrypt($request['password']);
@@ -103,6 +126,12 @@ class UserController extends Controller
 
         $user->update($data); // Actualizar el usuario con los nuevos datos
 
+        // Actualizar el rol del usuario
+    if ($request->filled('role')) {
+        // Sincronizar roles
+        $user->syncRoles([$request->input('role')]);
+    }
+    
         return to_route('user.edit', $user); // Redirigir a la edición del usuario
     }
 

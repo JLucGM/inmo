@@ -13,14 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'Jean Gouirand',
-            'email' => 'elluc09@gmail.com',
-            'password' => bcrypt('123456789'),
-            'phone' => '0',
-            'status' => '1',
-            'avatar' => asset('img/profile/default.png'),
-        ]);
+        
 
         $this->call(AmenitiesSeeder::class);
         $this->call(TypesPropertiesSeeder::class);
@@ -37,5 +30,15 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingSeeder::class);
         $this->call(TypesTasksSeeder::class);
         $this->call(CategoryPostSeeder::class);
+        $this->call(RolesSeeder::class);
+
+        User::create([
+            'name' => 'Jean Gouirand',
+            'email' => 'elluc09@gmail.com',
+            'password' => bcrypt('123456789'),
+            'phone' => '0',
+            'status' => '1',
+            'avatar' => asset('img/profile/default.jpg'),
+        ])->assignRole('super admin');
     }
 }

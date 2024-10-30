@@ -8,8 +8,8 @@ import { Transition } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Edit({ auth, user }) {
-
+export default function Edit({ auth, user, roles }) {
+console.log(user)
     const initialValues = {
         name: user.name,
         email: user.email,
@@ -17,6 +17,9 @@ export default function Edit({ auth, user }) {
         phone: user.phone,
         status: user.status,
         avatar: null,
+        role: user.roles.length > 0 ? user.roles[0].name : "", // Verifica si hay roles
+
+
     }
 
     const items = [
@@ -187,6 +190,26 @@ export default function Edit({ auth, user }) {
 
                                         <InputError message={errors.avatar} className="mt-2" />
                                     </div>
+
+                                    <div>
+                                        <InputLabel htmlFor="role" value="Rol" />
+
+                                        <select
+                                            name="role"
+                                            id="role"
+                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                            value={data.role} // Establece el valor del select
+                                            onChange={(e) => setData('role', e.target.value)}
+                                        >
+                                            <option value="">Seleccione un rol</option>
+                                            {roles.map((role) => (
+                                                <option key={role.id} value={role.name}>{role.name}</option>
+                                            ))}
+                                        </select>
+
+                                        <InputError message={errors.role} className="mt-2" />
+                                    </div>
+
                                 </ContainerTitle>
 
                                 <div className="flex justify-end p-2.5">

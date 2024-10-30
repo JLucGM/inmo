@@ -1,9 +1,9 @@
 import React from 'react';
-import { useReactTable, getCoreRowModel,getSortedRowModel, flexRender, getPaginationRowModel, getFilteredRowModel, getExpandedRowModel } from '@tanstack/react-table';
+import { useReactTable, getCoreRowModel, getSortedRowModel, flexRender, getPaginationRowModel, getFilteredRowModel, getExpandedRowModel } from '@tanstack/react-table';
 import { useState } from 'react';
 import TextInput from './TextInput';
 import { Link } from '@inertiajs/react';
-import { Button, Select } from '@headlessui/react';
+import { Button, Menu, MenuButton, MenuItem, MenuItems, Popover, PopoverButton, PopoverPanel, Select } from '@headlessui/react';
 import ChevronDoubleLeft from './Icon/ChevronDoubleLeft';
 import ChevronDoubleRight from './Icon/ChevronDoubleRight';
 import ChevronLeft from './Icon/ChevronLeft';
@@ -12,9 +12,10 @@ import MagnifyingGlass from './Icon/MagnifyingGlass';
 import ChevronDown from './Icon/ChevronDown';
 import ChevronUp from './Icon/ChevronUp';
 import { MinusIcon, PencilSquareIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+// import PDFDocuments from './PDF/PDFDocuments';
 
-export default function DataTable({ className = '', data, columns, routeEdit, routeDestroy, ...props }) {
-
+export default function DataTable({ className = '', data, columns, routeEdit = null, routeDestroy = null, PDFComponent, ...props }) {
     const [filtering, setFiltering] = useState("");
     const [sorting, setSorting] = useState([]);
     const table = useReactTable({
@@ -29,7 +30,7 @@ export default function DataTable({ className = '', data, columns, routeEdit, ro
             globalFilter: filtering,
             sorting
         },
-        onSortingChange:setSorting,
+        onSortingChange: setSorting,
         initialState: {
             pagination: {
                 pageSize: 5,
@@ -62,21 +63,21 @@ export default function DataTable({ className = '', data, columns, routeEdit, ro
                             <tr key={headerGroup.id}>
                                 {
                                     headerGroup.headers.map(header => (
-                                        <th key={header.id} 
-                                        className="border-slate-300 border px-6 py-3 "
-                                        onClick={header.column.getToggleSortingHandler()}
+                                        <th key={header.id}
+                                            className="border-slate-300 border px-6 py-3 "
+                                            onClick={header.column.getToggleSortingHandler()}
                                         >
                                             <span className="flex items-center">
-                                            {header.column.columnDef.header}
-                                            {{
-                                                'asc': <ChevronUp className=" size-4"/>, 
-                                                'desc': <ChevronDown className=" size-4"/>
-                                            }
-                                            [
-                                                header.column.getIsSorted() ?? null
-                                            ]}
-</span>
-                                            
+                                                {header.column.columnDef.header}
+                                                {{
+                                                    'asc': <ChevronUp className=" size-4" />,
+                                                    'desc': <ChevronDown className=" size-4" />
+                                                }
+                                                [
+                                                    header.column.getIsSorted() ?? null
+                                                ]}
+                                            </span>
+
                                         </th>
                                     ))
                                 }
@@ -110,19 +111,66 @@ export default function DataTable({ className = '', data, columns, routeEdit, ro
                                                 className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                                 onClick={() => row.toggleExpanded()}
                                             >
-                                                {row.getIsExpanded() ? <MinusIcon className='size-4'/> : <PlusIcon className='size-4'/>}
+                                                {row.getIsExpanded() ? <MinusIcon className='size-4' /> : <PlusIcon className='size-4' />}
                                             </Button>
                                         )}
-                                        <Link
-                                            className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                            href={route(routeEdit, [row.original.slug])}>
-                                            <PencilSquareIcon className='size-4'/>
-                                        </Link>
-                                        <Link
-                                            className='inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-red-400 focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
-                                            href={route(routeDestroy, [row.original.slug])} method='delete' as="button">
-                                            <TrashIcon className='size-4'/>
-                                        </Link>
+                                        {/* {PDFComponent && (
+                                            <PDFDownloadLink onClick={console.log(row)} document={<PDFComponent data={row.original} />} fileName='pfdprueba1.pdf'>
+                                                <Button
+                                                    className='inline-flex items-center px-4 py-2 bg-orange-800 dark:bg-orange-500 border border-transparent rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
+                                                >
+                                                    PDF
+                                                </Button>
+                                            </PDFDownloadLink>
+                                        )}
+                                        {routeEdit && (
+                                            <Link
+                                                className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                                href={route(routeEdit, [row.original.slug])}
+                                            >
+                                                <PencilSquareIcon className='size-4' />
+                                            </Link>
+                                        )}
+
+                                        {routeDestroy && (
+                                            <Link
+                                                className='inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-red-400 focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
+                                                href={route(routeDestroy, [row.original.slug])} method='delete' as="button">
+                                                <TrashIcon className='size-4' />
+                                            </Link>
+                                        )} */}
+
+                                        <Popover className="relative">
+                                            <PopoverButton
+                                                className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                            >
+                                                Opciones
+                                            </PopoverButton>
+                                            <PopoverPanel anchor="bottom" className="flex flex-col space-y-1 p-2 rounded-xl border border-gray-200 bg-white dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 ">
+                                                {PDFComponent && (
+                                                    <PDFDownloadLink onClick={console.log(row)} document={<PDFComponent data={row.original} />} fileName='pfdprueba1.pdf'>
+                                                        <Button className="w-full text-left">
+                                                            Descargar PDF
+                                                        </Button>
+                                                    </PDFDownloadLink>
+                                                )}
+                                                {routeEdit && (
+                                                    <Link href={route(routeEdit, [row.original.slug])} className="w-full text-left">
+                                                        Editar
+                                                    </Link>
+                                                )}
+                                                {routeDestroy && (
+                                                    <Link
+                                                        className="w-full text-left"
+                                                        onClick={() => console.log('Delete clicked for:', row.original.slug)}
+                                                        href={route(routeDestroy, [row.original.slug])} method='delete' as="button">
+                                                        Eliminar
+                                                    </Link>
+                                                )}
+                                            </PopoverPanel>
+                                        </Popover>
+
+
                                     </td>
                                 </tr>
                                 {

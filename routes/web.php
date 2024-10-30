@@ -15,6 +15,7 @@ use App\Http\Controllers\PhyStatesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertiesController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SlideController;
 use App\Http\Controllers\StatesController;
@@ -207,6 +208,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('documents/{document}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
     Route::post('documents/{document}', [DocumentController::class, 'update'])->name('documents.update');
     Route::delete('documents/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
+    
+    Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('roles', [RoleController::class, 'store'])->name('roles.store');
+    Route::get('roles/{roles}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::post('roles/{roles}', [RoleController::class, 'update'])->name('roles.update');
+    Route::delete('roles/{roles}', [RoleController::class, 'destroy'])->name('roles.destroy');
 });
 
 Route::get('property/{property}', [FrontendController::class, 'frontendShow'])->name('property.show');

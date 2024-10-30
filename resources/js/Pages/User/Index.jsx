@@ -11,7 +11,7 @@ import DataTable from '@/Components/DataTable';
 import Badge from '@/Components/Badge';
 import Breadcrumb from '@/Components/Breadcrumb';
 
-export default function Index({ auth, users }) {
+export default function Index({ auth, users, roles }) {
     //console.log(users)
     let [isOpen, setIsOpen] = useState(false)
     const { data, setData, errors, post } = useForm({
@@ -21,6 +21,7 @@ export default function Index({ auth, users }) {
         password: "",
         status: "0", // o 1, dependiendo del valor predeterminado que desees
         avatar: null,
+        role: "",
     });
 
     const items = [
@@ -246,6 +247,24 @@ export default function Index({ auth, users }) {
 
                                 <InputError message={errors.avatar} className="mt-2" />
                             </div>
+
+                            <div>
+                                    <InputLabel htmlFor="role" value="Rol" />
+
+                                    <select
+                                        name="role"
+                                        id="role"
+                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                        onChange={(e) => setData('role', e.target.value)}
+                                    >
+                                        <option value="">Seleccione un rol</option>
+                                        {roles.map((role) => (
+                                            <option key={role.id} value={role.name}>{role.name}</option>
+                                        ))}
+                                    </select>
+
+                                    <InputError message={errors.role} className="mt-2" />
+                                </div>
 
                             <div className="flex justify-end p-2.5">
                                 <PrimaryButton>

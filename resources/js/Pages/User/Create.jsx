@@ -6,7 +6,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import DangerButton from '@/Components/DangerButton';
 
-export default function Create({ auth }) {
+export default function Create({ auth, roles }) {
 
     const initialValues = {
         name: "",
@@ -15,6 +15,7 @@ export default function Create({ auth }) {
         password: "",
         status: 0, // o 1, dependiendo del valor predeterminado que desees
         avatar: null,
+        role: "",
     }
 
     const customStyles = {
@@ -160,6 +161,24 @@ export default function Create({ auth }) {
                                     />
 
                                     <InputError message={errors.avatar} className="mt-2" />
+                                </div>
+
+                                <div>
+                                    <InputLabel htmlFor="role" value="Rol" />
+
+                                    <select
+                                        name="role"
+                                        id="role"
+                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                        onChange={(e) => setData('role', e.target.value)}
+                                    >
+                                        <option value="">Seleccione un rol</option>
+                                        {roles.map((role) => (
+                                            <option key={role.id} value={role.name}>{role.name}</option>
+                                        ))}
+                                    </select>
+
+                                    <InputError message={errors.role} className="mt-2" />
                                 </div>
 
                                 <div className="flex justify-end p-2.5">

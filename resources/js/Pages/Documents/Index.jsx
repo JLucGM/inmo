@@ -85,7 +85,8 @@ export default function Index({ auth, documents }) {
         //     header: "bptpm",
         //     cell: ({ row }) => {
         //         return (
-        //             <PDFDownloadLink document={<PDFDocuments data={row} />} fileName='pfdprueba1.pdf'>
+        //             <PDFDownloadLink onClick={console.log(row)} document={<PDFDocuments data={row} />} fileName='pfdprueba1.pdf'>
+                        
         //                 <Button
         //                     className='inline-flex items-center px-4 py-2 bg-orange-800 dark:bg-orange-500 border border-transparent rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
         //                 >
@@ -127,6 +128,7 @@ export default function Index({ auth, documents }) {
                                         data={documents}
                                         routeEdit={'documents.edit'}
                                         routeDestroy={'documents.destroy'}
+                                        PDFComponent={PDFDocuments}
                                     />
                                 ) : (
                                     <p className='text-sm'>No hay documentos disponibles.</p>
