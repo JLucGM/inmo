@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Dialog, DialogPanel, PopoverGroup, } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon, } from '@heroicons/react/24/outline'
+import { Bars3Icon, UserIcon, XMarkIcon, } from '@heroicons/react/24/outline'
 import { Link } from '@inertiajs/react'
 
 export default function MegaMenu({ auth, setting }) {
@@ -33,9 +33,9 @@ export default function MegaMenu({ auth, setting }) {
                     </button>
                 </div>
 
-                <PopoverGroup className="hidden lg:flex lg:gap-x-12">
+                <PopoverGroup className="hidden lg:flex lg:gap-x-12 ">
                     {/* <Popover className="relative">
-                        <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+                        <PopoverButton className="flex items-center gap-x-1 text-base font-semibold leading-6 text-gray-900">
                             Product
                             <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
                         </PopoverButton>
@@ -48,7 +48,7 @@ export default function MegaMenu({ auth, setting }) {
                                 {products.map((item) => (
                                     <div
                                         key={item.name}
-                                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-base leading-6 hover:bg-gray-50"
                                     >
                                         <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                                             <item.icon aria-hidden="true" className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
@@ -71,7 +71,7 @@ export default function MegaMenu({ auth, setting }) {
                                         key={item.name}
                                         // href={item.href}
                                         href={route(item.href)}
-                                        className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
+                                        className="flex items-center justify-center gap-x-2.5 p-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-100"
                                     >
                                         <item.icon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
                                         {item.name}
@@ -83,23 +83,23 @@ export default function MegaMenu({ auth, setting }) {
 
                     <Link
                         href={route('home')}
-                        className="text-sm font-semibold leading-6 text-gray-900">
+                        className="text-base font-semibold leading-6 text-gray-900">
                         Inicio
                     </Link>
-                    <Link href={route('propertiesList.show')} className="text-sm font-semibold leading-6 text-gray-900">
+                    <Link href={route('propertiesList.show')} className="text-base font-semibold leading-6 text-gray-900">
                         Propiedades
                     </Link>
-                    <Link href={route('blog.show')} className="text-sm font-semibold leading-6 text-gray-900">
+                    <Link href={route('blog.show')} className="text-base font-semibold leading-6 text-gray-900">
                         Blog
                     </Link>
-                    <Link href={route('faqs.show')} className="text-sm font-semibold leading-6 text-gray-900">
+                    <Link href={route('faqs.show')} className="text-base font-semibold leading-6 text-gray-900">
                         FAQS
                     </Link>
-                    <Link href={route('ContactPage.index')} className="text-sm font-semibold leading-6 text-gray-900">
+                    <Link href={route('ContactPage.index')} className="text-base font-semibold leading-6 text-gray-900">
                         Contactanos
                     </Link>
                     {/* <Popover className="relative">
-                        <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+                        <PopoverButton className="flex items-center gap-x-1 text-base font-semibold leading-6 text-gray-900">
                             Compañia
                             <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
                         </PopoverButton>
@@ -112,7 +112,7 @@ export default function MegaMenu({ auth, setting }) {
                                 {pages.map((item) => (
                                     <div
                                         key={item.name}
-                                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                                        className="group relative flex items-center gap-x-6 rounded-lg p-4 text-base leading-6 hover:bg-gray-50"
                                     >
                                         <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                                             <item.icon aria-hidden="true" className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
@@ -133,7 +133,7 @@ export default function MegaMenu({ auth, setting }) {
                                         key={item.name}
                                         // href={item.href}
                                         href={route(item.href)}
-                                        className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
+                                        className="flex items-center justify-center gap-x-2.5 p-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-100"
                                     >
                                         <item.icon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
                                         {item.name}
@@ -148,7 +148,7 @@ export default function MegaMenu({ auth, setting }) {
                     {auth.user ? (
                         <Link
                             href={route('dashboard')}
-                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                            className="text-base font-bold px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                         >
                             Dashboard
                         </Link>
@@ -156,13 +156,13 @@ export default function MegaMenu({ auth, setting }) {
                         <>
                             <Link
                                 href={route('login')}
-                                className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                className="text-base font-bold px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                             >
-                                Log in
+                                <UserIcon className='size-6 text-black' />
                             </Link>
                             {/* <Link
                                 href={route('register')}
-                                className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                className="text-base font-bold px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                             >
                                 Register
                             </Link> */}
@@ -205,7 +205,7 @@ export default function MegaMenu({ auth, setting }) {
                                                 key={item.name}
                                                 as="a"
                                                 href={item.href}
-                                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                                className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                             >
                                                 {item.name}
                                             </Link>
@@ -247,7 +247,7 @@ export default function MegaMenu({ auth, setting }) {
                                                 key={item.name}
                                                 as="a"
                                                 href={route('pages.show', item.slug)}
-                                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                                className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                             >
                                                 {item.name}
                                             </Link>
@@ -257,7 +257,7 @@ export default function MegaMenu({ auth, setting }) {
                                                 key={item.name}
                                                 as="a"
                                                 href={route(item.href)}
-                                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                                className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                             >
                                                 {item.name}
                                             </Link>
@@ -269,7 +269,7 @@ export default function MegaMenu({ auth, setting }) {
                                 {auth.user ? (
                                     <Link
                                         href={route('dashboard')}
-                                        className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                        className="text-base font-bold px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                                     >
                                         Dashboard
                                     </Link>
@@ -277,13 +277,13 @@ export default function MegaMenu({ auth, setting }) {
                                     <>
                                         <Link
                                             href={route('login')}
-                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                            className="text-base font-bold px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                                         >
-                                            Log in
+                                            Log In
                                         </Link>
                                         {/* <Link
                                             href={route('register')}
-                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                            className="text-base font-bold px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                                         >
                                             Register
                                         </Link> */}

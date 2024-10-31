@@ -7,8 +7,13 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { Textarea, Transition } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
+import ToggleSwitch from '@/Components/ToggleSwitch';
+import { useState } from 'react';
 
 export default function Edit({ auth, setting, currencies }) {
+
+    const [isSwitchEnabled, setIsSwitchEnabled] = useState(false);
+
 
     const initialValues = {
         name: setting.name,
@@ -22,10 +27,18 @@ export default function Edit({ auth, setting, currencies }) {
         descriptionFaq: setting.descriptionFaq,
         descriptionContact: setting.descriptionContact,
         descriptionAnunciar: setting.descriptionAnunciar,
-        titleBlog: setting.descriptionAnunciar,
-        titleFaq: setting.descriptionAnunciar,
-        titleContact: setting.descriptionAnunciar,
-        titleAnunciar: setting.descriptionAnunciar,
+        titleBlog: setting.titleBlog,
+        titleFaq: setting.titleFaq,
+        titleContact: setting.titleContact,
+        titleAnunciar: setting.titleAnunciar,
+        status_banner: setting.status_banner,
+        status_products_list: setting.status_products_list,
+        status_info_section: setting.status_info_section,
+        status_testimonials: setting.status_testimonials,
+        status_team: setting.status_team,
+        status_instagram_posts: setting.status_instagram_posts,
+        instagram: setting.instagram,
+        token_instagram: setting.token_instagram,
         currency_id: setting.currency_id || (currencies.length > 0 ? currencies[0].id : null), // Usar el valor de setting si existe
     }
 
@@ -351,6 +364,107 @@ export default function Edit({ auth, setting, currencies }) {
 
                                         <InputError message={errors.descriptionAnunciar} className="mt-2" />
                                     </div>
+
+                                    <div>
+                                        <InputLabel htmlFor="token_instagram" value="token_instagram" />
+
+                                        <TextInput
+                                            id="token_instagram"
+                                            type="text"
+                                            name="token_instagram"
+                                            value={data.token_instagram}
+                                            className="mt-1 block w-full"
+                                            isFocused={true}
+                                            onChange={(e) => setData('token_instagram', e.target.value)}
+                                        />
+
+                                        <InputError message={errors.token_instagram} className="mt-2" />
+                                    </div>
+                                    
+                                    <div>
+                                        <InputLabel htmlFor="instagram" value="Username Instagram" />
+
+                                        <TextInput
+                                            id="instagram"
+                                            type="text"
+                                            name="instagram"
+                                            value={data.instagram}
+                                            className="mt-1 block w-full"
+                                            isFocused={true}
+                                            onChange={(e) => setData('instagram', e.target.value)}
+                                        />
+
+                                        <InputError message={errors.instagram} className="mt-2" />
+                                    </div>
+
+                                    <div className="p-4">
+                                        <ToggleSwitch
+                                            isChecked={data.status_banner === 1}
+                                            onToggle={() => {
+                                                const newValue = data.status_banner === 1 ? 0 : 1;
+                                                setData('status_banner', newValue);
+                                            }}
+                                            label="Activar Banner"
+                                        />
+                                    </div>
+
+                                    <div className="p-4">
+                                        <ToggleSwitch
+                                            isChecked={data.status_products_list === 1}
+                                            onToggle={() => {
+                                                const newValue = data.status_products_list === 1 ? 0 : 1;
+                                                setData('status_products_list', newValue);
+                                            }}
+                                            label="Activar status_products_list"
+                                        />
+                                    </div>
+                                    
+                                    <div className="p-4">
+                                        <ToggleSwitch
+                                            isChecked={data.status_info_section === 1}
+                                            onToggle={() => {
+                                                const newValue = data.status_info_section === 1 ? 0 : 1;
+                                                setData('status_info_section', newValue);
+                                            }}
+                                            label="Activar status_info_section"
+                                        />
+                                    </div>
+
+                                    <div className="p-4">
+                                        <ToggleSwitch
+                                            isChecked={data.status_testimonials === 1}
+                                            onToggle={() => {
+                                                const newValue = data.status_testimonials === 1 ? 0 : 1;
+                                                setData('status_testimonials', newValue);
+                                            }}
+                                            label="Activar status_testimonials"
+                                        />
+                                    </div>
+
+                                    <div className="p-4">
+                                        <ToggleSwitch
+                                            isChecked={data.status_team === 1}
+                                            onToggle={() => {
+                                                const newValue = data.status_team === 1 ? 0 : 1;
+                                                setData('status_team', newValue);
+                                            }}
+                                            label="Activar status_team"
+                                        />
+                                    </div>
+
+                                    <div className="p-4">
+                                        <ToggleSwitch
+                                            isChecked={data.status_instagram_posts === 1}
+                                            onToggle={() => {
+                                                const newValue = data.status_instagram_posts === 1 ? 0 : 1;
+                                                setData('status_instagram_posts', newValue);
+                                            }}
+                                            label="Activar status_instagram_posts"
+                                        />
+                                    </div>
+                                    
+
+
 
                                 </ContainerTitle>
 

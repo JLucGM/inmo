@@ -120,7 +120,7 @@ export default function Edit({ auth, slide }) {
                                                 <InputError message={errors.name} className="mt-2" />
                                             </div>
 
-                                            
+
 
                                             <div className='col-span-2'>
                                                 <InputLabel htmlFor="text" value="text" />
@@ -177,21 +177,24 @@ export default function Edit({ auth, slide }) {
 
                                             <div className="col-span-full">
                                                 <InputLabel htmlFor="link" value="link" />
-                                                <TextInput
-                                                    id="link"
-                                                    type="text"
-                                                    name="link"
-                                                    value={data.link}
-                                                    className="mt-1 block w-full"
-                                                    onChange={(e) => setData('link', e.target.value)}
-                                                />
+                                                <div className="flex">
+                                                    <span className='flex flex-col justify-center px-2 rounded-s-full border border-gray-300 dark:border-gray-700'>https://</span>
+                                                    <TextInput
+                                                        id="link"
+                                                        type="text"
+                                                        name="link"
+                                                        value={data.link}
+                                                        className=" block w-full rounded-s-none"
+                                                        onChange={(e) => setData('link', e.target.value)}
+                                                    />
+                                                </div>
 
                                                 <InputError message={errors.link} className="mt-2" />
                                             </div>
 
                                         </ContainerTitle>
                                     </div>
-                                    
+
                                 </div>
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >

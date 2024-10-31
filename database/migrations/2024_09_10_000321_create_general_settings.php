@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('logo_footer')->nullable();
             $table->string('favicon')->nullable();
             $table->mediumText('direction')->nullable();
-            $table->string('description')->notNullable(); // Descripción del sitio
+            $table->string('description')->notNullable(); // Descripcbión del sitio
             $table->string('portadaBlog')->default();
             $table->string('portadaFaq')->default();
             $table->string('portadaContact')->default();
@@ -34,6 +34,14 @@ return new class extends Migration
             $table->text('descriptionFaq')->default();
             $table->text('descriptionContact')->default();
             $table->text('descriptionAnunciar')->default();
+            $table->text('instagram')->default();
+            $table->text('token_instagram')->nullable();
+            $table->tinyInteger('status_banner')->default(1);
+            $table->tinyInteger('status_products_list')->default(1);
+            $table->tinyInteger('status_info_section')->default(1);
+            $table->tinyInteger('status_testimonials')->default(1);
+            $table->tinyInteger('status_team')->default(1);
+            $table->tinyInteger('status_instagram_posts')->default(0);
             $table->foreignId('currency_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
 

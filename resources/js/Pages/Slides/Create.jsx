@@ -21,25 +21,22 @@ export default function Create({ auth }) {
     }
 
     const { data, setData, errors, post } = useForm(initialValues)
-    const [charCount, setCharCount] = useState(0); // Estado para contar caracteres
-    const charLimit = 250; // Límite de caracteres
+    const [charCount, setCharCount] = useState(0);
+    const charLimit = 250;
 
     const submit = (e) => {
         e.preventDefault();
         post(route('slides.store'))
-        // console.log(data)
-        // console.log(data.status)
     }
 
     const handleTextChange = (e) => {
         const { value } = e.target;
-        if (value.length <= charLimit) { // Limitar a 500 caracteres
-            setData('text', value); // Actualizar el estado con el nuevo texto
-            setCharCount(value.length); // Actualizar contador de caracteres
+        if (value.length <= charLimit) {
+            setData('text', value);
+            setCharCount(value.length);
         } else {
-            // Si se excede, puedes actualizar el contador para mostrar el límite
-            setData('text', value.substring(0, charLimit)); // Limitar el texto a 500 caracteres
-            setCharCount(charLimit); // Mantener el contador en 500
+            setData('text', value.substring(0, charLimit));
+            setCharCount(charLimit);
         }
     }
 
@@ -132,7 +129,7 @@ export default function Create({ auth }) {
                                     <div className="xs:col-span-full lg:col-span-">
                                         <ContainerTitle title={'Datos secundarios'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                        <div className="col-span-full">
+                                            <div className="col-span-full">
                                                 <InputLabel htmlFor="image" value="image" />
 
                                                 <TextInput
@@ -165,18 +162,21 @@ export default function Create({ auth }) {
                                             <div className="col-span-full">
                                                 <InputLabel htmlFor="link" value="link" />
 
-                                                <TextInput
-                                                    id="link"
-                                                    type="text"
-                                                    name="link"
-                                                    value={data.link}
-                                                    className="mt-1 block w-full"
-                                                    onChange={(e) => setData('link', e.target.value)}
-                                                />
+                                                <div className="flex">
+                                                    <span className='flex flex-col justify-center px-2 rounded-s-full border border-gray-300 dark:border-gray-700'>https://</span>
+                                                    <TextInput
+                                                        id="link"
+                                                        type="text"
+                                                        name="link"
+                                                        value={data.link}
+                                                        className=" block w-full rounded-s-none"
+                                                        onChange={(e) => setData('link', e.target.value)}
+                                                    />
+                                                </div>
 
                                                 <InputError message={errors.link} className="mt-2" />
                                             </div>
-                                            
+
 
                                         </ContainerTitle>
                                     </div>

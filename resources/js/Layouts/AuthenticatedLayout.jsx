@@ -10,7 +10,7 @@ import Folder from '@/Components/Icon/Folder';
 import DocumentText from '@/Components/Icon/DocumenteText';
 import PinMap from '@/Components/Icon/PinMap';
 import Gear from '@/Components/Icon/Gear';
-import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 
 export default function Authenticated({ user, header, children }) {
 
@@ -44,12 +44,12 @@ export default function Authenticated({ user, header, children }) {
 
    const globalSettings = [
       { label: 'Settings', route: 'settings.index' },
-      { label: 'Tipo de negocios quitar', route: 'typesBusinesses.index' },
       { label: 'Slide', route: 'slides.index' },
       { label: 'Info web', route: 'info-web.index' },
       { label: 'Testimonial', route: 'testimonial.index' },
       { label: 'page', route: 'pages.index' },
       { label: 'Faq', route: 'faqs.index' },
+      { label: 'Tipo de negocios quitar', route: 'typesBusinesses.index' },
    ];
 
    const posts = [
@@ -107,13 +107,18 @@ export default function Authenticated({ user, header, children }) {
                      </a>
                   </div>
                   <div className="flex items-center">
-                     <div className="flex items-center ms-3">
+                     <div className="flex items-center space-x-1 ms-3">
+
+                        <NavLink href={route('home')} active={route().current('dashboard')}>
+
+                           <HomeIcon className='size-6' />
+                        </NavLink>
 
                         <button onClick={toggleDarkMode}>
                            {theme === 'light' ? (
-                              <MoonIcon className='size-6 text-gray-700'/>
+                              <MoonIcon className='size-6 text-gray-700' />
                            ) : (
-                              <SunIcon className='size-6 text-white'/>
+                              <SunIcon className='size-6 text-white' />
                            )}
                         </button>
 
@@ -153,8 +158,8 @@ export default function Authenticated({ user, header, children }) {
 
          <aside
             id="logo-sidebar"
-            className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700`} 
-            
+            className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700`}
+
             aria-label="Sidebar">
             <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
                <ul className="space-y-2 font-medium">

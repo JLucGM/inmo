@@ -40,7 +40,7 @@ class SettingSeeder extends Seeder
                 'descriptionAnunciar' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec condimentum bibendum augue, maximus lacinia nisl tempus non.',
                 // 'facebook' => 'www.facebook.com',
                 // 'twitter' => 'www.twitter.com',
-                // 'instagram' => 'https://www.instagram.com/knots.agency/',
+                'instagram' => 'knots.agency',
                 // 'linkedin' => 'www.linkedin.com',
             ],
         ];

@@ -35,6 +35,10 @@ class SlideController extends Controller
     {
         $data = $request->only('name', 'text', 'link', 'status');
 
+        if (!str_starts_with($data['link'], 'https://')) {
+            $data['link'] = 'https://' . $data['link'];
+        }
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
@@ -72,6 +76,10 @@ class SlideController extends Controller
     {
         $data = $request->only('name', 'text', 'link', 'status');
 
+        if (!str_starts_with($data['link'], 'https://')) {
+            $data['link'] = 'https://' . $data['link'];
+        }
+        
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
