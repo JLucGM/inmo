@@ -58,7 +58,7 @@ export default function Banner({ data }) {
                 <div className="rounded-3xl h-full w-full"></div>
             </div>
 
-            <div className="max-w-3xl text-center">
+            <div className="max-w-3xl text-center z-10">
                 <h2 className={`text-5xl font-semibold ${isDarkBackground ? 'text-white' : 'text-black'}`}>
                     {data.name}
                 </h2>
