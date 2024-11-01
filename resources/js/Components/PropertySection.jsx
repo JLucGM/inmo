@@ -38,23 +38,13 @@ export default function PropertySection({ datas, images, amenities, setting }) {
       <div className="pt-6">
 
 
-        <SwiperCustom>
+        <SwiperCustom
+          datas={images}
+          image={'name'}
+        // text={'extract'} 
+        // name={'name'}
+        />
 
-          {images.map((image, index) => (
-
-            <SwiperSlide
-              key={image.id}
-              className="bg-center bg-repeat bg-cover rounded-3xl relative content-center "
-              style={{
-                backgroundImage: `url(${image.name})`,
-                height: '30rem',
-              }}
-            >
-
-            </SwiperSlide>
-          ))}
-
-        </SwiperCustom>
         {/* Image gallery */}
         {/* <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
                     <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
@@ -109,7 +99,7 @@ export default function PropertySection({ datas, images, amenities, setting }) {
             <div className="mt-4 ">
               <div className="flex flex-col items-center">
 
-                <img src={`/img/profile/${datas.user.avatar}`} alt={datas.user.avatar} className='w-40' />
+                <img src={`${datas.user.avatar}`} alt={datas.user.avatar} className='w-40' />
                 <h2 className="">{datas.user.name}</h2>
               </div>
               <form onSubmit={submit}>
@@ -200,7 +190,7 @@ export default function PropertySection({ datas, images, amenities, setting }) {
             <div>
               <h3 className="sr-only">direccion</h3>
 
-              <div className="space-y-4 ">
+              <div className="space-y-1 ">
                 <p className="capitalize text-base text-gray-900">{datas.phy_state.name}</p>
                 <p className="capitalize text-base text-gray-900">{datas.country.name}, {datas.state.name}, {datas.city.name}</p>
                 <p className="text-base text-gray-900"> {datas.direction}</p>

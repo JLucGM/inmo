@@ -4,7 +4,7 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Textarea, Transition } from '@headlessui/react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels, Textarea, Transition } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 import ToggleSwitch from '@/Components/ToggleSwitch';
@@ -102,372 +102,452 @@ export default function Edit({ auth, setting, currencies }) {
                                     <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
                                 </Transition>
 
-                                <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                <TabGroup vertical className={'border rounded-lg'}>
+                                    <div className="grid grid-cols-4">
+                                        <TabList className="flex flex-col overflow-y-auto rounded-lg h-44 md:h-screen-[-175] md:border-b md:flex-rowf md:overflow-hidden border-e  col-span-full md:col-span-1">
+                                            <Tab
+                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
+                                            >
+                                                Datos principales
+                                            </Tab>
+                                            <Tab
+                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
+                                            >
+                                                images
 
-                                    <div>
-                                        <InputLabel htmlFor="name" value="Nombre" />
+                                            </Tab>
+                                            <Tab
+                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
+                                            >
+                                                Configurar frontend
 
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
+                                            </Tab>
+                                            <Tab
+                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
+                                            >
+                                                Redes
 
-                                        <InputError message={errors.name} className="mt-2" />
+                                            </Tab>
+                                            <Tab
+                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
+                                            >
+                                                Blog
+                                            </Tab>
+                                            <Tab
+                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
+                                            >
+                                                Faq
+                                            </Tab>
+                                            <Tab
+                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
+                                            >
+                                                Contact
+                                            </Tab>
+                                            <Tab
+                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
+                                            >
+                                                Anunciar
+                                            </Tab>
+                                        </TabList>
+
+                                        <TabPanels className={'col-span-full md:col-span-3'}>
+
+                                            <TabPanel className={'w-full'}>
+                                                <ContainerTitle title={'Datos principales'} className=' border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                                    <div>
+                                                        <InputLabel htmlFor="name" value="Nombre" />
+
+                                                        <TextInput
+                                                            id="name"
+                                                            type="text"
+                                                            name="name"
+                                                            value={data.name}
+                                                            className="mt-1 block w-full"
+                                                            isFocused={true}
+                                                            onChange={(e) => setData('name', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.name} className="mt-2" />
+                                                    </div>
+
+                                                    <div>
+                                                        <InputLabel htmlFor="phone" value="phone" />
+
+                                                        <TextInput
+                                                            id="phone"
+                                                            type="text"
+                                                            name="phone"
+                                                            value={data.phone}
+                                                            className="mt-1 block w-full"
+                                                            onChange={(e) => setData('phone', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.phone} className="mt-2" />
+                                                    </div>
+
+                                                    <div>
+                                                        <InputLabel htmlFor="direction" value="direction" />
+
+                                                        <TextInput
+                                                            id="direction"
+                                                            type="text"
+                                                            name="direction"
+                                                            value={data.direction}
+                                                            className="mt-1 block w-full"
+                                                            onChange={(e) => setData('direction', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.phone} className="mt-2" />
+                                                    </div>
+
+                                                    <div>
+                                                        <InputLabel htmlFor="currency_id" value="currencies" />
+
+                                                        <select
+                                                            name="currency_id"
+                                                            id="currency_id"
+                                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                            value={data.currency_id}
+                                                            onChange={(e) => {
+                                                                setData('currency_id', parseInt(e.target.value));
+                                                            }}
+                                                        >
+                                                            {currencies.map((currency) => (
+                                                                <option value={currency.id} key={currency.id}>
+                                                                    {currency.symbol} - {currency.name}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+
+                                                        <InputError message={errors.currency_id} className="mt-2" />
+                                                    </div>
+
+
+
+                                                    <div className='col-span-2'>
+                                                        <InputLabel htmlFor="description" value="description" />
+
+                                                        <Textarea
+                                                            id="description"
+                                                            type="text"
+                                                            name="description"
+                                                            rows={10}
+                                                            value={data.description}
+                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                            onChange={(e) => setData('description', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.description} className="mt-2" />
+                                                    </div>
+
+                                                </ContainerTitle>
+                                            </TabPanel>
+
+                                            <TabPanel>
+                                                <ContainerTitle title={'Datos principales'} className=' border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                                    <div className=''>
+                                                        <img src={`${setting.logo}`} alt={setting.logo} className='w-40' />
+                                                        <InputLabel htmlFor="logo" value="logo" />
+                                                        <TextInput
+                                                            id="logo"
+                                                            type="file"
+                                                            name="logo"
+                                                            className="mt-1 block w-full"
+                                                            onChange={(e) => setData('logo', e.target.files[0])}
+                                                        />
+                                                        <InputError message={errors.logo} className="mt-2" />
+                                                    </div>
+
+                                                    <div>
+                                                        <img src={`${setting.logo_footer}`} alt={setting.logo_footer} className='w-40' />
+                                                        <InputLabel htmlFor="logo_footer" value="logo_footer" />
+                                                        <TextInput
+                                                            id="logo_footer"
+                                                            type="file"
+                                                            name="logo_footer"
+                                                            className="mt-1 block w-full"
+                                                            onChange={(e) => setData('logo_footer', e.target.files[0])}
+                                                        />
+                                                        <InputError message={errors.logo_footer} className="mt-2" />
+                                                    </div>
+
+                                                    <div className=''>
+                                                        <img src={`${setting.favicon}`} alt={setting.favicon} className='w-40' />
+                                                        <InputLabel htmlFor="favicon" value="favicon" />
+                                                        <TextInput
+                                                            id="favicon"
+                                                            type="file"
+                                                            name="favicon"
+                                                            className="mt-1 block w-full"
+                                                            onChange={(e) => setData('favicon', e.target.files[0])}
+                                                        />
+
+                                                        <InputError message={errors.favicon} className="mt-2" />
+                                                    </div>
+                                                </ContainerTitle>
+                                            </TabPanel>
+
+                                            <TabPanel>
+                                                <ContainerTitle title={'Configurar Frontend'} className='border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                                    <div className="p-4">
+                                                        <ToggleSwitch
+                                                            isChecked={data.status_banner === 1}
+                                                            onToggle={() => {
+                                                                const newValue = data.status_banner === 1 ? 0 : 1;
+                                                                setData('status_banner', newValue);
+                                                            }}
+                                                            label="Activar Banner"
+                                                        />
+                                                    </div>
+
+                                                    <div className="p-4">
+                                                        <ToggleSwitch
+                                                            isChecked={data.status_products_list === 1}
+                                                            onToggle={() => {
+                                                                const newValue = data.status_products_list === 1 ? 0 : 1;
+                                                                setData('status_products_list', newValue);
+                                                            }}
+                                                            label="Activar status_products_list"
+                                                        />
+                                                    </div>
+
+                                                    <div className="p-4">
+                                                        <ToggleSwitch
+                                                            isChecked={data.status_info_section === 1}
+                                                            onToggle={() => {
+                                                                const newValue = data.status_info_section === 1 ? 0 : 1;
+                                                                setData('status_info_section', newValue);
+                                                            }}
+                                                            label="Activar status_info_section"
+                                                        />
+                                                    </div>
+
+                                                    <div className="p-4">
+                                                        <ToggleSwitch
+                                                            isChecked={data.status_testimonials === 1}
+                                                            onToggle={() => {
+                                                                const newValue = data.status_testimonials === 1 ? 0 : 1;
+                                                                setData('status_testimonials', newValue);
+                                                            }}
+                                                            label="Activar status_testimonials"
+                                                        />
+                                                    </div>
+
+                                                    <div className="p-4">
+                                                        <ToggleSwitch
+                                                            isChecked={data.status_team === 1}
+                                                            onToggle={() => {
+                                                                const newValue = data.status_team === 1 ? 0 : 1;
+                                                                setData('status_team', newValue);
+                                                            }}
+                                                            label="Activar status_team"
+                                                        />
+                                                    </div>
+
+                                                    <div className="p-4">
+                                                        <ToggleSwitch
+                                                            isChecked={data.status_instagram_posts === 1}
+                                                            onToggle={() => {
+                                                                const newValue = data.status_instagram_posts === 1 ? 0 : 1;
+                                                                setData('status_instagram_posts', newValue);
+                                                            }}
+                                                            label="Activar status_instagram_posts"
+                                                        />
+                                                    </div>
+                                                </ContainerTitle>
+                                            </TabPanel>
+
+                                            <TabPanel>
+                                                <ContainerTitle title={'Redes'} className='border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                                    <div className='col-span-2'>
+                                                        <InputLabel htmlFor="instagram" value="Username Instagram" />
+
+                                                        <TextInput
+                                                            id="instagram"
+                                                            type="text"
+                                                            name="instagram"
+                                                            value={data.instagram}
+                                                            className="mt-1 block w-full"
+                                                            isFocused={true}
+                                                            onChange={(e) => setData('instagram', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.instagram} className="mt-2" />
+                                                    </div>
+
+                                                    <div className='col-span-2'>
+                                                        <InputLabel htmlFor="token_instagram" value="token_instagram" />
+
+                                                        <TextInput
+                                                            id="token_instagram"
+                                                            type="text"
+                                                            name="token_instagram"
+                                                            value={data.token_instagram}
+                                                            className="mt-1 block w-full"
+                                                            isFocused={true}
+                                                            onChange={(e) => setData('token_instagram', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.token_instagram} className="mt-2" />
+                                                    </div>
+                                                </ContainerTitle>
+                                            </TabPanel>
+
+                                            <TabPanel>
+                                                <ContainerTitle title={'Blog'} className='border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                                    <div className='col-span-2'>
+                                                        <InputLabel htmlFor="titleBlog" value="titleBlog" />
+
+                                                        <TextInput
+                                                            id="titleBlog"
+                                                            type="text"
+                                                            name="titleBlog"
+                                                            value={data.titleBlog}
+                                                            className="mt-1 block w-full"
+                                                            isFocused={true}
+                                                            onChange={(e) => setData('titleBlog', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.titleBlog} className="mt-2" />
+                                                    </div>
+
+                                                    <div className='col-span-2'>
+                                                        <InputLabel htmlFor="descriptionBlog" value="descriptionBlog" />
+
+                                                        <Textarea
+                                                            id="descriptionBlog"
+                                                            type="text"
+                                                            name="descriptionBlog"
+                                                            rows={10}
+                                                            value={data.descriptionBlog}
+                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                            onChange={(e) => setData('descriptionBlog', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.descriptionBlog} className="mt-2" />
+                                                    </div>
+                                                </ContainerTitle>
+                                            </TabPanel>
+
+                                            <TabPanel>
+                                                <ContainerTitle title={'FAQS'} className='border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                                    <div className='col-span-2'>
+                                                        <InputLabel htmlFor="titleFaq" value="titleFaq" />
+
+                                                        <TextInput
+                                                            id="titleFaq"
+                                                            type="text"
+                                                            name="titleFaq"
+                                                            value={data.titleFaq}
+                                                            className="mt-1 block w-full"
+                                                            isFocused={true}
+                                                            onChange={(e) => setData('titleFaq', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.titleFaq} className="mt-2" />
+                                                    </div>
+
+                                                    <div className='col-span-2'>
+                                                        <InputLabel htmlFor="descriptionFaq" value="descriptionFaq" />
+
+                                                        <Textarea
+                                                            id="descriptionFaq"
+                                                            type="text"
+                                                            name="descriptionFaq"
+                                                            rows={10}
+                                                            value={data.descriptionFaq}
+                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                            onChange={(e) => setData('descriptionFaq', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.descriptionFaq} className="mt-2" />
+                                                    </div>
+                                                </ContainerTitle>
+                                            </TabPanel>
+
+                                            <TabPanel>
+                                                <ContainerTitle title={'Contacto'} className='border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                                    <div className='col-span-2'>
+                                                        <InputLabel htmlFor="titleContact" value="titleContact" />
+
+                                                        <TextInput
+                                                            id="titleContact"
+                                                            type="text"
+                                                            name="titleContact"
+                                                            value={data.titleContact}
+                                                            className="mt-1 block w-full"
+                                                            isFocused={true}
+                                                            onChange={(e) => setData('titleContact', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.titleContact} className="mt-2" />
+                                                    </div>
+
+                                                    <div className='col-span-2'>
+                                                        <InputLabel htmlFor="descriptionContact" value="descriptionContact" />
+
+                                                        <Textarea
+                                                            id="descriptionContact"
+                                                            type="text"
+                                                            name="descriptionContact"
+                                                            rows={10}
+                                                            value={data.descriptionContact}
+                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                            onChange={(e) => setData('descriptionContact', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.descriptionContact} className="mt-2" />
+                                                    </div>
+                                                </ContainerTitle>
+                                            </TabPanel>
+
+                                            <TabPanel>
+                                                <ContainerTitle title={'Anunciar'} className='border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                                    <div className='col-span-2'>
+                                                        <InputLabel htmlFor="titleAnunciar" value="titleAnunciar" />
+
+                                                        <TextInput
+                                                            id="titleAnunciar"
+                                                            type="text"
+                                                            name="titleAnunciar"
+                                                            value={data.titleAnunciar}
+                                                            className="mt-1 block w-full"
+                                                            isFocused={true}
+                                                            onChange={(e) => setData('titleAnunciar', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.titleAnunciar} className="mt-2" />
+                                                    </div>
+
+                                                    <div className='col-span-2'>
+                                                        <InputLabel htmlFor="descriptionAnunciar" value="descriptionAnunciar" />
+
+                                                        <Textarea
+                                                            id="descriptionAnunciar"
+                                                            type="text"
+                                                            name="descriptionAnunciar"
+                                                            rows={10}
+                                                            value={data.descriptionAnunciar}
+                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                            onChange={(e) => setData('descriptionAnunciar', e.target.value)}
+                                                        />
+
+                                                        <InputError message={errors.descriptionAnunciar} className="mt-2" />
+                                                    </div>
+                                                </ContainerTitle>
+
+                                            </TabPanel>
+                                        </TabPanels>
                                     </div>
-                                    <div>
-                                        <InputLabel htmlFor="phone" value="phone" />
-
-                                        <TextInput
-                                            id="phone"
-                                            type="text"
-                                            name="phone"
-                                            value={data.phone}
-                                            className="mt-1 block w-full"
-                                            onChange={(e) => setData('phone', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.phone} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="direction" value="direction" />
-
-                                        <TextInput
-                                            id="direction"
-                                            type="text"
-                                            name="direction"
-                                            value={data.direction}
-                                            className="mt-1 block w-full"
-                                            onChange={(e) => setData('direction', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.phone} className="mt-2" />
-                                    </div>
-
-
-
-                                    <div>
-                                        <InputLabel htmlFor="currency_id" value="currencies" />
-
-                                        <select
-                                            name="currency_id"
-                                            id="currency_id"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.currency_id}
-                                            onChange={(e) => {
-                                                setData('currency_id', parseInt(e.target.value));
-                                            }}
-                                        >
-                                            {currencies.map((currency) => (
-                                                <option value={currency.id} key={currency.id}>
-                                                    {currency.symbol} - {currency.name}
-                                                </option>
-                                            ))}
-                                        </select>
-
-                                        <InputError message={errors.currency_id} className="mt-2" />
-                                    </div>
-
-                                    <div className=''>
-                                        <img src={`${setting.logo}`} alt={setting.logo} className='w-40' />
-
-                                        <InputLabel htmlFor="logo" value="logo" />
-
-                                        <TextInput
-                                            id="logo"
-                                            type="file"
-                                            name="logo"
-                                            className="mt-1 block w-full"
-                                            onChange={(e) => setData('logo', e.target.files[0])}
-                                        />
-
-                                        <InputError message={errors.logo} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <img src={`${setting.logo_footer}`} alt={setting.logo_footer} className='w-40' />
-
-                                        <InputLabel htmlFor="logo_footer" value="logo_footer" />
-
-                                        <TextInput
-                                            id="logo_footer"
-                                            type="file"
-                                            name="logo_footer"
-                                            className="mt-1 block w-full"
-                                            onChange={(e) => setData('logo_footer', e.target.files[0])}
-                                        />
-
-                                        <InputError message={errors.logo_footer} className="mt-2" />
-                                    </div>
-                                    <div className=''>
-
-                                        <img src={`${setting.favicon}`} alt={setting.favicon} className='w-40' />
-
-                                        <InputLabel htmlFor="favicon" value="favicon" />
-
-                                        <TextInput
-                                            id="favicon"
-                                            type="file"
-                                            name="favicon"
-                                            className="mt-1 block w-full"
-                                            onChange={(e) => setData('favicon', e.target.files[0])}
-                                        />
-
-                                        <InputError message={errors.favicon} className="mt-2" />
-                                    </div>
-
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="description" value="description" />
-
-                                        <Textarea
-                                            id="description"
-                                            type="text"
-                                            name="description"
-                                            rows={10}
-                                            value={data.description}
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            onChange={(e) => setData('description', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.description} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="titleBlog" value="titleBlog" />
-
-                                        <TextInput
-                                            id="titleBlog"
-                                            type="text"
-                                            name="titleBlog"
-                                            value={data.titleBlog}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('titleBlog', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.titleBlog} className="mt-2" />
-                                    </div>
-
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="descriptionBlog" value="descriptionBlog" />
-
-                                        <Textarea
-                                            id="descriptionBlog"
-                                            type="text"
-                                            name="descriptionBlog"
-                                            rows={10}
-                                            value={data.descriptionBlog}
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            onChange={(e) => setData('descriptionBlog', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.descriptionBlog} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="titleFaq" value="titleFaq" />
-
-                                        <TextInput
-                                            id="titleFaq"
-                                            type="text"
-                                            name="titleFaq"
-                                            value={data.titleFaq}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('titleFaq', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.titleFaq} className="mt-2" />
-                                    </div>
-
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="descriptionFaq" value="descriptionFaq" />
-
-                                        <Textarea
-                                            id="descriptionFaq"
-                                            type="text"
-                                            name="descriptionFaq"
-                                            rows={10}
-                                            value={data.descriptionFaq}
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            onChange={(e) => setData('descriptionFaq', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.descriptionFaq} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="titleContact" value="titleContact" />
-
-                                        <TextInput
-                                            id="titleContact"
-                                            type="text"
-                                            name="titleContact"
-                                            value={data.titleContact}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('titleContact', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.titleContact} className="mt-2" />
-                                    </div>
-
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="descriptionContact" value="descriptionContact" />
-
-                                        <Textarea
-                                            id="descriptionContact"
-                                            type="text"
-                                            name="descriptionContact"
-                                            rows={10}
-                                            value={data.descriptionContact}
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            onChange={(e) => setData('descriptionContact', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.descriptionContact} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="titleAnunciar" value="titleAnunciar" />
-
-                                        <TextInput
-                                            id="titleAnunciar"
-                                            type="text"
-                                            name="titleAnunciar"
-                                            value={data.titleAnunciar}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('titleAnunciar', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.titleAnunciar} className="mt-2" />
-                                    </div>
-
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="descriptionAnunciar" value="descriptionAnunciar" />
-
-                                        <Textarea
-                                            id="descriptionAnunciar"
-                                            type="text"
-                                            name="descriptionAnunciar"
-                                            rows={10}
-                                            value={data.descriptionAnunciar}
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            onChange={(e) => setData('descriptionAnunciar', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.descriptionAnunciar} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="token_instagram" value="token_instagram" />
-
-                                        <TextInput
-                                            id="token_instagram"
-                                            type="text"
-                                            name="token_instagram"
-                                            value={data.token_instagram}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('token_instagram', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.token_instagram} className="mt-2" />
-                                    </div>
-                                    
-                                    <div>
-                                        <InputLabel htmlFor="instagram" value="Username Instagram" />
-
-                                        <TextInput
-                                            id="instagram"
-                                            type="text"
-                                            name="instagram"
-                                            value={data.instagram}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('instagram', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.instagram} className="mt-2" />
-                                    </div>
-
-                                    <div className="p-4">
-                                        <ToggleSwitch
-                                            isChecked={data.status_banner === 1}
-                                            onToggle={() => {
-                                                const newValue = data.status_banner === 1 ? 0 : 1;
-                                                setData('status_banner', newValue);
-                                            }}
-                                            label="Activar Banner"
-                                        />
-                                    </div>
-
-                                    <div className="p-4">
-                                        <ToggleSwitch
-                                            isChecked={data.status_products_list === 1}
-                                            onToggle={() => {
-                                                const newValue = data.status_products_list === 1 ? 0 : 1;
-                                                setData('status_products_list', newValue);
-                                            }}
-                                            label="Activar status_products_list"
-                                        />
-                                    </div>
-                                    
-                                    <div className="p-4">
-                                        <ToggleSwitch
-                                            isChecked={data.status_info_section === 1}
-                                            onToggle={() => {
-                                                const newValue = data.status_info_section === 1 ? 0 : 1;
-                                                setData('status_info_section', newValue);
-                                            }}
-                                            label="Activar status_info_section"
-                                        />
-                                    </div>
-
-                                    <div className="p-4">
-                                        <ToggleSwitch
-                                            isChecked={data.status_testimonials === 1}
-                                            onToggle={() => {
-                                                const newValue = data.status_testimonials === 1 ? 0 : 1;
-                                                setData('status_testimonials', newValue);
-                                            }}
-                                            label="Activar status_testimonials"
-                                        />
-                                    </div>
-
-                                    <div className="p-4">
-                                        <ToggleSwitch
-                                            isChecked={data.status_team === 1}
-                                            onToggle={() => {
-                                                const newValue = data.status_team === 1 ? 0 : 1;
-                                                setData('status_team', newValue);
-                                            }}
-                                            label="Activar status_team"
-                                        />
-                                    </div>
-
-                                    <div className="p-4">
-                                        <ToggleSwitch
-                                            isChecked={data.status_instagram_posts === 1}
-                                            onToggle={() => {
-                                                const newValue = data.status_instagram_posts === 1 ? 0 : 1;
-                                                setData('status_instagram_posts', newValue);
-                                            }}
-                                            label="Activar status_instagram_posts"
-                                        />
-                                    </div>
-                                    
-
-
-
-                                </ContainerTitle>
-
+                                </TabGroup>
 
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >

@@ -64,7 +64,7 @@ export default function DataTable({ className = '', data, columns, routeEdit = n
                                 {
                                     headerGroup.headers.map(header => (
                                         <th key={header.id}
-                                            className="border-slate-300 border px-6 py-3 "
+                                            className="cursor-pointer border-slate-300 border px-6 py-3 "
                                             onClick={header.column.getToggleSortingHandler()}
                                         >
                                             <span className="flex items-center">
@@ -146,7 +146,7 @@ export default function DataTable({ className = '', data, columns, routeEdit = n
                                             >
                                                 Opciones
                                             </PopoverButton>
-                                            <PopoverPanel anchor="bottom" className="flex flex-col space-y-1 p-2 rounded-xl border border-gray-200 bg-white dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 ">
+                                            <PopoverPanel anchor="bottom" className="flex flex-col space-y-2 p-3 rounded-xl border border-gray-200 bg-white dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 ">
                                                 {PDFComponent && (
                                                     <PDFDownloadLink onClick={console.log(row)} document={<PDFComponent data={row.original} />} fileName='pfdprueba1.pdf'>
                                                         <Button className="w-full text-left">
@@ -155,16 +155,16 @@ export default function DataTable({ className = '', data, columns, routeEdit = n
                                                     </PDFDownloadLink>
                                                 )}
                                                 {routeEdit && (
-                                                    <Link href={route(routeEdit, [row.original.slug])} className="w-full text-left">
-                                                        Editar
+                                                    <Link href={route(routeEdit, [row.original.slug])} className="flex w-full text-left">
+                                                        <PencilSquareIcon className='size-5' /> Editar
                                                     </Link>
                                                 )}
                                                 {routeDestroy && (
                                                     <Link
-                                                        className="w-full text-left"
+                                                        className="flex w-full text-left text-red-600"
                                                         onClick={() => console.log('Delete clicked for:', row.original.slug)}
                                                         href={route(routeDestroy, [row.original.slug])} method='delete' as="button">
-                                                        Eliminar
+                                                        <TrashIcon className='size-5' /> Eliminar
                                                     </Link>
                                                 )}
                                             </PopoverPanel>

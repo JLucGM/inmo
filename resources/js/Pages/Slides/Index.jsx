@@ -8,24 +8,31 @@ export default function Index({ auth, slide }) {
     const columns = [
         {
             header: "#id",
-            accessorKey: "id",
+            cell: ({ row }) => {
+                return (
+                    <>
+                        <div className="flex items-center">
+                            <p className='me-2'>{row.original.id}</p>
+                            <img src={`${row.original.image}`} alt={row.original.image} className='w-14' />
+                        </div>
+                    </>
+                )
+            },
         },
         {
             header: "Nombre",
             accessorKey: "name",
 
-            expanded: (row) => {
-                // Aquí puedes agregar la información adicional que deseas mostrar
+        },
+        {
+            header: "Link",
+            accessorKey: "Link",
+            cell: ({ row }) => {
                 return (
-                    <div className='flex'>
-                        <img src={`${row.original.image}`} alt={row.original.image} className='w-40' />
-
-                        <div className="ms-4">
-                            <p>Link: {row.original.link}</p>
-                            <p>{row.original.text}</p>
-                        </div>
-                    </div>
-                );
+                    <p className={'normal-case	'}>
+                        {row.original.link}
+                    </p>
+                )
             },
         },
         {

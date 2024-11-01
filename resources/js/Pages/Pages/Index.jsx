@@ -8,25 +8,20 @@ export default function Index({ auth, page }) {
     const columns = [
         {
             header: "#id",
-            accessorKey: "id",
+            cell: ({ row }) => {
+                return (
+                    <>
+                        <div className="flex items-center">
+                            <p className='me-2'>{row.original.id}</p>
+                            <img src={`${row.original.image}`} alt={row.original.image} className='w-14' />
+                        </div>
+                    </>
+                )
+            },
         },
         {
             header: "Nombre",
             accessorKey: "name",
-
-            // expanded: (row) => {
-            //     // Aquí puedes agregar la información adicional que deseas mostrar
-            //     return (
-            //         <div className='flex'>
-            //             <img src={`/img/slides/${row.original.image}`} alt={row.original.image} className='w-40' />
-
-            //             <div className="ms-4">
-            //                 <p>Link: {row.original.link}</p>
-            //                 <p>{row.original.text}</p>
-            //             </div>
-            //         </div>
-            //     );
-            // },
         },
         {
             header: "Estado",
@@ -71,7 +66,7 @@ export default function Index({ auth, page }) {
                 </div>
             }
         >
-                        <Breadcrumb items={items} />
+            <Breadcrumb items={items} />
 
             <Head title="Lista de Paginas" />
 
@@ -79,18 +74,14 @@ export default function Index({ auth, page }) {
                 <div className="max-w-7xl mx-auto ">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden ">
                         <div className=" text-gray-900 dark:text-gray-100">
-
                             <div className="relative overflow-x-auto">
-
-                            <DataTable
+                                <DataTable
                                     columns={columns}
                                     data={page}
                                     routeEdit={'pages.edit'}
                                     routeDestroy={'pages.destroy'}
                                 />
-                                
                             </div>
-
                         </div>
                     </div>
                 </div>

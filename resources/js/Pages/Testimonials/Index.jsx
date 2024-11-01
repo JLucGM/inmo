@@ -7,15 +7,14 @@ export default function Index({ auth, testimonial }) {
     const columns = [
         {
             header: "#id",
-            accessorKey: "id",
-        },
-        {
-            header: "avatar",
-            accessorKey: "avatar",
             cell: ({ row }) => {
                 return (
-                    <img src={`${row.original.avatar}`} alt={row.original.avatar} className='w-auto h-20 rounded-3xl mx-auto' />
-
+                    <>
+                        <div className="flex items-center">
+                            <p className='me-2'>{row.original.id}</p>
+                            <img src={`${row.original.avatar}`} alt={row.original.avatar} className='w-14' />
+                        </div>
+                    </>
                 )
             },
         },

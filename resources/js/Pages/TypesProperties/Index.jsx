@@ -9,23 +9,20 @@ export default function Index({ auth, typesproperties }) {
     const columns = [
         {
             header: "#id",
-            accessorKey: "id",
+            cell: ({ row }) => {
+                return (
+                    <>
+                        <div className="flex items-center">
+                            <p className='me-2'>{row.original.id}</p>
+                            <img src={`${row.original.image}`} alt={row.original.image} className='w-14' />
+                        </div>
+                    </>
+                )
+            },
         },
         {
             header: "Nombre",
             accessorKey: "name",
-            expanded: (row) => {
-                // Aquí puedes agregar la información adicional que deseas mostrar
-                return (
-                    <div className='flex'>
-                        <img src={`${row.original.image}`} alt={row.original.image} className='w-40 rounded-3xl' />
-                        <div className="ms-4">
-                            <p>id {row.original.id}</p>
-                            <p>Nombre: {row.original.name}</p>
-                        </div>
-                    </div>
-                );
-            },
         }
     ]
 

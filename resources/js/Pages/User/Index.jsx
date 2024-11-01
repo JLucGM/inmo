@@ -43,34 +43,31 @@ export default function Index({ auth, users, roles }) {
     const columns = [
         {
             header: "#id",
-            accessorKey: "id",
-        },
-        {
-            header: "Avatar",
-            accessorKey: "avatar",
             cell: ({ row }) => {
                 return (
-                    <img   className='w-11 h-11 mx-auto rounded-full object-cover'
-                    src={`${row.original.avatar}`} alt={`${row.original.avatar}`} />
-
+                    <>
+                        <div className="flex items-center">
+                            <p className='me-2'>{row.original.id}</p>
+                            <img src={`${row.original.avatar}`} alt={row.original.avatar} className='w-11 h-11 rounded-full object-cover' />
+                        </div>
+                    </>
                 )
             },
         },
         {
             header: "Nombre",
             accessorKey: "name",
-            expanded: (row) => {
-                // Aquí puedes agregar la información adicional que deseas mostrar
-                return (
-                    <div className='flex'>
-                        <div className="ms-4">
-                            <p>Email: {row.original.email}</p>
-                            <p>phone: {row.original.phone}</p>
-                        </div>
-                    </div>
-                );
-            },
+            
         },
+        {
+            header: "Correo",
+            accessorKey: "email",
+        },
+        {
+            header: "Telefono",
+            accessorKey: "phone",
+        },
+        
         {
             header: "Estado",
             accessorKey: "status",

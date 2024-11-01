@@ -2,6 +2,7 @@ import Badge from '@/Components/Badge';
 import Breadcrumb from '@/Components/Breadcrumb';
 import DataTable from '@/Components/DataTable';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { LinkIcon } from '@heroicons/react/24/outline';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Index({ auth, posts }) {
@@ -10,20 +11,36 @@ export default function Index({ auth, posts }) {
         {
             header: "#id",
             accessorKey: "id",
+            cell: ({ row }) => {
+                return (
+                    <>
+                        <div className="flex items-center">
+
+                            <p>{row.original.id}</p>
+                            <img src={`${row.original.image}`} alt={row.original.image} className='w-14 mx-auto' />
+                        </div>
+                    </>
+                )
+            },
         },
         {
             header: "Nombre",
             accessorKey: "name",
-            
+
             expanded: (row) => {
                 // Aquí puedes agregar la información adicional que deseas mostrar
                 return (
-                    <div className='flex'>
-                        <img src={`${row.original.image}`} alt={row.original.image} className='w-40' />
-                        
-                        <div className="ms-4">
-                            <p>Extracto: {row.original.extract}</p>
-                        </div>
+
+                    <div className="ms-4 space-y-1">
+                        <p>Extracto: {row.original.extract}</p>
+                        <a
+                            href={route('posts.show', row.original.slug)}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            className="flex items-start justify-start underline underline-offset-4 text-blue-500 hover:text-blue-400"
+                        >
+                            <LinkIcon className='size-4 me-2' /> {route('posts.show', row.original.slug)}
+                        </a>
                     </div>
                 );
             },
@@ -31,14 +48,15 @@ export default function Index({ auth, posts }) {
         {
             header: "Estado",
             accessorKey: "status",
-            cell: ({row}) => {
+            cell: ({ row }) => {
                 return (
-                <Badge className={` ${row.original.status === 1 ? 'bg-green-600' : 'bg-red-600'}`}>
-                    {row.original.status === 1 ? 'Activo' : 'Inactivo'}
-                </Badge>
-            )
-            }, 
-        }, 
+                    <Badge className={` ${row.original.status === 1 ? 'bg-green-600' : 'bg-red-600'}`}>
+                        {row.original.status === 1 ? 'Activo' : 'Inactivo'}
+                    </Badge>
+                )
+            },
+        },
+
     ]
 
     const items = [
@@ -81,7 +99,7 @@ export default function Index({ auth, posts }) {
                         <div className=" text-gray-900 dark:text-gray-100">
                             <div className="relative overflow-x-auto">
 
-                            <DataTable
+                                <DataTable
                                     columns={columns}
                                     data={posts}
                                     routeEdit={'post.edit'}

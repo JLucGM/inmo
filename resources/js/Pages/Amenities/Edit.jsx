@@ -96,12 +96,13 @@ export default function Edit({ auth, amenity }) {
                                         <InputError message={errors.name} className="mt-2" />
                                     </div>
 
+                                </ContainerTitle>
+                                
                                     <div className="flex justify-end p-2.5">
                                         <PrimaryButton >
                                             Guardar
                                         </PrimaryButton>
                                     </div>
-                                </ContainerTitle>
                             </form>
                         </div>
                     </div>

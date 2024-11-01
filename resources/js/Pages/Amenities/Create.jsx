@@ -59,7 +59,7 @@ export default function Create({ auth }) {
 
             <Head className="capitalize" title="Crear comodidades" />
 
-            <div className="p-6">
+            <div className="">
                 <div className="max-w-7xl mx-auto">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
                         <div className="text-gray-900 dark:text-gray-100">

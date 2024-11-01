@@ -240,7 +240,7 @@ export default function Authenticated({ user, header, children }) {
          </aside>
 
          <div className="md:ml-64 bg-white dark:bg-gray-800 min-h-screen flex flex-col">
-            <div className="p-8 mt-20">
+            <div className="p-4 lg:p-8 mt-20">
                {header && (
                   <header className="">
                      <div className="max-w-7xl mx-auto py- ">{header}</div>

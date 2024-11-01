@@ -15,7 +15,7 @@ export default function Index({ auth, contacts, properties }) {
     const [selectedContact, setSelectedContact] = useState(null);
     const [contactProperties, setContactProperties] = useState([]);
     const [reload, setReload] = useState(false);
-
+    console.log(selectedProperty)
     const initialValues = {
         contact_id: selectedContact ? selectedContact.id : "",
         property_id: "",
@@ -109,7 +109,7 @@ export default function Index({ auth, contacts, properties }) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden ">
                         <TabGroup className={'rounded-lg md:h-screen-[-175] border'} vertical>
                             <div className="grid grid-cols-1 md:grid-cols-4">
-                            <TabList className="flex flex-col overflow-y-auto rounded-lg h-44 md:h-screen-[-175] md:border-b md:flex-rowf md:overflow-hidden border-e">
+                                <TabList className="flex flex-col overflow-y-auto rounded-lg h-44 md:h-screen-[-175] md:border-b md:flex-rowf md:overflow-hidden border-e">
                                     {
                                         contacts?.length > 0 ? (
                                             contacts.map((contact) => (
@@ -140,24 +140,25 @@ export default function Index({ auth, contacts, properties }) {
                                                             <p className='capitalize font-semibold'>{selectedContact.name ? selectedContact.name : 'no disponible'}</p>
                                                             <div className='space-x-4'>
                                                                 <Link
-                                                                    className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                                                    className="py-2.5 px-5 text-sm font-medium text-gray-900  bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                                                     href={route('contacts.edit', [contact])}>
                                                                     Editar
                                                                 </Link>
                                                                 <Link
-                                                                    className='inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
+                                                                    className='inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-500 rounded-full text-sm font-medium text-white dark:text-gray-200 Capitalize tracking-widest hover:bg-gray-700 dark:hover:bg-red-400 focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2'
                                                                     href={route('contacts.destroy', [contact])} method='delete' as="button">
                                                                     Eliminar
                                                                 </Link>
                                                             </div>
                                                         </div>
                                                         <TabList className={'flex justify-between'}>
-                                                            <Tab className={'p-4 rounded-full data-[selected]:bg-blue-500 data-[selected]:text-white data-[hover]:underline capitalize'}>Información básica</Tab>
-                                                            <Tab className={'p-4 rounded-full data-[selected]:bg-blue-500 data-[selected]:text-white data-[hover]:underline capitalize'}>Demandas del cliente</Tab>
-                                                            <Tab className={'p-4 rounded-full data-[selected]:bg-blue-500 data-[selected]:text-white data-[hover]:underline capitalize'}>Cruce de propiedades</Tab>
+                                                            <Tab className={'p-4 rounded-full data-[selected]:bg-blue-500 data-[selected]:text-white data-[hover]:underline capitalize'}>Información</Tab>
+                                                            <Tab className={'p-4 rounded-full data-[selected]:bg-blue-500 data-[selected]:text-white data-[hover]:underline capitalize'}>Demandas</Tab>
+                                                            <Tab className={'p-4 rounded-full data-[selected]:bg-blue-500 data-[selected]:text-white data-[hover]:underline capitalize'}>Cruce</Tab>
                                                         </TabList>
                                                         <TabPanels className={'p-4 '}>
                                                             <TabPanel>
+                                                                <h5>Información Basica</h5>
                                                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
                                                                     <div>
                                                                         <span className='capitalize font-semibold '> Nombre:</span>
@@ -201,7 +202,8 @@ export default function Index({ auth, contacts, properties }) {
                                                                 </div>
                                                             </TabPanel>
                                                             <TabPanel>
-                                                                <div className="grid grid-cols-3 gap-5">
+                                                            <h5>Demandas del cliente</h5>
+                                                                <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
                                                                     <div>
                                                                         <span className='capitalize font-semibold '>tipo de propiedad:</span>
                                                                         <p className='capitalize'> {selectedContact.typeproperty.name ? selectedContact.typeproperty.name : 'no disponible'}</p>
@@ -211,8 +213,6 @@ export default function Index({ auth, contacts, properties }) {
                                                                         <span className='capitalize font-semibold '>budget:</span>
                                                                         <p className='capitalize'> {selectedContact.min_budget ? selectedContact.min_budget : 'no disponible'} - {selectedContact.max_budget ? selectedContact.max_budget : ' no disponible'}</p>
                                                                     </div>
-
-
 
                                                                     <div>
                                                                         <span className='capitalize font-semibold '>bedrooms:</span>
@@ -260,7 +260,7 @@ export default function Index({ auth, contacts, properties }) {
                                                                 >
                                                                     <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
                                                                 </Transition>
-                                                                <h6>Inmuebles</h6>
+                                                                <h6>Cruces de propiedades - clientes</h6>
                                                                 <ul className='overflow-y-auto max-h-96'>
                                                                     <table className="table-auto w-full">
                                                                         <thead className=''>
@@ -344,39 +344,40 @@ export default function Index({ auth, contacts, properties }) {
             <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
                 <DialogBackdrop className="fixed inset-0 bg-black/40" />
                 <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-                    <DialogPanel className="w-[50rem] space-y-4 border bg-white text-white p-8 dark:bg-gray-800 dark:text-gray-400 rounded-2xl">
+                    <DialogPanel className="w-[55rem] max-h-[80vh] overflow-y-auto space-y-4 border bg-white text-white p-8 dark:bg-gray-800 dark:text-gray-400 rounded-2xl">
                         {selectedProperty ? (
                             <>
-                                <DialogTitle className="font-bold text-xl">{selectedProperty.name ? selectedContact.name : 'no disponible'}</DialogTitle>
-                                <Description>Información de la propiedad</Description>
-                                <div className="xs:grid md:grid xs:grid-cols-1 md:grid-cols-3 gap-4">
+                                <DialogTitle className="font-bold text-xl">#{selectedProperty.identification || 'no disponible'}, {selectedProperty.name || 'no disponible'}</DialogTitle>
+                                {/* <Description>#{selectedProperty.identification || 'no disponible'}, {selectedProperty.name || 'no disponible'}</Description> */}
+                                <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-4 items-center">
 
-                                    <div className="xs:col-span-1 md:col-span-1">
-                                        <img src={`/img/properties/${selectedProperty.main}`} alt={selectedProperty.main} className='w-auto mb-4 rounded-lg' />
+                                    <div className="xs:col-span-1 md:col-span-1 ">
+                                        <img src={`${selectedProperty.main}`} alt={selectedProperty.main} className='w-auto mb-4 rounded-lg ' />
                                     </div>
 
                                     <div className="xs:col-span-1 md:col-span-2">
-                                        <p className='capitalize'>N. Identification: {selectedProperty.identification ? selectedContact.identification : 'no disponible'}</p>
-                                        <p className='capitalize'>Nombre: {selectedProperty.name ? selectedContact.name : 'no disponible'}</p>
-                                        <p className='capitalize'>Precio: {selectedProperty.price ? selectedContact.price : 'no disponible'}</p>
-                                        <p className='capitalize'>typeproperty: {selectedProperty.typeproperty.name ? selectedContact.typeproperty.name : 'no disponible'}</p>
-                                        <p className='capitalize'>bathrooms: {selectedProperty.bathrooms ? selectedContact.bathrooms : 'no disponible'}</p>
-                                        <p className='capitalize'>totalMeters: {selectedProperty.totalMeters ? selectedContact.totalMeters : 'no disponible'}</p>
-                                        <p className='capitalize'>builtMeters: {selectedProperty.builtMeters ? selectedContact.builtMeters : 'no disponible'}</p>
-                                        <p className='capitalize'>bedrooms: {selectedProperty.bedrooms ? selectedContact.bedrooms : 'no disponible'}</p>
-                                        <p className='capitalize'>garages: {selectedProperty.garages ? selectedContact.garages : 'no disponible'}</p>
-                                        <p className='capitalize'>Dirección: {selectedProperty.direction ? selectedContact.direction : 'no disponible'}, {selectedProperty.country.name}, {selectedProperty.state.name}, {selectedProperty.city.name}</p>
-                                    </div>
+                                        <div className="grid grid-cols-2 gap-1 mb-2">
 
-                                    <div className="col-span-full">
+                                            <p className='capitalize'>Precio: {selectedProperty.price || 'no disponible'}</p>
+                                            <p className='capitalize'>typeproperty: {selectedProperty.typeproperty.name || 'no disponible'}</p>
+                                            <p className='capitalize'>bathrooms: {selectedProperty.bathrooms || 'no disponible'}</p>
+                                            <p className='capitalize'>totalMeters: {selectedProperty.totalMeters || 'no disponible'}</p>
+                                            <p className='capitalize'>builtMeters: {selectedProperty.builtMeters || 'no disponible'}</p>
+                                            <p className='capitalize'>bedrooms: {selectedProperty.bedrooms || 'no disponible'}</p>
+                                            <p className='capitalize'>garages: {selectedProperty.garages || 'no disponible'}</p>
+                                            <p className='capitalize col-span-full'>Dirección: {selectedProperty.direction || 'no disponible'}, {selectedProperty.country.name}, {selectedProperty.state.name}, {selectedProperty.city.name}</p>
+                                        </div>
                                         <p className='text-lg'>Comodidades</p>
-                                        {selectedProperty.amenities.map((amenity, index) => (
-                                            <p key={index}>{amenity.name}</p>
-                                        ))}
+                                        <ul className="ms-5 list-disc">
+                                            {selectedProperty.amenities.map((amenity, index) => (
+                                                <li key={index}>{amenity.name}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    <div className="col-span-full">
                                     </div>
                                     <div className="col-span-full">
-                                        <p className='capitalize'>description: {selectedProperty.description ? selectedContact.description : 'no disponible'}</p>
-
                                     </div>
                                 </div>
                             </>

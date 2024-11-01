@@ -110,6 +110,7 @@ export default function Edit({ auth, roles, permissions, assignedPermissions }) 
                                             className="mt-1 block w-full disabled:opacity-75"
                                             isFocused={true}
                                             onChange={(e) => setData('name', e.target.value)}
+                                            disabled={true}
                                         />
 
                                         <InputError message={errors.name} className="mt-2" />
