@@ -7,6 +7,7 @@ import { Head, Link } from '@inertiajs/react';
 import { Autoplay } from 'swiper/modules';
 import TeamSection from '@/Components/TeamSection';
 import InstagramPosts from '@/Components/InstagramPosts';
+import AnimatedComponent from '@/Components/AnimatedComponent';
 
 
 export default function Welcome({ auth, setting, slides, properties, infoweb, testimonials, user, pages }) {
@@ -19,11 +20,14 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
 
                 <Head title="Welcome" />
                 {setting.status_banner == 1 && (
-                    <Banner data={slides} />
+                    <AnimatedComponent>
+                        <Banner data={slides} />
+                    </AnimatedComponent>
                 )}
 
                 {setting.status_products_list == 1 && (
-                    <>
+
+                    <AnimatedComponent>
                         <ProductsList data={properties} setting={setting} />
 
                         {properties.length > 7 && (
@@ -33,36 +37,45 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
                                 </Link>
                             </div>
                         )}
-                    </>
+                    </AnimatedComponent>
+
                 )}
 
                 {setting.status_info_section == 1 && (
-                    <InfoSection data={infoweb} />
+                    <AnimatedComponent>
+                        <InfoSection data={infoweb} />
+                    </AnimatedComponent>
                 )}
 
                 {setting.status_testimonials == 1 && (
-                    <div className="my-20">
-                        <SwiperCustom
-                            datas={testimonials}
-                            image={'avatar'} text={'text'} name={'name'}
-                            autoplay={{
-                                delay: 5000,
-                                disableOnInteraction: false,
-                            }}
-                            modules={[Autoplay]}
-                        />
-                    </div>
+                    <AnimatedComponent>
+                        <div className="my-20">
+                            <SwiperCustom
+                                datas={testimonials}
+                                image={'avatar'} text={'text'} name={'name'}
+                                autoplay={{
+                                    delay: 5000,
+                                    disableOnInteraction: false,
+                                }}
+                                modules={[Autoplay]}
+                            />
+                        </div>
+                    </AnimatedComponent>
                 )}
 
                 {setting.status_team == 1 && (
 
-                    <div className="my-20">
-                        <TeamSection data={user} />
-                    </div>
+                    <AnimatedComponent>
+                        <div className="my-20">
+                            <TeamSection data={user} />
+                        </div>
+                    </AnimatedComponent>
                 )}
 
                 {setting.status_instagram_posts == 1 && (
-                    <InstagramPosts setting={setting} />
+                    <AnimatedComponent>
+                        <InstagramPosts setting={setting} />
+                    </AnimatedComponent>
                 )}
 
             </FrontedLayout>
