@@ -137,6 +137,7 @@ export default function Create({ auth }) {
                                                     type="file"
                                                     name="image"
                                                     className="mt-1 block w-full"
+                                                    accept="image/*,video/*"
                                                     onChange={(e) => setData('image', e.target.files[0])}
                                                 />
 

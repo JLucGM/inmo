@@ -9,6 +9,7 @@ import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
 import { useState } from 'react';
 import CharacterCounter from '@/Components/CharacterCounter';
+import ReactPlayer from 'react-player';
 
 export default function Edit({ auth, slide }) {
 
@@ -146,7 +147,16 @@ export default function Edit({ auth, slide }) {
                                         <ContainerTitle title={'Datos secundarios'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                             <div className="col-span-full">
-                                                <img src={`${slide.image}`} alt={slide.image} className='mx-auto w-40 rounded-3xl' />
+                                                {slide.image.endsWith('.mp4') || slide.image.endsWith('.webm') || slide.image.endsWith('.ogg') ? (
+                                                    <ReactPlayer
+                                                        url={slide.image}
+                                                        controls={true} // Muestra los controles del video
+                                                        width='100%' // Ajusta el ancho según sea necesario
+                                                        height='auto' // Ajusta la altura según sea necesario
+                                                    />
+                                                ) : (
+                                                    <img src={slide.image} alt={slide.image} className='mx-auto w-60 rounded-3xl' />
+                                                )}
 
                                                 <InputLabel htmlFor="image" value="image" />
                                                 <TextInput

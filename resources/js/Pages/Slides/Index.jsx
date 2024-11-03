@@ -2,6 +2,7 @@ import Badge from '@/Components/Badge';
 import Breadcrumb from '@/Components/Breadcrumb';
 import DataTable from '@/Components/DataTable';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { VideoCameraIcon } from '@heroicons/react/24/outline';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Index({ auth, slide }) {
@@ -13,7 +14,11 @@ export default function Index({ auth, slide }) {
                     <>
                         <div className="flex items-center">
                             <p className='me-2'>{row.original.id}</p>
-                            <img src={`${row.original.image}`} alt={row.original.image} className='w-14' />
+                            {row.original.image.endsWith('.mp4') || row.original.image.endsWith('.webm') || row.original.image.endsWith('.ogg') ? (
+                                <VideoCameraIcon className='size-6' />
+                            ) : (
+                                <img src={row.original.image} alt={row.original.image} className='w-14 ' />
+                            )}
                         </div>
                     </>
                 )
@@ -78,7 +83,7 @@ export default function Index({ auth, slide }) {
                 </div>
             }
         >
-            
+
             <Breadcrumb items={items} />
 
             <Head title="Slide" />

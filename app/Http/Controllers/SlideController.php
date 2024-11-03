@@ -40,12 +40,12 @@ class SlideController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
-            $image->move(public_path('img/slides'), $nombreImagen);
+            $file = $request->file('image');
+            $nombreArchivo = time() . '_' . $file->getClientOriginalName(); // Asegúrate de que el nombre sea único
+            $file->move(public_path('img/slides'), $nombreArchivo);
 
             // Guardar la ruta completa
-            $data['image'] = asset('img/slides/' . $nombreImagen); // Guarda la URL completa
+            $data['image'] = asset('img/slides/' . $nombreArchivo); // Guarda la URL completa
         }
 
         Slide::create($data);
@@ -73,31 +73,34 @@ class SlideController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateRequest $request, Slide $slide)
-    {
-        $data = $request->only('name', 'text', 'link', 'status');
+{
+    $data = $request->only('name', 'text', 'link', 'status');
 
-        if (!str_starts_with($data['link'], 'https://')) {
-            $data['link'] = 'https://' . $data['link'];
-        }
-        
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
-            $image->move(public_path('img/slides'), $nombreImagen);
-
-            // Guardar la ruta completa
-            $data['image'] = asset('img/slides/' . $nombreImagen); // Guarda la URL completa
-
-            // Eliminar la imagen existente si no es la imagen por defecto
-            if ($slide->image && $slide->image != asset('img/slides/default.jpg')) {
-                unlink(public_path('img/slides/' . basename($slide->image))); // Elimina la imagen anterior
-            }
-        }
-
-        $slide->update($data); // Actualiza el slide con los nuevos datos
-
-        return to_route('slides.edit', $slide);
+    if (!str_starts_with($data['link'], 'https://')) {
+        $data['link'] = 'https://' . $data['link'];
     }
+
+    // Eliminar la imagen existente si se está subiendo una nueva
+    if ($request->hasFile('image')) {
+        // Verificar si existe una imagen anterior y eliminarla
+        if ($slide->image && $slide->image != asset('img/slides/default.jpg')) {
+            unlink(public_path('img/slides/' . basename($slide->image))); // Elimina la imagen anterior
+        }
+
+        // Procesar la nueva imagen
+        $image = $request->file('image');
+        $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
+        $image->move(public_path('img/slides'), $nombreImagen);
+
+        // Guardar la ruta completa de la nueva imagen
+        $data['image'] = asset('img/slides/' . $nombreImagen);
+    }
+
+    // Actualiza el slide con los nuevos datos
+    $slide->update($data);
+
+    return to_route('slides.edit', $slide);
+}
 
     /**
      * Remove the specified resource from storage.
