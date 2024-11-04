@@ -6,10 +6,18 @@ use App\Http\Requests\Slide\StoreRequest;
 use App\Http\Requests\Slide\UpdateRequest;
 use App\Models\Slide;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class SlideController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.slides.index')->only('index');
+        $this->middleware('can:admin.slides.create')->only('create', 'store');
+        $this->middleware('can:admin.slides.edit')->only('edit', 'update');
+        $this->middleware('can:admin.slides.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

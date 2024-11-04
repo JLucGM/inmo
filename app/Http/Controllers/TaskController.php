@@ -11,11 +11,19 @@ use App\Models\TypesContacts;
 use App\Models\TypeTasks;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.tasks.index')->only('index');
+        $this->middleware('can:admin.tasks.create')->only('create', 'store');
+        $this->middleware('can:admin.tasks.edit')->only('edit', 'update');
+        $this->middleware('can:admin.tasks.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

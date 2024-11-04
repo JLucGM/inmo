@@ -6,10 +6,19 @@ use App\Http\Requests\Testimonials\StoreRequest;
 use App\Http\Requests\Testimonials\UpdateRequest;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class TestimonialController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.testimonials.index')->only('index');
+        $this->middleware('can:admin.testimonials.create')->only('create', 'store');
+        $this->middleware('can:admin.testimonials.edit')->only('edit', 'update');
+        $this->middleware('can:admin.testimonials.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

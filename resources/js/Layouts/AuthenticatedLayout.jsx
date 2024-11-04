@@ -62,7 +62,7 @@ export default function Authenticated({ user, header, children }) {
       { label: 'calendary', route: 'tasks.calendary' },
       { label: 'tasks', route: 'tasks.index' },
       { label: 'Documentos', route: 'documents.index' },
-      { label: 'Tipos de contactos', route: 'typesContacts.index' },
+      { label: 'Tipos de contactos quitar', route: 'typesContacts.index' },
       { label: 'Status de contactos quitar', route: 'statuscontacts.index' },
       { label: 'origins quitar', route: 'origins.index' },
    ];

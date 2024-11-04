@@ -6,10 +6,19 @@ use App\Http\Requests\TypesProperties\StoreRequest;
 use App\Http\Requests\TypesProperties\UpdateRequest;
 use App\Models\TypesProperties;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class TypesPropertiesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.typesProperties.index')->only('index');
+        $this->middleware('can:admin.typesProperties.create')->only('create', 'store');
+        $this->middleware('can:admin.typesProperties.edit')->only('edit', 'update');
+        $this->middleware('can:admin.typesProperties.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -103,6 +112,18 @@ class TypesPropertiesController extends Controller
      */
     public function destroy(TypesProperties $typeproperty)
     {
+        // Verificar si la imagen existe y no es la por defecto
+        if ($typeproperty->image && $typeproperty->image != asset('img/typeProperties/default.jpg')) {
+            // Extraer el nombre del archivo de la URL completa
+            $nombreImagen = basename($typeproperty->image);
+
+            // Verificar que el archivo exista antes de intentar eliminarlo
+            if (file_exists(public_path('img/typeProperties/' . $nombreImagen))) {
+                unlink(public_path('img/typeProperties/' . $nombreImagen));
+            }
+        }
+
+        // Eliminar el tipo de propiedad
         $typeproperty->delete();
     }
 }

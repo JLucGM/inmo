@@ -17,11 +17,19 @@ use App\Models\TypesBusinesses;
 use App\Models\TypesProperties;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PropertiesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.properties.index')->only('index');
+        $this->middleware('can:admin.properties.create')->only('create', 'store');
+        $this->middleware('can:admin.properties.edit')->only('edit', 'update');
+        $this->middleware('can:admin.properties.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.s
      */

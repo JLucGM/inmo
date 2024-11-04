@@ -6,10 +6,18 @@ use App\Http\Requests\Countries\StoreRequest;
 use App\Http\Requests\Countries\UpdateRequest;
 use App\Models\Countries;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class CountriesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.countries.index')->only('index');
+        $this->middleware('can:admin.countries.create')->only('create', 'store');
+        $this->middleware('can:admin.countries.edit')->only('edit', 'update');
+        $this->middleware('can:admin.countries.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.s
      */

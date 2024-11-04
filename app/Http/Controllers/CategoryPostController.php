@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoryPost;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class CategoryPostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.categoriesPost.index')->only('index');
+        $this->middleware('can:admin.categoriesPost.create')->only('create','store');
+        $this->middleware('can:admin.categoriesPost.edit')->only('edit','update');
+        $this->middleware('can:admin.categoriesPost.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

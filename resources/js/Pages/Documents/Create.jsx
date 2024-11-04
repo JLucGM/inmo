@@ -59,14 +59,14 @@ export default function Create({ auth, contacts, properties, users }) {
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear tasks
+                        Crear documentos
                     </h2>
                 </div>
             }
         >
             <Breadcrumb items={items} />
 
-            <Head className="capitalize" title="Crear tasks" />
+            <Head className="capitalize" title="Crear documentos" />
 
             <div className="">
                 <div className="max-w-7xl mx-auto">

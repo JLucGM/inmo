@@ -7,22 +7,23 @@ use App\Http\Requests\Users\UpdateRequest;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
+    public function __construct()
+    {
+        $this->middleware('auth');
 
-    //     $this->middleware('can:admin.user.index')->only('index');
-    //     $this->middleware('can:admin.user.create')->only('create', 'store');
-    //     $this->middleware('can:admin.user.edit')->only('edit', 'update');
-    //     // $this->middleware('can:admin.user.delete')->only('delete');
-    // }
-    
+        $this->middleware('can:admin.user.index')->only('index');
+        $this->middleware('can:admin.user.create')->only('create', 'store');
+        $this->middleware('can:admin.user.edit')->only('edit', 'update');
+        // $this->middleware('can:admin.user.delete')->only('delete');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -91,8 +92,8 @@ class UserController extends Controller
         $user->load('roles');
 
         $roles = Role::all();
-// dd($user->roles);
-        return Inertia::render('User/Edit', compact('user','roles'));
+        // dd($user->roles);
+        return Inertia::render('User/Edit', compact('user', 'roles'));
     }
 
     /**
@@ -127,11 +128,11 @@ class UserController extends Controller
         $user->update($data); // Actualizar el usuario con los nuevos datos
 
         // Actualizar el rol del usuario
-    if ($request->filled('role')) {
-        // Sincronizar roles
-        $user->syncRoles([$request->input('role')]);
-    }
-    
+        if ($request->filled('role')) {
+            // Sincronizar roles
+            $user->syncRoles([$request->input('role')]);
+        }
+
         return to_route('user.edit', $user); // Redirigir a la edición del usuario
     }
 
@@ -140,11 +141,18 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        // Eliminar el avatar del usuario, pero no el default.jpg
-        if ($user->avatar && $user->avatar != 'default.jpg' && file_exists(public_path('img/profile/' . $user->avatar))) {
-            unlink(public_path('img/profile/' . $user->avatar));
+        // Verificar si el avatar existe y no es el default
+        if ($user->avatar && $user->avatar != asset('img/profile/default.jpg')) {
+            // Extraer el nombre del archivo de la URL completa
+            $nombreAvatar = basename($user->avatar);
+
+            // Verificar que el archivo exista antes de intentar eliminarlo
+            if (file_exists(public_path('img/profile/' . $nombreAvatar))) {
+                unlink(public_path('img/profile/' . $nombreAvatar));
+            }
         }
 
+        // Eliminar el usuario
         $user->delete();
     }
 }

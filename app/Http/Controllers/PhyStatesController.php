@@ -6,10 +6,18 @@ use App\Http\Requests\PhyStates\StoreRequest;
 use App\Http\Requests\PhyStates\UpdateRequest;
 use App\Models\PhyStates;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class PhyStatesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.phystates.index')->only('index');
+        $this->middleware('can:admin.phystates.create')->only('create','store');
+        $this->middleware('can:admin.phystates.edit')->only('edit','update');
+        $this->middleware('can:admin.phystates.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

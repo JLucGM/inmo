@@ -7,10 +7,18 @@ use App\Http\Requests\States\UpdateRequest;
 use App\Models\Countries;
 use App\Models\States;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class StatesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.states.index')->only('index');
+        $this->middleware('can:admin.states.create')->only('create','store');
+        $this->middleware('can:admin.states.edit')->only('edit','update');
+        $this->middleware('can:admin.states.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

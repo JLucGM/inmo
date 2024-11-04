@@ -6,10 +6,18 @@ use App\Http\Requests\TypesBusinesses\StoreRequest;
 use App\Http\Requests\TypesBusinesses\UpdateRequest;
 use App\Models\TypesBusinesses;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class TypesBusinessesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.typebusiness.index')->only('index');
+        $this->middleware('can:admin.typebusiness.create')->only('create','store');
+        $this->middleware('can:admin.typebusiness.edit')->only('edit','update');
+        $this->middleware('can:admin.typebusiness.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

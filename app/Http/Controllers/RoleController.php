@@ -5,11 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 // use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.role.index')->only('index');
+        $this->middleware('can:admin.role.create')->only('create', 'store');
+        $this->middleware('can:admin.role.edit')->only('edit', 'update');
+        $this->middleware('can:admin.role.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

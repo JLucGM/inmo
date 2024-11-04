@@ -6,10 +6,18 @@ use App\Http\Requests\Pages\StoreRequest;
 use App\Http\Requests\Pages\UpdateRequest;
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class PageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.pages.index')->only('index');
+        $this->middleware('can:admin.pages.create')->only('create', 'store');
+        $this->middleware('can:admin.pages.edit')->only('edit', 'update');
+        $this->middleware('can:admin.pages.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

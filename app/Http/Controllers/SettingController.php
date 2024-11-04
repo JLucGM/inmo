@@ -5,10 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Currency;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class SettingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.setting-generals.index')->only('index');
+        $this->middleware('can:admin.setting-generals.create')->only('create', 'store');
+        $this->middleware('can:admin.setting-generals.edit')->only('edit', 'update');
+        $this->middleware('can:admin.setting-generals.delete')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -112,6 +121,74 @@ class SettingController extends Controller
             // Eliminar el logo del pie de página existente
             if ($setting->logo_footer && $setting->logo_footer != asset('img/setting/default.png')) {
                 $existingLogoFooterPath = public_path('img/setting/' . basename($setting->logo_footer)); // Usar la ruta completa
+                if (file_exists($existingLogoFooterPath)) {
+                    @unlink($existingLogoFooterPath);
+                }
+            }
+        }
+        
+        // if ($request->hasFile('portadaBlog')) {
+        //     $logoFooter = $request->file('portadaBlog');
+        //     $logoFooterName = 'logofooter-' . time() . '-' . $logoFooter->getClientOriginalName();
+        //     $logoFooter->move(public_path('img/setting'), $logoFooterName);
+
+        //     // Guardar la ruta completa
+        //     $data['portadaBlog'] = asset('img/setting/' . $logoFooterName); // Guarda la URL completa
+
+        //     // Eliminar el logo del pie de página existente
+        //     if ($setting->portadaBlog && $setting->portadaBlog != asset('img/setting/default.png')) {
+        //         $existingLogoFooterPath = public_path('img/setting/' . basename($setting->portadaBlog)); // Usar la ruta completa
+        //         if (file_exists($existingLogoFooterPath)) {
+        //             @unlink($existingLogoFooterPath);
+        //         }
+        //     }
+        // }
+        
+        if ($request->hasFile('portadaContact')) {
+            $logoFooter = $request->file('portadaContact');
+            $logoFooterName = 'logofooter-' . time() . '-' . $logoFooter->getClientOriginalName();
+            $logoFooter->move(public_path('img/setting'), $logoFooterName);
+
+            // Guardar la ruta completa
+            $data['portadaContact'] = asset('img/setting/' . $logoFooterName); // Guarda la URL completa
+
+            // Eliminar el logo del pie de página existente
+            if ($setting->portadaContact && $setting->portadaContact != asset('img/setting/default.png')) {
+                $existingLogoFooterPath = public_path('img/setting/' . basename($setting->portadaContact)); // Usar la ruta completa
+                if (file_exists($existingLogoFooterPath)) {
+                    @unlink($existingLogoFooterPath);
+                }
+            }
+        }
+        
+        if ($request->hasFile('portadaFaq')) {
+            $logoFooter = $request->file('portadaFaq');
+            $logoFooterName = 'logofooter-' . time() . '-' . $logoFooter->getClientOriginalName();
+            $logoFooter->move(public_path('img/setting'), $logoFooterName);
+
+            // Guardar la ruta completa
+            $data['portadaFaq'] = asset('img/setting/' . $logoFooterName); // Guarda la URL completa
+
+            // Eliminar el logo del pie de página existente
+            if ($setting->portadaFaq && $setting->portadaFaq != asset('img/setting/default.png')) {
+                $existingLogoFooterPath = public_path('img/setting/' . basename($setting->portadaFaq)); // Usar la ruta completa
+                if (file_exists($existingLogoFooterPath)) {
+                    @unlink($existingLogoFooterPath);
+                }
+            }
+        }
+        
+        if ($request->hasFile('portadaAnunciar')) {
+            $logoFooter = $request->file('portadaAnunciar');
+            $logoFooterName = 'logofooter-' . time() . '-' . $logoFooter->getClientOriginalName();
+            $logoFooter->move(public_path('img/setting'), $logoFooterName);
+
+            // Guardar la ruta completa
+            $data['portadaAnunciar'] = asset('img/setting/' . $logoFooterName); // Guarda la URL completa
+
+            // Eliminar el logo del pie de página existente
+            if ($setting->portadaAnunciar && $setting->portadaAnunciar != asset('img/setting/default.png')) {
+                $existingLogoFooterPath = public_path('img/setting/' . basename($setting->portadaAnunciar)); // Usar la ruta completa
                 if (file_exists($existingLogoFooterPath)) {
                     @unlink($existingLogoFooterPath);
                 }

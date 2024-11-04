@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Faqs;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class FaqsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.faqs.index')->only('index');
+        $this->middleware('can:admin.faqs.create')->only('create','store');
+        $this->middleware('can:admin.faqs.edit')->only('edit','update');
+        $this->middleware('can:admin.faqs.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

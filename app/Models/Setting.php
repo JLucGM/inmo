@@ -37,6 +37,10 @@ class Setting extends Model
         'status_instagram_posts',
         'instagram',
         'token_instagram',
+        'portadaBlog',
+'portadaContact',
+'portadaFaq',
+'portadaAnunciar',
         'currency_id',
     ];
 

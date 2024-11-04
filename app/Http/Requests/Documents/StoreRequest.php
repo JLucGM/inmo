@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Tasks;
+namespace App\Http\Requests\Documents;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -24,10 +24,10 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2|max:250',
-            'start_time' => 'required',
-            'end_time' => 'required',
-            'description'  => 'required',
+            'body' => 'required',
+            'contact_id' => 'required',
             'property_id'  => 'required',
+            'user_id'  => 'required',
             'contact_id'  => 'required',
         ];
     }

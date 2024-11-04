@@ -6,14 +6,9 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels, Textarea, Transition } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
-import ContainerTitle from '@/Components/ContainerTitle';
 import ToggleSwitch from '@/Components/ToggleSwitch';
-import { useState } from 'react';
 
 export default function Edit({ auth, setting, currencies }) {
-
-    const [isSwitchEnabled, setIsSwitchEnabled] = useState(false);
-
 
     const initialValues = {
         name: setting.name,
@@ -39,6 +34,9 @@ export default function Edit({ auth, setting, currencies }) {
         status_instagram_posts: setting.status_instagram_posts,
         instagram: setting.instagram,
         token_instagram: setting.token_instagram,
+        portadaContact: setting.portadaContact,
+        portadaFaq: setting.portadaFaq,
+        portadaAnunciar: setting.portadaAnunciar,
         currency_id: setting.currency_id || (currencies.length > 0 ? currencies[0].id : null), // Usar el valor de setting si existe
     }
 
@@ -153,7 +151,7 @@ export default function Edit({ auth, setting, currencies }) {
                                         <TabPanels className={'col-span-full md:col-span-3'}>
 
                                             <TabPanel className={'w-full'}>
-                                                <ContainerTitle title={'Datos principales'} className=' border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                                <div title={'Datos principales'} className=' p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                                     <div>
                                                         <InputLabel htmlFor="name" value="Nombre" />
@@ -241,11 +239,11 @@ export default function Edit({ auth, setting, currencies }) {
                                                         <InputError message={errors.description} className="mt-2" />
                                                     </div>
 
-                                                </ContainerTitle>
+                                                </div>
                                             </TabPanel>
 
                                             <TabPanel>
-                                                <ContainerTitle title={'Datos principales'} className=' border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                                <div title={'Datos principales'} className=' p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                                     <div className=''>
                                                         <img src={`${setting.logo}`} alt={setting.logo} className='w-40' />
@@ -286,11 +284,11 @@ export default function Edit({ auth, setting, currencies }) {
 
                                                         <InputError message={errors.favicon} className="mt-2" />
                                                     </div>
-                                                </ContainerTitle>
+                                                </div>
                                             </TabPanel>
 
                                             <TabPanel>
-                                                <ContainerTitle title={'Configurar Frontend'} className='border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                                <div title={'Configurar Frontend'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                                     <div className="p-4">
                                                         <ToggleSwitch
@@ -357,11 +355,11 @@ export default function Edit({ auth, setting, currencies }) {
                                                             label="Activar status_instagram_posts"
                                                         />
                                                     </div>
-                                                </ContainerTitle>
+                                                </div>
                                             </TabPanel>
 
                                             <TabPanel>
-                                                <ContainerTitle title={'Redes'} className='border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                                <div title={'Redes'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                                     <div className='col-span-2'>
                                                         <InputLabel htmlFor="instagram" value="Username Instagram" />
@@ -394,11 +392,25 @@ export default function Edit({ auth, setting, currencies }) {
 
                                                         <InputError message={errors.token_instagram} className="mt-2" />
                                                     </div>
-                                                </ContainerTitle>
+                                                </div>
                                             </TabPanel>
 
                                             <TabPanel>
-                                                <ContainerTitle title={'Blog'} className='border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                                <div title={'Blog'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                                    {/* <div className=''>
+                                                        <img src={`${setting.portadaContact}`} alt={setting.portadaContact} className='w-40' />
+                                                        <InputLabel htmlFor="portadaContact" value="portadaContact" />
+                                                        <TextInput
+                                                            id="portadaContact"
+                                                            type="file"
+                                                            name="portadaContact"
+                                                            className="mt-1 block w-full"
+                                                            onChange={(e) => setData('portadaContact', e.target.files[0])}
+                                                        />
+
+                                                        <InputError message={errors.portadaContact} className="mt-2" />
+                                                    </div> */}
 
                                                     <div className='col-span-2'>
                                                         <InputLabel htmlFor="titleBlog" value="titleBlog" />
@@ -431,11 +443,25 @@ export default function Edit({ auth, setting, currencies }) {
 
                                                         <InputError message={errors.descriptionBlog} className="mt-2" />
                                                     </div>
-                                                </ContainerTitle>
+                                                </div>
                                             </TabPanel>
 
                                             <TabPanel>
-                                                <ContainerTitle title={'FAQS'} className='border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                                <div title={'FAQS'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                                    <div className=''>
+                                                        <img src={`${setting.portadaFaq}`} alt={setting.portadaFaq} className='w-40' />
+                                                        <InputLabel htmlFor="portadaFaq" value="portadaFaq" />
+                                                        <TextInput
+                                                            id="portadaFaq"
+                                                            type="file"
+                                                            name="portadaFaq"
+                                                            className="mt-1 block w-full"
+                                                            onChange={(e) => setData('portadaFaq', e.target.files[0])}
+                                                        />
+
+                                                        <InputError message={errors.portadaFaq} className="mt-2" />
+                                                    </div>
 
                                                     <div className='col-span-2'>
                                                         <InputLabel htmlFor="titleFaq" value="titleFaq" />
@@ -468,11 +494,25 @@ export default function Edit({ auth, setting, currencies }) {
 
                                                         <InputError message={errors.descriptionFaq} className="mt-2" />
                                                     </div>
-                                                </ContainerTitle>
+                                                </div>
                                             </TabPanel>
 
                                             <TabPanel>
-                                                <ContainerTitle title={'Contacto'} className='border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                                <div title={'Contacto'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                                    <div className=''>
+                                                        <img src={`${setting.portadaContact}`} alt={setting.portadaContact} className='w-40' />
+                                                        <InputLabel htmlFor="portadaContact" value="portadaContact" />
+                                                        <TextInput
+                                                            id="portadaContact"
+                                                            type="file"
+                                                            name="portadaContact"
+                                                            className="mt-1 block w-full"
+                                                            onChange={(e) => setData('portadaContact', e.target.files[0])}
+                                                        />
+
+                                                        <InputError message={errors.portadaContact} className="mt-2" />
+                                                    </div>
 
                                                     <div className='col-span-2'>
                                                         <InputLabel htmlFor="titleContact" value="titleContact" />
@@ -505,11 +545,25 @@ export default function Edit({ auth, setting, currencies }) {
 
                                                         <InputError message={errors.descriptionContact} className="mt-2" />
                                                     </div>
-                                                </ContainerTitle>
+                                                </div>
                                             </TabPanel>
 
                                             <TabPanel>
-                                                <ContainerTitle title={'Anunciar'} className='border-0 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                                <div title={'Anunciar'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                                    <div className=''>
+                                                        <img src={`${setting.portadaAnunciar}`} alt={setting.portadaAnunciar} className='w-40' />
+                                                        <InputLabel htmlFor="portadaAnunciar" value="portadaAnunciar" />
+                                                        <TextInput
+                                                            id="portadaAnunciar"
+                                                            type="file"
+                                                            name="portadaAnunciar"
+                                                            className="mt-1 block w-full"
+                                                            onChange={(e) => setData('portadaAnunciar', e.target.files[0])}
+                                                        />
+
+                                                        <InputError message={errors.portadaAnunciar} className="mt-2" />
+                                                    </div>
 
                                                     <div className='col-span-2'>
                                                         <InputLabel htmlFor="titleAnunciar" value="titleAnunciar" />
@@ -542,7 +596,7 @@ export default function Edit({ auth, setting, currencies }) {
 
                                                         <InputError message={errors.descriptionAnunciar} className="mt-2" />
                                                     </div>
-                                                </ContainerTitle>
+                                                </div>
 
                                             </TabPanel>
                                         </TabPanels>

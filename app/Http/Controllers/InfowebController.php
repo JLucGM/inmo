@@ -6,10 +6,18 @@ use App\Http\Requests\InfoWeb\StoreRequest;
 use App\Http\Requests\InfoWeb\UpdateRequest;
 use App\Models\Infoweb;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class InfowebController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.info-webs.index')->only('index');
+        $this->middleware('can:admin.info-webs.create')->only('create','store');
+        $this->middleware('can:admin.info-webs.edit')->only('edit','update');
+        $this->middleware('can:admin.info-webs.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

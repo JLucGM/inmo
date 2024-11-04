@@ -7,10 +7,19 @@ use App\Http\Requests\Amenities\UpdateRequest;
 use App\Models\Amenities;
 use App\Models\Amenity;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class AmenitiesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.amenities-checks.index')->only('index');
+        $this->middleware('can:admin.amenities-checks.create')->only('create','store');
+        $this->middleware('can:admin.amenities-checks.edit')->only('edit','update');
+        $this->middleware('can:admin.amenities-checks.delete')->only('destroy');
+    }
+    
     /**
      * Display a listing of the resource.
      */

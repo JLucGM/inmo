@@ -7,10 +7,18 @@ use App\Http\Requests\Cities\UpdateRequest;
 use App\Models\Cities;
 use App\Models\States;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Inertia\Inertia;
 
 class CitiesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.cities.index')->only('index');
+        $this->middleware('can:admin.cities.create')->only('create','store');
+        $this->middleware('can:admin.cities.edit')->only('edit','update');
+        $this->middleware('can:admin.cities.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

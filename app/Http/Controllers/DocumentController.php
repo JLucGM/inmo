@@ -2,15 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Documents\StoreRequest;
 use App\Models\Contacts;
 use App\Models\Document;
 use App\Models\Property;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class DocumentController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.documents.index')->only('index');
+        $this->middleware('can:admin.documents.create')->only('create','store');
+        $this->middleware('can:admin.documents.edit')->only('edit','update');
+        $this->middleware('can:admin.documents.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -38,11 +49,11 @@ class DocumentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $data = $request->only('name', 'body', 'status','contact_id',
-        'property_id',
-        'user_id');
+        $data = $request->only('name', 'body', 'status','contact_id','property_id','user_id');
+
+        $data['user_id'] = Auth::id();
 
         Document::create($data);
 
