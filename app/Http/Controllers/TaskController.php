@@ -30,7 +30,7 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::with('contact', 'user','property','typeTask','statusContact')->get();
-        // dd($tasks);
+        // dd($tasks);s
         return Inertia::render('Tasks/Index', compact('tasks'));
     }
 

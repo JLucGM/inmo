@@ -12,8 +12,6 @@ import AnimatedComponent from '@/Components/AnimatedComponent';
 
 export default function Welcome({ auth, setting, slides, properties, infoweb, testimonials, user, pages }) {
 
-    console.log(testimonials)
-
     return (
         <>
             <FrontedLayout auth={auth} setting={setting} pages={pages}>

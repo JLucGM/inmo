@@ -26,7 +26,7 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
     const submit = (e) => {
         e.preventDefault();
         post(route('tasks.store'))
-        console.log(data)
+        // console.log(data)
     }
 
     const items = [
@@ -52,6 +52,7 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
         },
 
     ];
+    
     return (
         <AuthenticatedLayout
             user={auth.user}

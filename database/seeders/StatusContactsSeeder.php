@@ -20,6 +20,7 @@ class StatusContactsSeeder extends Seeder
             ['name' => 'converted',],            
             ['name' => 'recovered',],            
             ['name' => 'lost',],            
+            ['name' => 'finalized',],            
         ];
 
         foreach ($statuscontact as $statuscontactData) {

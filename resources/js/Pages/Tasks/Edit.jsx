@@ -26,7 +26,7 @@ export default function Edit({ auth, task, statuses, contacts, typetasks, proper
     const submit = (e) => {
         e.preventDefault();
         post(route('tasks.update', task))
-        console.log(data)
+        // console.log(data)
     }
 
     const items = [

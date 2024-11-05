@@ -1,6 +1,5 @@
 import Badge from '@/Components/Badge';
 import Breadcrumb from '@/Components/Breadcrumb';
-import DataTable from '@/Components/DataTable';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 import dayjs from 'dayjs';
@@ -10,7 +9,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css"
 
 export default function Index({ auth, tasks }) {
 
-    console.log(tasks)
+    // console.log(tasks)
     const items = [
         {
             name: 'Dashboard',
@@ -28,14 +27,6 @@ export default function Index({ auth, tasks }) {
     ];
 
     const localizer = dayjsLocalizer(dayjs);
-
-    const statusColors = {
-        'new': 'bg-blue-500',
-        'in progress': 'bg-yellow-500',
-        'recovered': 'bg-orange-500',
-        'converted': 'bg-green-500',
-        'lost': 'bg-red-500',
-    };
 
     const events = tasks.map(task => ({
         start: dayjs(task.start_time).toDate(),
