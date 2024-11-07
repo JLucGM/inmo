@@ -12,7 +12,7 @@ import TextAreaRich from '@/Components/TextAreaRich';
 import CharacterCounter from '@/Components/CharacterCounter';
 import { useState } from 'react';
 
-export default function Edit({ auth, posts, categryposts }) {
+export default function Edit({ auth, posts, categryposts, role, permission }) {
 
     const textAreaRef = useRef();
 
@@ -72,6 +72,8 @@ export default function Edit({ auth, posts, categryposts }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Publicación</h2>

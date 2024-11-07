@@ -8,6 +8,7 @@ use App\Models\Countries;
 use App\Models\States;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class StatesController extends Controller
@@ -15,8 +16,8 @@ class StatesController extends Controller
     public function __construct()
     {
         $this->middleware('can:admin.states.index')->only('index');
-        $this->middleware('can:admin.states.create')->only('create','store');
-        $this->middleware('can:admin.states.edit')->only('edit','update');
+        $this->middleware('can:admin.states.create')->only('create', 'store');
+        $this->middleware('can:admin.states.edit')->only('edit', 'update');
         $this->middleware('can:admin.states.delete')->only('destroy');
     }
     /**
@@ -26,9 +27,12 @@ class StatesController extends Controller
     {
         $states = States::with('country')->get();
         $country = Countries::all();
-        // $cities = Cities::with('state')->get();
 
-        return Inertia::render('States/Index', compact('states', 'country'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('States/Index', compact('states', 'country', 'role', 'permission'));
     }
 
     /**
@@ -37,8 +41,12 @@ class StatesController extends Controller
     public function create()
     {
         $country = Countries::all();
-        return Inertia::render('States/Create', compact('country'));
 
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('States/Create', compact('country', 'role', 'permission'));
     }
 
     /**
@@ -48,7 +56,7 @@ class StatesController extends Controller
     {
 
         //dd($request);
-        $data = $request->only('name','country_id');
+        $data = $request->only('name', 'country_id');
 
         States::create($data);
 
@@ -67,18 +75,23 @@ class StatesController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(States $state)
-{
-    $country = Countries::all();
-    $selectedCountryId = $state->country_id; // Retrieve the currently selected country ID
-    return Inertia::render('States/Edit', compact('state', 'country', 'selectedCountryId'));
-}
+    {
+        $country = Countries::all();
+        $selectedCountryId = $state->country_id;
+
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('States/Edit', compact('state', 'country', 'selectedCountryId', 'role', 'permission'));
+    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateRequest $request, States $state)
     {
-        $data = $request->only('name','country_id');
+        $data = $request->only('name', 'country_id');
 
         $state->update($data);
 

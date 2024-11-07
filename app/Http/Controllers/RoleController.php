@@ -6,6 +6,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 // use Spatie\Permission\Models\Role;
 
@@ -26,8 +27,12 @@ class RoleController extends Controller
     {
         $roles = Role::all();
 
-        return Inertia::render('Roles/Index', compact('roles'));
-        }
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Roles/Index', compact('roles', 'role', 'permission'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -35,9 +40,12 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::all();
-        
-        return Inertia::render('Roles/Create',compact('permissions'));
 
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Roles/Create', compact('permissions', 'role', 'permission'));
     }
 
     /**
@@ -73,9 +81,13 @@ class RoleController extends Controller
     public function edit(Role $roles)
     {
         $permissions = Permission::all();
-    $assignedPermissions = $roles->permissions()->pluck('id')->toArray();
-// dd($assignedPermissions);
-    return Inertia::render('Roles/Edit', compact('roles', 'permissions', 'assignedPermissions'));
+        $assignedPermissions = $roles->permissions()->pluck('id')->toArray();
+
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Roles/Edit', compact('roles', 'permissions', 'assignedPermissions', 'role', 'permission'));
     }
 
     /**

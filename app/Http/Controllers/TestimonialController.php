@@ -7,6 +7,7 @@ use App\Http\Requests\Testimonials\UpdateRequest;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class TestimonialController extends Controller
@@ -26,7 +27,11 @@ class TestimonialController extends Controller
     {
         $testimonial = Testimonial::all();
 
-        return Inertia::render('Testimonials/Index', compact('testimonial'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Testimonials/Index', compact('testimonial','role', 'permission'));
     }
 
     /**
@@ -34,7 +39,11 @@ class TestimonialController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Testimonials/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Testimonials/Create', compact('role', 'permission'));
     }
 
     /**
@@ -74,7 +83,11 @@ class TestimonialController extends Controller
      */
     public function edit(Testimonial $testimonial)
     {
-        return Inertia::render('Testimonials/Edit', compact('testimonial'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Testimonials/Edit', compact('testimonial','role','permission'));
     }
 
     /**

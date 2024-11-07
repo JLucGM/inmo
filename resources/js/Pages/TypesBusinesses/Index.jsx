@@ -1,18 +1,20 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Index({ auth, typesBusinesses }) {
+export default function Index({ auth, typesBusinesses, role, permission }) {
     console.log(typesBusinesses)
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Tipo de negocios</h2>
                     <Link href={route('typesBusinesses.create')}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear Tipo de negocio
+                        Crear
                     </Link>
                 </div>
             }
@@ -43,7 +45,7 @@ export default function Index({ auth, typesBusinesses }) {
                                                 <tr key={typesBusiness.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                     <th scope="row" className="border border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                         {typesBusiness.name}
-                                                    </th>                                                    
+                                                    </th>
                                                     <td className="border border-slate-200 px-6 py-4">
                                                         <div className='space-x-4'>
                                                             <Link

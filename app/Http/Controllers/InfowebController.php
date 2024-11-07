@@ -7,6 +7,7 @@ use App\Http\Requests\InfoWeb\UpdateRequest;
 use App\Models\Infoweb;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class InfowebController extends Controller
@@ -25,7 +26,11 @@ class InfowebController extends Controller
     {
         $infoweb = Infoweb::all();
 
-        return Inertia::render('InfoWeb/Index', compact('infoweb'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('InfoWeb/Index', compact('infoweb','role', 'permission'));
     }
 
     /**
@@ -33,7 +38,11 @@ class InfowebController extends Controller
      */
     public function create()
     {
-        return Inertia::render('InfoWeb/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('InfoWeb/Create', compact('role', 'permission'));
     }
 
     /**
@@ -73,7 +82,11 @@ class InfowebController extends Controller
      */
     public function edit(Infoweb $infoweb)
     {
-        return Inertia::render('InfoWeb/Edit', compact('infoweb'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('InfoWeb/Edit', compact('infoweb','role', 'permission'));
 
     }
 

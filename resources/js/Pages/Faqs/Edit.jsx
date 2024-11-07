@@ -8,13 +8,12 @@ import { Select, Textarea, Transition } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Edit({ auth, faqs }) {
+export default function Edit({ auth, faqs, role, permission }) {
 
     const initialValues = {
         name: faqs.name,
         content: faqs.content,
         status: faqs.status,
-
     }
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
@@ -22,7 +21,6 @@ export default function Edit({ auth, faqs }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('faqs.update', faqs))
-        console.log(data)
     }
 
     const items = [
@@ -51,6 +49,8 @@ export default function Edit({ auth, faqs }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar faq</h2>
@@ -62,7 +62,7 @@ export default function Edit({ auth, faqs }) {
                 </div>
             }
         >
-                        <Breadcrumb items={items} />
+            <Breadcrumb items={items} />
 
             <Head className="capitalize" title="Actualizar faq" />
 
@@ -84,52 +84,52 @@ export default function Edit({ auth, faqs }) {
 
                                 <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                <div className='col-span-2'>
-                                    <InputLabel htmlFor="name" value="Titulo" />
+                                    <div className='col-span-2'>
+                                        <InputLabel htmlFor="name" value="Titulo" />
 
-                                    <TextInput
-                                        id="name"
-                                        type="text"
-                                        name="name"
-                                        value={data.name}
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) => setData('name', e.target.value)}
-                                    />
+                                        <TextInput
+                                            id="name"
+                                            type="text"
+                                            name="name"
+                                            value={data.name}
+                                            className="mt-1 block w-full"
+                                            isFocused={true}
+                                            onChange={(e) => setData('name', e.target.value)}
+                                        />
 
-                                    <InputError message={errors.name} className="mt-2" />
-                                </div>
+                                        <InputError message={errors.name} className="mt-2" />
+                                    </div>
 
-                                <div className='col-span-2'>
-                                    <InputLabel htmlFor="content" value="Contenido" />
+                                    <div className='col-span-2'>
+                                        <InputLabel htmlFor="content" value="Contenido" />
 
-                                    <Textarea
-                                        id="content"
-                                        type="text"
-                                        name="content"
-                                        rows={10}
-                                        value={data.content}
-                                        className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                        onChange={(e) => setData('content', e.target.value)}
-                                    >
+                                        <Textarea
+                                            id="content"
+                                            type="text"
+                                            name="content"
+                                            rows={10}
+                                            value={data.content}
+                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                            onChange={(e) => setData('content', e.target.value)}
+                                        >
 
-                                    </Textarea>
+                                        </Textarea>
 
-                                    <InputError message={errors.content} className="mt-2" />
-                                </div>
+                                        <InputError message={errors.content} className="mt-2" />
+                                    </div>
 
-                                <div className='col-span-2'>
-                                    <InputLabel htmlFor="status" value="Status" />
-                                    <Select
-                                        name="status"
-                                        value={data.status}
-                                        onChange={(e) => setData('status', e.target.value)}
-                                        className={'mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm '}
-                                    >
-                                        <option defaultValue="0">Borrador</option>
-                                        <option value="1">Publicar</option>
-                                    </Select>
-                                </div>
+                                    <div className='col-span-2'>
+                                        <InputLabel htmlFor="status" value="Status" />
+                                        <Select
+                                            name="status"
+                                            value={data.status}
+                                            onChange={(e) => setData('status', e.target.value)}
+                                            className={'mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm '}
+                                        >
+                                            <option defaultValue="0">Borrador</option>
+                                            <option value="1">Publicar</option>
+                                        </Select>
+                                    </div>
 
                                 </ContainerTitle>
 

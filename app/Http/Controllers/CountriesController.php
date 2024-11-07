@@ -7,6 +7,7 @@ use App\Http\Requests\Countries\UpdateRequest;
 use App\Models\Countries;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class CountriesController extends Controller
@@ -25,7 +26,11 @@ class CountriesController extends Controller
     {
         $countries = Countries::all();
 
-        return Inertia::render('Countries/Index', compact('countries'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Countries/Index', compact('countries','role','permission'));
     }
 
     /**
@@ -33,7 +38,11 @@ class CountriesController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Countries/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Countries/Create', compact('role','permission'));
 
     }
 
@@ -62,7 +71,11 @@ class CountriesController extends Controller
      */
     public function edit(Countries $country)
     {
-        return Inertia::render('Countries/Edit', compact('country'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Countries/Edit', compact('country','role','permission'));
 
     }
 

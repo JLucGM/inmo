@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import MultiLevelMenu from '@/Components/MultiLevelMenu';
-import UserIcon from '@/Components/Icon/UserIcon';
 import { Link } from '@inertiajs/react';
 import HomeModern from '@/Components/Icon/HomeModern';
 import Folder from '@/Components/Icon/Folder';
@@ -11,8 +9,9 @@ import DocumentText from '@/Components/Icon/DocumenteText';
 import PinMap from '@/Components/Icon/PinMap';
 import Gear from '@/Components/Icon/Gear';
 import { HomeIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
+import { ChartPieIcon, UserPlusIcon, UsersIcon } from '@heroicons/react/20/solid';
 
-export default function Authenticated({ user, header, children }) {
+export default function Authenticated({ user, header, children, roles, permission }) {
 
    const [theme, setTheme] = useState(() => {
       const storedTheme = localStorage.getItem('theme');
@@ -43,42 +42,43 @@ export default function Authenticated({ user, header, children }) {
    };
 
    const globalSettings = [
-      { label: 'Settings', route: 'settings.index' },
-      { label: 'Slide', route: 'slides.index' },
-      { label: 'Info web', route: 'info-web.index' },
-      { label: 'Testimonial', route: 'testimonial.index' },
-      { label: 'page', route: 'pages.index' },
-      { label: 'Faq', route: 'faqs.index' },
-      { label: 'Tipo de negocios quitar', route: 'typesBusinesses.index' },
+      { label: 'Settings', route: 'settings.index', permission: 'admin.setting-generals.index' },
+      { label: 'Slide', route: 'slides.index', permission: 'admin.slides.index' },
+      { label: 'Info web', route: 'info-web.index', permission: 'admin.info-webs.index' },
+      { label: 'Testimonial', route: 'testimonial.index', permission: 'admin.testimonials.index' },
+      { label: 'page', route: 'pages.index', permission: 'admin.pages.index' },
+      { label: 'Faq', route: 'faqs.index', permission: 'admin.faqs.index' },
+      { label: 'role', route: 'roles.index', permission: 'admin.role.index' },
+      { label: 'Tipo de negocios quitar', route: 'typesBusinesses.index', permission: 'admin.typebusiness.index' },
    ];
 
    const posts = [
-      { label: 'Posts', route: 'post.index' },
-      { label: 'Categoria de posts', route: 'category-post.index' },
+      { label: 'Posts', route: 'post.index', permission: 'admin.posts.index' },
+      { label: 'Categoria de posts', route: 'category-post.index', permission: 'admin.categoriesPost.index' },
    ];
 
    const crm = [
-      { label: 'Contactos', route: 'contacts.index' },
-      { label: 'calendary', route: 'tasks.calendary' },
-      { label: 'tasks', route: 'tasks.index' },
-      { label: 'Documentos', route: 'documents.index' },
-      { label: 'Tipos de contactos quitar', route: 'typesContacts.index' },
-      { label: 'Status de contactos quitar', route: 'statuscontacts.index' },
-      { label: 'origins quitar', route: 'origins.index' },
+      { label: 'Contactos', route: 'contacts.index', permission: 'admin.contactos.index' },
+      { label: 'calendary', route: 'tasks.calendary', permission: 'admin.tasks.index' },
+      { label: 'tasks', route: 'tasks.index', permission: 'admin.tasks.index' },
+      { label: 'Documentos', route: 'documents.index', permission: 'admin.documents.index' },
+      { label: 'Tipos de contactos quitar', route: 'typesContacts.index', permission: 'admin.tasks.index' },
+      { label: 'Status de contactos quitar', route: 'statuscontacts.index', permission: 'admin.tasks.index' },
+      { label: 'origins quitar', route: 'origins.index', permission: 'admin.tasks.index' },
    ];
 
    const locations = [
-      { label: 'Pais', route: 'countries.index' },
-      { label: 'Estados', route: 'states.index' },
-      { label: 'Ciudades', route: 'cities.index' },
+      { label: 'Pais', route: 'countries.index', permission: 'admin.countries.index' },
+      { label: 'Estados', route: 'states.index', permission: 'admin.states.index' },
+      { label: 'Ciudades', route: 'cities.index', permission: 'admin.cities.index' },
    ];
 
    const propertiesMenu = [
-      { label: 'Lista de Propiedades', route: 'properties.index' },
-      { label: 'Crear Propiedades', route: 'properties.create' },
-      { label: 'Comodidades', route: 'amenities.index' },
-      { label: 'Tipos de propiedades', route: 'typesproperties.index' },
-      { label: 'Estados fisicos quitar', route: 'phyStates.index' },
+      { label: 'Lista de Propiedades', route: 'properties.index', permission: 'admin.properties.index' },
+      { label: 'Crear Propiedades', route: 'properties.create', permission: 'admin.properties.create' },
+      { label: 'Comodidades', route: 'amenities.index', permission: 'admin.amenities-checks.index' },
+      { label: 'Tipos de propiedades', route: 'typesproperties.index', permission: 'admin.typesProperties.index' },
+      { label: 'Estados fisicos quitar', route: 'phyStates.index', permission: 'admin.phystates.index' },
    ];
 
    return (
@@ -165,66 +165,80 @@ export default function Authenticated({ user, header, children }) {
                <ul className="space-y-2 font-medium">
                   <li>
                      <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                        <svg className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                           <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
-                           <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
-                        </svg>
+                        <ChartPieIcon className='size-6 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />
                         <span className="ms-3">Dashboard</span>
                      </NavLink>
                   </li>
-                  <li>
-                     <NavLink href={route('user.index')} active={route().current('user.index')}>
-                        <svg className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                           <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
-                        </svg>
-                        <span className="ms-3">Usuario</span>
-                     </NavLink>
-                  </li>
+                  
+                     {permission.some(perm => perm.name === 'admin.user.index') && (
+                        <li>
+                           <NavLink href={route('user.index')} active={route().current('user.index')}>
+                           <UsersIcon className='size-6 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />
+                              <span className="ms-3">Usuario</span>
+                           </NavLink>
+                        </li>
+                     )}
+                  
 
-                  <li>
-                     <MultiLevelMenu
-                        name={'Propiedades'}
-                        svg={HomeModern}
-                        items={propertiesMenu}
-                        toggle={'global-settings'}
-                     />
-                  </li>
+                  {permission.some(perm => perm.name === 'admin.properties.index') && (
+                     <li>
+                        <MultiLevelMenu
+                           name={'Propiedades'}
+                           svg={HomeModern}
+                           items={propertiesMenu}
+                           toggle={'propertiesMenu'}
+                           userPermissions={permission}
+                        />
+                     </li>
+                  )}
 
-                  <li>
-                     <MultiLevelMenu
-                        name={'CRM'}
-                        svg={Folder}
-                        items={crm}
-                        toggle={'global-settings'}
-                     />
-                  </li>
-                  <li>
-                     <MultiLevelMenu
-                        name={'blog'}
-                        svg={DocumentText}
-                        items={posts}
-                        toggle={'global-settings'}
-                     />
-                  </li>
+                  {permission.some(perm => perm.name === 'admin.contactos.index') && (
+                     <li>
+                        <MultiLevelMenu
+                           name={'CRM'}
+                           svg={Folder}
+                           items={crm}
+                           toggle={'crm'}
+                           userPermissions={permission}
+                        />
+                     </li>
+                  )}
 
-                  <li>
-                     <MultiLevelMenu
-                        name={'Locaciones'}
-                        svg={PinMap}
-                        items={locations}
-                        toggle={'locations'}
-                     />
-                  </li>
+                  {permission.some(perm => perm.name === 'admin.posts.index') && (
+                     <li>
+                        <MultiLevelMenu
+                           name={'blog'}
+                           svg={DocumentText}
+                           items={posts}
+                           toggle={'posts'}
+                           userPermissions={permission}
+                        />
+                     </li>
+                  )}
 
-                  <li>
-                     <MultiLevelMenu
-                        name={'Configuraciones globales'}
-                        svg={Gear}
-                        items={globalSettings}
-                        toggle={'global-settings'}
-                     />
-                  </li>
-
+                  {permission.some(perm => perm.name === 'admin.countries.index') && (
+                     <li>
+                        <MultiLevelMenu
+                           name={'Locaciones'}
+                           svg={PinMap}
+                           items={locations}
+                           toggle={'locations'}
+                           userPermissions={permission}
+                        />
+                     </li>
+                  )}
+                  
+                  {permission.some(perm => perm.name === 'admin.setting-generals.index') && (
+                     <li>
+                        <MultiLevelMenu
+                           name={'Configuraciones globales'}
+                           svg={Gear}
+                           items={globalSettings}
+                           toggle={'global-settings'}
+                           userPermissions={permission}
+                        />
+                     </li>
+                  )}
 
                   {/* <li>
                      <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">

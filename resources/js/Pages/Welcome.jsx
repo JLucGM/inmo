@@ -24,10 +24,8 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
                 )}
 
                 {setting.status_products_list == 1 && (
-
                     <AnimatedComponent>
                         <ProductsList data={properties} setting={setting} />
-
                         {properties.length > 7 && (
                             <div className="flex justify-center my-16">
                                 <Link href={route('propertiesList.show')} className="px-4 py-2 bg-white text-slate-800 border rounded-full hover:bg-slate-300">

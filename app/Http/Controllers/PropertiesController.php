@@ -36,8 +36,13 @@ class PropertiesController extends Controller
     public function index()
     {
         $properties = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'typeProperty', 'user')->get();
+        
+        $user = Auth::user();
+        
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Properties/Index', compact('properties'));
+        return Inertia::render('Properties/Index', compact('properties','role','permission'));
     }
 
     /**
@@ -54,7 +59,11 @@ class PropertiesController extends Controller
         $phystate = PhyStates::all();
         $amenities = Amenity::all();
 
-        return Inertia::render('Properties/Create', compact('country', 'state', 'city', 'typepropety', 'typebusiness', 'phystate', 'amenities'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Properties/Create', compact('country', 'state', 'city', 'typepropety', 'typebusiness', 'phystate', 'amenities','role','permission'));
     }
 
     /**
@@ -166,7 +175,11 @@ class PropertiesController extends Controller
         $main = $property->main;
         $images = json_decode($property->images);
 
-        return Inertia::render('Properties/Edit', compact('property', 'country', 'typepropety', 'typebusiness', 'country', 'state', 'city', 'users', 'phystate', 'amenities', 'propertyAmenities', 'images', 'main',));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Properties/Edit', compact('property', 'country', 'typepropety', 'typebusiness', 'country', 'state', 'city', 'users', 'phystate', 'amenities', 'propertyAmenities', 'images', 'main','role','permission'));
     }
 
     /**

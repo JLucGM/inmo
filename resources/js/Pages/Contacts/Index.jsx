@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import PDF from '@/Components/PDF/PDF';
 
-export default function Index({ auth, contacts, properties }) {
+export default function Index({ auth, contacts, properties, role, permission }) {
     // console.log(contacts)
     let [isOpen, setIsOpen] = useState(false)
     const [selectedProperty, setSelectedProperty] = useState(null);
@@ -88,6 +88,8 @@ export default function Index({ auth, contacts, properties }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Contactos</h2>

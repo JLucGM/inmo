@@ -7,8 +7,8 @@ import Badge from '@/Components/Badge';
 import Breadcrumb from '@/Components/Breadcrumb';
 
 
-export default function Dashboard({ auth, taskCounts, contacts, properties, tasks }) {
-    console.log(auth.user.name)
+export default function Dashboard({ auth, taskCounts, contacts, properties, tasks, roles, permission }) {
+    // console.log(roles)
     const localizer = dayjsLocalizer(dayjs);
 
     const events = tasks.map(task => ({
@@ -31,6 +31,8 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, task
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={roles}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Bienvinido, {auth.user.name}</h2>
@@ -98,7 +100,7 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, task
                             >
                                 Crear tarea
                             </Link>
-                            
+
                         </div>
                         <Calendar
                             localizer={localizer}
@@ -134,6 +136,19 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, task
 
                         </div>
 
+                    </div>
+
+                    <div className="bg-red-400">
+                        <div className="col-span-full p-2 border-b-2 dark:border-gray-500 flex justify-between items-center">
+                            <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Contactos nuevos</p>
+                            <Link
+                                className='capitalize text-sm text-gray-800 dark:text-gray-200 underline underline-offset-4'
+                                href={route('contacts.index')}
+                            >
+                                Ver lista
+                            </Link>
+
+                        </div>
                     </div>
                 </div>
 

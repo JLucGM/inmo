@@ -7,6 +7,7 @@ use App\Http\Requests\Slide\UpdateRequest;
 use App\Models\Slide;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class SlideController extends Controller
@@ -25,7 +26,11 @@ class SlideController extends Controller
     {
         $slide = Slide::all();
 
-        return Inertia::render('Slides/Index', compact('slide'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Slides/Index', compact('slide', 'role', 'permission'));
     }
 
     /**
@@ -33,7 +38,11 @@ class SlideController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Slides/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Slides/Create', compact('role', 'permission'));
     }
 
     /**
@@ -74,7 +83,11 @@ class SlideController extends Controller
      */
     public function edit(Slide $slide)
     {
-        return Inertia::render('Slides/Edit', compact('slide'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Slides/Edit', compact('slide','role', 'permission'));
     }
 
     /**

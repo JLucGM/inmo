@@ -5,7 +5,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { LinkIcon } from '@heroicons/react/24/outline';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Index({ auth, posts }) {
+export default function Index({ auth, posts, role, permission }) {
 
     const columns = [
         {
@@ -78,6 +78,8 @@ export default function Index({ auth, posts }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Publicaciones</h2>

@@ -6,11 +6,10 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
-export default function Edit({ auth, typesBusiness }) {
+export default function Edit({ auth, typesBusiness, role, permission }) {
 
     const initialValues = {
         name: typesBusiness.name,
-
     }
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
@@ -18,23 +17,24 @@ export default function Edit({ auth, typesBusiness }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('typesBusinesses.update', typesBusiness))
-        console.log(data)
     }
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar tipo de negocios</h2>
                     <Link href={route('typesBusinesses.create')}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear tipo de negocios
+                        Crear
                     </Link>
                 </div>
             }
         >
-            <Head className="capitalize"  title="tipos de negocios" />
+            <Head className="capitalize" title="tipos de negocios" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto ">

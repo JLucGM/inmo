@@ -3,7 +3,7 @@ import DataTable from '@/Components/DataTable';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Index({ auth, infoweb }) {
+export default function Index({ auth, infoweb, role, permission }) {
     const columns = [
         {
             header: "#id",
@@ -44,6 +44,8 @@ export default function Index({ auth, infoweb }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Informacion web</h2>

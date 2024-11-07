@@ -6,11 +6,10 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
-export default function Edit({ auth, typesContact }) {
+export default function Edit({ auth, typesContact, role, permission }) {
 
     const initialValues = {
         name: typesContact.name,
-
     }
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
@@ -18,11 +17,12 @@ export default function Edit({ auth, typesContact }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('typesContacts.update', typesContact))
-        console.log(data)
     }
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar tipo de contacto</h2>

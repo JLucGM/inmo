@@ -37,8 +37,12 @@ class ContactsController extends Controller
     {
         $contacts = Contacts::with('user')->with('typecontact')->with('statuscontact')->with('origin')->with('typeproperty')->with('country')->with('state')->with('city')->orderBy('name', 'asc')->get();
         $properties = Property::with('country','state','city','typeproperty','user','amenities')->get();
-// dd($properties->amenities);
-        return Inertia::render('Contacts/Index', compact('contacts', 'properties'));
+
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Contacts/Index', compact('contacts', 'properties','role','permission'));
     }
 
     /**
@@ -55,7 +59,11 @@ class ContactsController extends Controller
         $typecontacts = TypesContacts::all();
         $origins = Origins::all();
 
-        return Inertia::render('Contacts/Create', compact('country', 'state', 'city', 'typepropety', 'users', 'statuses', 'typecontacts', 'origins'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Contacts/Create', compact('country', 'state', 'city', 'typepropety', 'users', 'statuses', 'typecontacts', 'origins','role','permission'));
     }
 
     /**
@@ -117,7 +125,11 @@ class ContactsController extends Controller
         $typecontacts = TypesContacts::all();
         $origins = Origins::all();
 
-        return Inertia::render('Contacts/Edit', compact('contacts', 'country', 'state', 'city', 'typepropety', 'users', 'statuses', 'typecontacts', 'origins'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Contacts/Edit', compact('contacts', 'country', 'state', 'city', 'typepropety', 'users', 'statuses', 'typecontacts', 'origins','role','permission'));
     }
 
     /**

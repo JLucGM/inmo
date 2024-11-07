@@ -10,15 +10,13 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import { useState } from 'react';
 import CharacterCounter from '@/Components/CharacterCounter';
 
-export default function Edit({ auth, testimonial }) {
+export default function Edit({ auth, testimonial, role, permission }) {
     const [charCount, setCharCount] = useState(testimonial.text.length);
-    // Estado para contar caracteres
     const charLimit = 500; // Límite de caracteres
 
     const initialValues = {
         name: testimonial.name,
         text: testimonial.text,
-
     }
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
@@ -26,7 +24,6 @@ export default function Edit({ auth, testimonial }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('testimonial.update', testimonial))
-        // console.log(data)
     }
 
     const handleTextChange = (e) => {
@@ -67,6 +64,8 @@ export default function Edit({ auth, testimonial }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar testimonial</h2>

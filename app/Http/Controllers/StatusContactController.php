@@ -7,6 +7,7 @@ use App\Http\Requests\StatusContacts\UpdateRequest;
 use App\Models\StatusContact;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class StatusContactController extends Controller
@@ -24,8 +25,12 @@ class StatusContactController extends Controller
     public function index()
     {
         $statuscontacts = StatusContact::all();
+        
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
 
-        return Inertia::render('StatusContacts/Index', compact('statuscontacts'));
+        return Inertia::render('StatusContacts/Index', compact('statuscontacts','role','permission'));
     }
 
     /**
@@ -33,7 +38,11 @@ class StatusContactController extends Controller
      */
     public function create()
     {
-        return Inertia::render('StatusContacts/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('StatusContacts/Create', compact('role','permission'));
 
     }
 
@@ -62,7 +71,11 @@ class StatusContactController extends Controller
      */
     public function edit(StatusContact $statusContact)
     {
-        return Inertia::render('StatusContacts/Edit', compact('statusContact'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('StatusContacts/Edit', compact('statusContact','role','permission'));
 
     }
 

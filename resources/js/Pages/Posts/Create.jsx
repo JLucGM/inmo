@@ -13,7 +13,7 @@ import CharacterCounter from '@/Components/CharacterCounter';
 import { useState } from 'react';
 
 
-export default function Create({ auth, categryposts }) {
+export default function Create({ auth, categryposts, role, permission }) {
 
     const initialValues = {
         name: "",
@@ -74,6 +74,8 @@ export default function Create({ auth, categryposts }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">

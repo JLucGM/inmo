@@ -6,6 +6,7 @@ use App\Models\Currency;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class SettingController extends Controller
@@ -26,7 +27,11 @@ class SettingController extends Controller
         $setting = Setting::first();
         $currencies = Currency::all();
 
-        return Inertia::render('Setting/Edit', compact('setting', 'currencies'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Setting/Edit', compact('setting', 'currencies', 'role', 'permission'));
     }
 
     /**

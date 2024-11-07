@@ -2,17 +2,14 @@ import { Link } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react';
 
 const InstagramMedia = ({setting}) => {
-    // console.log(setting.token_instagram)
     const [media, setMedia] = useState([]);
 
     useEffect(() => {
         const fetchInstagramMedia = async () => {
-            const response = await fetch(`https://graph.instagram.com/me/media?fields=id,media_type,media_url,thumbnail_url,permalink,timestamp,caption&access_token=${setting.token_instagram}`);            const data = await response.json();
-            // Limitar a solo 5 imágenes
+            const response = await fetch(`https://graph.instagram.com/me/media?fields=id,media_type,media_url,thumbnail_url,permalink,timestamp,caption&access_token=${setting.token_instagram}`);            
+            const data = await response.json();
             setMedia(data.data.slice(0, 5));
         };
-
-
         fetchInstagramMedia();
     }, []);
 

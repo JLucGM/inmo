@@ -8,7 +8,7 @@ import DangerButton from '@/Components/DangerButton';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
 
-export default function Create({ auth }) {
+export default function Create({ auth, role, permission }) {
 
     const initialValues = {
         name: "",
@@ -48,6 +48,8 @@ export default function Create({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Crear tipo de propiedad</h2>

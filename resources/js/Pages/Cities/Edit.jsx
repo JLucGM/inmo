@@ -8,7 +8,7 @@ import { Transition } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Edit({ auth, city, states, selectedStateId }) {
+export default function Edit({ auth, city, states, selectedStateId, role, permission }) {
 
     const initialValues = {
         name: city.name,
@@ -20,7 +20,6 @@ export default function Edit({ auth, city, states, selectedStateId }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('cities.update', city))
-        console.log(data)
     }
 
     const items = [
@@ -49,6 +48,8 @@ export default function Edit({ auth, city, states, selectedStateId }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar ciudad</h2>

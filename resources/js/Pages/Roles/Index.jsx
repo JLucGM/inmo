@@ -1,10 +1,9 @@
-import Badge from '@/Components/Badge';
 import Breadcrumb from '@/Components/Breadcrumb';
 import DataTable from '@/Components/DataTable';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Index({ auth, roles }) {
+export default function Index({ auth, roles, role, permission }) {
     // console.log(roles)
     const columns = [
         {
@@ -37,6 +36,8 @@ export default function Index({ auth, roles }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Lista de roles</h2>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Origins;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class OriginsController extends Controller
@@ -23,7 +24,12 @@ class OriginsController extends Controller
     {
         $origins = Origins::all();
 
-        return Inertia::render('Origins/Index', compact('origins'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+
+        return Inertia::render('Origins/Index', compact('origins','role','permission'));
     }
 
     /**
@@ -31,7 +37,11 @@ class OriginsController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Origins/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Origins/Create', compact('role','permission'));
     }
 
     /**
@@ -59,7 +69,11 @@ class OriginsController extends Controller
      */
     public function edit(Origins $origins)
     {
-        return Inertia::render('Origins/Edit', compact('origins'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Origins/Edit', compact('origins','role','permission'));
     }
 
     /**

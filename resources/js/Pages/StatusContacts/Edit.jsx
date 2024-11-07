@@ -6,7 +6,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
-export default function Edit({ auth, statusContact }) {
+export default function Edit({ auth, statusContact, role, permission }) {
 
     const initialValues = {
         name: statusContact.name,
@@ -17,11 +17,12 @@ export default function Edit({ auth, statusContact }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('statuscontacts.update', statusContact))
-        console.log(data)
     }
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar status de contacto</h2>

@@ -8,7 +8,7 @@ import { Transition } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Edit({ auth, user, roles }) {
+export default function Edit({ auth, user, roles, role, permission }) {
 console.log(user)
     const initialValues = {
         name: user.name,
@@ -55,6 +55,8 @@ console.log(user)
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center '>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">

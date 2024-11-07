@@ -7,6 +7,7 @@ use App\Http\Requests\PhyStates\UpdateRequest;
 use App\Models\PhyStates;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PhyStatesController extends Controller
@@ -25,7 +26,11 @@ class PhyStatesController extends Controller
     {
         $phyStates = PhyStates::all();
 
-        return Inertia::render('PhyStates/Index', compact('phyStates'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('PhyStates/Index', compact('phyStates','role', 'permission'));
     }
 
     /**
@@ -33,7 +38,11 @@ class PhyStatesController extends Controller
      */
     public function create()
     {
-        return Inertia::render('PhyStates/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('PhyStates/Create', compact('role', 'permission'));
     }
 
     /**
@@ -61,7 +70,11 @@ class PhyStatesController extends Controller
      */
     public function edit(PhyStates $phyState)
     {
-        return Inertia::render('PhyStates/Edit', compact('phyState'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('PhyStates/Edit', compact('phyState', 'role', 'permission'));
 
     }
 

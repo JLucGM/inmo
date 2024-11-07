@@ -5,8 +5,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { LinkIcon } from '@heroicons/react/24/outline';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Index({ auth, properties }) {
-console.log(properties)
+export default function Index({ auth, properties, role, permission }) {
+// console.log(properties)
     const columns = [
         {
             header: "#id",
@@ -88,6 +88,8 @@ console.log(properties)
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Propiedades</h2>

@@ -8,7 +8,7 @@ import { Transition } from '@headlessui/react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
 
-export default function Edit({ auth, typeproperty }) {
+export default function Edit({ auth, typeproperty, role, permission }) {
 
     const initialValues = {
         name: typeproperty.name,
@@ -48,6 +48,8 @@ export default function Edit({ auth, typeproperty }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar tipo de propiedad</h2>

@@ -8,15 +8,13 @@ import { Select, Textarea, Transition } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Edit({ auth, roles, permissions, assignedPermissions }) {
+export default function Edit({ auth, roles, permissions, assignedPermissions, role, permission }) {
 
     const initialValues = {
         name: roles.name,
         content: roles.content,
         status: roles.status,
         permissions: assignedPermissions.map(String), // Asegúrate de que sean strings
-
-
     }
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
@@ -37,7 +35,6 @@ export default function Edit({ auth, roles, permissions, assignedPermissions }) 
     const submit = (e) => {
         e.preventDefault();
         post(route('roles.update', roles))
-        console.log(data)
     }
 
     const items = [
@@ -66,6 +63,8 @@ export default function Edit({ auth, roles, permissions, assignedPermissions }) 
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar roles</h2>

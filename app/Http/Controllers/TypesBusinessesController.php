@@ -7,6 +7,7 @@ use App\Http\Requests\TypesBusinesses\UpdateRequest;
 use App\Models\TypesBusinesses;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class TypesBusinessesController extends Controller
@@ -25,7 +26,11 @@ class TypesBusinessesController extends Controller
     {
         $typesBusinesses = TypesBusinesses::all();
 
-        return Inertia::render('TypesBusinesses/Index', compact('typesBusinesses'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('TypesBusinesses/Index', compact('typesBusinesses', 'role', 'permission'));
     }
 
     /**
@@ -33,7 +38,11 @@ class TypesBusinessesController extends Controller
      */
     public function create()
     {
-        return Inertia::render('TypesBusinesses/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('TypesBusinesses/Create', compact('role', 'permission'));
 
     }
 
@@ -62,7 +71,11 @@ class TypesBusinessesController extends Controller
      */
     public function edit(TypesBusinesses $typesBusiness)
     {
-        return Inertia::render('TypesBusinesses/Edit', compact('typesBusiness'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('TypesBusinesses/Edit', compact('typesBusiness', 'role', 'permission'));
 
     }
 

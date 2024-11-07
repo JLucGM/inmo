@@ -10,7 +10,7 @@ import ContainerTitle from '@/Components/ContainerTitle';
 import { useState } from 'react';
 import CharacterCounter from '@/Components/CharacterCounter';
 
-export default function Create({ auth }) {
+export default function Create({ auth, role, permission }) {
 
     const initialValues = {
         name: "",
@@ -18,24 +18,22 @@ export default function Create({ auth }) {
     }
 
     const { data, setData, errors, post } = useForm(initialValues)
-    const [charCount, setCharCount] = useState(0); // Estado para contar caracteres
-    const charLimit = 500; // Límite de caracteres
+    const [charCount, setCharCount] = useState(0); 
+    const charLimit = 500; 
 
     const submit = (e) => {
         e.preventDefault();
         post(route('info-web.store'))
-        console.log(data)
     }
 
     const handleTextChange = (e) => {
         const { value } = e.target;
-        if (value.length <= charLimit) { // Limitar a 500 caracteres
-            setData('text', value); // Actualizar el estado con el nuevo texto
-            setCharCount(value.length); // Actualizar contador de caracteres
+        if (value.length <= charLimit) { 
+            setData('text', value); 
+            setCharCount(value.length); 
         } else {
-            // Si se excede, puedes actualizar el contador para mostrar el límite
-            setData('text', value.substring(0, charLimit)); // Limitar el texto a 500 caracteres
-            setCharCount(charLimit); // Mantener el contador en 500
+            setData('text', value.substring(0, charLimit)); 
+            setCharCount(charLimit); 
         }
     }
 
@@ -65,6 +63,8 @@ export default function Create({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">

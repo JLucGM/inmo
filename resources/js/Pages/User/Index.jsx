@@ -11,7 +11,7 @@ import DataTable from '@/Components/DataTable';
 import Badge from '@/Components/Badge';
 import Breadcrumb from '@/Components/Breadcrumb';
 
-export default function Index({ auth, users, roles }) {
+export default function Index({ auth, users, roles, role, permission }) {
     //console.log(users)
     let [isOpen, setIsOpen] = useState(false)
     const { data, setData, errors, post } = useForm({
@@ -99,6 +99,8 @@ export default function Index({ auth, users, roles }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">

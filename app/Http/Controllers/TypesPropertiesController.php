@@ -7,6 +7,7 @@ use App\Http\Requests\TypesProperties\UpdateRequest;
 use App\Models\TypesProperties;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class TypesPropertiesController extends Controller
@@ -26,7 +27,11 @@ class TypesPropertiesController extends Controller
     {
         $typesproperties = TypesProperties::all();
 
-        return Inertia::render('TypesProperties/Index', compact('typesproperties'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('TypesProperties/Index', compact('typesproperties','role','permission'));
     }
 
     /**
@@ -34,7 +39,11 @@ class TypesPropertiesController extends Controller
      */
     public function create()
     {
-        return Inertia::render('TypesProperties/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('TypesProperties/Create', compact('role','permission'));
     }
 
     /**
@@ -74,7 +83,11 @@ class TypesPropertiesController extends Controller
      */
     public function edit(TypesProperties $typeproperty)
     {
-        return Inertia::render('TypesProperties/Edit', compact('typeproperty'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('TypesProperties/Edit', compact('typeproperty', 'role', 'permission'));
     }
 
     /**

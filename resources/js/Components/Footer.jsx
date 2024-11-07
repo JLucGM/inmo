@@ -2,7 +2,6 @@ import { Link } from "@inertiajs/react";
 
 export default function Footer({ setting, pages }) {
 
-  console.log(pages)
   return (
     <footer className="mt-20 pb-16 px-10 text-center text-sm text-black dark:text-white/70">
 

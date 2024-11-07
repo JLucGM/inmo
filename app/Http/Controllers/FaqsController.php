@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Faqs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class FaqsController extends Controller
@@ -23,7 +24,11 @@ class FaqsController extends Controller
     {
         $faqs = Faqs::all();
 
-        return Inertia::render('Faqs/Index', compact('faqs'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Faqs/Index', compact('faqs','role','permission'));
     }
 
     /**
@@ -31,7 +36,11 @@ class FaqsController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Faqs/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Faqs/Create', compact('role','permission'));
     }
 
     /**
@@ -59,7 +68,11 @@ class FaqsController extends Controller
      */
     public function edit(Faqs $faqs)
     {
-        return Inertia::render('Faqs/Edit', compact('faqs'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Faqs/Edit', compact('faqs','role','permission'));
     }
 
     /**

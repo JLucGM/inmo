@@ -7,8 +7,7 @@ import { Head, useForm } from '@inertiajs/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Create({ auth, permissions }) {
-    console.log(permissions)
+export default function Create({ auth, permissions, role, permission }) {
     const initialValues = {
         name: "",
         permissions: [],
@@ -21,10 +20,8 @@ export default function Create({ auth, permissions }) {
         const newPermissions = [...data.permissions];
 
         if (currentIndex === -1) {
-            // Si no está, lo agregamos
             newPermissions.push(permissionId);
         } else {
-            // Si ya está, lo eliminamos
             newPermissions.splice(currentIndex, 1);
         }
 
@@ -63,10 +60,12 @@ export default function Create({ auth, permissions }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear roles
+                        Crear
                     </h2>
                 </div>
             }

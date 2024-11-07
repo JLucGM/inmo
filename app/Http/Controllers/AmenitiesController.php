@@ -8,6 +8,7 @@ use App\Models\Amenities;
 use App\Models\Amenity;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class AmenitiesController extends Controller
@@ -27,7 +28,11 @@ class AmenitiesController extends Controller
     {
         $amenities = Amenity::all();
 
-        return Inertia::render('Amenities/Index', compact('amenities'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Amenities/Index', compact('amenities','role','permission'));
     }
 
     /**
@@ -63,7 +68,11 @@ class AmenitiesController extends Controller
      */
     public function edit(Amenity $amenity)
     {
-        return Inertia::render('Amenities/Edit', compact('amenity'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Amenities/Edit', compact('amenity', 'role', 'permission'));
     }
 
     /**

@@ -25,8 +25,12 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        // dd($posts);
-        return Inertia::render('Posts/Index', compact('posts'));
+
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Posts/Index', compact('posts', 'role','permission'));
     }
 
     /**
@@ -36,7 +40,11 @@ class PostController extends Controller
     {
         $categryposts = CategoryPost::all();
 
-        return Inertia::render('Posts/Create', compact('categryposts'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Posts/Create', compact('categryposts', 'role','permission'));
     }
 
     /**
@@ -81,7 +89,11 @@ class PostController extends Controller
     {
         $categryposts = CategoryPost::all();
 
-        return Inertia::render('Posts/Edit', compact('posts', 'categryposts'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Posts/Edit', compact('posts', 'categryposts','role','permission'));
     }
 
     /**

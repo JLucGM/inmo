@@ -6,6 +6,7 @@ use App\Http\Requests\TypesContacts\StoreRequest;
 use App\Http\Requests\TypesContacts\UpdateRequest;
 use App\Models\TypesContacts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class TypesContactsController extends Controller
@@ -17,7 +18,11 @@ class TypesContactsController extends Controller
     {
         $typesContacts = TypesContacts::all();
 
-        return Inertia::render('TypesContacts/Index', compact('typesContacts'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('TypesContacts/Index', compact('typesContacts', 'role','permission'));
     }
 
     /**
@@ -25,7 +30,11 @@ class TypesContactsController extends Controller
      */
     public function create()
     {
-        return Inertia::render('TypesContacts/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('TypesContacts/Create', compact( 'role','permission'));
 
     }
 
@@ -54,7 +63,11 @@ class TypesContactsController extends Controller
      */
     public function edit(TypesContacts $typesContact)
     {
-        return Inertia::render('TypesContacts/Edit', compact('typesContact'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('TypesContacts/Edit', compact('typesContact','role','permission'));
     }
 
     /**

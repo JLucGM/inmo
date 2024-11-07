@@ -9,8 +9,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import DataTable from '@/Components/DataTable';
 import Breadcrumb from '@/Components/Breadcrumb';
 
-export default function Index({ auth, categoryPost }) {
-    console.log(categoryPost)
+export default function Index({ auth, categoryPost, role, permission }) {
     const [isOpen, setIsOpen] = useState(false);
     const { data, setData, errors, post } = useForm({
         name: "",
@@ -39,7 +38,6 @@ export default function Index({ auth, categoryPost }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('category-post.store'))
-        console.log(data)
         setData({
             name: "",
         });
@@ -64,14 +62,11 @@ export default function Index({ auth, categoryPost }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Categoria de posts</h2>
-                    {/* <Link href={route('category-post.create')}
-                        className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >
-                        Crear Categoria de posts
-                    </Link> */}
                     <Button
                         onClick={() => setIsOpen(true)}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"                    >

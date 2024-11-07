@@ -8,7 +8,7 @@ import { Select, Textarea, Transition } from '@headlessui/react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
 
-export default function Edit({ auth, task, statuses, contacts, typetasks, properties }) {
+export default function Edit({ auth, task, statuses, contacts, typetasks, properties, role, permission }) {
 
     const initialValues = {
         name: task.name,
@@ -54,6 +54,8 @@ export default function Edit({ auth, task, statuses, contacts, typetasks, proper
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
 
                 <>

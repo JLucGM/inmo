@@ -8,20 +8,18 @@ import { Transition } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Edit({ auth, state, country, selectedCountryId }) {
+export default function Edit({ auth, state, country, selectedCountryId, role, permission }) {
 
     const initialValues = {
         name: state.name,
-        country_id: selectedCountryId, // Set the country_id value to the selected country ID
+        country_id: selectedCountryId,
     }
-    //console.log(initialValues); // Add this line
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
 
     const submit = (e) => {
         e.preventDefault();
         post(route('states.update', state))
-        //console.log(data)
     }
 
     const items = [
@@ -51,6 +49,8 @@ export default function Edit({ auth, state, country, selectedCountryId }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Estado</h2>

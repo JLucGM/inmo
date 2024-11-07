@@ -30,8 +30,12 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::with('contact', 'user','property','typeTask','statusContact')->get();
-        // dd($tasks);s
-        return Inertia::render('Tasks/Index', compact('tasks'));
+
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+        
+        return Inertia::render('Tasks/Index', compact('tasks', 'role','permission'));
     }
 
     /**
@@ -44,7 +48,11 @@ class TaskController extends Controller
         $typetasks = TypeTasks::all();
         $properties = Property::all();
 
-        return Inertia::render('Tasks/Create', compact('statuses', 'contacts','typetasks','properties'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Tasks/Create', compact('statuses', 'contacts','typetasks','properties', 'role','permission'));
     }
 
     /**
@@ -86,7 +94,11 @@ class TaskController extends Controller
         $typetasks = TypeTasks::all();
         $properties = Property::all();
 
-        return Inertia::render('Tasks/Edit', compact('task','statuses', 'contacts','typetasks','properties'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Tasks/Edit', compact('task','statuses', 'contacts','typetasks','properties', 'role','permission'));
 
     }
 
@@ -121,6 +133,10 @@ class TaskController extends Controller
     {
         $tasks = Task::with('typeTask','statusContact')->get();
 
-        return Inertia::render('Tasks/Calendary', compact('tasks'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Tasks/Calendary', compact('tasks', 'role','permission'));
     }
 }

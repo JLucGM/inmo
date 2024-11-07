@@ -10,7 +10,7 @@ import DataTable from '@/Components/DataTable';
 import Breadcrumb from '@/Components/Breadcrumb';
 // import { useReactTable, getCoreRowModel, flexRender, getPaginationRowModel, getFilteredRowModel } from '@tanstack/react-table';
 
-export default function Index({ auth, amenities }) {
+export default function Index({ auth, amenities, role, permission }) {
     // console.log(amenities)
     const [isOpen, setIsOpen] = useState(false);
     const { data, setData, errors, post } = useForm({
@@ -65,6 +65,8 @@ export default function Index({ auth, amenities }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">

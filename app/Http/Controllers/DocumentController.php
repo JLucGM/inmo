@@ -28,8 +28,12 @@ class DocumentController extends Controller
     public function index()
     {
         $documents = Document::with('user','contact','property')->get();
-// dd($documents);
-        return Inertia::render('Documents/Index', compact('documents'));
+
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+        
+        return Inertia::render('Documents/Index', compact('documents', 'role','permission'));
     }
 
     /**
@@ -42,7 +46,11 @@ class DocumentController extends Controller
         $contacts = Contacts::all();
         $users = User::all();
 
-        return Inertia::render('Documents/Create', compact('properties', 'contacts','users'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Documents/Create', compact('properties', 'contacts','users', 'role','permission'));
 
     }
 
@@ -77,7 +85,11 @@ class DocumentController extends Controller
         $contacts = Contacts::all();
         $users = User::all();
 
-        return Inertia::render('Documents/Edit', compact('document','properties', 'contacts','users'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Documents/Edit', compact('document','properties', 'contacts','users', 'role','permission'));
     }
 
     /**

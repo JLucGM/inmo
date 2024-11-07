@@ -8,11 +8,10 @@ import { Transition } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Edit({ auth, categoryPost }) {
+export default function Edit({ auth, categoryPost, role, permission }) {
 
     const initialValues = {
         name: categoryPost.name,
-
     }
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
@@ -20,7 +19,6 @@ export default function Edit({ auth, categoryPost }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('category-post.update', categoryPost))
-        console.log(data)
     }
 
     const items = [
@@ -49,6 +47,8 @@ export default function Edit({ auth, categoryPost }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Categoria de posts</h2>

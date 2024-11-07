@@ -8,6 +8,7 @@ use App\Models\Cities;
 use App\Models\States;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class CitiesController extends Controller
@@ -27,7 +28,11 @@ class CitiesController extends Controller
         $cities = Cities::with('state')->get();
         $state = States::all();
 
-        return Inertia::render('Cities/Index', compact('cities','state'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Cities/Index', compact('cities','state', 'role', 'permission'));
     }
 
     /**
@@ -37,7 +42,11 @@ class CitiesController extends Controller
     {
         $state = States::all();
 
-        return Inertia::render('Cities/Create', compact('state'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Cities/Create', compact('state', 'role', 'permission'));
     }
 
     /**
@@ -67,8 +76,13 @@ class CitiesController extends Controller
     public function edit(Cities $city)
     {
         $states = States::all();
-        $selectedStateId = $city->state_id; // Retrieve the currently selected state ID
-        return Inertia::render('Cities/Edit', compact('city', 'states', 'selectedStateId'));
+        $selectedStateId = $city->state_id; 
+
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Cities/Edit', compact('city', 'states', 'selectedStateId', 'role', 'permission'));
     }
 
     /**

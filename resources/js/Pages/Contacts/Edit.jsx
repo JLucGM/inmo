@@ -9,7 +9,7 @@ import { useState } from 'react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
 
-export default function Edit({ auth, contacts, typepropety, country, state, city, users, statuses, typecontacts, origins }) {
+export default function Edit({ auth, contacts, typepropety, country, state, city, users, statuses, typecontacts, origins, role, permission }) {
 
     const [selectedCountry, setSelectedCountry] = useState(country[0].id);;
     const [selectedState, setSelectedState] = useState(state[0].id);
@@ -73,6 +73,8 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Contacto</h2>

@@ -7,6 +7,7 @@ use App\Http\Requests\Pages\UpdateRequest;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PageController extends Controller
@@ -25,7 +26,11 @@ class PageController extends Controller
     {
         $page = Page::all();
 
-        return Inertia::render('Pages/Index', compact('page'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Pages/Index', compact('page','role','permission'));
     }
 
     /**
@@ -33,7 +38,11 @@ class PageController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Pages/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Pages/Create', compact('role','permission'));
     }
 
     /**
@@ -73,7 +82,11 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        return Inertia::render('Pages/Edit', compact('page'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Pages/Edit', compact('page','role','permission'));
     }
 
     /**

@@ -10,7 +10,7 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import { useRef } from 'react';
 import TextAreaRich from '@/Components/TextAreaRich';
 
-export default function Create({ auth, contacts, properties, users }) {
+export default function Create({ auth, contacts, properties, users, role, permission }) {
 
     const initialValues = {
         name: "",
@@ -56,6 +56,8 @@ export default function Create({ auth, contacts, properties, users }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">

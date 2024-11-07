@@ -8,7 +8,7 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels, Textarea, Transition } fro
 import Breadcrumb from '@/Components/Breadcrumb';
 import ToggleSwitch from '@/Components/ToggleSwitch';
 
-export default function Edit({ auth, setting, currencies }) {
+export default function Edit({ auth, setting, currencies, role, permission }) {
 
     const initialValues = {
         name: setting.name,
@@ -67,14 +67,11 @@ export default function Edit({ auth, setting, currencies }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Configuraciones</h2>
-                    {/* <Link href={route('amenities.create')}
-                        className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >
-                        Crear setting
-                    </Link> */}
                 </div>
             }
         >

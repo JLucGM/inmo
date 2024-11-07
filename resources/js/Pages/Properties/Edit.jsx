@@ -15,7 +15,7 @@ import MapView from '@/Components/MapView';
 import TextAreaRich from '@/Components/TextAreaRich';
 import { useRef } from 'react';
 
-export default function Edit({ auth, property, state, country, typepropety, typebusiness, city, phystate, amenities, propertyAmenities, images, main }) {
+export default function Edit({ auth, property, state, country, typepropety, typebusiness, city, phystate, amenities, propertyAmenities, images, main, role, permission }) {
 
     const [selectedCountry, setSelectedCountry] = useState(country[0].id);;
     const [selectedState, setSelectedState] = useState(state[0].id);
@@ -48,7 +48,6 @@ export default function Edit({ auth, property, state, country, typepropety, type
         city_id: property.city_id,
         phy_states_id: property.phy_states_id,
     }
-    // console.log(property);
 
     const items = [
         {
@@ -138,6 +137,8 @@ export default function Edit({ auth, property, state, country, typepropety, type
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar propiedad</h2>

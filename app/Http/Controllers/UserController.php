@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\File;
 
@@ -32,7 +33,11 @@ class UserController extends Controller
         $users = User::all();
         $roles = Role::all();
 
-        return Inertia::render('User/Index', compact('users', 'roles'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('User/Index', compact('users', 'roles','role','permission'));
     }
 
     /**
@@ -92,8 +97,12 @@ class UserController extends Controller
         $user->load('roles');
 
         $roles = Role::all();
-        // dd($user->roles);
-        return Inertia::render('User/Edit', compact('user', 'roles'));
+
+        $users = Auth::user();
+        $role = $users->getRoleNames();
+        $permission = $users->getAllPermissions();
+
+        return Inertia::render('User/Edit', compact('user', 'roles','role','permission'));
     }
 
     /**

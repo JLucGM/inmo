@@ -12,7 +12,7 @@ import Breadcrumb from '@/Components/Breadcrumb';
 
 
 
-export default function Create({ auth, typepropety, country, state, city, users, statuses, typecontacts, origins }) {
+export default function Create({ auth, typepropety, country, state, city, users, statuses, typecontacts, origins, role, permission }) {
 
     const [selectedCountry, setSelectedCountry] = useState(country[0].id);;
     const [selectedState, setSelectedState] = useState(state[0].id);
@@ -75,6 +75,8 @@ export default function Create({ auth, typepropety, country, state, city, users,
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">

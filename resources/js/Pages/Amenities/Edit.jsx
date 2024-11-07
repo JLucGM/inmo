@@ -8,7 +8,7 @@ import { Transition } from '@headlessui/react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
 
-export default function Edit({ auth, amenity }) {
+export default function Edit({ auth, amenity, role, permission }) {
 
     const initialValues = {
         name: amenity.name,
@@ -47,6 +47,8 @@ export default function Edit({ auth, amenity }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Comodidades</h2>

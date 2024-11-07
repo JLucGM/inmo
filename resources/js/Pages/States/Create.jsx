@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Create({ auth, country }) {
+export default function Create({ auth, country, role, permission }) {
 
     const initialValues = {
         name: "",
@@ -18,14 +18,12 @@ export default function Create({ auth, country }) {
     const { data, setData, errors, post } = useForm(initialValues)
 
     useEffect(() => {
-        setData('country_id', country[0].id); // Establecer el valor de country_id con el primer país
-    }, [country]); // Dependencia del efecto
+        setData('country_id', country[0].id);
+    }, [country]); 
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('states.store'))
-        //console.log(data)
     }
 
     const items = [
@@ -55,6 +53,8 @@ export default function Create({ auth, country }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">

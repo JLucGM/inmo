@@ -10,7 +10,7 @@ import ContainerTitle from '@/Components/ContainerTitle';
 import TextAreaRich from '@/Components/TextAreaRich';
 import { useRef } from 'react';
 
-export default function Edit({ auth, page }) {
+export default function Edit({ auth, page, role, permission }) {
 
     const textAreaRef = useRef();
 
@@ -25,7 +25,6 @@ export default function Edit({ auth, page }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('pages.update', page))
-        console.log(data)
     }
 
     const items = [
@@ -54,6 +53,8 @@ export default function Edit({ auth, page }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar pagina</h2>

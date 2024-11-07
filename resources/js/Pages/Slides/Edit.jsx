@@ -11,7 +11,7 @@ import { useState } from 'react';
 import CharacterCounter from '@/Components/CharacterCounter';
 import ReactPlayer from 'react-player';
 
-export default function Edit({ auth, slide }) {
+export default function Edit({ auth, slide, role, permission }) {
 
     const initialValues = {
         name: slide.name,
@@ -22,13 +22,12 @@ export default function Edit({ auth, slide }) {
     }
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
-    const [charCount, setCharCount] = useState((slide.text || '').length); // Usar cadena vacía como predeterminado
-    const charLimit = 250; // Límite de caracteres
+    const [charCount, setCharCount] = useState((slide.text || '').length); 
+    const charLimit = 250; 
 
     const submit = (e) => {
         e.preventDefault();
         post(route('slides.update', slide))
-        console.log(data)
     }
 
     const handleTextChange = (e) => {
@@ -69,6 +68,8 @@ export default function Edit({ auth, slide }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar slide</h2>

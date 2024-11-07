@@ -7,8 +7,8 @@ import { Button } from '@headlessui/react';
 import { Head, Link } from '@inertiajs/react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 
-export default function Index({ auth, documents }) {
-    console.log(documents)
+export default function Index({ auth, documents, role, permission }) {
+
     const items = [
         {
             name: 'Dashboard',
@@ -101,6 +101,8 @@ export default function Index({ auth, documents }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Documentos</h2>

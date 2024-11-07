@@ -10,7 +10,7 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import TextAreaRich from '@/Components/TextAreaRich';
 import { useRef } from 'react';
 
-export default function Edit({ auth, document, contacts, properties, users }) {
+export default function Edit({ auth, document, contacts, properties, users, role, permission }) {
 
     console.log(document)
     const initialValues = {
@@ -57,8 +57,9 @@ export default function Edit({ auth, document, contacts, properties, users }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
-
                 <>
                     <div className='flex justify-between items-center'>
                         <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar documento</h2>

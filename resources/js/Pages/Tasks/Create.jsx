@@ -8,7 +8,7 @@ import { Select, Textarea } from '@headlessui/react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
 
-export default function Create({ auth, statuses, contacts, typetasks, properties }) {
+export default function Create({ auth, statuses, contacts, typetasks, properties, role, permission }) {
 
     const initialValues = {
         name: "",
@@ -56,17 +56,19 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear tasks
+                        Crear
                     </h2>
                 </div>
             }
         >
             <Breadcrumb items={items} />
 
-            <Head className="capitalize" title="Crear tasks" />
+            <Head className="capitalize" title="Crear tarea" />
 
             <div className="">
                 <div className="max-w-7xl mx-auto">

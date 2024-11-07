@@ -3,12 +3,11 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
-import DangerButton from '@/Components/DangerButton';
+import { Head, useForm } from '@inertiajs/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Create({ auth }) {
+export default function Create({ auth, role, permission }) {
 
     const initialValues = {
         name: "",
@@ -19,7 +18,6 @@ export default function Create({ auth }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('countries.store'))
-        console.log(data)
     }
 
     const items = [
@@ -48,10 +46,12 @@ export default function Create({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear pais
+                        Crear
                     </h2>
                 </div>
             }

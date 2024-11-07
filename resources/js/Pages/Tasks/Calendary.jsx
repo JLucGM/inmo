@@ -7,7 +7,7 @@ import { Calendar, dayjsLocalizer } from 'react-big-calendar';
 
 import "react-big-calendar/lib/css/react-big-calendar.css"
 
-export default function Index({ auth, tasks }) {
+export default function Index({ auth, tasks, role, permission }) {
 
     // console.log(tasks)
     const items = [
@@ -38,6 +38,8 @@ export default function Index({ auth, tasks }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Calendario</h2>

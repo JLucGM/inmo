@@ -11,7 +11,7 @@ import ContainerTitle from '@/Components/ContainerTitle';
 import TextAreaRich from '@/Components/TextAreaRich';
 import { useRef } from 'react';
 
-export default function Create({ auth }) {
+export default function Create({ auth, role, permission }) {
 
     const initialValues = {
         name: "",
@@ -24,7 +24,6 @@ export default function Create({ auth }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('pages.store'))
-        // console.log(data)
     }
 
     const textAreaRef = useRef();
@@ -55,6 +54,8 @@ export default function Create({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            roles={role}
+            permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">

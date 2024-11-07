@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CategoryPost;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class CategoryPostController extends Controller
@@ -23,7 +24,11 @@ class CategoryPostController extends Controller
     {
         $categoryPost = CategoryPost::all();
 
-        return Inertia::render('CategoryPosts/Index', compact('categoryPost'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('CategoryPosts/Index', compact('categoryPost','role','permission'));
     }
 
     /**
@@ -31,7 +36,11 @@ class CategoryPostController extends Controller
      */
     public function create()
     {
-        return Inertia::render('CategoryPosts/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('CategoryPosts/Create', compact('role','permission'));
 
     }
 
@@ -60,7 +69,11 @@ class CategoryPostController extends Controller
      */
     public function edit(CategoryPost $categoryPost)
     {
-        return Inertia::render('CategoryPosts/Edit', compact('categoryPost'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('CategoryPosts/Edit', compact('categoryPost','role','permission'));
 
     }
 

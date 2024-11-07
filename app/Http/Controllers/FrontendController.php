@@ -31,7 +31,7 @@ class FrontendController extends Controller
         $properties =Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'user')->where('status', '1')->take(8)->get();
         $infoweb = Infoweb::all();
         $testimonials = Testimonial::all();
-        $user = User::all();
+        $user = User::role('agente')->get();
 // dd($pages);
         return Inertia::render('Welcome', compact('setting', 'slides', 'properties', 'infoweb', 'testimonials', 'user','pages'));
     }
