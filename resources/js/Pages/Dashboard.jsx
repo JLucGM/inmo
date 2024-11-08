@@ -5,9 +5,10 @@ import dayjs from 'dayjs';
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import Badge from '@/Components/Badge';
 import Breadcrumb from '@/Components/Breadcrumb';
+import MyChart from '@/Components/MyChart';
 
 
-export default function Dashboard({ auth, taskCounts, contacts, properties, tasks, roles, permission }) {
+export default function Dashboard({ auth, taskCounts, contacts, properties, propertyCounts, contactsCounts, tasks, roles, permission }) {
     // console.log(roles)
     const localizer = dayjsLocalizer(dayjs);
 
@@ -15,7 +16,8 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, task
         start: dayjs(task.start_time, { format: 'YYYY-MM-DD HH:mm:ss' }).toDate(),
         end: dayjs(task.end_time, { format: 'YYYY-MM-DD HH:mm:ss' }).toDate(),
         title: task.name + ' - ' + task.type_task.name,
-        status: task.status_contact.name // Asegúrate de que este campo esté disponible
+        status: task.status_contact.name, // Asegúrate de que este campo esté disponible
+        id: task.id
     }));
 
     const items = [
@@ -89,9 +91,9 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, task
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div className="grid grid-cols-1 md:grid-cols-1 gap-4 mb-4">
 
-                    <div className="border dark:border-gray-500 rounded col-span-2">
+                    <div className="border dark:border-gray-500 rounded-3xl col-span-2">
                         <div className="col-span-full p-2 border-b-2 dark:border-gray-500 flex justify-between items-center">
                             <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">propiedades</p>
                             <Link
@@ -118,15 +120,15 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, task
                                             className={`rbc-event event-${event.status.replace(/\s+/g, '-').toLowerCase()} p-2 rounded`} // Cambia el nombre de la clase según el estado
 
                                         >
-                                            {/* {event.title} - {dayjs(event.start).format('hh:mm A')} a {dayjs(event.end).format('hh:mm A')} */}
-                                            {event.title}
+                                            #{event.id} - {event.title} - {dayjs(event.start).format('hh:mm A')} a {dayjs(event.end).format('hh:mm A')}
+                                            {/* {event.title} */}
 
                                         </Badge>
                                     </div>
                                 )
                             }}
                         />
-                        <div className="col-span-full p-2 border-b-2 dark:border-gray-500 flex justify-center items-center">
+                        <div className="col-span-full p-2  dark:border-gray-500 flex justify-center items-center">
                             <Link
                                 className='capitalize text-sm text-gray-800 dark:text-gray-200 underline underline-offset-4'
                                 href={route('tasks.calendary')}
@@ -138,7 +140,7 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, task
 
                     </div>
 
-                    <div className="bg-red-400">
+                    {/* <div className="bg-red-400">
                         <div className="col-span-full p-2 border-b-2 dark:border-gray-500 flex justify-between items-center">
                             <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Contactos nuevos</p>
                             <Link
@@ -149,6 +151,29 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, task
                             </Link>
 
                         </div>
+                    </div> */}
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+
+                    <div className="border dark:border-gray-500 rounded-3xl">
+                        <div className="border-b-2 dark:border-gray-500 p-2">
+                            <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Propiedades registradas en cada mes</p>
+                        </div>
+                        <div className="p-2">
+
+                        <MyChart propertyCounts={propertyCounts} label={'Propiedades creadas'} />
+                        </div>
+
+                    </div>
+                    <div className="border dark:border-gray-500 rounded-3xl">
+                        <div className="border-b-2 dark:border-gray-500 p-2">
+                            <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Propiedades registradas en cada mes</p>
+                        </div>
+                        <div className="p-2">
+
+                        <MyChart propertyCounts={contactsCounts} label={'Contactos creados'} />
+                        </div>
+
                     </div>
                 </div>
 
