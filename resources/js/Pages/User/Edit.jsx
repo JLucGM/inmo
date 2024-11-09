@@ -9,7 +9,7 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 
 export default function Edit({ auth, user, roles, role, permission }) {
-console.log(user)
+    console.log(user)
     const initialValues = {
         name: user.name,
         email: user.email,
@@ -90,130 +90,135 @@ console.log(user)
                                     <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
                                 </Transition>
 
-                                <ContainerTitle title={'Datos del usuario'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-                                    <
-                                        div className='col-span-2'>
-                                        <img className='w-28 mx-auto rounded-full' src={`/img/profile/${user.avatar}`} alt="" />
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div className="col-span-full lg:col-span-2">
+                                        <ContainerTitle title={'Datos del usuario'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="name" value="Nombre" />
+
+                                                <TextInput
+                                                    id="name"
+                                                    type="text"
+                                                    name="name"
+                                                    value={data.name}
+                                                    className=" block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('name', e.target.value)}
+                                                />
+
+                                                <InputError message={errors.name} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="email" value="Email" />
+
+                                                <TextInput
+                                                    id="email"
+                                                    type="text"
+                                                    name="email"
+                                                    value={data.email}
+                                                    className=" block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('email', e.target.value)}
+                                                />
+
+                                                <InputError message={errors.email} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="password" value="Contraseña" />
+
+                                                <TextInput
+                                                    id="password"
+                                                    type="text"
+                                                    name="password"
+                                                    value={data.password}
+                                                    className=" block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('password', e.target.value)}
+                                                />
+
+                                                <InputError message={errors.password} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="phone" value="Teléfono" />
+
+                                                <TextInput
+                                                    id="phone"
+                                                    type="text"
+                                                    name="phone"
+                                                    value={data.phone}
+                                                    className=" block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('phone', e.target.value)}
+                                                />
+
+                                                <InputError message={errors.phone} className="mt-2" />
+                                            </div>
+
+
+                                        </ContainerTitle>
                                     </div>
+                                    <div className="col-span-full lg:col-span-1">
+                                        <ContainerTitle title={'Datos del usuario'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="name" value="Nombre" />
+                                            <div className='col-span-full'>
+                                                <img className='w-28 mx-auto rounded-full' src={`${user.avatar}`} alt="" />
 
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className=" block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
+                                                <InputLabel htmlFor="avatar" value="avatar" />
 
-                                        <InputError message={errors.name} className="mt-2" />
+                                                <TextInput
+                                                    id="avatar"
+                                                    type="file"
+                                                    name="avatar"
+                                                    className=" block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('avatar', e.target.files[0])}
+                                                />
+
+                                                <InputError message={errors.avatar} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="status" value="status" />
+                                                <select
+                                                    name="status"
+                                                    id="status"
+                                                    value={data.status}
+                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                                    onChange={(e) => setData('status', e.target.value)}
+                                                >
+                                                    <option value={0}>Inactivo</option>
+                                                    <option value={1}>Activo</option>
+                                                </select>
+                                                <InputError message={errors.status} className="mt-2" />
+
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="role" value="Rol" />
+
+                                                <select
+                                                    name="role"
+                                                    id="role"
+                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                                    value={data.role} // Establece el valor del select
+                                                    onChange={(e) => setData('role', e.target.value)}
+                                                >
+                                                    <option value="">Seleccione un rol</option>
+                                                    {roles.map((role) => (
+                                                        <option key={role.id} value={role.name}>{role.name}</option>
+                                                    ))}
+                                                </select>
+
+                                                <InputError message={errors.role} className="mt-2" />
+                                            </div>
+
+                                        </ContainerTitle>
                                     </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="email" value="Telefono" />
-
-                                        <TextInput
-                                            id="email"
-                                            type="text"
-                                            name="email"
-                                            value={data.email}
-                                            className=" block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('email', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.email} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="password" value="Contraseña" />
-
-                                        <TextInput
-                                            id="password"
-                                            type="text"
-                                            name="password"
-                                            value={data.password}
-                                            className=" block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('password', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.password} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="phone" value="Teléfono" />
-
-                                        <TextInput
-                                            id="phone"
-                                            type="text"
-                                            name="phone"
-                                            value={data.phone}
-                                            className=" block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('phone', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.phone} className="mt-2" />
-                                    </div>
-
-                                    <div className="">
-                                        <InputLabel htmlFor="status" value="status" />
-                                        <select
-                                            name="status"
-                                            id="status"
-                                            value={data.status}
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
-                                            onChange={(e) => setData('status', e.target.value)}
-                                        >
-                                            <option value={0}>Inactivo</option>
-                                            <option value={1}>Activo</option>
-                                        </select>
-                                        <InputError message={errors.status} className="mt-2" />
-
-                                    </div>
-
-
-                                    <div className='col-span-2'>
-
-                                        <InputLabel htmlFor="avatar" value="avatar" />
-
-                                        <TextInput
-                                            id="avatar"
-                                            type="file"
-                                            name="avatar"
-                                            className=" block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('avatar', e.target.files[0])}
-                                        />
-
-                                        <InputError message={errors.avatar} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="role" value="Rol" />
-
-                                        <select
-                                            name="role"
-                                            id="role"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
-                                            value={data.role} // Establece el valor del select
-                                            onChange={(e) => setData('role', e.target.value)}
-                                        >
-                                            <option value="">Seleccione un rol</option>
-                                            {roles.map((role) => (
-                                                <option key={role.id} value={role.name}>{role.name}</option>
-                                            ))}
-                                        </select>
-
-                                        <InputError message={errors.role} className="mt-2" />
-                                    </div>
-
-                                </ContainerTitle>
-
+                                </div>
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >
                                         Guardar
