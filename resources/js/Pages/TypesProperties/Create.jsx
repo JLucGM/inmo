@@ -65,45 +65,45 @@ export default function Create({ auth, role, permission }) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
                         <div className="text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit} >
-                            <ContainerTitle className='space-y-4'>
+                                <ContainerTitle className='space-y-4'>
 
-                                <div>
-                                    <InputLabel htmlFor="name" value="Nombre" />
+                                    <div>
+                                        <InputLabel htmlFor="image" value="image" />
 
-                                    <TextInput
-                                        id="name"
-                                        type="text"
-                                        name="name"
-                                        value={data.name}
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) => setData('name', e.target.value)}
-                                    />
+                                        <TextInput
+                                            id="image"
+                                            type="file"
+                                            name="image"
+                                            className="mt-1 block w-full"
+                                            isFocused={true}
+                                            onChange={(e) => setData('image', e.target.files[0])}
+                                        />
 
-                                    <InputError message={errors.name} className="mt-2" />
-                                </div>
+                                        <InputError message={errors.image} className="mt-2" />
+                                    </div>
+                                    <div>
+                                        <InputLabel htmlFor="name" value="Nombre" />
 
-                                <div>
-                                    <InputLabel htmlFor="image" value="image" />
+                                        <TextInput
+                                            id="name"
+                                            type="text"
+                                            name="name"
+                                            value={data.name}
+                                            className="mt-1 block w-full"
+                                            isFocused={true}
+                                            onChange={(e) => setData('name', e.target.value)}
+                                        />
 
-                                    <TextInput
-                                        id="image"
-                                        type="file"
-                                        name="image"
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) => setData('image', e.target.files[0])}
-                                    />
+                                        <InputError message={errors.name} className="mt-2" />
+                                    </div>
 
-                                    <InputError message={errors.image} className="mt-2" />
-                                </div>
 
+                                </ContainerTitle>
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >
                                         Guardar
                                     </PrimaryButton>
                                 </div>
-                                </ContainerTitle>
 
                             </form>
                         </div>

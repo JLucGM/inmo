@@ -91,149 +91,146 @@ export default function Edit({ auth, document, contacts, properties, users, role
                                 >
                                     <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
                                 </Transition>
-                                <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="name" value="Nombre" />
+                                    <div className="col-span-full lg:col-span-2">
+                                        <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
+                                            <div className='col-span-2'>
+                                                <InputLabel htmlFor="name" value="Nombre" />
 
-                                        <InputError message={errors.name} className="mt-2" />
+                                                <TextInput
+                                                    id="name"
+                                                    type="text"
+                                                    name="name"
+                                                    value={data.name}
+                                                    className="mt-1 block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('name', e.target.value)}
+                                                />
+
+                                                <InputError message={errors.name} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-2'>
+                                                <InputLabel htmlFor="body" value="descripcion" />
+
+                                                <TextAreaRich
+                                                    initialValue={data.body}
+                                                    ref={textAreaRef}
+                                                    name="body"
+                                                    onChange={(newText) => setData('body', newText)}
+                                                />
+
+                                                <InputError message={errors.body} className="mt-2" />
+                                            </div>
+
+                                        </ContainerTitle>
                                     </div>
 
+                                    <div className="col-span-full lg:col-span-1">
+                                        <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                    <div>
-                                        <InputLabel htmlFor="contacts" value="Contacto" />
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="contacts" value="Contacto" />
 
-                                        <Select
-                                            name="contact_id"
-                                            id="contacts"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.contact_id} // Establecer el valor del select con el valor de contact_id
-                                            onChange={(e) => {
-                                                setData('contact_id', parseInt(e.target.value));
-                                            }}
-                                        >
-                                            {contacts.length === 0 ? (
-                                                <option value="" disabled>
-                                                    No contacts created
-                                                </option>
-                                            ) : (
-                                                contacts.map((contact) => (
-                                                    <option value={contact.id} key={contact.id}>
-                                                        {contact.name}
-                                                    </option>
-                                                ))
-                                            )}
-                                        </Select>
+                                                <Select
+                                                    name="contact_id"
+                                                    id="contacts"
+                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                    value={data.contact_id} // Establecer el valor del select con el valor de contact_id
+                                                    onChange={(e) => {
+                                                        setData('contact_id', parseInt(e.target.value));
+                                                    }}
+                                                >
+                                                    {contacts.length === 0 ? (
+                                                        <option value="" disabled>
+                                                            No contacts created
+                                                        </option>
+                                                    ) : (
+                                                        contacts.map((contact) => (
+                                                            <option value={contact.id} key={contact.id}>
+                                                                {contact.name}
+                                                            </option>
+                                                        ))
+                                                    )}
+                                                </Select>
 
-                                        <InputError message={errors.contact_id} className="mt-2" />
+                                                <InputError message={errors.contact_id} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="properties" value="propiedades" />
+
+                                                <Select
+                                                    name="property_id"
+                                                    id="properties"
+                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                    value={data.property_id} // Establecer el valor del select con el valor de property_id
+                                                    onChange={(e) => {
+                                                        setData('property_id', parseInt(e.target.value));
+                                                    }}
+                                                >
+                                                    {properties.length === 0 ? (
+                                                        <option value="" disabled>
+                                                            No properties created
+                                                        </option>
+                                                    ) : (
+                                                        properties.map((property) => (
+                                                            <option value={property.id} key={property.id}>
+                                                                {property.name}
+                                                            </option>
+                                                        ))
+                                                    )}
+                                                </Select>
+
+                                                <InputError message={errors.property_id} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="users" value="Agente" />
+
+                                                <select
+                                                    name="user_id"
+                                                    id="users"
+                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                    value={data.user_id} // Establecer el valor del select con el valor de user_id
+                                                    onChange={(e) => {
+                                                        setData('user_id', parseInt(e.target.value));
+                                                    }}
+                                                >
+                                                    {users.map((users) => (
+                                                        <option value={users.id} key={users.id}>
+                                                            {users.name}
+                                                        </option>
+                                                    ))}
+                                                </select>
+
+                                                <InputError message={errors.users} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="status" value="Publicar" />
+
+                                                <select
+                                                    name="status"
+                                                    id="status"
+                                                    value={data.status}
+                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                                    onChange={(e) => setData('status', e.target.value)}
+                                                >
+                                                    <option value={0}>Nuevo</option>
+                                                    <option value={1}>Revisión</option>
+                                                    <option value={2}>Archivado</option>
+                                                    <option value={3}>Finalizado</option>
+                                                </select>
+
+                                                <InputError message={errors.status} className="mt-2" />
+                                            </div>
+
+                                        </ContainerTitle>
                                     </div>
-
-
-
-                                    <div>
-                                        <InputLabel htmlFor="properties" value="propiedades" />
-
-                                        <Select
-                                            name="property_id"
-                                            id="properties"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.property_id} // Establecer el valor del select con el valor de property_id
-                                            onChange={(e) => {
-                                                setData('property_id', parseInt(e.target.value));
-                                            }}
-                                        >
-                                            {properties.length === 0 ? (
-                                                <option value="" disabled>
-                                                    No properties created
-                                                </option>
-                                            ) : (
-                                                properties.map((property) => (
-                                                    <option value={property.id} key={property.id}>
-                                                        {property.name}
-                                                    </option>
-                                                ))
-                                            )}
-                                        </Select>
-
-                                        <InputError message={errors.property_id} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="users" value="Agente" />
-
-                                        <select
-                                            name="user_id"
-                                            id="users"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.user_id} // Establecer el valor del select con el valor de user_id
-                                            onChange={(e) => {
-                                                setData('user_id', parseInt(e.target.value));
-                                            }}
-                                        >
-                                            {users.map((users) => (
-                                                <option value={users.id} key={users.id}>
-                                                    {users.name}
-                                                </option>
-                                            ))}
-                                        </select>
-
-                                        <InputError message={errors.users} className="mt-2" />
-                                    </div>
-
-                                    <div className='md:col-span-2 lg:col-span-1'>
-                                        <InputLabel htmlFor="status" value="Publicar" />
-
-                                        <select
-                                            name="status"
-                                            id="status"
-                                            value={data.status}
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
-                                            onChange={(e) => setData('status', e.target.value)}
-                                        >
-                                            <option value={0}>Nuevo</option>
-                                            <option value={1}>Revisión</option>
-                                            <option value={2}>Archivado</option>
-                                            <option value={3}>Finalizado</option>
-                                        </select>
-
-                                        <InputError message={errors.status} className="mt-2" />
-                                    </div>
-
-
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="body" value="descripcion" />
-
-                                        {/* <Textarea
-                                            name="body"
-                                            value={data.body}
-                                            rows={10}
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            onChange={(e) => setData('body', e.target.value)}>
-
-                                        </Textarea> */}
-
-<TextAreaRich
-
-initialValue={data.body}
-ref={textAreaRef}
-name="body"
-onChange={(newText) => setData('body', newText)}
-/>
-
-                                        <InputError message={errors.body} className="mt-2" />
-                                    </div>
-
-                                </ContainerTitle>
+                                </div>
 
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >

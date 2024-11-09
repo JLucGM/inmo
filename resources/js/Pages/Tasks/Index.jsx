@@ -34,17 +34,19 @@ export default function Index({ auth, tasks, role, permission }) {
                 // Aquí puedes agregar la información adicional que deseas mostrar
                 return (
                     <div>
-                        <p className='capitalize'>Contacto: {row.original.contact.name}</p>
-                        <p className='capitalize'>Agente: {row.original.user.name}</p>
-                        <p className='capitalize'>Propiedad: {row.original.property.name}</p>
                         <div className="flex space-x-2">
-                            <p>Inicio: {row.original.start_time}</p>
-                            <p>Fin: {row.original.start_time}</p>
-
+                            <p><span className='font-bold'>Inicio:</span> {row.original.start_time}</p>
+                            <p><span className='font-bold'>Fin:</span> {row.original.start_time}</p>
                         </div>
+                        <p className='capitalize'>Contacto: {row.original.contact.name}</p>
+                        <p className='capitalize'>Propiedad: {row.original.property.name}</p>
                     </div>
                 );
             },
+        },
+        {
+            header: "Agente",
+            accessorKey: "user.name",
         },
         {
             header: "Tipo de tarea",
@@ -58,7 +60,7 @@ export default function Index({ auth, tasks, role, permission }) {
             },
         },
         {
-            header: "Tipo de tarea",
+            header: "Status de tarea",
             accessorKey: "status_contact.name",
             cell: ({ row }) => {
                 return (

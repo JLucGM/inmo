@@ -73,8 +73,8 @@ export default function Create({ auth, role, permission }) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
                         <div className="text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit} className='space-y-4'>
-                                <div className="grid xs:grid-cols-1 md:grid-cols-4 gap-4">
-                                    <div className="col-span-full lg:col-span-3">
+                                <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="col-span-full lg:col-span-2">
                                         <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                             <div className='col-span-2'>

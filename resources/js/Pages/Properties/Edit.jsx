@@ -14,6 +14,7 @@ import { Marker } from 'react-leaflet';
 import MapView from '@/Components/MapView';
 import TextAreaRich from '@/Components/TextAreaRich';
 import { useRef } from 'react';
+import { TrashIcon } from '@heroicons/react/24/outline';
 
 export default function Edit({ auth, property, state, country, typepropety, typebusiness, city, phystate, amenities, propertyAmenities, images, main, role, permission }) {
 
@@ -390,17 +391,6 @@ export default function Edit({ auth, property, state, country, typepropety, type
                                             <div className='col-span-2'>
                                                 <InputLabel htmlFor="description" value="descripcion" />
 
-                                                {/* <Textarea
-                                                    id="description"
-                                                    type="text"
-                                                    name="description"
-                                                    rows={10}
-                                                    value={data.description}
-                                                    className="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-
-                                                    onChange={(e) => setData('description', e.target.value)}
-                                                /> */}
-
                                                 <TextAreaRich
                                                     initialValue={data.description}
                                                     ref={textAreaRef}
@@ -558,28 +548,28 @@ export default function Edit({ auth, property, state, country, typepropety, type
 
                 <form onSubmit={(e) => handleUpdateImages(e, images)}>
                     <ContainerTitle title={'Imagenes'} className='grid grid-cols-1 gap-4'>
-                        <img src={`${main}`} alt={main} className='w-40' />
                         <div className='flex flex-col '>
                             <InputLabel>Imagen de portada</InputLabel>
                             <TextInput type="file" name="main" onChange={(e) => setData('main', e.target.files[0])} />
                         </div>
+                        <img src={`${main}`} alt={main} className='w-40 rounded-3xl' />
 
-                        <div className="flex flex-row flex-nowrap gap-4 my-4">
-
-                            {images.map((image, index) => (
-                                <div key={index}>
-                                    <div className="border rounded-lg">
-                                        <img src={`${image.name}`} className='w-40 rounded-t-lg' alt={image.name} />
-                                        <PrimaryButton className='my-2' onClick={() => handleDeleteImage(image.id, images)}>
-                                            Eliminar
-                                        </PrimaryButton>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
                         <div className='flex flex-col my-4'>
                             <InputLabel>Imágenes adicionales</InputLabel>
                             <TextInput type="file" name="images" multiple onChange={(e) => setData('images', e.target.files)} />
+                        </div>
+
+                        <div className="flex flex-row flex-nowrap gap-4 my-4">
+                            {images.map((image, index) => (
+                                <div key={index}>
+                                    <div className="border rounded-3xl ">
+                                        <img src={`${image.name}`} className='w-40 rounded-t-3xl' alt={image.name} />
+                                        <Link className='my-2 text-red-600' onClick={() => handleDeleteImage(image.id, images)} as='button'>
+                                            <TrashIcon className='size-6' />
+                                        </Link>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </ContainerTitle>
                     <div className="flex justify-end p-2.5">

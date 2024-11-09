@@ -15,7 +15,7 @@ export default function Index({ auth, contacts, properties, role, permission }) 
     const [selectedContact, setSelectedContact] = useState(null);
     const [contactProperties, setContactProperties] = useState([]);
     const [reload, setReload] = useState(false);
-    console.log(selectedProperty)
+    // console.log(selectedProperty)
     const initialValues = {
         contact_id: selectedContact ? selectedContact.id : "",
         property_id: "",

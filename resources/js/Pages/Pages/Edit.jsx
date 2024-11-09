@@ -84,7 +84,7 @@ export default function Edit({ auth, page, role, permission }) {
                                 >
                                     <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
                                 </Transition>
-                                <div className="xs:grid md:grid xs:grid-cols-full lg:grid-cols-3 gap-4">
+                                <div className="grid xs:grid-cols-full lg:grid-cols-3 gap-4">
                                     <div className="xs:col-span-full lg:col-span-2">
                                         <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
@@ -120,7 +120,7 @@ export default function Edit({ auth, page, role, permission }) {
 
                                         </ContainerTitle>
                                     </div>
-                                    <div className="xs:col-span-full lg:col-span-">
+                                    <div className="xs:col-span-full lg:col-span-1">
                                         <ContainerTitle title={'Datos secundarias'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                             <div className='col-span-2'>

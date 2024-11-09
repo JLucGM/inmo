@@ -82,57 +82,66 @@ export default function Edit({ auth, faqs, role, permission }) {
                                     <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
                                 </Transition>
 
-                                <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                <div className="grid xs:grid-cols-full lg:grid-cols-3 gap-4">
+                                    <div className="col-span-full lg:col-span-2">
+                                        <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="name" value="Titulo" />
+                                            <div className='col-span-2'>
+                                                <InputLabel htmlFor="name" value="Titulo" />
 
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
+                                                <TextInput
+                                                    id="name"
+                                                    type="text"
+                                                    name="name"
+                                                    value={data.name}
+                                                    className="mt-1 block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('name', e.target.value)}
+                                                />
 
-                                        <InputError message={errors.name} className="mt-2" />
+                                                <InputError message={errors.name} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-2'>
+                                                <InputLabel htmlFor="content" value="Contenido" />
+
+                                                <Textarea
+                                                    id="content"
+                                                    type="text"
+                                                    name="content"
+                                                    rows={10}
+                                                    value={data.content}
+                                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                    onChange={(e) => setData('content', e.target.value)}
+                                                >
+
+                                                </Textarea>
+
+                                                <InputError message={errors.content} className="mt-2" />
+                                            </div>
+
+                                        </ContainerTitle>
+                                    </div>
+                                    <div className="col-span-full lg:col-span-1">
+                                        <ContainerTitle title={'Datos'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                            <div className='col-span-2'>
+                                                <InputLabel htmlFor="status" value="Status" />
+                                                <Select
+                                                    name="status"
+                                                    value={data.status}
+                                                    onChange={(e) => setData('status', e.target.value)}
+                                                    className={'mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm '}
+                                                >
+                                                    <option defaultValue="0">Borrador</option>
+                                                    <option value="1">Publicar</option>
+                                                </Select>
+                                            </div>
+
+                                        </ContainerTitle>
                                     </div>
 
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="content" value="Contenido" />
-
-                                        <Textarea
-                                            id="content"
-                                            type="text"
-                                            name="content"
-                                            rows={10}
-                                            value={data.content}
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            onChange={(e) => setData('content', e.target.value)}
-                                        >
-
-                                        </Textarea>
-
-                                        <InputError message={errors.content} className="mt-2" />
-                                    </div>
-
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="status" value="Status" />
-                                        <Select
-                                            name="status"
-                                            value={data.status}
-                                            onChange={(e) => setData('status', e.target.value)}
-                                            className={'mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm '}
-                                        >
-                                            <option defaultValue="0">Borrador</option>
-                                            <option value="1">Publicar</option>
-                                        </Select>
-                                    </div>
-
-                                </ContainerTitle>
-
+                                </div>
 
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >

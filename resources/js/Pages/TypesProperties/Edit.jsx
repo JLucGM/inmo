@@ -84,6 +84,21 @@ export default function Edit({ auth, typeproperty, role, permission }) {
 
                                 <ContainerTitle className='space-y-4'>
                                     <div>
+                                        <img src={`${typeproperty.image}`} alt={typeproperty.image} className='w-40 rounded-3xl mx-auto' />
+
+                                        <InputLabel htmlFor="image" value="image" />
+                                        <TextInput
+                                            id="image"
+                                            type="file"
+                                            name="image"
+                                            className="mt-1 block w-full"
+                                            isFocused={true}
+                                            onChange={(e) => setData('image', e.target.files[0])}
+                                        />
+                                        <InputError message={errors.image} className="mt-2" />
+                                    </div>
+
+                                    <div>
                                         <InputLabel htmlFor="name" value="Nombre" />
 
                                         <TextInput
@@ -99,29 +114,13 @@ export default function Edit({ auth, typeproperty, role, permission }) {
                                         <InputError message={errors.name} className="mt-2" />
                                     </div>
 
-                                    <div>
-                                    <img src={`${typeproperty.image}`} alt={typeproperty.image} className='w-40 rounded-3xl' />
 
-                                        <InputLabel htmlFor="image" value="image" />
-
-                                        <TextInput
-                                            id="image"
-                                            type="file"
-                                            name="image"
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('image', e.target.files[0])}
-                                        />
-
-                                        <InputError message={errors.image} className="mt-2" />
-                                    </div>
-
-                                    <div className="flex justify-end p-2.5">
-                                        <PrimaryButton >
-                                            Guardar
-                                        </PrimaryButton>
-                                    </div>
                                 </ContainerTitle>
+                                <div className="flex justify-end p-2.5">
+                                    <PrimaryButton >
+                                        Guardar
+                                    </PrimaryButton>
+                                </div>
                             </form>
                         </div>
                     </div>

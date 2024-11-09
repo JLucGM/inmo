@@ -84,59 +84,67 @@ export default function Create({ auth, role, permission }) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
                         <div className="text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit} className='space-y-4'>
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                                    <div className="col-span-full lg:col-span-2">
+                                        <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                            <div className='col-span-2'>
+                                                <InputLabel htmlFor="name" value="Nombre" />
 
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="avatar" value="avatar" />
+                                                <TextInput
+                                                    id="name"
+                                                    type="text"
+                                                    name="name"
+                                                    value={data.name}
+                                                    className="mt-1 block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('name', e.target.value)}
+                                                />
 
-                                        <TextInput
-                                            id="avatar"
-                                            type="file"
-                                            name="avatar"
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('avatar', e.target.files[0])}
-                                        />
+                                                <InputError message={errors.name} className="mt-2" />
+                                            </div>
 
-                                        <InputError message={errors.avatar} className="mt-2" />
+                                            <div className='col-span-2'>
+                                                <InputLabel htmlFor="text" value="Testimonio" />
+
+                                                <Textarea
+                                                    id="text"
+                                                    type="text"
+                                                    name="text"
+                                                    rows={10}
+                                                    value={data.text}
+                                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                    onChange={handleTextChange}
+                                                >
+                                                </Textarea>
+                                                <CharacterCounter currentCount={charCount} limit={500} /> {/* Usar el componente aquí */}
+
+                                                <InputError message={errors.text} className="mt-2" />
+                                            </div>
+
+                                        </ContainerTitle>
                                     </div>
+                                    <div className="col-span-full lg:col-span-1">
+                                        <ContainerTitle title={'Datos'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="name" value="Nombre" />
+                                            <div className='col-span-2'>
+                                                <InputLabel htmlFor="avatar" value="avatar" />
 
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
+                                                <TextInput
+                                                    id="avatar"
+                                                    type="file"
+                                                    name="avatar"
+                                                    className="mt-1 block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('avatar', e.target.files[0])}
+                                                />
 
-                                        <InputError message={errors.name} className="mt-2" />
+                                                <InputError message={errors.avatar} className="mt-2" />
+                                            </div>
+
+                                        </ContainerTitle>
                                     </div>
-
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="text" value="Testimonio" />
-
-                                        <Textarea
-                                            id="text"
-                                            type="text"
-                                            name="text"
-                                            rows={10}
-                                            value={data.text}
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            onChange={handleTextChange}
-                                        >
-                                        </Textarea>
-                                        <CharacterCounter currentCount={charCount} limit={500} /> {/* Usar el componente aquí */}
-
-                                        <InputError message={errors.text} className="mt-2" />
-                                    </div>
-
-                                </ContainerTitle>
+                                </div>
 
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >

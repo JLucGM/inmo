@@ -97,63 +97,72 @@ export default function Edit({ auth, infoweb, role, permission }) {
                                     <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
                                 </Transition>
 
-                                <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                                    <div className="col-span-full lg:col-span-2">
+                                        <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="name" value="Nombre" />
+                                            <div className='col-span-2'>
+                                                <InputLabel htmlFor="name" value="Nombre" />
 
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
+                                                <TextInput
+                                                    id="name"
+                                                    type="text"
+                                                    name="name"
+                                                    value={data.name}
+                                                    className="mt-1 block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('name', e.target.value)}
+                                                />
 
-                                        <InputError message={errors.name} className="mt-2" />
+                                                <InputError message={errors.name} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-2'>
+                                                <InputLabel htmlFor="text" value="texto" />
+
+                                                <Textarea
+                                                    id="text"
+                                                    type="text"
+                                                    name="text"
+                                                    rows={10}
+                                                    value={data.text}
+                                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm "
+                                                    isFocused={true}
+                                                    onChange={handleTextChange}
+                                                />
+                                                <CharacterCounter currentCount={charCount} limit={500} /> {/* Usar el componente aquí */}
+
+                                                <InputError message={errors.text} className="mt-2" />
+                                            </div>
+
+                                        </ContainerTitle>
                                     </div>
 
+                                    <div className="col-span-full lg:col-span-1">
+                                        <ContainerTitle title={'Datos'} className='grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
 
 
-                                    <img src={`${infoweb.image}`} alt={infoweb.image} className='w-40' />
+                                            <div>
+                                                <img src={`${infoweb.image}`} alt={infoweb.image} className='w-40 rounded-3xl mx-auto' />
+                                                <InputLabel htmlFor="image" value="image" />
 
-                                    <div>
-                                        <InputLabel htmlFor="image" value="image" />
+                                                <TextInput
+                                                    id="image"
+                                                    type="file"
+                                                    name="image"
+                                                    className="mt-1 block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('image', e.target.files[0])}
+                                                />
 
-                                        <TextInput
-                                            id="image"
-                                            type="file"
-                                            name="image"
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('image', e.target.files[0])}
-                                        />
+                                                <InputError message={errors.image} className="mt-2" />
+                                            </div>
 
-                                        <InputError message={errors.image} className="mt-2" />
+
+                                        </ContainerTitle>
                                     </div>
 
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="text" value="texto" />
-
-                                        <Textarea
-                                            id="text"
-                                            type="text"
-                                            name="text"
-                                            rows={10}
-                                            value={data.text}
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm "
-                                            isFocused={true}
-                                            onChange={handleTextChange}
-                                        />
-                                        <CharacterCounter currentCount={charCount} limit={500} /> {/* Usar el componente aquí */}
-
-                                        <InputError message={errors.text} className="mt-2" />
-                                    </div>
-
-                                </ContainerTitle>
-
+                                </div>
 
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >

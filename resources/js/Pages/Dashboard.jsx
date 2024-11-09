@@ -6,6 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css"
 import Badge from '@/Components/Badge';
 import Breadcrumb from '@/Components/Breadcrumb';
 import MyChart from '@/Components/MyChart';
+import { CalendarDateRangeIcon } from '@heroicons/react/24/outline';
 
 
 export default function Dashboard({ auth, taskCounts, contacts, properties, propertyCounts, contactsCounts, tasks, roles, permission }) {
@@ -39,8 +40,13 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, prop
                 <div className='flex justify-between items-center'>
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Bienvinido, {auth.user.name}</h2>
                     <div className="flex space-x-4">
+                    {permission.some(perm => perm.name === 'admin.contactos.index') && (
+                        
                         <Link className='text-sm text-gray-800 dark:text-gray-200 border dark:border-gray-500 rounded-full p-2 transition ease-in-out duration-150' href={route('contacts.create')}>Crear contactos</Link>
+                    )}
+                    {permission.some(perm => perm.name === 'admin.properties.index') && (
                         <Link className='text-sm text-gray-800 dark:text-gray-200 border dark:border-gray-500 rounded-full p-2 transition ease-in-out duration-150' href={route('properties.create')}>Crear propiedad</Link>
+                    )}
 
                     </div>
                 </div>
@@ -56,8 +62,10 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, prop
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4">
                     <div className="grid grid-cols-3 lg:grid-cols-6 col-span-3 border dark:border-gray-500 rounded-xl">
                         <div className="col-span-full p-2 border-b-2 dark:border-gray-500 flex justify-between items-center">
-                            <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Tareas</p>
-                            <Link className='text-sm text-gray-800 dark:text-gray-200 underline underline-offset-4' href={route('tasks.create')}>Crear</Link>
+                            <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Registros de Tareas</p>
+                            {permission.some(perm => perm.name === 'admin.tasks.index') && (
+                                <Link className='text-sm text-gray-800 dark:text-gray-200 underline underline-offset-4' href={route('tasks.create')}>Crear</Link>
+                            )}
                         </div>
                         {Object.entries(taskCounts).map(([statusName, count]) => (
                             <div key={statusName} className="flex items-center justify-center h-24 rounded-xl hover:bg-gray-900">
@@ -95,7 +103,11 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, prop
 
                     <div className="border dark:border-gray-500 rounded-3xl col-span-2">
                         <div className="col-span-full p-2 border-b-2 dark:border-gray-500 flex justify-between items-center">
-                            <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">propiedades</p>
+                            <div className="flex">
+
+                                <CalendarDateRangeIcon className='size-6 me-2 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />
+                                <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Tareas del dia</p>
+                            </div>
                             <Link
                                 className='capitalize text-sm text-gray-800 dark:text-gray-200 underline underline-offset-4'
                                 href={route('tasks.create')}
@@ -161,17 +173,17 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, prop
                         </div>
                         <div className="p-2">
 
-                        <MyChart propertyCounts={propertyCounts} label={'Propiedades creadas'} />
+                            <MyChart propertyCounts={propertyCounts} label={'Propiedades creadas'} />
                         </div>
 
                     </div>
                     <div className="border dark:border-gray-500 rounded-3xl">
                         <div className="border-b-2 dark:border-gray-500 p-2">
-                            <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Propiedades registradas en cada mes</p>
+                            <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Contactos registradas en cada mes</p>
                         </div>
                         <div className="p-2">
 
-                        <MyChart propertyCounts={contactsCounts} label={'Contactos creados'} />
+                            <MyChart propertyCounts={contactsCounts} label={'Contactos creados'} />
                         </div>
 
                     </div>

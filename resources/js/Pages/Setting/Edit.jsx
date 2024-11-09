@@ -444,10 +444,10 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                             </TabPanel>
 
                                             <TabPanel>
-                                                <div title={'FAQS'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                                <div title={'FAQS'} className='p-5 grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
 
                                                     <div className=''>
-                                                        <img src={`${setting.portadaFaq}`} alt={setting.portadaFaq} className='w-40' />
+                                                        <img src={`${setting.portadaFaq}`} alt={setting.portadaFaq} className='w-40 mx-auto rounded-3xl' />
                                                         <InputLabel htmlFor="portadaFaq" value="portadaFaq" />
                                                         <TextInput
                                                             id="portadaFaq"
@@ -495,10 +495,10 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                             </TabPanel>
 
                                             <TabPanel>
-                                                <div title={'Contacto'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                                <div title={'Contacto'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
 
                                                     <div className=''>
-                                                        <img src={`${setting.portadaContact}`} alt={setting.portadaContact} className='w-40' />
+                                                        <img src={`${setting.portadaContact}`} alt={setting.portadaContact} className='w-40 rounded-3xl mx-auto' />
                                                         <InputLabel htmlFor="portadaContact" value="portadaContact" />
                                                         <TextInput
                                                             id="portadaContact"
@@ -546,10 +546,10 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                             </TabPanel>
 
                                             <TabPanel>
-                                                <div title={'Anunciar'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                                <div title={'Anunciar'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
 
                                                     <div className=''>
-                                                        <img src={`${setting.portadaAnunciar}`} alt={setting.portadaAnunciar} className='w-40' />
+                                                        <img src={`${setting.portadaAnunciar}`} alt={setting.portadaAnunciar} className='w-40 rounded-3xl mx-auto' />
                                                         <InputLabel htmlFor="portadaAnunciar" value="portadaAnunciar" />
                                                         <TextInput
                                                             id="portadaAnunciar"
