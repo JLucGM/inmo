@@ -3,7 +3,7 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { Textarea } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
@@ -149,7 +149,7 @@ export default function Create({ auth, categryposts, role, permission }) {
                                     </div>
                                     <div className="col-span-full lg:col-span-1">
                                         <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-                                            
+
                                             <div className='col-span-full'>
                                                 <InputLabel htmlFor="image" value="image" />
 
@@ -182,7 +182,12 @@ export default function Create({ auth, categryposts, role, permission }) {
                                             </div>
 
                                             <div className='col-span-full'>
-                                                <InputLabel htmlFor="categryposts" value="categryposts" />
+                                                <div className="flex justify-between">
+                                                    <InputLabel htmlFor="categryposts" value="categryposts" />
+                                                    {permission.some(perm => perm.name === 'admin.categoriesPost.index') && (
+                                                        <Link className='text-sm text-gray-800 dark:text-gray-200 underline underline-offset-4' href={route('category-post.create')}>Crear</Link>
+                                                    )}
+                                                </div>
 
                                                 <select
                                                     name="category_post_id"

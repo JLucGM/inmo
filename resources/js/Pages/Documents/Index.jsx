@@ -131,6 +131,10 @@ export default function Index({ auth, documents, role, permission }) {
                                         routeEdit={'documents.edit'}
                                         routeDestroy={'documents.destroy'}
                                         PDFComponent={PDFDocuments}
+                                        editPermission={'admin.documents.edit'} // Pasa el permiso de editar
+                                    deletePermission={'admin.documents.delete'} // Pasa el permiso de eliminar
+                                    downloadPdfPermission={'admin.documents.pdf'} // Pasa el permiso de descargar PDF
+                                    permissions={permission}
                                     />
                                 ) : (
                                     <p className='text-sm'>No hay documentos disponibles.</p>

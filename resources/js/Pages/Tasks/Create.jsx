@@ -3,7 +3,7 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { Select, Textarea } from '@headlessui/react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
@@ -167,7 +167,12 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
                                         </div>
 
                                         <div className='col-span-full'>
-                                            <InputLabel htmlFor="contacts" value="Contacto" />
+                                            <div className="flex justify-between">
+                                                <InputLabel htmlFor="contacts" value="Contacto" />
+                                                {permission.some(perm => perm.name === 'admin.tasks.index') && (
+                                                    <Link className='text-sm text-gray-800 dark:text-gray-200 underline underline-offset-4' href={route('contacts.create')}>Crear</Link>
+                                                )}
+                                            </div>
 
                                             <Select
                                                 name="contact_id"
@@ -216,7 +221,12 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
                                         </div>
 
                                         <div className='col-span-full'>
-                                            <InputLabel htmlFor="properties" value="propiedades" />
+                                            <div className="flex justify-between">
+                                                <InputLabel htmlFor="properties" value="propiedades" />
+                                                {permission.some(perm => perm.name === 'admin.tasks.index') && (
+                                                    <Link className='text-sm text-gray-800 dark:text-gray-200 underline underline-offset-4' href={route('properties.create')}>Crear</Link>
+                                                )}
+                                            </div>
 
                                             <Select
                                                 name="property_id"

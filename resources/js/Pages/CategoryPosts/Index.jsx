@@ -23,15 +23,6 @@ export default function Index({ auth, categoryPost, role, permission }) {
         {
             header: "Nombre",
             accessorKey: "name",
-            // expanded: (row) => {
-            //     // Aquí puedes agregar la información adicional que deseas mostrar
-            //     return (
-            //         <div>
-            //             <p>id {row.original.id}</p>
-            //             <p>Nombre: {row.original.name}</p>
-            //         </div>
-            //     );
-            // },
         }
     ]
 
@@ -52,7 +43,7 @@ export default function Index({ auth, categoryPost, role, permission }) {
             },
         },
         {
-            name: 'Lista de categorias de publicaciones',
+            name: 'Lista de categorias',
             icon: {
                 path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
             },
@@ -92,6 +83,10 @@ export default function Index({ auth, categoryPost, role, permission }) {
                                     data={categoryPost}
                                     routeEdit={'category-post.edit'}
                                     routeDestroy={'category-post.destroy'}
+                                    editPermission={'admin.categoriesPost.edit'} // Pasa el permiso de editar
+                                    deletePermission={'admin.categoriesPost.delete'} // Pasa el permiso de eliminar
+                                    // downloadPdfPermission={'downloadPdfPermission'} // Pasa el permiso de descargar PDF
+                                    permissions={permission}
                                 />
 
                             </div>

@@ -103,6 +103,10 @@ export default function Index({ auth, tasks, role, permission }) {
                                     data={tasks}
                                     routeEdit={'tasks.edit'}
                                     routeDestroy={'tasks.destroy'}
+                                    editPermission={'admin.tasks.edit'} // Pasa el permiso de editar
+                                    deletePermission={'admin.tasks.delete'} // Pasa el permiso de eliminar
+                                    // downloadPdfPermission={'downloadPdfPermission'} // Pasa el permiso de descargar PDF
+                                    permissions={permission}
                                 />
                             </div>
                         </div>

@@ -66,6 +66,10 @@ export default function Index({ auth, roles, role, permission }) {
                                     data={roles}
                                     routeEdit={'roles.edit'}
                                     routeDestroy={'roles.destroy'}
+                                    editPermission={'admin.role.edit'} // Pasa el permiso de editar
+                                    deletePermission={'admin.role.delete'} // Pasa el permiso de eliminar
+                                    // downloadPdfPermission={'downloadPdfPermission'} // Pasa el permiso de descargar PDF
+                                    permissions={permission}
                                 />
 
                             </div>

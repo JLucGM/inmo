@@ -38,7 +38,7 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, prop
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Bienvinido, {auth.user.name}</h2>
+                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Bienvenido, {auth.user.name}</h2>
                     <div className="flex space-x-4">
                     {permission.some(perm => perm.name === 'admin.contactos.index') && (
                         
@@ -106,14 +106,9 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, prop
                             <div className="flex">
 
                                 <CalendarDateRangeIcon className='size-6 me-2 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />
-                                <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Tareas del dia</p>
+                                <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Agenda del dia</p>
                             </div>
-                            <Link
-                                className='capitalize text-sm text-gray-800 dark:text-gray-200 underline underline-offset-4'
-                                href={route('tasks.create')}
-                            >
-                                Crear tarea
-                            </Link>
+                            
 
                         </div>
                         <Calendar

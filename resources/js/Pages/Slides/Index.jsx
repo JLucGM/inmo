@@ -102,6 +102,10 @@ export default function Index({ auth, slide, role, permission }) {
                                     data={slide}
                                     routeEdit={'slides.edit'}
                                     routeDestroy={'slides.destroy'}
+                                    editPermission={'admin.slides.edit'} // Pasa el permiso de editar
+                                    deletePermission={'admin.slides.delete'} // Pasa el permiso de eliminar
+                                    // downloadPdfPermission={'downloadPdfPermission'} // Pasa el permiso de descargar PDF
+                                    permissions={permission}
                                 />
                             </div>
 

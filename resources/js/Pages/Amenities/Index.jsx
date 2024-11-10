@@ -98,6 +98,10 @@ export default function Index({ auth, amenities, role, permission }) {
                                     data={amenities}
                                     routeEdit={'amenities.edit'}
                                     routeDestroy={'amenities.destroy'}
+                                    editPermission={'admin.amenities-checks.edit'} // Pasa el permiso de editar
+                                    deletePermission={'admin.amenities-checks.delete'} // Pasa el permiso de eliminar
+                                    // downloadPdfPermission={'downloadPdfPermission'} // Pasa el permiso de descargar PDF
+                                    permissions={permission}
                                 />
                             </div>
 

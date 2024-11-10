@@ -154,5 +154,6 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'admin.documents.create', 'description' => 'Crear documentos'])->syncRoles([$rolSuperAdmin]);
         Permission::create(['name' => 'admin.documents.edit', 'description' => 'Editar documentos'])->syncRoles([$rolSuperAdmin]);
         Permission::create(['name' => 'admin.documents.delete', 'description' => 'Eliminar documentos'])->syncRoles([$rolSuperAdmin]);
+        Permission::create(['name' => 'admin.documents.pdf', 'description' => 'Descargar pdf de documentos'])->syncRoles([$rolSuperAdmin]);
     }
 }

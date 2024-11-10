@@ -85,6 +85,10 @@ export default function Index({ auth, testimonial, role, permission }) {
                                     data={testimonial}
                                     routeEdit={'testimonial.edit'}
                                     routeDestroy={'testimonial.destroy'}
+                                    editPermission={'admin.testimonials.edit'} // Pasa el permiso de editar
+                                    deletePermission={'admin.testimonials.delete'} // Pasa el permiso de eliminar
+                                    // downloadPdfPermission={'downloadPdfPermission'} // Pasa el permiso de descargar PDF
+                                    permissions={permission}
                                 />
                             </div>
                         </div>

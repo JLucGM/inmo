@@ -73,6 +73,10 @@ export default function Index({ auth, infoweb, role, permission }) {
                                     data={infoweb}
                                     routeEdit={'info-web.edit'}
                                     routeDestroy={'info-web.destroy'}
+                                    editPermission={'admin.info-webs.edit'} // Pasa el permiso de editar
+                                    deletePermission={'admin.info-webs.delete'} // Pasa el permiso de eliminar
+                                    // downloadPdfPermission={'downloadPdfPermission'} // Pasa el permiso de descargar PDF
+                                    permissions={permission}
                                 />
                             </div>
                         </div>

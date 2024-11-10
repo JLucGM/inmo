@@ -15,7 +15,7 @@ import { MinusIcon, PencilSquareIcon, PlusIcon, TrashIcon } from '@heroicons/rea
 import { PDFDownloadLink } from '@react-pdf/renderer';
 // import PDFDocuments from './PDF/PDFDocuments';
 
-export default function DataTable({ className = '', data, columns, routeEdit = null, routeDestroy = null, PDFComponent, ...props }) {
+export default function DataTable({ className = '', data, columns, routeEdit = null, routeDestroy = null, PDFComponent, editPermission, deletePermission, downloadPdfPermission, permissions }) {
     const [filtering, setFiltering] = useState("");
     const [sorting, setSorting] = useState([]);
     const table = useReactTable({
@@ -39,6 +39,11 @@ export default function DataTable({ className = '', data, columns, routeEdit = n
         onGlobalFilterChange: setFiltering,
 
     })
+
+    const hasPermission = (perm) => {
+        return permissions.some(permission => permission.name === perm);
+    };
+    
     return (
         <>
             <div className="relative mt-2 rounded-md shadow-sm ">
@@ -147,19 +152,19 @@ export default function DataTable({ className = '', data, columns, routeEdit = n
                                                 Opciones
                                             </PopoverButton>
                                             <PopoverPanel anchor="bottom" className="flex flex-col space-y-2 p-3 rounded-xl border border-gray-200 bg-white dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 ">
-                                                {PDFComponent && (
+                                                {hasPermission(downloadPdfPermission) && PDFComponent && (
                                                     <PDFDownloadLink onClick={console.log(row)} document={<PDFComponent data={row.original} />} fileName='pfdprueba1.pdf'>
                                                         <Button className="w-full text-left">
                                                             Descargar PDF
                                                         </Button>
                                                     </PDFDownloadLink>
                                                 )}
-                                                {routeEdit && (
+                                                {hasPermission(editPermission) && (
                                                     <Link href={route(routeEdit, [row.original.slug])} className="flex w-full text-left">
                                                         <PencilSquareIcon className='size-5' /> Editar
                                                     </Link>
                                                 )}
-                                                {routeDestroy && (
+                                                {hasPermission(deletePermission) && (
                                                     <Link
                                                         className="flex w-full text-left text-red-600"
                                                         onClick={() => console.log('Delete clicked for:', row.original.slug)}
