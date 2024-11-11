@@ -31,7 +31,7 @@ class DashboardController extends Controller
             ->whereBetween('start_time', [$startDate, $endDate]);
 
         // Verificar si el usuario es Super Admin
-        if ($user->role === 'super_admin') {
+        if ($user->role === 'super Admin') {
             // Si es Super Admin, no filtramos por user_id
             $tasks = $taskQuery->get();
             $contacts = Contacts::count(); // Contar todos los contactos
@@ -45,7 +45,7 @@ class DashboardController extends Controller
 
         // Contar las tareas
         $taskCounts = Task::select('status_contacts_id', DB::raw('count(*) as count'))
-            ->when($user->role !== 'super_admin', function ($query) use ($userId) {
+            ->when($user->role !== 'super Admin', function ($query) use ($userId) {
                 return $query->where('user_id', $userId);
             })
             ->groupBy('status_contacts_id')

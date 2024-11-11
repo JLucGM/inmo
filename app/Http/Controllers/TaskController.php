@@ -29,9 +29,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('contact', 'user','property','typeTask','statusContact')->get();
-
         $user = Auth::user();
+        $tasks = Task::with('contact', 'user','property','typeTask','statusContact')->where('user_id', $user->id)->get();
+
         $role = $user->getRoleNames();
         $permission = $user->getAllPermissions();
         
@@ -131,9 +131,9 @@ class TaskController extends Controller
     
     public function calendary()
     {
-        $tasks = Task::with('typeTask','statusContact')->get();
-
         $user = Auth::user();
+        $tasks = Task::with('typeTask','statusContact')->where('user_id', $user->id)->get();
+
         $role = $user->getRoleNames();
         $permission = $user->getAllPermissions();
 

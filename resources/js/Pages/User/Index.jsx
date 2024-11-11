@@ -57,7 +57,7 @@ export default function Index({ auth, users, roles, role, permission }) {
         {
             header: "Nombre",
             accessorKey: "name",
-            
+
         },
         {
             header: "Correo",
@@ -67,7 +67,7 @@ export default function Index({ auth, users, roles, role, permission }) {
             header: "Telefono",
             accessorKey: "phone",
         },
-        
+
         {
             header: "Estado",
             accessorKey: "status",
@@ -85,7 +85,7 @@ export default function Index({ auth, users, roles, role, permission }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('user.store'))
-        console.log(data)
+        // console.log(data)
         setData({
             name: "",
             phone: "",
@@ -111,12 +111,13 @@ export default function Index({ auth, users, roles, role, permission }) {
                     >
                         Crear usuario
                     </Link> */}
-                    <Button
-                        className="capitalize py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                        onClick={() => setIsOpen(true)}>
-                        Crear
-                    </Button>
-
+                    {permission.some(perm => perm.name === 'admin.user.create') && (
+                        <Button
+                            className="capitalize py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                            onClick={() => setIsOpen(true)}>
+                            Crear
+                        </Button>
+                    )}
                 </div>
             }
         >
@@ -128,9 +129,7 @@ export default function Index({ auth, users, roles, role, permission }) {
                 <div className="max-w-7xl mx-auto ">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden ">
                         <div className=" text-gray-900 dark:text-gray-100">
-
                             <div className="relative overflow-x-auto">
-
                                 <DataTable
                                     columns={columns}
                                     data={users}
@@ -141,9 +140,7 @@ export default function Index({ auth, users, roles, role, permission }) {
                                     // downloadPdfPermission={'downloadPdfPermission'} // Pasa el permiso de descargar PDF
                                     permissions={permission}
                                 />
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -252,22 +249,22 @@ export default function Index({ auth, users, roles, role, permission }) {
                             </div>
 
                             <div>
-                                    <InputLabel htmlFor="role" value="Rol" />
+                                <InputLabel htmlFor="role" value="Rol" />
 
-                                    <select
-                                        name="role"
-                                        id="role"
-                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
-                                        onChange={(e) => setData('role', e.target.value)}
-                                    >
-                                        <option value="">Seleccione un rol</option>
-                                        {roles.map((role) => (
-                                            <option key={role.id} value={role.name}>{role.name}</option>
-                                        ))}
-                                    </select>
+                                <select
+                                    name="role"
+                                    id="role"
+                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                    onChange={(e) => setData('role', e.target.value)}
+                                >
+                                    <option value="">Seleccione un rol</option>
+                                    {roles.map((role) => (
+                                        <option key={role.id} value={role.name}>{role.name}</option>
+                                    ))}
+                                </select>
 
-                                    <InputError message={errors.role} className="mt-2" />
-                                </div>
+                                <InputError message={errors.role} className="mt-2" />
+                            </div>
 
                             <div className="flex justify-end p-2.5">
                                 <PrimaryButton>

@@ -93,12 +93,13 @@ export default function Index({ auth, contacts, properties, role, permission }) 
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Contactos</h2>
-                    <Link href={route('contacts.create')}
-                        className="capitalize py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >
-                        Crear
-                    </Link>
-
+                    {permission.some(perm => perm.name === 'admin.contactos.create') && (
+                        <Link href={route('contacts.create')}
+                            className="capitalize py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                        >
+                            Crear
+                        </Link>
+                    )}
                 </div>
             }
         >
@@ -204,7 +205,7 @@ export default function Index({ auth, contacts, properties, role, permission }) 
                                                                 </div>
                                                             </TabPanel>
                                                             <TabPanel>
-                                                            <h5>Demandas del cliente</h5>
+                                                                <h5>Demandas del cliente</h5>
                                                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
                                                                     <div>
                                                                         <span className='capitalize font-semibold '>tipo de propiedad:</span>
@@ -306,14 +307,12 @@ export default function Index({ auth, contacts, properties, role, permission }) 
                                                                                             )}
 
                                                                                             <PDFDownloadLink document={<PDF data={property} />} fileName='pfdprueba1.pdf'>
-
                                                                                                 <Button
                                                                                                     className='inline-flex items-center px-4 py-2 bg-orange-800 dark:bg-orange-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
                                                                                                 >
                                                                                                     PDF
                                                                                                 </Button>
                                                                                             </PDFDownloadLink>
-
 
                                                                                         </td>
                                                                                     </tr>

@@ -11,7 +11,7 @@ import Breadcrumb from '@/Components/Breadcrumb';
 // import { useReactTable, getCoreRowModel, flexRender, getPaginationRowModel, getFilteredRowModel } from '@tanstack/react-table';
 
 export default function Index({ auth, amenities, role, permission }) {
-    // console.log(amenities)
+
     const [isOpen, setIsOpen] = useState(false);
     const { data, setData, errors, post } = useForm({
         name: "",
@@ -25,15 +25,6 @@ export default function Index({ auth, amenities, role, permission }) {
         {
             header: "Nombre",
             accessorKey: "name",
-            // expanded: (row) => {
-            //     // Aquí puedes agregar la información adicional que deseas mostrar
-            //     return (
-            //         <div>
-            //             <p>id {row.original.id}</p>
-            //             <p>Nombre: {row.original.name}</p>
-            //         </div>
-            //     );
-            // },
         }
     ]
 
@@ -56,7 +47,6 @@ export default function Index({ auth, amenities, role, permission }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('amenities.store'))
-        console.log(data)
         setData({
             name: "",
         });
@@ -73,11 +63,13 @@ export default function Index({ auth, amenities, role, permission }) {
                         Comodidades
                     </h2>
 
+                    {permission.some(perm => perm.name === 'admin.amenities-checks.create') && (
                     <Button
                         className="capitalize py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                         onClick={() => setIsOpen(true)}>
                         Crear
                     </Button>
+                    )}
                 </div>
             }
         >
@@ -90,9 +82,7 @@ export default function Index({ auth, amenities, role, permission }) {
                 <div className="max-w-7xl mx-auto ">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden ">
                         <div className=" text-gray-900 dark:text-gray-100">
-
                             <div className="relative overflow-x-auto">
-
                                 <DataTable
                                     columns={columns}
                                     data={amenities}
@@ -104,7 +94,6 @@ export default function Index({ auth, amenities, role, permission }) {
                                     permissions={permission}
                                 />
                             </div>
-
                         </div>
                     </div>
                 </div>

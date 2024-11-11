@@ -35,7 +35,7 @@ export default function Create({ auth, typepropety, country, state, city, users,
         country_id: country[0].id,
         state_id: state[0].id,
         city_id: city[0].id,
-        user_id: users[0].id,
+        // user_id: users[0].id,
         origin_id: origins[0].id,
 
     }
@@ -246,7 +246,7 @@ export default function Create({ auth, typepropety, country, state, city, users,
                                                 <InputError message={errors.origin_id} className="mt-2" />
                                             </div>
 
-                                            <div>
+                                            {/* <div>
                                                 <InputLabel htmlFor="users" value="Agente" />
 
                                                 <select
@@ -266,7 +266,7 @@ export default function Create({ auth, typepropety, country, state, city, users,
                                                 </select>
 
                                                 <InputError message={errors.users} className="mt-2" />
-                                            </div>
+                                            </div> */}
 
                                             <div className='col-span-2'>
                                                 <InputLabel htmlFor="description" value="descripcion" />

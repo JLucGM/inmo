@@ -35,7 +35,19 @@ class ContactsController extends Controller
      */
     public function index()
     {
-        $contacts = Contacts::with('user')->with('typecontact')->with('statuscontact')->with('origin')->with('typeproperty')->with('country')->with('state')->with('city')->orderBy('name', 'asc')->get();
+        $user = Auth::user();
+        
+        $contacts = Contacts::with('user')
+        ->with('typecontact')
+        ->with('statuscontact')
+        ->with('origin')
+        ->with('typeproperty')
+        ->with('country')
+        ->with('state')
+        ->with('city')
+        ->where('user_id', $user->id) // Filtra por user_id
+        ->orderBy('name', 'asc')
+        ->get();        
         $properties = Property::with('country','state','city','typeproperty','user','amenities')->get();
 
         $user = Auth::user();
@@ -96,7 +108,7 @@ class ContactsController extends Controller
             'city_id',
             'user_id',
         );
-        // $data['user_id'] = Auth::id();
+        $data['user_id'] = Auth::id();
 
         Contacts::create($data);
 

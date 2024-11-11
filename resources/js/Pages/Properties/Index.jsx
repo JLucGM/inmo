@@ -6,7 +6,7 @@ import { LinkIcon } from '@heroicons/react/24/outline';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Index({ auth, properties, role, permission }) {
-// console.log(properties)
+console.log(properties)
     const columns = [
         {
             header: "#id",
@@ -93,11 +93,13 @@ export default function Index({ auth, properties, role, permission }) {
             header={
                 <div className='flex justify-between items-center'>
                     <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Propiedades</h2>
+                    {permission.some(perm => perm.name === 'admin.properties.create') && (
                     <Link href={route('properties.create')}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
                         Crear
                     </Link>
+                    )}
                 </div>
             }
         >
@@ -110,7 +112,6 @@ export default function Index({ auth, properties, role, permission }) {
                 <div className="max-w-7xl mx-auto ">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden ">
                         <div className=" text-gray-900 dark:text-gray-100">
-
                             <div className="relative overflow-x-auto">
                                 <DataTable
                                     columns={columns}
@@ -123,7 +124,6 @@ export default function Index({ auth, properties, role, permission }) {
                                     permissions={permission}
                                 />
                             </div>
-
                         </div>
                     </div>
                 </div>

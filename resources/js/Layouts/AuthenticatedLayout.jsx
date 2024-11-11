@@ -59,7 +59,7 @@ export default function Authenticated({ user, header, children, roles, permissio
 
    const crm = [
       { label: 'Contactos', route: 'contacts.index', permission: 'admin.contactos.index' },
-      { label: 'calendary', route: 'tasks.calendary', permission: 'admin.tasks.index' },
+      { label: 'calendary', route: 'tasks.calendary', permission: 'admin.tasks.calendary' },
       { label: 'tasks', route: 'tasks.index', permission: 'admin.tasks.index' },
       { label: 'Documentos', route: 'documents.index', permission: 'admin.documents.index' },
       { label: 'Tipos de contactos quitar', route: 'typesContacts.index', permission: 'admin.tasks.index' },
@@ -169,76 +169,101 @@ export default function Authenticated({ user, header, children, roles, permissio
                         <span className="ms-3">Dashboard</span>
                      </NavLink>
                   </li>
-                  
-                     {permission.some(perm => perm.name === 'admin.user.index') && (
-                        <li>
-                           <NavLink href={route('user.index')} active={route().current('user.index')}>
+
+                  {permission.some(perm => perm.name === 'admin.user.index') && (
+                     <li>
+                        <NavLink href={route('user.index')} active={route().current('user.index')}>
                            <UsersIcon className='size-6 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />
-                              <span className="ms-3">Usuario</span>
-                           </NavLink>
+                           <span className="ms-3">Usuario</span>
+                        </NavLink>
+                     </li>
+                  )}
+
+
+                  {permission.some(perm => perm.name === 'admin.properties.index'
+                     || perm.name === 'admin.properties.create'
+                     || perm.name === 'admin.amenities-checks.index'
+                     || perm.name === 'admin.typesProperties.index'
+                     || perm.name === 'admin.phystates.index'
+                  ) && (
+                        <li>
+                           <MultiLevelMenu
+                              name={'Propiedades'}
+                              svg={HomeModern}
+                              items={propertiesMenu}
+                              toggle={'propertiesMenu'}
+                              userPermissions={permission}
+                           />
                         </li>
                      )}
-                  
 
-                  {permission.some(perm => perm.name === 'admin.properties.index') && (
-                     <li>
-                        <MultiLevelMenu
-                           name={'Propiedades'}
-                           svg={HomeModern}
-                           items={propertiesMenu}
-                           toggle={'propertiesMenu'}
-                           userPermissions={permission}
-                        />
-                     </li>
-                  )}
+                  {permission.some(perm =>
+                     perm.name === 'admin.contactos.index'
+                     || perm.name === 'admin.tasks.index'
+                     || perm.name === 'admin.tasks.calendary'
+                     || perm.name === 'admin.documents.index'
+                  ) && (
+                        <li>
+                           <MultiLevelMenu
+                              name={'CRM'}
+                              svg={Folder}
+                              items={crm}
+                              toggle={'crm'}
+                              userPermissions={permission}
+                           />
+                        </li>
+                     )}
 
-                  {permission.some(perm => perm.name === 'admin.contactos.index') && (
-                     <li>
-                        <MultiLevelMenu
-                           name={'CRM'}
-                           svg={Folder}
-                           items={crm}
-                           toggle={'crm'}
-                           userPermissions={permission}
-                        />
-                     </li>
-                  )}
+                  {permission.some(perm => perm.name === 'admin.posts.index'
+                     || perm.name === 'admin.posts.index'
+                     || perm.name === 'admin.categoriesPost.index'
+                  ) && (
+                        <li>
+                           <MultiLevelMenu
+                              name={'blog'}
+                              svg={DocumentText}
+                              items={posts}
+                              toggle={'posts'}
+                              userPermissions={permission}
+                           />
+                        </li>
+                     )}
 
-                  {permission.some(perm => perm.name === 'admin.posts.index') && (
-                     <li>
-                        <MultiLevelMenu
-                           name={'blog'}
-                           svg={DocumentText}
-                           items={posts}
-                           toggle={'posts'}
-                           userPermissions={permission}
-                        />
-                     </li>
-                  )}
+                  {permission.some(perm => perm.name === 'admin.countries.index'
+                     || perm.name === 'admin.countries.index'
+                     || perm.name === 'admin.states.index'
+                     || perm.name === 'admin.cities.index'
+                  ) && (
+                        <li>
+                           <MultiLevelMenu
+                              name={'Locaciones'}
+                              svg={PinMap}
+                              items={locations}
+                              toggle={'locations'}
+                              userPermissions={permission}
+                           />
+                        </li>
+                     )}
 
-                  {permission.some(perm => perm.name === 'admin.countries.index') && (
-                     <li>
-                        <MultiLevelMenu
-                           name={'Locaciones'}
-                           svg={PinMap}
-                           items={locations}
-                           toggle={'locations'}
-                           userPermissions={permission}
-                        />
-                     </li>
-                  )}
-                  
-                  {permission.some(perm => perm.name === 'admin.setting-generals.index') && (
-                     <li>
-                        <MultiLevelMenu
-                           name={'Configuraciones globales'}
-                           svg={Gear}
-                           items={globalSettings}
-                           toggle={'global-settings'}
-                           userPermissions={permission}
-                        />
-                     </li>
-                  )}
+                  {permission.some(perm => perm.name === 'admin.setting-generals.index'
+                     || perm.name === 'admin.slides.index'
+                     || perm.name === 'admin.info-webs.index'
+                     || perm.name === 'admin.testimonials.index'
+                     || perm.name === 'admin.pages.index'
+                     || perm.name === 'admin.faqs.index'
+                     || perm.name === 'admin.role.index'
+                     || perm.name === 'admin.typebusiness.index'
+                  ) && (
+                        <li>
+                           <MultiLevelMenu
+                              name={'Configuraciones globales'}
+                              svg={Gear}
+                              items={globalSettings}
+                              toggle={'global-settings'}
+                              userPermissions={permission}
+                           />
+                        </li>
+                     )}
 
                   {/* <li>
                      <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
