@@ -8,8 +8,8 @@ import { useEffect, useState } from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import PDF from '@/Components/PDF/PDF';
 
-export default function Index({ auth, contacts, properties, role, permission }) {
-    // console.log(contacts)
+export default function Index({ auth, contacts, properties, role, permission, setting }) {
+    // console.log(setting)
     let [isOpen, setIsOpen] = useState(false)
     const [selectedProperty, setSelectedProperty] = useState(null);
     const [selectedContact, setSelectedContact] = useState(null);
@@ -306,7 +306,7 @@ export default function Index({ auth, contacts, properties, role, permission }) 
                                                                                                 </PrimaryButton>
                                                                                             )}
 
-                                                                                            <PDFDownloadLink document={<PDF data={property} />} fileName='pfdprueba1.pdf'>
+                                                                                            <PDFDownloadLink document={<PDF data={property} setting={setting} />} fileName='propiedad.pdf'>
                                                                                                 <Button
                                                                                                     className='inline-flex items-center px-4 py-2 bg-orange-800 dark:bg-orange-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
                                                                                                 >

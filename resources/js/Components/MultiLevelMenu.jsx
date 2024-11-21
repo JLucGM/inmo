@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import NavLink from './NavLink';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
-export default function MultiLevelMenu({ name, svg: SVGIcon, items, toggle, userPermissions }) {
+export default function MultiLevelMenu({ name, svg, items, toggle, userPermissions }) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     return (
@@ -14,7 +14,8 @@ export default function MultiLevelMenu({ name, svg: SVGIcon, items, toggle, user
                 data-collapse-toggle={toggle}
                 onClick={() => setDropdownOpen(!dropdownOpen)}
             >
-                {SVGIcon && <SVGIcon className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />}
+{svg}
+                {/* {SVGIcon && <SVGIcon className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />} */}
                 <span className="capitalize flex-1 ms-3 text-left rtl:text-right text-balance whitespace-nowrap">{name}</span>
                 {dropdownOpen ? (
                     <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">

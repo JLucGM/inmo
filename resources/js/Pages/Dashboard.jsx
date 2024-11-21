@@ -6,7 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css"
 import Badge from '@/Components/Badge';
 import Breadcrumb from '@/Components/Breadcrumb';
 import MyChart from '@/Components/MyChart';
-import { CalendarDateRangeIcon } from '@heroicons/react/24/outline';
+import { CalendarDateRangeIcon, FolderIcon, HomeModernIcon, ListBulletIcon } from '@heroicons/react/24/outline';
 
 
 export default function Dashboard({ auth, taskCounts, contacts, properties, propertyCounts, contactsCounts, tasks, roles, permission }) {
@@ -62,7 +62,10 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, prop
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4">
                     <div className="grid grid-cols-3 lg:grid-cols-6 col-span-3 border dark:border-gray-500 rounded-xl">
                         <div className="col-span-full p-2 border-b-2 dark:border-gray-500 flex justify-between items-center">
+                            <div className="flex">
+                            <ListBulletIcon className='size-6 me-2 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />
                             <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Registros de Tareas</p>
+                            </div>
                             {permission.some(perm => perm.name === 'admin.tasks.index') && (
                                 <Link className='text-sm text-gray-800 dark:text-gray-200 underline underline-offset-4' href={route('tasks.create')}>Crear</Link>
                             )}
@@ -78,7 +81,10 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, prop
                     </div>
                     <div className="border dark:border-gray-500 rounded-xl">
                         <div className="col-span-full p-2 border-b-2 dark:border-gray-500">
-                            <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">contacto</p>
+                            <div className="flex">
+                                <FolderIcon className='size-6 me-2 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />
+                                <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">contacto</p>
+                            </div>
                         </div>
                         <div className="col-span-1 flex items-center justify-center h-24 rounded-xl hover:bg-gray-900 ">
                             <div className='text-center'>
@@ -89,7 +95,10 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, prop
                     </div>
                     <div className="border dark:border-gray-500 rounded-xl">
                         <div className="col-span-full p-2 border-b-2 dark:border-gray-500">
-                            <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">propiedades</p>
+                            <div className="flex">
+                                <HomeModernIcon className='size-6 me-2 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />
+                                <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">propiedades</p>
+                            </div>
                         </div>
                         <div className="col-span-1 flex items-center justify-center h-24 rounded-xl hover:bg-gray-900">
                             <div className='text-center'>

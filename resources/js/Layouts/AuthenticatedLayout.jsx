@@ -3,13 +3,7 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import MultiLevelMenu from '@/Components/MultiLevelMenu';
 import { Link } from '@inertiajs/react';
-import HomeModern from '@/Components/Icon/HomeModern';
-import Folder from '@/Components/Icon/Folder';
-import DocumentText from '@/Components/Icon/DocumenteText';
-import PinMap from '@/Components/Icon/PinMap';
-import Gear from '@/Components/Icon/Gear';
-import { HomeIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
-import { ChartPieIcon, UserPlusIcon, UsersIcon } from '@heroicons/react/20/solid';
+import { DocumentTextIcon, FolderIcon, HomeIcon, MoonIcon, SunIcon, HomeModernIcon, ChartPieIcon, UsersIcon, MapPinIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
 
 export default function Authenticated({ user, header, children, roles, permission }) {
 
@@ -61,7 +55,7 @@ export default function Authenticated({ user, header, children, roles, permissio
       { label: 'Contactos', route: 'contacts.index', permission: 'admin.contactos.index' },
       { label: 'calendary', route: 'tasks.calendary', permission: 'admin.tasks.calendary' },
       { label: 'tasks', route: 'tasks.index', permission: 'admin.tasks.index' },
-      { label: 'Documentos', route: 'documents.index', permission: 'admin.documents.index' },
+      // { label: 'Documentos', route: 'documents.index', permission: 'admin.documents.index' },
       { label: 'Tipos de contactos quitar', route: 'typesContacts.index', permission: 'admin.tasks.index' },
       { label: 'Status de contactos quitar', route: 'statuscontacts.index', permission: 'admin.tasks.index' },
       { label: 'origins quitar', route: 'origins.index', permission: 'admin.tasks.index' },
@@ -189,7 +183,7 @@ export default function Authenticated({ user, header, children, roles, permissio
                         <li>
                            <MultiLevelMenu
                               name={'Propiedades'}
-                              svg={HomeModern}
+                              svg={<HomeModernIcon className='size-6 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />}
                               items={propertiesMenu}
                               toggle={'propertiesMenu'}
                               userPermissions={permission}
@@ -206,7 +200,7 @@ export default function Authenticated({ user, header, children, roles, permissio
                         <li>
                            <MultiLevelMenu
                               name={'CRM'}
-                              svg={Folder}
+                              svg={<FolderIcon className='size-6 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />}
                               items={crm}
                               toggle={'crm'}
                               userPermissions={permission}
@@ -221,7 +215,7 @@ export default function Authenticated({ user, header, children, roles, permissio
                         <li>
                            <MultiLevelMenu
                               name={'blog'}
-                              svg={DocumentText}
+                              svg={<DocumentTextIcon className='size-6 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />}
                               items={posts}
                               toggle={'posts'}
                               userPermissions={permission}
@@ -237,7 +231,7 @@ export default function Authenticated({ user, header, children, roles, permissio
                         <li>
                            <MultiLevelMenu
                               name={'Locaciones'}
-                              svg={PinMap}
+                              svg={<MapPinIcon className='size-6 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />}
                               items={locations}
                               toggle={'locations'}
                               userPermissions={permission}
@@ -257,7 +251,7 @@ export default function Authenticated({ user, header, children, roles, permissio
                         <li>
                            <MultiLevelMenu
                               name={'Configuraciones globales'}
-                              svg={Gear}
+                              svg={<Cog6ToothIcon className='size-6 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />}
                               items={globalSettings}
                               toggle={'global-settings'}
                               userPermissions={permission}

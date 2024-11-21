@@ -37,7 +37,7 @@ const MyChart = ({ propertyCounts, label }) => {
 
     return (
         <div>
-            <canvas ref={chartRef} width="auto" height="250"></canvas>
+            <canvas ref={chartRef} width="auto" height="100%"></canvas>
         </div>
     );
 };

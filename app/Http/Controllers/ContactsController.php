@@ -10,6 +10,7 @@ use App\Models\Contacts;
 use App\Models\Countries;
 use App\Models\Origins;
 use App\Models\Property;
+use App\Models\Setting;
 use App\Models\States;
 use App\Models\Status;
 use App\Models\StatusContact;
@@ -53,8 +54,9 @@ class ContactsController extends Controller
         $user = Auth::user();
         $role = $user->getRoleNames();
         $permission = $user->getAllPermissions();
+        $setting = Setting::all();
 
-        return Inertia::render('Contacts/Index', compact('contacts', 'properties','role','permission'));
+        return Inertia::render('Contacts/Index', compact('contacts', 'properties','role','permission','setting'));
     }
 
     /**

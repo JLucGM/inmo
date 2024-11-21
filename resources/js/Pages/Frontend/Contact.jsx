@@ -7,6 +7,7 @@ import FrontedLayout from "@/Layouts/FrontedLayout";
 import { Transition } from "@headlessui/react";
 import { AtSymbolIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { Head, useForm } from "@inertiajs/react";
+import InstagramPosts from '@/Components/InstagramPosts';
 
 export default function Contact({ auth, setting, pages }) {
 
@@ -36,7 +37,7 @@ export default function Contact({ auth, setting, pages }) {
     <FrontedLayout auth={auth} setting={setting} pages={pages}>
       <Head title="Contact" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-20">
 
 
         <CoverPage
@@ -143,6 +144,13 @@ export default function Contact({ auth, setting, pages }) {
           </div>
         </div>
       </div>
+
+      {setting.status_instagram_posts == 1 && (
+                    
+                        <InstagramPosts setting={setting} />
+                    
+                )}
+
     </FrontedLayout>
   )
 }
