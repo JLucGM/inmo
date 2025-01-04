@@ -194,7 +194,7 @@ export default function Edit({ auth, slide, role, permission }) {
                                                         id="link"
                                                         type="text"
                                                         name="link"
-                                                        value={data.link}
+                                                        value={data.link || ''}
                                                         className=" block w-full rounded-s-none"
                                                         onChange={(e) => setData('link', e.target.value)}
                                                     />

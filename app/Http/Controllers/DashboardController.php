@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $userId = Auth::id();
         $user = Auth::user(); // Obtener el usuario autenticado
 
-        
+
 
         $startDate = now();
         $endDate = now()->addDays(7);
@@ -66,31 +66,31 @@ class DashboardController extends Controller
         $roles = $user->getRoleNames();
         $permission = $user->getAllPermissions();
 
-        $propertiesByMonth = Property::select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as count'))
-        ->whereYear('created_at', now()->year) // Filtra por el año actual
-        ->groupBy('month')
-        ->orderBy('month')
-        ->get();
+        $propertiesByMonth = Property::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->whereYear('created_at', now()->year)
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
-    // Transformar los datos para el gráfico
-    $monthlyCountsProperties = [];
-    for ($i = 1; $i <= 12; $i++) {
-        $monthlyCountsProperties[$i] = $propertiesByMonth->where('month', $i)->first()->count ?? 0; // Usa 0 si no hay propiedades en ese mes
-    }
-        
-    $contactsByMonth = Contacts::select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as count'))
-        ->whereYear('created_at', now()->year) // Filtra por el año actual
-        ->groupBy('month')
-        ->orderBy('month')
-        ->get();
+        // Transformar los datos para el gráfico
+        $monthlyCountsProperties = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $monthlyCountsProperties[$i] = $propertiesByMonth->where('month', $i)->first()->count ?? 0; // Usa 0 si no hay propiedades en ese mes
+        }
 
-    // Transformar los datos para el gráfico
-    $monthlyCountsContacts = [];
-    for ($i = 1; $i <= 12; $i++) {
-        $monthlyCountsContacts[$i] = $contactsByMonth->where('month', $i)->first()->count ?? 0; // Usa 0 si no hay propiedades en ese mes
-    }
-    
-    
+        $contactsByMonth = Contacts::select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as count'))
+            ->whereYear('created_at', now()->year) // Filtra por el año actual
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
+
+        // Transformar los datos para el gráfico
+        $monthlyCountsContacts = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $monthlyCountsContacts[$i] = $contactsByMonth->where('month', $i)->first()->count ?? 0; // Usa 0 si no hay propiedades en ese mes
+        }
+
+
         return Inertia::render('Dashboard', [
             'taskCounts' => $formattedCounts,
             'contacts' => $contacts,

@@ -72,7 +72,7 @@ export default function Banner({ data }) {
                         {data.text}
                     </p>
                 )}
-                {data.link && (
+                {data.link && data.link.trim() !== "" && (
                     <div className="">
                         <Link href={data.link} className={'bg-white font-medium rounded-full px-4 py-2'}>
                             Saber más
