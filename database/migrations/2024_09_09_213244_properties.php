@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('identification')->unique()->nullable();
             $table->MediumText('description')->nullable();
             $table->string('main')->default('default.jpg');
-            $table->MediumText('images')->default('default.jpg');
+            $table->string('images')->nullable();
             $table->text('bedrooms')->nullable();
             $table->text('bathrooms')->nullable();
             $table->text('totalMeters')->nullable();
