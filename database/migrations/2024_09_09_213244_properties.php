@@ -13,17 +13,17 @@ return new class extends Migration
             $table->text('name')->notNullable();
             $table->string('slug')->unique();
             $table->text('price')->nullable();
-            $table->text('identification')->unique()->nullable();
-            $table->MediumText('description')->nullable();
-            $table->string('main')->default('default.jpg');
-            $table->string('images')->nullable();
-            $table->text('bedrooms')->nullable();
-            $table->text('bathrooms')->nullable();
-            $table->text('totalMeters')->nullable();
-            $table->text('builtMeters')->nullable();
-            $table->text('garages')->nullable();
-            $table->text('direction')->nullable();
-            $table->text('coordinate')->nullable();
+            $table->string('identification')->nullable(); //text
+            $table->text('description')->nullable();
+            $table->string('main')->default('default.jpg'); //text
+            $table->string('images')->nullable(); //text
+            $table->string('bedrooms')->nullable();
+            $table->string('bathrooms')->nullable();
+            $table->string('totalMeters')->nullable();
+            $table->string('builtMeters')->nullable();
+            $table->string('garages')->nullable();
+            $table->string('direction')->nullable();
+            $table->string('coordinate')->nullable();
             $table->enum('status',['0','1'])->default('0');
             // $table->foreignId('status_id')->constrained();
             $table->foreignId('types_properties_id')->constrained();
