@@ -30,12 +30,12 @@ return new class extends Migration
             $table->string('titleFaq')->default();
             $table->string('titleContact')->default();
             $table->string('titleAnunciar')->default();
-            $table->text('descriptionBlog')->default();
-            $table->text('descriptionFaq')->default();
-            $table->text('descriptionContact')->default();
-            $table->text('descriptionAnunciar')->default();
-            $table->text('instagram')->default();
-            $table->text('token_instagram')->nullable();
+            $table->string('descriptionBlog')->default(); //text
+            $table->string('descriptionFaq')->default(); //text
+            $table->string('descriptionContact')->default(); //text
+            $table->string('descriptionAnunciar')->default(); //text
+            $table->string('instagram')->default(); //text
+            $table->string('token_instagram')->nullable(); //text
             $table->tinyInteger('status_banner')->default(1);
             $table->tinyInteger('status_products_list')->default(1);
             $table->tinyInteger('status_info_section')->default(1);
@@ -43,9 +43,9 @@ return new class extends Migration
             $table->tinyInteger('status_team')->default(1);
             $table->tinyInteger('status_instagram_posts')->default(0);
             $table->string('titleInfoSection')->default();
-            $table->text('descriptionInfoSection')->default();
+            $table->string('descriptionInfoSection')->default(); //text
             $table->string('titleTeamSection')->default();
-            $table->text('descriptionTeamSection')->default();
+            $table->string('descriptionTeamSection')->default(); //text
             $table->foreignId('currency_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
 

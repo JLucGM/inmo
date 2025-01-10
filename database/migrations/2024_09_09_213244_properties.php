@@ -17,13 +17,13 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('main')->default('default.jpg'); //text
             $table->string('images')->nullable(); //text
-            $table->string('bedrooms')->nullable();
-            $table->string('bathrooms')->nullable();
-            $table->string('totalMeters')->nullable();
-            $table->string('builtMeters')->nullable();
-            $table->string('garages')->nullable();
-            $table->string('direction')->nullable();
-            $table->string('coordinate')->nullable();
+            $table->string('bedrooms')->nullable(); //text
+            $table->string('bathrooms')->nullable(); //text
+            $table->string('totalMeters')->nullable(); //text
+            $table->string('builtMeters')->nullable(); //text
+            $table->string('garages')->nullable(); //text
+            $table->string('direction')->nullable(); //text
+            $table->string('coordinate')->nullable(); //text
             $table->enum('status',['0','1'])->default('0');
             // $table->foreignId('status_id')->constrained();
             $table->foreignId('types_properties_id')->constrained();
