@@ -42,6 +42,10 @@ class SettingSeeder extends Seeder
                 // 'twitter' => 'www.twitter.com',
                 'instagram' => 'knots.agency',
                 // 'linkedin' => 'www.linkedin.com',
+                'titleInfoSection' => 'Información de la sección',
+            'descriptionInfoSection' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec condimentum bibendum augue, maximus lacinia nisl tempus non.',
+            'titleTeamSection' => 'Equipo de trabajo',
+            'descriptionTeamSection' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec condimentum bibendum augue, maximus lacinia nisl tempus non.',
             ],
         ];
 

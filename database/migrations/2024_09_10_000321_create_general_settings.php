@@ -42,6 +42,10 @@ return new class extends Migration
             $table->tinyInteger('status_testimonials')->default(1);
             $table->tinyInteger('status_team')->default(1);
             $table->tinyInteger('status_instagram_posts')->default(0);
+            $table->string('titleInfoSection')->default();
+            $table->text('descriptionInfoSection')->default();
+            $table->string('titleTeamSection')->default();
+            $table->text('descriptionTeamSection')->default();
             $table->foreignId('currency_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
 

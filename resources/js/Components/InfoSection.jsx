@@ -1,11 +1,11 @@
 
 
-export default function InfoSection({ data }) {
+export default function InfoSection({ data, setting }) {
   return (
     <section className="bg-white text-gray-900 container mx-auto py-16 px-4 md:px-16">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Agregar titulo al setting</h1>
-        <p className="text-lg text-gray-600">Agregar content al setting</p>
+        <h1 className="text-4xl font-bold mb-4">{setting.titleInfoSection}</h1>
+        <p className="text-lg text-gray-600">{setting.descriptionInfoSection}</p>
       </div>
 
       <div className="space-y-12">

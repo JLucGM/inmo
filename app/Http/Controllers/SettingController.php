@@ -14,9 +14,9 @@ class SettingController extends Controller
     public function __construct()
     {
         $this->middleware('can:admin.setting-generals.index')->only('index');
-        $this->middleware('can:admin.setting-generals.create')->only('create', 'store');
+        // $this->middleware('can:admin.setting-generals.create')->only('create', 'store');
         $this->middleware('can:admin.setting-generals.edit')->only('edit', 'update');
-        $this->middleware('can:admin.setting-generals.delete')->only('destroy');
+        // $this->middleware('can:admin.setting-generals.delete')->only('destroy');
     }
 
     /**
@@ -93,6 +93,12 @@ class SettingController extends Controller
             'status_instagram_posts',
             'instagram',
             'token_instagram',
+
+            'titleInfoSection',
+            'descriptionInfoSection',
+            'titleTeamSection',
+            'descriptionTeamSection',
+
             'currency_id'
         );
 
@@ -131,7 +137,7 @@ class SettingController extends Controller
                 }
             }
         }
-        
+
         // if ($request->hasFile('portadaBlog')) {
         //     $logoFooter = $request->file('portadaBlog');
         //     $logoFooterName = 'logofooter-' . time() . '-' . $logoFooter->getClientOriginalName();
@@ -148,7 +154,7 @@ class SettingController extends Controller
         //         }
         //     }
         // }
-        
+
         if ($request->hasFile('portadaContact')) {
             $logoFooter = $request->file('portadaContact');
             $logoFooterName = 'logofooter-' . time() . '-' . $logoFooter->getClientOriginalName();
@@ -165,7 +171,7 @@ class SettingController extends Controller
                 }
             }
         }
-        
+
         if ($request->hasFile('portadaFaq')) {
             $logoFooter = $request->file('portadaFaq');
             $logoFooterName = 'logofooter-' . time() . '-' . $logoFooter->getClientOriginalName();
@@ -182,7 +188,7 @@ class SettingController extends Controller
                 }
             }
         }
-        
+
         if ($request->hasFile('portadaAnunciar')) {
             $logoFooter = $request->file('portadaAnunciar');
             $logoFooterName = 'logofooter-' . time() . '-' . $logoFooter->getClientOriginalName();

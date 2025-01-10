@@ -43,7 +43,7 @@ export default function Authenticated({ user, header, children, roles, permissio
       { label: 'page', route: 'pages.index', permission: 'admin.pages.index' },
       { label: 'Faq', route: 'faqs.index', permission: 'admin.faqs.index' },
       { label: 'role', route: 'roles.index', permission: 'admin.role.index' },
-      { label: 'Tipo de negocios quitar', route: 'typesBusinesses.index', permission: 'admin.typebusiness.index' },
+      // { label: 'Tipo de negocios quitar', route: 'typesBusinesses.index', permission: 'admin.typebusiness.index' },
    ];
 
    const posts = [
@@ -56,9 +56,9 @@ export default function Authenticated({ user, header, children, roles, permissio
       { label: 'calendary', route: 'tasks.calendary', permission: 'admin.tasks.calendary' },
       { label: 'tasks', route: 'tasks.index', permission: 'admin.tasks.index' },
       // { label: 'Documentos', route: 'documents.index', permission: 'admin.documents.index' },
-      { label: 'Tipos de contactos quitar', route: 'typesContacts.index', permission: 'admin.tasks.index' },
-      { label: 'Status de contactos quitar', route: 'statuscontacts.index', permission: 'admin.tasks.index' },
-      { label: 'origins quitar', route: 'origins.index', permission: 'admin.tasks.index' },
+      // { label: 'Tipos de contactos quitar', route: 'typesContacts.index', permission: 'admin.tasks.index' },
+      // { label: 'Status de contactos quitar', route: 'statuscontacts.index', permission: 'admin.tasks.index' },
+      // { label: 'origins quitar', route: 'origins.index', permission: 'admin.tasks.index' },
    ];
 
    const locations = [
@@ -72,7 +72,7 @@ export default function Authenticated({ user, header, children, roles, permissio
       { label: 'Crear Propiedades', route: 'properties.create', permission: 'admin.properties.create' },
       { label: 'Comodidades', route: 'amenities.index', permission: 'admin.amenities-checks.index' },
       { label: 'Tipos de propiedades', route: 'typesproperties.index', permission: 'admin.typesProperties.index' },
-      { label: 'Estados fisicos quitar', route: 'phyStates.index', permission: 'admin.phystates.index' },
+      // { label: 'Estados fisicos quitar', route: 'phyStates.index', permission: 'admin.phystates.index' },
    ];
 
    return (

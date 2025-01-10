@@ -39,7 +39,7 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
 
                 {setting.status_info_section == 1 && (
                     <AnimatedComponent>
-                        <InfoSection data={infoweb} />
+                        <InfoSection data={infoweb} setting={setting} />
                     </AnimatedComponent>
                 )}
 
@@ -63,7 +63,7 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
 
                     <AnimatedComponent>
                         <div className="my-20">
-                            <TeamSection data={user} />
+                            <TeamSection data={user} setting={setting} />
                         </div>
                     </AnimatedComponent>
                 )}

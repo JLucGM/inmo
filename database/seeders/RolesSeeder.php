@@ -85,7 +85,7 @@ class RolesSeeder extends Seeder
 
         Permission::create(['name' => 'admin.setting-generals.index', 'description' => 'Ver configuración general'])->syncRoles([$rolSuperAdmin]);
         // Permission::create(['name' => 'admin.setting-generals.create', 'description' => 'Crear configuración general'])->syncRoles([$rolSuperAdmin]);
-        // Permission::create(['name' => 'admin.setting-generals.edit', 'description' => 'Editar configuración general'])->syncRoles([$rolSuperAdmin]);
+        Permission::create(['name' => 'admin.setting-generals.edit', 'description' => 'Editar configuración general'])->syncRoles([$rolSuperAdmin]);
         // Permission::create(['name' => 'admin.setting-generals.delete', 'description' => 'Eliminar configuración general'])->syncRoles([$rolSuperAdmin]);
 
         Permission::create(['name' => 'admin.amenities-checks.index', 'description' => 'Ver lista de comididades'])->syncRoles([$rolSuperAdmin]);

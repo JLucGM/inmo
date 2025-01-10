@@ -38,9 +38,13 @@ class Setting extends Model
         'instagram',
         'token_instagram',
         'portadaBlog',
-'portadaContact',
-'portadaFaq',
-'portadaAnunciar',
+        'portadaContact',
+        'portadaFaq',
+        'portadaAnunciar',
+        'titleInfoSection',
+        'descriptionInfoSection',
+        'titleTeamSection',
+        'descriptionTeamSection',
         'currency_id',
     ];
 

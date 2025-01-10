@@ -37,6 +37,12 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
         portadaContact: setting.portadaContact,
         portadaFaq: setting.portadaFaq,
         portadaAnunciar: setting.portadaAnunciar,
+
+        titleInfoSection: setting.titleInfoSection,
+        descriptionInfoSection: setting.descriptionInfoSection,
+        titleTeamSection: setting.titleTeamSection,
+        descriptionTeamSection: setting.descriptionTeamSection,
+
         currency_id: setting.currency_id || (currencies.length > 0 ? currencies[0].id : null), // Usar el valor de setting si existe
     }
 
@@ -99,7 +105,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
 
                                 <TabGroup vertical className={'border rounded-lg'}>
                                     <div className="grid grid-cols-4">
-                                        <TabList className="flex flex-col overflow-y-auto rounded-lg h-44 md:h-screen-[-175] md:border-b md:flex-rowf md:overflow-hidden border-e  col-span-full md:col-span-1">
+                                        <TabList className="flex flex-col overflow-y-auto rounded-lg h-44s md:min-h-screen-[-175] md:border-b md:flex-rowf md:overflow-hidden border-e  col-span-full md:col-span-1">
                                             <Tab
                                                 className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
                                             >
@@ -142,6 +148,16 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                 className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
                                             >
                                                 Anunciar
+                                            </Tab>
+                                            <Tab
+                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
+                                            >
+                                                Sección de información
+                                            </Tab>
+                                            <Tab
+                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
+                                            >
+                                                Sección de equipo
                                             </Tab>
                                         </TabList>
 
@@ -593,6 +609,76 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
 
                                                         <InputError message={errors.descriptionAnunciar} className="mt-2" />
                                                     </div>
+                                                </div>
+
+                                            </TabPanel>
+
+                                            <TabPanel>
+                                                <div title={'Sección de información'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
+
+                                                    <div>
+                                                        <InputLabel htmlFor="titleInfoSection" value="Título de sección" />
+                                                        <TextInput
+                                                            id="titleInfoSection"
+                                                            type="text"
+                                                            name="titleInfoSection"
+                                                            value={data.titleInfoSection}
+                                                            className="mt-1 block w-full"
+                                                            isFocused={true}
+                                                            onChange={(e) => setData('titleInfoSection', e.target.value)}
+                                                        />
+                                                        <InputError message={errors.titleInfoSection} className="mt-2" />
+                                                    </div>
+
+                                                    <div>
+                                                        <InputLabel htmlFor="descriptionInfoSection" value="Descripción de sección" />
+                                                        <Textarea
+                                                            id="descriptionInfoSection"
+                                                            // type="text"
+                                                            name="descriptionInfoSection"
+                                                            rows={10}
+                                                            value={data.descriptionInfoSection}
+                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                            onChange={(e) => setData('descriptionInfoSection', e.target.value)}
+                                                        />
+                                                        <InputError message={errors.descriptionInfoSection} className="mt-2" />
+                                                    </div>
+
+                                                </div>
+
+                                            </TabPanel>
+
+                                            <TabPanel>
+                                                <div title={'Anunciar'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
+
+                                                <div>
+                                                        <InputLabel htmlFor="titleTeamSection" value="Título de sección" />
+                                                        <TextInput
+                                                            id="titleTeamSection"
+                                                            type="text"
+                                                            name="titleTeamSection"
+                                                            value={data.titleTeamSection}
+                                                            className="mt-1 block w-full"
+                                                            isFocused={true}
+                                                            onChange={(e) => setData('titleTeamSection', e.target.value)}
+                                                        />
+                                                        <InputError message={errors.titleTeamSection} className="mt-2" />
+                                                    </div>
+                                                
+                                                <div>
+                                                        <InputLabel htmlFor="descriptionTeamSection" value="Descripción de sección" />
+                                                        <Textarea
+                                                            id="descriptionTeamSection"
+                                                            // type="text"
+                                                            name="descriptionTeamSection"
+                                                            rows={10}
+                                                            value={data.descriptionTeamSection}
+                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                            onChange={(e) => setData('descriptionTeamSection', e.target.value)}
+                                                        />
+                                                        <InputError message={errors.descriptionTeamSection} className="mt-2" />
+                                                    </div>
+
                                                 </div>
 
                                             </TabPanel>
