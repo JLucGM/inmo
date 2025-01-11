@@ -10,13 +10,13 @@ export default function InfoSection({ data, setting }) {
 
       <div className="space-y-12">
         {data.map((feature, index) => (
-          <div key={index} className={`grid grid-cols-2 items-center md:items-start md:justify-between ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-            <div className="col-span-full md:col-span-1">
+          <div key={index} className={`md:flex items-center md:items-start md:justify-between ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+            <div className="w-full md:w-1/2 md:px-8">
               <h2 className="text-2xl font-bold mb-4 capitalize">{feature.name}</h2>
               {/* <p className="text-gray-600 mb-6 text-center md:text-left">{feature.text}</p> */}
-              <div className="text-gray-600 mb-6 text-center md:text-left" dangerouslySetInnerHTML={{ __html: feature.text }} />
+              <div className="text-gray-600 mb-6 text-left md:text-left" dangerouslySetInnerHTML={{ __html: feature.text }} />
             </div>
-            <div className="col-span-full md:col-span-1">
+            <div className="w-full md:w-1/2">
               <img className="rounded-3xl border-none" src={`${feature.image}`} alt={feature.alt} />
             </div>
           </div>
