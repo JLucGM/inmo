@@ -21,6 +21,7 @@ export default function Faqs({ auth, setting, posts, pages }) {
                 image={'image'} 
                 text={'extract'} 
                 name={'name'}
+                link={'link'}
                 autoplay={{
                     delay: 5000,
                     disableOnInteraction: false,

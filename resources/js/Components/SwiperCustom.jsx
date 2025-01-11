@@ -4,8 +4,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { Link } from '@inertiajs/react';
 
-export default function SwiperCustom({ datas, image, text, name, children, ...props }) {
+export default function SwiperCustom({ datas, image, link="", text, name, children, ...props }) {
     const [isDarkBackgrounds, setIsDarkBackgrounds] = useState([]);
     const canvasRef = useRef([]);
 
@@ -71,12 +72,20 @@ export default function SwiperCustom({ datas, image, text, name, children, ...pr
                     {/* Canvas oculto para cada slide */}
                     <canvas ref={(el) => (canvasRef.current[index] = el)} style={{ display: "none" }} />
 
-                    <div className="grid grid-cols-3 relative z-10">
-                        <div className="col-span-full md:col-span-2 px-10 font-semibold text-lg"
-                             style={{ color: isDarkBackgrounds[index] ? 'white' : 'black' }}>
-                            <p className='my-4 text-sm md:text-base'>{data[text]}</p> {/* Accede al texto usando la propiedad 'text' */}
-                            <p>{data[name]}</p> {/* Accede al nombre usando la propiedad 'name' */}
-                        </div>
+                    <div className="flex flex-col items-center justify-end z-10 h-full pb-10">
+                    {/* <div className="px-10 font-semibold text-lg" */}
+                             {/* style={{ color: isDarkBackgrounds[index] ? 'white' : 'black' }}> */}
+                            <p className={`mb-4 text-5xl font-bold ${isDarkBackgrounds ? 'text-white ' : 'text-black '}`}>{data[name]}</p> {/* Accede al nombre usando la propiedad 'name' */}
+                            <p className={`my-4 text-sm md:text-xl ${isDarkBackgrounds ? 'text-white ' : 'text-black '}`}>{data[text]}</p> {/* Accede al texto usando la propiedad 'text' */}
+                            {data[link] && (
+                                <Link 
+                                href={data[link]}
+                                className={` font-medium rounded-full px-4 py-2 ${isDarkBackgrounds ? 'text-white bg-black' : 'text-black bg-white'}`}
+                                >
+                                    Ver más
+                                </Link>
+                            )}                        
+                            {/* </div> */}
                     </div>
                 </SwiperSlide>
             ))}

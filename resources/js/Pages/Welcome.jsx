@@ -19,7 +19,20 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
                 <Head title="Welcome" />
                 {setting.status_banner == 1 && (
                     <AnimatedComponent>
-                        <Banner data={slides} />
+                        {/* <Banner data={slides} /> */}
+
+                        <SwiperCustom
+                            datas={slides}
+                            image={'image'}
+                            text={'text'}
+                            name={'name'}
+                            link={'link'}
+                            autoplay={{
+                                delay: 5000,
+                                disableOnInteraction: false,
+                            }}
+                            modules={[Autoplay]}
+                        />
                     </AnimatedComponent>
                 )}
 
