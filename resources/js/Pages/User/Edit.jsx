@@ -9,7 +9,8 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 
 export default function Edit({ auth, user, roles, role, permission }) {
-    console.log(user)
+    // console.log(user)
+
     const initialValues = {
         name: user.name,
         email: user.email,
@@ -18,8 +19,6 @@ export default function Edit({ auth, user, roles, role, permission }) {
         status: user.status,
         avatar: null,
         role: user.roles.length > 0 ? user.roles[0].name : "", // Verifica si hay roles
-
-
     }
 
     const items = [
@@ -50,7 +49,7 @@ export default function Edit({ auth, user, roles, role, permission }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('user.update', user))
-        console.log(data)
+        // console.log(data)
     }
     return (
         <AuthenticatedLayout

@@ -45,9 +45,12 @@ class UserController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
         $roles = Role::all();
 
-        return Inertia::render('User/Create', compact('roles'));
+        return Inertia::render('User/Create', compact('roles','role','permission'));
     }
 
     /**

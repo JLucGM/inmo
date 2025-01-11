@@ -121,12 +121,43 @@ class InfowebController extends Controller
      */
     public function destroy(Infoweb $infoweb)
     {
-        if ($infoweb->image != 'default.jpg') {
-            // Delete the existing image
-            unlink(public_path('img/setting/' . $infoweb->image));
+        // if ($infoweb->image != 'default.jpg') {
+        //     // Delete the existing image
+        //     unlink(public_path('img/setting/' . $infoweb->image));
+        // }
+
+        if ($infoweb->image && $infoweb->image != asset('default.jpg')) {
+            // Extrae el nombre del archivo de la URL
+            $filename = basename($infoweb->image);
+
+            // Elimina la imagen existente
+            $filePath = public_path('img/setting/' . $filename);
+
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
         }
 
         $infoweb->delete();
 
     }
+
+    // public function destroy(Slide $slide)
+    // {
+    //     // Verifica que la imagen no sea la imagen por defecto
+    //     if ($slide->image && $slide->image != asset('img/slides/default.jpg')) {
+    //         // Extrae el nombre del archivo de la URL
+    //         $filename = basename($slide->image);
+
+    //         // Elimina la imagen existente
+    //         $filePath = public_path('img/slides/' . $filename);
+
+    //         if (file_exists($filePath)) {
+    //             unlink($filePath);
+    //         }
+    //     }
+
+    //     // Elimina el slide de la base de datos
+    //     $slide->delete();
+    // }
 }

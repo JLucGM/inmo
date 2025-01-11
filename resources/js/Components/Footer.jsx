@@ -24,8 +24,8 @@ export default function Footer({ setting, pages }) {
           </div>
 
           <div className="w-full mt-6 lg:mt-0 md:w-1/2 lg:w-1/5">
-            <h6 className="font-semibold text-gray-700 mb-4">Company</h6>
-            <ul>
+            <h6 className="font-semibold text-gray-700 mb-4">Empresa</h6>
+            <ul className="list-none	">
               {/* <li> <a href="" className="block text-gray-600 py-2">Team</a> </li>
               <li> <a href="" className="block text-gray-600 py-2">About us</a> </li>
               <li> <a href="" className="block text-gray-600 py-2">Press</a> </li> */}
@@ -45,9 +45,9 @@ export default function Footer({ setting, pages }) {
             </ul>
           </div>
 
-          <div className="w-full mt-6 lg:mt-0 md:w-1/2 lg:w-1/5">
+          {/* <div className="w-full mt-6 lg:mt-0 md:w-1/2 lg:w-1/5">
             <h6 className="font-semibold text-gray-700 mb-4">Content</h6>
-            <ul>
+            <ul className="list-none	">
               <li> <a href="" className="block text-gray-600 py-2">Blog</a> </li>
               <li> <a href="" className="block text-gray-600 py-2">Privacy Policy</a> </li>
               <li> <a href="" className="block text-gray-600 py-2">Terms & Conditions</a> </li>
@@ -57,12 +57,12 @@ export default function Footer({ setting, pages }) {
 
           <div className="w-full mt-6 lg:mt-0 md:w-1/2 lg:w-1/5">
             <h6 className="font-semibold text-gray-700 mb-4">Company</h6>
-            <ul>
+            <ul className="list-none	">
               <li> <a href="" className="block text-gray-600 py-2">Team</a> </li>
               <li> <a href="" className="block text-gray-600 py-2">About us</a> </li>
               <li> <a href="" className="block text-gray-600 py-2">Press</a> </li>
             </ul>
-          </div>
+          </div> */}
 
         </div>
       </footer>

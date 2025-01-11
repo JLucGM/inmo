@@ -1,7 +1,5 @@
-import CardPost from "@/Components/CardPost";
 import CoverPage from "@/Components/CoverPage";
 import FrontedLayout from "@/Layouts/FrontedLayout";
-import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { Head } from "@inertiajs/react";
 
 export default function PostShow({ auth, setting, posts, pages }) {
@@ -16,8 +14,6 @@ export default function PostShow({ auth, setting, posts, pages }) {
     return (
         <FrontedLayout auth={auth} setting={setting} pages={pages}>
             <Head title={posts.name} />
-
-
 
             <main className="mt-10">
 

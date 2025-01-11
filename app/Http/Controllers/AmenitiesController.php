@@ -40,7 +40,11 @@ class AmenitiesController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Amenities/Create');
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+
+        return Inertia::render('Amenities/Create', compact('role', 'permission'));
     }
 
     /**

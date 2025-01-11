@@ -9,9 +9,11 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 import { useState } from 'react';
 import CharacterCounter from '@/Components/CharacterCounter';
+import TextAreaRich from '@/Components/TextAreaRich';
+import { useRef } from 'react';
 
 export default function Edit({ auth, infoweb, role, permission }) {
-
+const textAreaRef = useRef();
     const initialValues = {
         name: infoweb.name,
         text: infoweb.text,
@@ -118,20 +120,13 @@ export default function Edit({ auth, infoweb, role, permission }) {
                                             </div>
 
                                             <div className='col-span-2'>
-                                                <InputLabel htmlFor="text" value="texto" />
-
-                                                <Textarea
-                                                    id="text"
-                                                    type="text"
+                                                <InputLabel htmlFor="text" value="Descripción" />
+                                                <TextAreaRich
+                                                    initialValue={data.text}
+                                                    ref={textAreaRef}
                                                     name="text"
-                                                    rows={10}
-                                                    value={data.text}
-                                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm "
-                                                    isFocused={true}
-                                                    onChange={handleTextChange}
+                                                    onChange={(newText) => setData('text', newText)}
                                                 />
-                                                <CharacterCounter currentCount={charCount} limit={500} /> {/* Usar el componente aquí */}
-
                                                 <InputError message={errors.text} className="mt-2" />
                                             </div>
 
@@ -143,7 +138,7 @@ export default function Edit({ auth, infoweb, role, permission }) {
 
 
                                             <div>
-                                                <img src={`${infoweb.image}`} alt={infoweb.image} className='w-40 rounded-3xl mx-auto' />
+                                                <img src={`${infoweb.image}`} alt={infoweb.image} className='w-auto rounded-3xl mx-auto' />
                                                 <InputLabel htmlFor="image" value="image" />
 
                                                 <TextInput

@@ -6,7 +6,7 @@ import { Autoplay } from 'swiper/modules';
 
 
 export default function Faqs({ auth, setting, posts, pages }) {
-    console.log(posts)
+    // console.log(posts)
     return (
         <FrontedLayout auth={auth} setting={setting} pages={pages}>
             <Head title={setting.titleBlog} />

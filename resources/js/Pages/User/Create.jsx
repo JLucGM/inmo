@@ -4,9 +4,9 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import DangerButton from '@/Components/DangerButton';
+import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Create({ auth, roles }) {
+export default function Create({ auth, role, permission, roles }) {
 
     const initialValues = {
         name: "",
@@ -48,10 +48,12 @@ export default function Create({ auth, roles }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('user.store'))
-        console.log(data)
+        // console.log(data)
     }
     return (
         <AuthenticatedLayout
+            roles={role}
+            permission={permission}
             user={auth.user}
             header={
                 <div className='flex justify-between items-center px-6'>
@@ -69,129 +71,140 @@ export default function Create({ auth, roles }) {
                         <div className="text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit} className='space-y-4'>
 
-                                <div>
-                                    <InputLabel htmlFor="name" value="Nombre" />
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div className="col-span-full lg:col-span-2">
+                                        <ContainerTitle title={'Datos del usuario'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                    <TextInput
-                                        id="name"
-                                        type="text"
-                                        name="name"
-                                        value={data.name}
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) => setData('name', e.target.value)}
-                                    />
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="name" value="Nombre" />
 
-                                    <InputError message={errors.name} className="mt-2" />
+                                                <TextInput
+                                                    id="name"
+                                                    type="text"
+                                                    name="name"
+                                                    value={data.name}
+                                                    className="mt-1 block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('name', e.target.value)}
+                                                />
+
+                                                <InputError message={errors.name} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="email" value="Correo" />
+
+                                                <TextInput
+                                                    id="email"
+                                                    type="text"
+                                                    name="email"
+                                                    value={data.email}
+                                                    className="mt-1 block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('email', e.target.value)}
+                                                />
+
+                                                <InputError message={errors.email} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="password" value="Contraseña" />
+
+                                                <TextInput
+                                                    id="password"
+                                                    type="text"
+                                                    name="password"
+                                                    value={data.password}
+                                                    className="mt-1 block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('password', e.target.value)}
+                                                />
+
+                                                <InputError message={errors.password} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="phone" value="Teléfono" />
+
+                                                <TextInput
+                                                    id="phone"
+                                                    type="text"
+                                                    name="phone"
+                                                    value={data.phone}
+                                                    className="mt-1 block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('phone', e.target.value)}
+                                                />
+
+                                                <InputError message={errors.phone} className="mt-2" />
+                                            </div>
+                                        </ContainerTitle>
+                                    </div>
+
+                                    <div className="col-span-full lg:col-span-1">
+                                        <ContainerTitle title={'Datos del usuario'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="avatar" value="avatar" />
+
+                                                <TextInput
+                                                    id="avatar"
+                                                    type="file"
+                                                    name="avatar"
+                                                    className="mt-1 block w-full"
+                                                    isFocused={true}
+                                                    onChange={(e) => setData('avatar', e.target.files[0])}
+                                                />
+
+                                                <InputError message={errors.avatar} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="status" value="Estado" />
+
+                                                <select
+                                                    name="status"
+                                                    id=""
+                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                                    onChange={(e) => setData('status', e.target.value)}
+                                                >
+                                                    <option value={0}>Inactivo</option>
+                                                    <option value={1}>Activo</option>
+                                                </select>
+
+                                                <InputError message={errors.status} className="mt-2" />
+                                            </div>
+
+                                            <div className='col-span-full'>
+                                                <InputLabel htmlFor="role" value="Rol" />
+
+                                                <select
+                                                    name="role"
+                                                    id="role"
+                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                                    onChange={(e) => setData('role', e.target.value)}
+                                                >
+                                                    <option value="">Seleccione un rol</option>
+                                                    {roles.map((role) => (
+                                                        <option key={role.id} value={role.name}>{role.name}</option>
+                                                    ))}
+                                                </select>
+
+                                                <InputError message={errors.role} className="mt-2" />
+                                            </div>
+                                        </ContainerTitle>
+                                    </div>
                                 </div>
-
-                                <div>
-                                    <InputLabel htmlFor="email" value="Correo" />
-
-                                    <TextInput
-                                        id="email"
-                                        type="text"
-                                        name="email"
-                                        value={data.email}
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) => setData('email', e.target.value)}
-                                    />
-
-                                    <InputError message={errors.email} className="mt-2" />
-                                </div>
-                                <div>
-                                    <InputLabel htmlFor="password" value="Contraseña" />
-
-                                    <TextInput
-                                        id="password"
-                                        type="text"
-                                        name="password"
-                                        value={data.password}
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) => setData('password', e.target.value)}
-                                    />
-
-                                    <InputError message={errors.password} className="mt-2" />
-                                </div>
-
-                                <div>
-                                    <InputLabel htmlFor="phone" value="Teléfono" />
-
-                                    <TextInput
-                                        id="phone"
-                                        type="text"
-                                        name="phone"
-                                        value={data.phone}
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) => setData('phone', e.target.value)}
-                                    />
-
-                                    <InputError message={errors.phone} className="mt-2" />
-                                </div>
-
-                                <div>
-                                    <InputLabel htmlFor="status" value="Estado" />
-
-                                    <select
-                                        name="status"
-                                        id=""
-                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
-                                        onChange={(e) => setData('status', e.target.value)}
-                                    >
-                                        <option value={0}>Inactivo</option>
-                                        <option value={1}>Activo</option>
-                                    </select>
-
-                                    <InputError message={errors.status} className="mt-2" />
-                                </div>
-
-                                <div>
-                                    <InputLabel htmlFor="avatar" value="avatar" />
-
-                                    <TextInput
-                                        id="avatar"
-                                        type="file"
-                                        name="avatar"
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) => setData('avatar', e.target.files[0])}
-                                    />
-
-                                    <InputError message={errors.avatar} className="mt-2" />
-                                </div>
-
-                                <div>
-                                    <InputLabel htmlFor="role" value="Rol" />
-
-                                    <select
-                                        name="role"
-                                        id="role"
-                                        className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
-                                        onChange={(e) => setData('role', e.target.value)}
-                                    >
-                                        <option value="">Seleccione un rol</option>
-                                        {roles.map((role) => (
-                                            <option key={role.id} value={role.name}>{role.name}</option>
-                                        ))}
-                                    </select>
-
-                                    <InputError message={errors.role} className="mt-2" />
-                                </div>
-
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >
                                         Guardar
                                     </PrimaryButton>
                                 </div>
-
                             </form>
                         </div>
                     </div>
                 </div>
-            </div>
-        </AuthenticatedLayout>
+            </div >
+        </AuthenticatedLayout >
     )
 }

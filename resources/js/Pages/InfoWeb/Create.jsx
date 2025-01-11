@@ -9,9 +9,12 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 import { useState } from 'react';
 import CharacterCounter from '@/Components/CharacterCounter';
+import TextAreaRich from '@/Components/TextAreaRich';
+import { useRef } from 'react';
 
 export default function Create({ auth, role, permission }) {
 
+    const textAreaRef = useRef();
     const initialValues = {
         name: "",
         text: "",
@@ -104,7 +107,7 @@ export default function Create({ auth, role, permission }) {
                                                 <InputError message={errors.name} className="mt-2" />
                                             </div>
 
-                                            <div className='col-span-2'>
+                                            {/* <div className='col-span-2'>
                                                 <InputLabel htmlFor="text" value="Texto" />
                                                 <Textarea
                                                     id="text"
@@ -114,7 +117,18 @@ export default function Create({ auth, role, permission }) {
                                                     className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
                                                     onChange={handleTextChange} // Usar la nueva función
                                                 />
-                                                <CharacterCounter currentCount={charCount} limit={500} /> {/* Usar el componente aquí */}
+                                                <CharacterCounter currentCount={charCount} limit={500} /> 
+                                                <InputError message={errors.text} className="mt-2" />
+                                            </div> */}
+
+                                            <div className='col-span-2'>
+                                                <InputLabel htmlFor="text" value="Descripción" />
+                                                <TextAreaRich
+                                                    initialValue={data.text}
+                                                    ref={textAreaRef}
+                                                    name="text"
+                                                    onChange={(newText) => setData('text', newText)}
+                                                />
                                                 <InputError message={errors.text} className="mt-2" />
                                             </div>
 

@@ -88,3 +88,11 @@ h6 {
 .rbc-today {
     background-color: rgba(0, 0, 0, 0)!important;
 }
+
+ol{
+    list-style: decimal;
+}
+
+ul{
+    list-style: disc;
+}
