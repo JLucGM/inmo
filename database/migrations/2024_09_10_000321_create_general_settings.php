@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('logo_footer')->nullable();
             $table->string('favicon')->nullable();
             $table->mediumText('direction')->nullable();
-            $table->string('description')->notNullable(); // Descripcbión del sitio
+            $table->mediumText('description')->notNullable(); // Descripcbión del sitio
             $table->string('portadaBlog')->default();
             $table->string('portadaFaq')->default();
             $table->string('portadaContact')->default();
