@@ -25,7 +25,7 @@ class SettingSeeder extends Seeder
                 'phone' => '+58 424-290-9870',
                 'direction' => 'Av. Américo Vespucio, CC Caribean Mall C3-105',
                 'email' => 'soporte@softandnet.com',
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec condimentum bibendum augue, maximus lacinia nisl tempus non.',
+                'description' => 'En inmobilia2, nos enorgullecemos de ofrecerte soluciones inmobiliarias de alta calidad que se adaptan a tus necesidades y deseos. nuestro compromiso es proporcionarte un servicio excepcional y personalizado, garantizando que encuentresla propiedad perfecta, ya sea para comprar, vender o alquilar.',
                 'portadaBlog' => asset('img/setting/banner-propertie2.png'),
                 'portadaFaq' => asset('img/setting/banner-propertie2.png'),
                 'portadaContact' => asset('img/setting/banner-propertie2.png'),
