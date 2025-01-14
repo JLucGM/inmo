@@ -35,7 +35,7 @@ export default function AnimatedComponent ({ children }) {
             initial={{ opacity: 0, y: 50 }} // Inicialmente fuera de la vista
             animate={isVisible ? { opacity: 1, y: 0 } : {}} // Animación al entrar
             transition={{ duration: 1 }} // Duración de la animación
-            style={{ margin: "20px 0" }} // Espaciado opcional
+            style={{ margin: "0px 0" }} // Espaciado opcional 20px 0
         >
             {children}
         </motion.div>

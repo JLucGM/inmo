@@ -8,7 +8,7 @@ export default function MegaMenu({ auth, setting }) {
 
     return (
         <header className="bg-white">
-            <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+            <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8">
                 <div className="flex lg:flex-1">
                     <Link
                         href={route('home')}
@@ -17,7 +17,7 @@ export default function MegaMenu({ auth, setting }) {
                         <img
                             alt=""
                             src={`${setting.logo}`}
-                            className="h-8 w-auto"
+                            className="h-16 w-auto"
                         />
 
                     </Link>
