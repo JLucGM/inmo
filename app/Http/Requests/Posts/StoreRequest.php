@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required|min:2|max:250',
             'content' => 'required',
-            'extract' => 'max:150',
+            'extract' => 'max:200',
             
         ];
     }

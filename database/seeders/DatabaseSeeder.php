@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         
-
+        
         $this->call(AmenitiesSeeder::class);
         $this->call(TypesPropertiesSeeder::class);
         $this->call(PhyStateSeeder::class);
@@ -31,6 +31,11 @@ class DatabaseSeeder extends Seeder
         $this->call(TypesTasksSeeder::class);
         $this->call(CategoryPostSeeder::class);
         $this->call(RolesSeeder::class);
+        $this->call(SlideSeeder::class);
+        $this->call(TestimonialSeeder::class);
+        $this->call(InfowebSeeder::class);
+        $this->call(FaqSeeder::class);
+        $this->call(PageSeeder::class);
 
         User::create([
             'name' => 'Jean Gouirand',
@@ -40,5 +45,9 @@ class DatabaseSeeder extends Seeder
             'status' => '1',
             'avatar' => asset('img/profile/default.jpg'),
         ])->assignRole('super admin');
+
+        $this->call(PostSeeder::class);
+        $this->call(UserSeeder::class);
+        
     }
 }

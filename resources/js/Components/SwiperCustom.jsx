@@ -76,7 +76,7 @@ export default function SwiperCustom({ datas, image, link="", text, name, childr
                     {/* <div className="px-10 font-semibold text-lg" */}
                              {/* style={{ color: isDarkBackgrounds[index] ? 'white' : 'black' }}> */}
                             <p className={`mb-4 text-5xl font-bold ${isDarkBackgrounds ? 'text-black ' : 'text-white '}`}>{data[name]}</p> {/* Accede al nombre usando la propiedad 'name' */}
-                            <p className={`my-4 text-sm md:text-xl ${isDarkBackgrounds ? 'text-black ' : 'text-white '}`}>{data[text]}</p> {/* Accede al texto usando la propiedad 'text' */}
+                            <p className={`my-4 text-sm md:text-lg mx-48 ${isDarkBackgrounds ? 'text-black ' : 'text-white '}`}>{data[text]}</p> {/* Accede al texto usando la propiedad 'text' */}
                             {data[link] && (
                                 <Link 
                                 href={data[link]}

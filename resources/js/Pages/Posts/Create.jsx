@@ -24,7 +24,7 @@ export default function Create({ auth, categryposts, role, permission }) {
 
     const { data, setData, errors, post } = useForm(initialValues)
     const [charCount, setCharCount] = useState(0); // Estado para contar caracteres
-    const charLimit = 150; // Límite de caracteres
+    const charLimit = 200; // Límite de caracteres
 
     const submit = (e) => {
         e.preventDefault();
@@ -116,7 +116,7 @@ export default function Create({ auth, categryposts, role, permission }) {
                                             </div>
 
                                             <div className='col-span-2'>
-                                                <InputLabel htmlFor="extract" value="extract" />
+                                                <InputLabel htmlFor="extract" value="Extracto" />
 
                                                 <Textarea
                                                     id="extract"
@@ -129,13 +129,13 @@ export default function Create({ auth, categryposts, role, permission }) {
                                                 >
 
                                                 </Textarea>
-                                                <CharacterCounter currentCount={charCount} limit={150} /> {/* Usar el componente aquí */}
+                                                <CharacterCounter currentCount={charCount} limit={200} /> {/* Usar el componente aquí */}
 
                                                 <InputError message={errors.extract} className="mt-2" />
                                             </div>
 
                                             <div className='col-span-2'>
-                                                <InputLabel htmlFor="content" value="content" />
+                                                <InputLabel htmlFor="content" value="Contenido" />
                                                 <TextAreaRich
 
                                                     initialValue={data.content}
@@ -151,7 +151,7 @@ export default function Create({ auth, categryposts, role, permission }) {
                                         <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                             <div className='col-span-full'>
-                                                <InputLabel htmlFor="image" value="image" />
+                                                <InputLabel htmlFor="image" value="Imagen" />
 
                                                 <TextInput
                                                     id="image"
@@ -183,10 +183,10 @@ export default function Create({ auth, categryposts, role, permission }) {
 
                                             <div className='col-span-full'>
                                                 <div className="flex justify-between">
-                                                    <InputLabel htmlFor="categryposts" value="categryposts" />
-                                                    {permission.some(perm => perm.name === 'admin.categoriesPost.index') && (
+                                                    <InputLabel htmlFor="categryposts" value="Categoria" />
+                                                    {/* {permission.some(perm => perm.name === 'admin.categoriesPost.index') && (
                                                         <Link className='text-sm text-gray-800 dark:text-gray-200 underline underline-offset-4' href={route('category-post.create')}>Crear</Link>
-                                                    )}
+                                                    )} */}
                                                 </div>
 
                                                 <select
