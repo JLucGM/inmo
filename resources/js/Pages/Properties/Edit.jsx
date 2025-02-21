@@ -16,8 +16,8 @@ import TextAreaRich from '@/Components/TextAreaRich';
 import { useRef } from 'react';
 import { TrashIcon } from '@heroicons/react/24/outline';
 
-export default function Edit({ auth, property, state, country, typepropety, typebusiness, city, phystate, amenities, propertyAmenities, images, main, role, permission }) {
-
+export default function Edit({ success, auth, property, state, country, typepropety, typebusiness, city, phystate, amenities, propertyAmenities, images, main, role, permission }) {
+console.log(success)
     const [selectedCountry, setSelectedCountry] = useState(country[0].id);;
     const [selectedState, setSelectedState] = useState(state[0].id);
     const [statesByCountry, setStatesByCountry] = useState(state);
@@ -543,16 +543,14 @@ export default function Edit({ auth, property, state, country, typepropety, type
                 </div>
             </div>
 
-            <div>
-
-
+            <div className='grid grid-cols-2 gap-4'>
                 <form onSubmit={(e) => handleUpdateImages(e, images)}>
                     <ContainerTitle title={'Imagenes'} className='grid grid-cols-1 gap-4'>
                         <div className='flex flex-col '>
                             <InputLabel>Imagen de portada</InputLabel>
                             <TextInput type="file" name="main" onChange={(e) => setData('main', e.target.files[0])} />
                         </div>
-                        <img src={`${main}`} alt={main} className='w-40 rounded-3xl' />
+                        <img src={`${main}`} alt={main} className='w-40 rounded-xl' />
 
                         <div className='flex flex-col my-4'>
                             <InputLabel>Imágenes adicionales</InputLabel>
@@ -562,8 +560,8 @@ export default function Edit({ auth, property, state, country, typepropety, type
                         <div className="flex flex-row flex-nowrap gap-4 my-4">
                             {images.map((image, index) => (
                                 <div key={index}>
-                                    <div className="border rounded-3xl ">
-                                        <img src={`${image.name}`} className='w-40 rounded-t-3xl' alt={image.name} />
+                                    <div className="border rounded-xl ">
+                                        <img src={`${image.name}`} className='w-40 rounded-t-xl' alt={image.name} />
                                         <Link className='my-2 text-red-600' onClick={() => handleDeleteImage(image.id, images)} as='button'>
                                             <TrashIcon className='size-6' />
                                         </Link>

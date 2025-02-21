@@ -7,6 +7,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
+import TypesPropertiesForm from './TypesPropertiesForm';
 
 export default function Edit({ auth, typeproperty, role, permission }) {
 
@@ -81,41 +82,11 @@ export default function Edit({ auth, typeproperty, role, permission }) {
                                 >
                                     <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
                                 </Transition>
-
-                                <ContainerTitle className='space-y-4'>
-                                    <div>
-                                        <img src={`${typeproperty.image}`} alt={typeproperty.image} className='w-40 rounded-3xl mx-auto' />
-
-                                        <InputLabel htmlFor="image" value="image" />
-                                        <TextInput
-                                            id="image"
-                                            type="file"
-                                            name="image"
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('image', e.target.files[0])}
-                                        />
-                                        <InputError message={errors.image} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="name" value="Nombre" />
-
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.name} className="mt-2" />
-                                    </div>
+                                <img src={`${typeproperty.image}`} alt={typeproperty.image} className='w-40 rounded-3xl mx-auto' />
 
 
-                                </ContainerTitle>
+                                <TypesPropertiesForm data={data} setData={setData} errors={errors} />
+
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >
                                         Guardar

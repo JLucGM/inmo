@@ -147,7 +147,9 @@ class PropertiesController extends Controller
             ]);
         }
 
-        return to_route('properties.index');
+        // return to_route('properties.index');
+        return to_route('properties.edit', $property);
+
     }
 
     /**

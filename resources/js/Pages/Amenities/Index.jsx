@@ -1,14 +1,9 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Button, Description, Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { useState } from 'react';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
 import DataTable from '@/Components/DataTable';
 import Breadcrumb from '@/Components/Breadcrumb';
-// import { useReactTable, getCoreRowModel, flexRender, getPaginationRowModel, getFilteredRowModel } from '@tanstack/react-table';
+import columns from './columns';
 
 export default function Index({ auth, amenities, role, permission }) {
 
@@ -16,17 +11,6 @@ export default function Index({ auth, amenities, role, permission }) {
     const { data, setData, errors, post } = useForm({
         name: "",
     })
-
-    const columns = [
-        {
-            header: "#id",
-            accessorKey: "id",
-        },
-        {
-            header: "Nombre",
-            accessorKey: "name",
-        }
-    ]
 
     const items = [
         {
@@ -44,14 +28,6 @@ export default function Index({ auth, amenities, role, permission }) {
         },
     ];
 
-    const submit = (e) => {
-        e.preventDefault();
-        post(route('amenities.store'))
-        setData({
-            name: "",
-        });
-    }
-
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -64,12 +40,13 @@ export default function Index({ auth, amenities, role, permission }) {
                     </h2>
 
                     {permission.some(perm => perm.name === 'admin.amenities-checks.create') && (
-                    <Button
-                        className="capitalize py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                        onClick={() => setIsOpen(true)}>
-                        Crear
-                    </Button>
+                        <Link href={route('amenities.create')}
+                            className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                        >
+                            Crear
+                        </Link>
                     )}
+
                 </div>
             }
         >
@@ -98,39 +75,6 @@ export default function Index({ auth, amenities, role, permission }) {
                     </div>
                 </div>
             </div>
-
-            <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50 ">
-                <DialogBackdrop className="fixed inset-0 bg-black/40" />
-
-                <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-                    <DialogPanel className="w-[40rem] space-y-4 border bg-white p-8 dark:bg-gray-800 rounded-2xl">
-                        <DialogTitle className="font-bold text-gray-700 dark:text-gray-300 capitalize">Crear Comodidades</DialogTitle>
-                        <form onSubmit={submit} className='space-y-4'>
-                            <div>
-                                <InputLabel htmlFor="name" value="Nombre" />
-
-                                <TextInput
-                                    id="name"
-                                    type="text"
-                                    name="name"
-                                    value={data.name}
-                                    className="mt-1 block w-full"
-                                    isFocused={true}
-                                    onChange={(e) => setData('name', e.target.value)}
-                                />
-
-                                <InputError message={errors.name} className="mt-2" />
-                            </div>
-
-                            <div className="flex justify-end p-2.5">
-                                <PrimaryButton>
-                                    Guardar
-                                </PrimaryButton>
-                            </div>
-                        </form>
-                    </DialogPanel>
-                </div>
-            </Dialog>
         </AuthenticatedLayout>
     )
 }

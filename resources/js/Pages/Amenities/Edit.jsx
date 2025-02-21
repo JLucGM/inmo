@@ -1,12 +1,10 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
+
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
-import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
+import AmenitiesForm from './AmenitiesForm';
 
 export default function Edit({ auth, amenity, role, permission }) {
 
@@ -80,31 +78,17 @@ export default function Edit({ auth, amenity, role, permission }) {
                                     <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
                                 </Transition>
 
-                                <ContainerTitle className='space-y-4'>
+                                <AmenitiesForm
+                                    data={data}
+                                    setData={setData}
+                                    errors={errors}
+                                />
 
-                                    <div>
-                                        <InputLabel htmlFor="name" value="Nombre" />
-
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.name} className="mt-2" />
-                                    </div>
-
-                                </ContainerTitle>
-                                
-                                    <div className="flex justify-end p-2.5">
-                                        <PrimaryButton >
-                                            Guardar
-                                        </PrimaryButton>
-                                    </div>
+                                <div className="flex justify-end p-2.5">
+                                    <PrimaryButton >
+                                        Guardar
+                                    </PrimaryButton>
+                                </div>
                             </form>
                         </div>
                     </div>

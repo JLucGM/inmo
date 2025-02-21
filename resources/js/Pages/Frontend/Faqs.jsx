@@ -1,7 +1,7 @@
-import Accordion from "@/Components/Accordion";
 import CoverPage from "@/Components/CoverPage";
 import FrontedLayout from "@/Layouts/FrontedLayout";
 import { Head } from "@inertiajs/react";
+import { Accordion } from "flowbite-react";
 
 export default function Faqs({ auth, setting, faqs, pages }) {
 
@@ -17,7 +17,23 @@ export default function Faqs({ auth, setting, faqs, pages }) {
 
             <div className="my-20">
 
-                <Accordion items={faqs} />
+                <Accordion>
+                    {faqs.map((faq, index) => (
+                        <Accordion.Panel key={index}>
+                            <Accordion.Title>
+                                <p className="text-lg">
+
+                                {faq.name}
+                                </p>
+                                </Accordion.Title>
+                            <Accordion.Content>
+                                <p className="mb-2 text-gray-500 dark:text-gray-400">
+                                    {faq.content}
+                                </p>
+                            </Accordion.Content>
+                        </Accordion.Panel>
+                    ))}
+                </Accordion>
             </div>
 
         </FrontedLayout>

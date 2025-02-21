@@ -1,12 +1,8 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
-import DangerButton from '@/Components/DangerButton';
+import { Head, useForm } from '@inertiajs/react';
 import Breadcrumb from '@/Components/Breadcrumb';
-import ContainerTitle from '@/Components/ContainerTitle';
+import AmenitiesForm from './AmenitiesForm';
 
 export default function Create({ auth, role, permission }) {
 
@@ -66,24 +62,12 @@ export default function Create({ auth, role, permission }) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
                         <div className="text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit} className='space-y-4'>
-                                <ContainerTitle className='space-y-4'>
 
-                                    <div>
-                                        <InputLabel htmlFor="name" value="Nombre" />
-
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.name} className="mt-2" />
-                                    </div>
-                                </ContainerTitle>
+                                <AmenitiesForm
+                                    data={data}
+                                    setData={setData}
+                                    errors={errors}
+                                />
 
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >

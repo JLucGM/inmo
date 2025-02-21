@@ -63,8 +63,8 @@ export default function Dashboard({ auth, taskCounts, contacts, properties, prop
                     <div className="grid grid-cols-3 lg:grid-cols-6 col-span-3 border dark:border-gray-500 rounded-xl">
                         <div className="col-span-full p-2 border-b-2 dark:border-gray-500 flex justify-between items-center">
                             <div className="flex">
-                            <ListBulletIcon className='size-6 me-2 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />
-                            <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Registros de Tareas</p>
+                                <ListBulletIcon className='size-6 me-2 flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white' />
+                                <p className="capitalize text-base font-bold text-gray-800 dark:text-gray-200">Registros de Tareas</p>
                             </div>
                             {permission.some(perm => perm.name === 'admin.tasks.index') && (
                                 <Link className='text-sm text-gray-800 dark:text-gray-200 underline underline-offset-4' href={route('tasks.create')}>Crear</Link>

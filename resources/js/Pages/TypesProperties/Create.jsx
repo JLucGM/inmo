@@ -7,6 +7,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import DangerButton from '@/Components/DangerButton';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
+import TypesPropertiesForm from './TypesPropertiesForm';
 
 export default function Create({ auth, role, permission }) {
 
@@ -43,7 +44,7 @@ export default function Create({ auth, role, permission }) {
     const submit = (e) => {
         e.preventDefault();
         post(route('typesproperties.store'))
-        console.log(data)
+        // console.log(data)
     }
     return (
         <AuthenticatedLayout
@@ -65,40 +66,9 @@ export default function Create({ auth, role, permission }) {
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
                         <div className="text-gray-900 dark:text-gray-100">
                             <form onSubmit={submit} >
-                                <ContainerTitle className='space-y-4'>
-
-                                    <div>
-                                        <InputLabel htmlFor="image" value="image" />
-
-                                        <TextInput
-                                            id="image"
-                                            type="file"
-                                            name="image"
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('image', e.target.files[0])}
-                                        />
-
-                                        <InputError message={errors.image} className="mt-2" />
-                                    </div>
-                                    <div>
-                                        <InputLabel htmlFor="name" value="Nombre" />
-
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.name} className="mt-2" />
-                                    </div>
-
-
-                                </ContainerTitle>
+                                
+                                <TypesPropertiesForm data={data} setData={setData} errors={errors} />
+                                
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >
                                         Guardar
