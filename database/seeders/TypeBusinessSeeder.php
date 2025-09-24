@@ -16,8 +16,15 @@ class TypeBusinessSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['name' => 'on sale'],
-            ['name' => 'for rent'],
+            ['name' => 'En venta'],
+            ['name' => 'En alquiler'],
+            ['name' => 'Obra nueva'],
+            ['name' => 'Alquiler con opción a compra'],
+            ['name' => 'Alquiler vacacional'],
+            ['name' => 'Traspaso'],
+            ['name' => 'Compartir'],
+            ['name' => 'Venta de negocio'],
+            ['name' => 'Alquiler de negocio'],
         ];
 
         foreach ($data as $TypeBusiness) {

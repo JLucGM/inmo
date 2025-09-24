@@ -1,15 +1,23 @@
-import { Transition } from '@headlessui/react'
-import SwiperCustom from './SwiperCustom'
-import { SwiperSlide } from 'swiper/react'
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Transition, Dialog } from '@headlessui/react';
+import { useEffect, useState } from 'react';
 import TextInput from './TextInput';
 import InputLabel from './InputLabel';
 import InputError from './InputError';
 import { useForm } from '@inertiajs/react';
 import PrimaryButton from './PrimaryButton';
-
+import { Alert } from 'flowbite-react';
+import PropertyDetails from './PropertyDetails';
+import PropertyGallery from './PropertyGallery'; // Nueva importación
+// Imports para el modal (Swiper solo aquí)
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 export default function PropertySection({ datas, images, amenities, setting }) {
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false); // Estado para el modal
+
   const initialValues = {
     name: "",
     email: "",
@@ -23,235 +31,196 @@ export default function PropertySection({ datas, images, amenities, setting }) {
     country_id: 1,
     state_id: 1,
     city_id: 1,
+  };
 
-  }
+  const { data, setData, errors, post, reset, recentlySuccessful } = useForm(initialValues);
 
-  const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
+  // useEffect: Resetear formulario en éxito
+  useEffect(() => {
+    if (recentlySuccessful) {
+      reset();
+    }
+  }, [recentlySuccessful, reset]);
 
   const submit = (e) => {
     e.preventDefault();
     post(route('storeContact.store', { property: datas }));
-  }
+  };
+
+  const handleDismissAlert = () => {
+    // Opcional: lógica para cerrar alert manualmente
+  };
+
+  // Parsear images si es string (de tu JSON ejemplo)
+  const parsedImages = typeof images === 'string' ? JSON.parse(images || '[]') : images;
 
   return (
-    <div className="bg-white">
+    <div className="bg-white relative">
+      {/* Alert Flotante en la parte superior */}
+      <Transition
+        show={recentlySuccessful}
+        enter="transition ease-out duration-300"
+        enterFrom="opacity-0 translate-y-[-100%]"
+        enterTo="opacity-100 translate-y-0"
+        leave="transition ease-in duration-200"
+        leaveFrom="opacity-100 translate-y-0"
+        leaveTo="opacity-0 translate-y-[-100%]"
+      >
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+          <Alert
+            color="success"
+            onDismiss={handleDismissAlert}
+            className="border-0 shadow-lg"
+          >
+            <span className="font-medium">¡Éxito!</span> Mensaje creado exitosamente.
+          </Alert>
+        </div>
+      </Transition>
+
       <div className="pt-6">
+        {/* Nueva Galería de Imágenes (reemplaza SwiperCustom) */}
+        <PropertyGallery images={parsedImages} onOpenGallery={() => setIsGalleryOpen(true)} />
 
-
-        <SwiperCustom
-          datas={images}
-          image={'name'}
-        // text={'extract'} 
-        // name={'name'}
-        />
-
-        {/* Image gallery */}
-        {/* <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-                    <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-                        <img
-                            alt={datas.images[0].alt}
-                            src={datas.images[0].src}
-                            className="h-full w-full object-cover object-center"
-                        />
-                    </div>
-                    <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-                        <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                            <img
-                                alt={datas.images[1].alt}
-                                src={datas.images[1].src}
-                                className="h-full w-full object-cover object-center"
-                            />
-                        </div>
-                        <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                            <img
-                                alt={datas.images[2].alt}
-                                src={datas.images[2].src}
-                                className="h-full w-full object-cover object-center"
-                            />
-                        </div>
-                    </div>
-                    <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-                        <img
-                            alt={datas.images[3].alt}
-                            src={datas.images[3].src}
-                            className="h-full w-full object-cover object-center"
-                        />
-                    </div>
-                </div> */}
-
-        {/* Product info */}
-        <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
-          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8 grid grid-cols-3">
-            <h1 className="capitalize text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl col-span-2">#{datas.identification} - {datas.name}</h1>
+        {/* Product info - Header con título, tipo y precio + Grid principal */}
+        <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:max-w-7xl lg:grid lg:grid-cols-3 lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
+          {/* Header: Título y precio (span 2 columnas) */}
+          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8 grid grid-cols-3 mb-8 lg:mb-0">
+            <h1 className="capitalize text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl col-span-2">
+              #{datas.identification} - {datas.name}
+            </h1>
             <div className="text-end">
-
-              <h1 className="capitalize text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl ">{datas.type_business.name}</h1>
-              <p className="capitalize text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{setting.currency.symbol}{datas.price}</p>
+              <h1 className="capitalize text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                {datas.type_business.name}
+              </h1>
+              <p className="capitalize text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                {setting.currency.symbol}{datas.price}
+              </p>
             </div>
-
           </div>
 
-          {/* Options */}
+          {/* Formulario de Contacto - Columna derecha (sticky) */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-            <h2 className="capitalize text-lg font-medium text-gray-900">Contactanos</h2>
-            <p className=" text-sm font-medium text-gray-900">Si esta interesado con la propiedad, escribenos y el agente inmobiliario de contactara.</p>
-            <div className="mt-4 ">
-              <div className="flex flex-col items-center">
-
-                <img src={`${datas.user.avatar}`} alt={datas.user.avatar} className='w-40' />
-                <h2 className="">{datas.user.name}</h2>
+            <h2 className="capitalize text-lg font-medium text-gray-900 mb-4">Contactanos</h2>
+            <p className="text-sm font-medium text-gray-900 mb-6">
+              Si esta interesado con la propiedad, escribenos y el agente inmobiliario de contactara.
+            </p>
+            <div className="sticky top-6"> {/* Sticky corregido */}
+              <div className="flex flex-col items-center mb-6">
+                <img src={`${datas.user.avatar}`} alt={datas.user.name} className="w-40 rounded-full" />
+                <h2 className="mt-2 font-medium">{datas.user.name}</h2>
               </div>
               <form onSubmit={submit}>
-                <Transition
-                  show={recentlySuccessful}
-                  enter="transition ease-in-out"
-                  enterFrom="opacity-0"
-                  leave="transition ease-in-out"
-                  leaveTo="opacity-0"
-                >
-                  <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
-                </Transition>
-                <div>
-                  <InputLabel htmlFor="name" value="Nombre" />
+                <div className="space-y-4">
+                  <div>
+                    <InputLabel htmlFor="name" value="Nombre" />
+                    <TextInput
+                      id="name"
+                      type="text"
+                      name="name"
+                      value={data.name}
+                      className="mt-1 block w-full"
+                      isFocused={true}
+                      onChange={(e) => setData('name', e.target.value)}
+                    />
+                    <InputError message={errors.name} className="mt-2" />
+                  </div>
 
-                  <TextInput
-                    id="name"
-                    type="text"
-                    name="name"
-                    value={data.name}
-                    className="mt-1 block w-full"
-                    isFocused={true}
-                    onChange={(e) => setData('name', e.target.value)}
-                  />
+                  <div>
+                    <InputLabel htmlFor="email" value="Correo electrónico" />
+                    <TextInput
+                      id="email"
+                      type="email"
+                      name="email"
+                      value={data.email}
+                      className="mt-1 block w-full"
+                      onChange={(e) => setData('email', e.target.value)}
+                    />
+                    <InputError message={errors.email} className="mt-2" />
+                  </div>
 
-                  <InputError message={errors.name} className="mt-2" />
-                </div>
+                  <div>
+                    <InputLabel htmlFor="phone" value="Teléfono" />
+                    <TextInput
+                      id="phone"
+                      type="tel"
+                      name="phone"
+                      value={data.phone}
+                      className="mt-1 block w-full"
+                      onChange={(e) => setData('phone', e.target.value)}
+                    />
+                    <InputError message={errors.phone} className="mt-2" />
+                  </div>
 
-                <div>
-                  <InputLabel htmlFor="email" value="email" />
+                  <div>
+                    <InputLabel htmlFor="description" value="Descripción" />
+                    <TextInput
+                      id="description"
+                      type="textarea" // Asumiendo que TextInput soporta textarea
+                      name="description"
+                      value={data.description}
+                      className="mt-1 block w-full h-24"
+                      onChange={(e) => setData('description', e.target.value)}
+                    />
+                    <InputError message={errors.description} className="mt-2" />
+                  </div>
 
-                  <TextInput
-                    id="email"
-                    type="text"
-                    name="email"
-                    value={data.email}
-                    className="mt-1 block w-full"
-                    isFocused={true}
-                    onChange={(e) => setData('email', e.target.value)}
-                  />
-
-                  <InputError message={errors.name} className="mt-2" />
-                </div>
-                <div>
-                  <InputLabel htmlFor="phone" value="phone" />
-
-                  <TextInput
-                    id="phone"
-                    type="text"
-                    name="phone"
-                    value={data.phone}
-                    className="mt-1 block w-full"
-                    isFocused={true}
-                    onChange={(e) => setData('phone', e.target.value)}
-                  />
-
-                  <InputError message={errors.phone} className="mt-2" />
-                </div>
-
-                <div>
-                  <InputLabel htmlFor="description" value="description" />
-
-                  <TextInput
-                    id="description"
-                    type="text"
-                    name="description"
-                    value={data.description}
-                    className="mt-1 block w-full"
-                    isFocused={true}
-                    onChange={(e) => setData('description', e.target.value)}
-                  />
-
-                  <InputError message={errors.description} className="mt-2" />
-                </div>
-
-                <div className="flex justify-end p-2.5">
-                  <PrimaryButton >
-                    Guardar
-                  </PrimaryButton>
+                  <div className="flex justify-end pt-4">
+                    <PrimaryButton>Enviar</PrimaryButton>
+                  </div>
                 </div>
               </form>
-
             </div>
           </div>
 
-          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
-            {/* Description and details */}
-            <div>
-              <h3 className="sr-only">direccion</h3>
-
-              <div className="space-y-1 ">
-                <p className="capitalize text-base text-gray-900">{datas.phy_state.name}</p>
-                <p className="capitalize text-base text-gray-900">{datas.country.name}, {datas.state.name}, {datas.city.name}</p>
-                <p className="text-base text-gray-900"> {datas.direction}</p>
-              </div>
-            </div>
-
-            <div className="py-10 grid grid-cols-3 gap-4">
-              <div className="flex flex-col justify-between items-center">
-                <p className="capitalize text-sm font-medium text-gray-900">Estado</p>
-                <p className='capitalize text-sm text-gray-600'>{datas.phy_state.name}</p>
-              </div>
-              <div className="flex flex-col justify-between items-center">
-                <p className="capitalize text-sm font-medium text-gray-900">bedrooms</p>
-                <p className='text-sm text-gray-600'>{datas.bedrooms}</p>
-              </div>
-              <div className="flex flex-col justify-between items-center">
-                <p className="capitalize text-sm font-medium text-gray-900">bathrooms</p>
-                <p className='text-sm text-gray-600'>{datas.bathrooms}</p>
-              </div>
-              <div className="flex flex-col justify-between items-center">
-                <p className="capitalize text-sm font-medium text-gray-900">garages</p>
-                <p className='text-sm text-gray-600'>{datas.garages}</p>
-              </div>
-              <div className="flex flex-col justify-between items-center">
-                <p className="capitalize text-sm font-medium text-gray-900">builtMeters</p>
-                <p className='text-sm text-gray-600'>{datas.builtMeters}</p>
-              </div>
-              <div className="flex flex-col justify-between items-center">
-                <p className="capitalize text-sm font-medium text-gray-900">totalMeters</p>
-                <p className='text-sm text-gray-600'>{datas.totalMeters}</p>
-              </div>
-
-            </div>
-
-            <div className="mt-10">
-              <h2 className="capitalize text-sm font-medium text-gray-900">description</h2>
-
-              <div className="mt-4 space-y-6">
-                {/* <p className="text-sm text-gray-600">{datas.description}</p> */}
-                <div className="pb-6" dangerouslySetInnerHTML={{ __html: datas.description }} />
-
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <h3 className="capitalize text-sm font-medium text-gray-900">Caracteristicas</h3>
-
-              <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  {amenities.map((amenity) => (
-                    <li key={amenity.id} className="text-gray-400">
-                      <span className="capitalize text-gray-600">{amenity.name}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-          </div>
+          {/* Detalles de la Propiedad - Span 2 columnas abajo */}
+          <PropertyDetails datas={datas} amenities={amenities} setting={setting} />
         </div>
       </div>
+
+      {/* Modal con Carousel Full-Screen (todas las imágenes) */}
+      <Dialog open={isGalleryOpen} onClose={() => setIsGalleryOpen(false)} className="relative z-50">
+        <Transition appear show={isGalleryOpen} as={Dialog.Fragment}>
+          <Dialog.Overlay className="fixed inset-0 bg-black/80" />
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4">
+              <Transition.Child
+                as={Dialog.Panel}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <div className="w-full max-w-6xl max-h-[90vh] transform overflow-hidden rounded-2xl">
+                  <Swiper
+                    modules={[Navigation, Pagination]}
+                    navigation={true}
+                    pagination={{ clickable: true, dynamicBullets: true }}
+                    spaceBetween={10}
+                    slidesPerView={1}
+                    className="h-[80vh] lg:h-[90vh]"
+                    loop={true} // Loop infinito para mejor UX
+                  >
+                    {parsedImages.map((img) => (
+                      <SwiperSlide key={img.id}>
+                        <div className="h-full flex items-center justify-center bg-black rounded-2xl">
+                          <img
+                            src={img.name}
+                            alt={`Imagen ${img.id}`}
+                            className="max-h-full max-w-full object-contain"
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              </Transition.Child>
+            </div>
+          </div>
+        </Transition>
+      </Dialog>
     </div>
-  )
+  );
 }

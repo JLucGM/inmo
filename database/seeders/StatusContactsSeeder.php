@@ -15,12 +15,12 @@ class StatusContactsSeeder extends Seeder
     public function run()
     {
         $statuscontact = [
-            ['name' => 'new',],            
-            ['name' => 'in progress',],            
-            ['name' => 'converted',],            
-            ['name' => 'recovered',],            
-            ['name' => 'lost',],            
-            ['name' => 'finalized',],            
+            ['name' => 'Nuevo'],
+            ['name' => 'En progreso'],
+            ['name' => 'Convertido'],
+            ['name' => 'Recuperado'],
+            ['name' => 'Perdido'],
+            ['name' => 'Finalizado'],
         ];
 
         foreach ($statuscontact as $statuscontactData) {

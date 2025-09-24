@@ -9,7 +9,7 @@ export default function ProductsList({ data, setting }) {
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {data.map((product) => (
             <Link key={product.id} href={route('property.show', product)} className="group relative">
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-3xl bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-3xl bg-gray-200 lg:aspect-none lg:h-80 transition delay-150 duration-300 ease-in-out hover:-translate-y-2 hover:scale-110">
                 <img
                   alt={product.main}
                   src={`${product.main}`}

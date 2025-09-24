@@ -16,14 +16,14 @@ class OriginsSeeder extends Seeder
     public function run()
     {
         $origin = [
-            ['name' => 'no means'],                      
-            ['name' => 'web'],                      
-            ['name' => 'email'],                      
-            ['name' => 'phone'],                      
+            ['name' => 'Sin medios'],
+            ['name' => 'Página web'],
+            ['name' => 'Correo electrónico'],
+            ['name' => 'Teléfono'],
         ];
 
         foreach ($origin as $originData) {
             Origins::create($originData);
         }
     }
-    }
+}

@@ -15,9 +15,9 @@ class TypesContactsSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['name' => 'client'],
-            ['name' => 'owner'],
-            ['name' => 'tenant'],
+            ['name' => 'Cliente'],
+            ['name' => 'Propietario'],
+            ['name' => 'Inquilino'],
         ];
 
         foreach ($data as $TypeBusiness) {

@@ -16,10 +16,18 @@ class PhyStateSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['name' => 'used'],
-            ['name' => 'in construction'],
-            ['name' => 'new'],
-            ['name' => 'project'],
+            ['name' => 'Usado'],
+            ['name' => 'Reformado'],
+            ['name' => 'A estrenar'],
+            ['name' => 'En construcción'],
+            ['name' => 'Nuevo'],
+            ['name' => 'Antiguo'],
+            ['name' => 'Obra nueva'],
+            ['name' => 'A rehabilitar'],
+            ['name' => 'Para reformar'],
+            ['name' => 'Buen estado'],
+            ['name' => 'Excelente estado'],
+            ['name' => 'A reformar'],
         ];
 
         foreach ($data as $PhyState) {

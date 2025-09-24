@@ -16,8 +16,11 @@ class StatusesSeeder extends Seeder
     public function run()
     {
         $statuscontact = [
-            ['name' => 'draft',],            
-            ['name' => 'publish',],            
+            ['name' => 'Borrador',],
+            ['name' => 'Revisión',],
+            ['name' => 'Publicado',],
+            ['name' => 'Archivado',],
+            ['name' => 'Publicar',],            
          
         ];
 

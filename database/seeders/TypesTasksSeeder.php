@@ -15,8 +15,13 @@ class TypesTasksSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['name' => 'event'],
-            ['name' => 'meeting'],
+            ['name' => 'Evento'],
+            ['name' => 'Reunión'],
+            ['name' => 'Llamada'],
+            ['name' => 'Correo electrónico'],
+            ['name' => 'Tarea'],
+            ['name' => 'Recordatorio'],
+            ['name' => 'Otro'],
         ];
 
         foreach ($data as $typetask) {
