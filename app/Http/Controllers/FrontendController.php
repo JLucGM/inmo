@@ -28,35 +28,36 @@ class FrontendController extends Controller
         $setting = Setting::with('currency')->first();
         $slides = Slide::where('status', '1')->get();
         $pages = Page::where('status', '1')->get();
-        $properties =Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'user')->where('status', '1')->take(8)->get();
+        $properties = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'user', 'media')->where('status', '1')->take(8)->get();
         $infoweb = Infoweb::all();
-        $testimonials = Testimonial::all();
+        $testimonials = Testimonial::orderBy('created_at', 'desc') // Más recientes primero; cambia por 'id' o 'order_column' si prefieres
+            ->take(12) // Limita a 12 (envía todos si hay menos)
+            ->get();
         $user = User::role('agente')->get();
-// dd($pages);
-        return Inertia::render('Welcome', compact('setting', 'slides', 'properties', 'infoweb', 'testimonials', 'user','pages'));
+        // dd($pages);
+        return Inertia::render('Welcome', compact('setting', 'slides', 'properties', 'infoweb', 'testimonials', 'user', 'pages'));
     }
 
     public function frontendShow(Property $property)
     {
-        $property = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'user')->find($property->id);
+        $property = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'user', 'media')->find($property->id);
         $setting = Setting::with('currency')->first();
-        $images = json_decode($property->images);
         $propertyAmenities = $property->amenities;
         $pages = Page::all();
         //  dd( $setting->currency);
-        return Inertia::render('Frontend/Property', compact('property', 'setting', 'images', 'propertyAmenities','pages'));
+        return Inertia::render('Frontend/Property', compact('property', 'setting', 'propertyAmenities', 'pages'));
     }
 
-    
+
     public function blog()
     {
         $setting = Setting::with('currency')->first();
         $posts = Post::with('categoryPost', 'user')->where('status', 1)->get();
         $pages = Page::all();
-        
-        return Inertia::render('Frontend/Blog', compact('setting', 'posts','pages'));
+
+        return Inertia::render('Frontend/Blog', compact('setting', 'posts', 'pages'));
     }
-    
+
     public function postsShow($slug)
     {
         $posts = Post::with('categoryPost', 'user')->where('slug', $slug)->firstOrFail(); // Esto lanzará un 404 si no se encuentra el post
@@ -65,7 +66,7 @@ class FrontendController extends Controller
 
         // dd($posts);
         // $posts = Post::with('categoryPost', 'user')->where('status', 1)->get();
-        
+
         return Inertia::render('Frontend/PostShow', compact('setting', 'posts', 'pages'));
     }
 
@@ -75,19 +76,18 @@ class FrontendController extends Controller
         $setting = Setting::with('currency')->first();
         $faqs = Faqs::all();
         $pages = Page::all();
-        
+
         return Inertia::render('Frontend/Faqs', compact('setting', 'faqs', 'pages'));
     }
-    
+
     public function ContactPage()
     {
         $setting = Setting::with('currency')->first();
         $pages = Page::all();
 
-        return Inertia::render('Frontend/Contact', compact('setting','pages'));
-
+        return Inertia::render('Frontend/Contact', compact('setting', 'pages'));
     }
-    
+
     public function pagesShow($slug)
     {
         $page = Page::where('slug', $slug)->firstOrFail(); // Esto lanzará un 404 si no se encuentra el post
@@ -96,8 +96,7 @@ class FrontendController extends Controller
         // dd($pages);
         $setting = Setting::with('currency')->first();
 
-        return Inertia::render('Frontend/Pages', compact('setting','pages','page'));
-
+        return Inertia::render('Frontend/Pages', compact('setting', 'pages', 'page'));
     }
 
     public function storeContactPages(Request $request)
@@ -119,7 +118,7 @@ class FrontendController extends Controller
 
         Contacts::create($data);
     }
-    
+
     public function storeContact(Request $request, $property)
     {
         //  dd($request, $property);
@@ -145,16 +144,14 @@ class FrontendController extends Controller
     {
         $pages = Page::all();
         $setting = Setting::with('currency')->first();
-        $properties = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'typeProperty', 'user')->where('status', '1')->get();
+        $properties = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'typeProperty', 'user', 'media')->where('status', '1')->get();
         $countries = Countries::all();
         $states = States::all();
         $cities = Cities::all();
         $phyStates = PhyStates::all();
         $typeBusinesses = TypesBusinesses::all();
         $typeProperties = TypesProperties::all(); // Asegúrate de que este modelo exista y esté relacionado
-        
-        return Inertia::render('Frontend/PropertiesList', compact('setting','pages','properties','countries','states','cities','phyStates','typeBusinesses','typeProperties'));
 
+        return Inertia::render('Frontend/PropertiesList', compact('setting', 'pages', 'properties', 'countries', 'states', 'cities', 'phyStates', 'typeBusinesses', 'typeProperties'));
     }
-
 }

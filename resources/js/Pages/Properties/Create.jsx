@@ -27,7 +27,6 @@ export default function Create({ auth, typepropety, typebusiness, country, state
         price: "",
         description: "",
         identification: "",
-        main: "",
         images: "",
         bedrooms: "",
         bathrooms: "",
@@ -79,7 +78,6 @@ export default function Create({ auth, typepropety, typebusiness, country, state
 
     const submit = (e) => {
         e.preventDefault();
-        console.log(data.amenitiy)
         const amenitiesIds = data.amenitiy;
 
         post(route('properties.store'), {
@@ -168,45 +166,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                 <InputError message={errors.typepropety} className="mt-2" />
                                             </div>
 
-                                            <div className='md:col-span-2 lg:col-span-1'>
-                                                <InputLabel htmlFor="typebusiness" value="typebusiness" />
-
-                                                <select
-                                                    name="types_businesses_id"
-                                                    id="typebusiness"
-                                                    className="capitalize border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.types_businesses_id} // Establecer el valor del select con el valor de types_businesses_id
-                                                    onChange={(e) => {
-                                                        setData('types_businesses_id', parseInt(e.target.value));
-                                                    }}
-                                                >
-                                                    {typebusiness.map((typebusiness) => (
-                                                        <option value={typebusiness.id} key={typebusiness.id}>
-                                                            {typebusiness.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                <InputError message={errors.typebusiness} className="mt-2" />
-                                            </div>
-
-                                            <div className='md:col-span-2 lg:col-span-1'>
-                                                <InputLabel htmlFor="status" value="Publicar" />
-
-                                                <select
-                                                    name="status"
-                                                    id="status"
-                                                    value={data.status}
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
-                                                    onChange={(e) => setData('status', e.target.value)}
-                                                >
-                                                    <option value={0}>Borrador</option>
-                                                    <option value={1}>Publicar</option>
-                                                    <option value={2}>Vendido</option>
-                                                </select>
-
-                                                <InputError message={errors.status} className="mt-2" />
-                                            </div>
+                                            
 
                                             <div className='md:col-span-2 lg:col-span-1'>
                                                 <InputLabel htmlFor="identification" value="Identificador oficial" />
@@ -358,17 +318,73 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                 /> */}
                                                 <TextAreaRich
 
-initialValue={data.description}
-ref={textAreaRef}
-name="description"
-onChange={(newText) => setData('description', newText)}
-/>
+                                                    initialValue={data.description}
+                                                    ref={textAreaRef}
+                                                    name="description"
+                                                    onChange={(newText) => setData('description', newText)}
+                                                />
 
                                                 <InputError message={errors.description} className="mt-2" />
                                             </div>
                                         </ContainerTitle>
+
+                                         <ContainerTitle title={'Imagenes'} className='grid grid-cols-1 gap-4'>
+                                            <div>
+                                                <InputLabel htmlFor="images" value="images" />
+                                                <TextInput
+                                                    id="images"
+                                                    type="file"
+                                                    name="images"
+                                                    className="block w-full"
+                                                    multiple
+                                                    onChange={(e) => setData('images', Array.from(e.target.files))}
+                                                />
+                                                <InputError message={errors.images} className="mt-2" />
+                                            </div>
+                                        </ContainerTitle>
                                     </div>
                                     <div className="col-span-full lg:col-span-1">
+                                        <ContainerTitle title={'Publicación'} className=''>
+                                        <div className='md:col-span-1'>
+                                                <InputLabel htmlFor="typebusiness" value="Tipo de negocio" />
+
+                                                <select
+                                                    name="types_businesses_id"
+                                                    id="typebusiness"
+                                                    className="capitalize border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                    value={data.types_businesses_id} // Establecer el valor del select con el valor de types_businesses_id
+                                                    onChange={(e) => {
+                                                        setData('types_businesses_id', parseInt(e.target.value));
+                                                    }}
+                                                >
+                                                    {typebusiness.map((typebusiness) => (
+                                                        <option value={typebusiness.id} key={typebusiness.id}>
+                                                            {typebusiness.name}
+                                                        </option>
+                                                    ))}
+                                                </select>
+
+                                                <InputError message={errors.typebusiness} className="mt-2" />
+                                            </div>
+
+                                            <div className='md:col-span-2 lg:col-span-1'>
+                                                <InputLabel htmlFor="status" value="Publicar" />
+
+                                                <select
+                                                    name="status"
+                                                    id="status"
+                                                    value={data.status}
+                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
+                                                    onChange={(e) => setData('status', e.target.value)}
+                                                >
+                                                    <option value={0}>Borrador</option>
+                                                    <option value={1}>Publicar</option>
+                                                    <option value={2}>Vendido</option>
+                                                </select>
+
+                                                <InputError message={errors.status} className="mt-2" />
+                                            </div>
+                                        </ContainerTitle>
                                         <ContainerTitle title={'Ubicación geográfica'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
                                             <div className='col-span-2'>
                                                 <InputLabel htmlFor="country" value="Paises" />
@@ -488,42 +504,7 @@ onChange={(newText) => setData('description', newText)}
                                             </div>
                                         </ContainerTitle>
 
-
-
-                                        <ContainerTitle title={'Imagenes'} className='grid grid-cols-1 gap-4'>
-
-                                            <div>
-                                                <InputLabel htmlFor="main" value="main" />
-
-                                                <TextInput
-                                                    id="main"
-                                                    type="file"
-                                                    name="main"
-                                                    className="block w-full"
-
-                                                    onChange={(e) => setData('main', e.target.files[0])}
-                                                />
-
-                                                <InputError message={errors.main} className="mt-2" />
-                                            </div>
-
-                                            <div>
-                                                <InputLabel htmlFor="images" value="images" />
-
-                                                <TextInput
-                                                    id="images"
-                                                    type="file"
-                                                    name="images"
-                                                    className="block w-full"
-                                                    multiple
-                                                    onChange={(e) => setData('images', Array.from(e.target.files))}
-                                                />
-
-                                                <InputError message={errors.images} className="mt-2" />
-                                            </div>
-
-
-                                        </ContainerTitle>
+                                       
 
                                     </div>
                                 </div>

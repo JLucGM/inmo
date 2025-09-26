@@ -5,7 +5,7 @@ import { Head, Link } from '@inertiajs/react';
 import columns from './columns';
 
 export default function Index({ auth, properties, role, permission }) {
-
+    console.log(properties);
 
     const items = [
         {

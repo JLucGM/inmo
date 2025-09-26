@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Property extends Model
+class Property extends Model implements HasMedia
 {
-    use HasFactory, HasSlug;
+    use HasFactory, HasSlug, InteractsWithMedia;
 
     protected $fillable = [
         'name',
@@ -17,8 +20,8 @@ class Property extends Model
         'slug',
         'description',
         'identification',
-        'main',
-        'images',
+        // 'main',
+        // 'images',
         'bedrooms',
         'bathrooms',
         'totalMeters',
@@ -48,11 +51,28 @@ class Property extends Model
             ->saveSlugsTo('slug');
     }
 
-    // Regresa valores de texto en los datos 0 y 1 del campo status
-    // public function getStatusAttribute($value)
-    // {
-    //     return $value === 0 ? 'Inactivo' : 'Activo';
-    // }
+    // Define colecciones de media (ej. 'main' para imagen principal, 'images' para galería)
+    public function registerMediaCollections(): void
+    {
+        // $this->addMediaCollection('main')
+        //     ->singleFile()  // Solo una imagen principal
+        //     ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
+        $this->addMediaCollection('images')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
+    }
+    // Opcional: Define conversiones para generar thumbnails u optimizaciones
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(368)
+            ->height(232)
+            ->sharpen(10)
+            ->performOnCollections('images');
+        $this->addMediaConversion('preview')
+            ->width(1200)
+            ->height(800)
+            ->performOnCollections('images');
+    }
 
     public function typeProperty()
     {

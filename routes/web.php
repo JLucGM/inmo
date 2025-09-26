@@ -109,8 +109,10 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('properties/{property}/edit', [PropertiesController::class, 'edit'])->name('properties.edit');
     Route::post('properties/{property}', [PropertiesController::class, 'update'])->name('properties.update');
     Route::delete('properties/{property}', [PropertiesController::class, 'destroy'])->name('properties.destroy');
-    Route::post('/property/{id}/update-images', [PropertiesController::class, 'updateImages'])->name('property.updateImages');
-    Route::post('/property/{id}/delete-image/{imageId}', [PropertiesController::class, 'deleteImage'])->name('property.deleteImage');
+    // Rutas para imágenes (agregar nuevas sin eliminar existentes, y eliminar específica)
+    Route::post('properties/{property}/images', [PropertiesController::class, 'updateImages'])->name('properties.updateImages');
+    Route::delete('properties/{property}/images/{media}', [PropertiesController::class, 'deleteImage'])->name('properties.deleteImage');
+
 
     Route::get('statuscontacts', [StatusContactController::class, 'index'])->name('statuscontacts.index');
     Route::get('statuscontacts/create', [StatusContactController::class, 'create'])->name('statuscontacts.create');
