@@ -1,22 +1,25 @@
 import { Link } from "@inertiajs/react";
+import ChevronRight from "./Icon/ChevronRight";
 
 export default function ProductsList({ data, setting }) {
-  console.log(data);
+  // console.log(data);
   return (
     <div className="my-10">
       <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Propiedades</h2>
+        <div className="flex items-center ">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900">Propiedades</h2>
+        </div>
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {data.map((product) => {
             // Obtener la primera imagen del array media
-            const firstImage = product.media && product.media.length > 0 
-              ? product.media[0].original_url 
+            const firstImage = product.media && product.media.length > 0
+              ? product.media[0].original_url
               : null; // O puedes usar un placeholder como '/img/default.jpg'
 
             return (
-              <Link 
-                key={product.id} 
+              <Link
+                key={product.id}
                 href={route('property.show', product.slug)} // Corregido: usar product.slug en lugar de product completo
                 className="group relative"
               >

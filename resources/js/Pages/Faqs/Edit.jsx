@@ -7,6 +7,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { Select, Textarea, Transition } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
+import { Alert } from 'flowbite-react';
 
 export default function Edit({ auth, faqs, role, permission }) {
 
@@ -53,7 +54,10 @@ export default function Edit({ auth, faqs, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar faq</h2>
+                    <SectionHeader
+                        title="Actualizar preguntas frecuentes"
+                        subtitle="Aquí puedes realizar la actualización de preguntas frecuentes."
+                    />
                     <Link href={route('faqs.create')}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
@@ -74,12 +78,21 @@ export default function Edit({ auth, faqs, role, permission }) {
 
                                 <Transition
                                     show={recentlySuccessful}
-                                    enter="transition ease-in-out"
-                                    enterFrom="opacity-0"
-                                    leave="transition ease-in-out"
-                                    leaveTo="opacity-0"
+                                    enter="transition ease-out duration-300"
+                                    enterFrom="opacity-0 translate-y-[-100%]"
+                                    enterTo="opacity-100 translate-y-0"
+                                    leave="transition ease-in duration-200"
+                                    leaveFrom="opacity-100 translate-y-0"
+                                    leaveTo="opacity-0 translate-y-[-100%]"
                                 >
-                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
+                                    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+                                        <Alert
+                                            color="success"
+                                            className="border-0 shadow-lg"
+                                        >
+                                            <span className="font-medium">¡Bien hecho!</span> pregunta frecuente actualizado exitosamente.
+                                        </Alert>
+                                    </div>
                                 </Transition>
 
                                 <div className="grid xs:grid-cols-full lg:grid-cols-3 gap-4">

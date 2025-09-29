@@ -9,6 +9,8 @@ import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
 import { useState } from 'react';
 import CharacterCounter from '@/Components/CharacterCounter';
+import { Alert } from 'flowbite-react';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Edit({ auth, testimonial, role, permission }) {
     const [charCount, setCharCount] = useState(testimonial.text.length);
@@ -68,18 +70,21 @@ export default function Edit({ auth, testimonial, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar testimonial</h2>
+                    <SectionHeader
+                        title="Actualizar testimonio"
+                        subtitle="Aquí puedes actualizar los testimonios."
+                    />
                     <Link href={route('testimonial.create')}
                         className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear
+                        Crear testimonio
                     </Link>
                 </div>
             }
         >
             <Breadcrumb items={items} />
 
-            <Head className="capitalize" title="Actualizar testimonial" />
+            <Head className="capitalize" title="Actualizar testimonio" />
 
             <div className="p-6">
                 <div className="max-w-7xl mx-auto ">
@@ -89,12 +94,21 @@ export default function Edit({ auth, testimonial, role, permission }) {
 
                                 <Transition
                                     show={recentlySuccessful}
-                                    enter="transition ease-in-out"
-                                    enterFrom="opacity-0"
-                                    leave="transition ease-in-out"
-                                    leaveTo="opacity-0"
+                                    enter="transition ease-out duration-300"
+                                    enterFrom="opacity-0 translate-y-[-100%]"
+                                    enterTo="opacity-100 translate-y-0"
+                                    leave="transition ease-in duration-200"
+                                    leaveFrom="opacity-100 translate-y-0"
+                                    leaveTo="opacity-0 translate-y-[-100%]"
                                 >
-                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
+                                    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+                                        <Alert
+                                            color="success"
+                                            className="border-0 shadow-lg"
+                                        >
+                                            <span className="font-medium">Bien hecho!</span> testimonio actualizado exitosamente.
+                                        </Alert>
+                                    </div>
                                 </Transition>
 
                                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -103,7 +117,6 @@ export default function Edit({ auth, testimonial, role, permission }) {
 
                                             <div className='col-span-2'>
                                                 <InputLabel htmlFor="name" value="Nombre" />
-
                                                 <TextInput
                                                     id="name"
                                                     type="text"
@@ -113,13 +126,11 @@ export default function Edit({ auth, testimonial, role, permission }) {
                                                     isFocused={true}
                                                     onChange={(e) => setData('name', e.target.value)}
                                                 />
-
                                                 <InputError message={errors.name} className="mt-2" />
                                             </div>
 
                                             <div className='col-span-2'>
                                                 <InputLabel htmlFor="text" value="Testimonio" />
-
                                                 <Textarea
                                                     id="text"
                                                     type="text"
@@ -131,7 +142,6 @@ export default function Edit({ auth, testimonial, role, permission }) {
                                                 >
                                                 </Textarea>
                                                 <CharacterCounter currentCount={charCount} limit={500} /> {/* Usar el componente aquí */}
-
                                                 <InputError message={errors.text} className="mt-2" />
                                             </div>
 
@@ -140,11 +150,14 @@ export default function Edit({ auth, testimonial, role, permission }) {
 
                                     <div className="col-span-full lg:col-span-1">
                                         <ContainerTitle title={'Datos'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
                                             <div className='col-span-2'>
-                                                <img src={`${testimonial.avatar}`} alt={testimonial.avatar} className='w-40 mx-auto rounded-full' />
-                                                <InputLabel htmlFor="avatar" value="avatar" />
+                                                <img
+                                                    src={`${testimonial.avatar}`}
+                                                    alt={testimonial.avatar}
+                                                    className='w-40 mx-auto rounded-full'
+                                                />
 
+                                                <InputLabel htmlFor="avatar" value="avatar" />
                                                 <TextInput
                                                     id="avatar"
                                                     type="file"
@@ -153,13 +166,10 @@ export default function Edit({ auth, testimonial, role, permission }) {
                                                     isFocused={true}
                                                     onChange={(e) => setData('avatar', e.target.files[0])}
                                                 />
-
                                                 <InputError message={errors.avatar} className="mt-2" />
                                             </div>
-
                                         </ContainerTitle>
                                     </div>
-
                                 </div>
 
                                 <div className="flex justify-end p-2.5">

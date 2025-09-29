@@ -238,38 +238,14 @@ class AmenitiesSeeder extends Seeder
                 'name' => 'gimnasio',
                 'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 006.372-6.369l.001-.003M15 19.128l-3.75-3.75m0 0a3 3 0 01-3-3 3 3 0 00-6 3c0 1.657 1.007 3.082 2.518 3.72m13.5-3.72a3 3 0 00-3-3m0 0a3 3 0 01-3 3 3 3 0 00-3-3m12 0a9.295 9.295 0 00-3.692-3.292 9.295 9.295 0 00-3.292-3.692 3.045 3.045 0 00-3.044 3.044v2.28L9.75 12m6.75 11.25a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" /></svg>' // User-group (para gimnasio/grupo).
             ],
-            [
-                'name' => 'club house',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.5H4.5m0 0v-4.5m15 4.5H14.25v4.5h5.25m0 0v-4.5m0 4.5H19.5" /></svg>' // Home (para club house).
-            ],
                         [
-                'name' => 'mascotas permitidas',
+                'name' => 'pet friendly',
                 'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>' // Heart (para mascotas/pet-friendly).
-            ],
-            [
-                'name' => 'vistas al mar',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>' // Eye (para vistas).
-            ],
-            [
-                'name' => 'vistas a la montaña',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>' // Eye.
             ],
             [
                 'name' => 'accesible para discapacitados',
                 'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m0 0H3.75m8.25 0H21" /></svg>' // Cog (para accesibilidad/adaptaciones).
             ],
-            [
-                'name' => 'rampas y ascensores adaptados',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>' // Building-office-2 (para rampas/ascensores).
-            ],
-            [
-                'name' => 'baños adaptados',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5h6.75V7.5a2.25 2.25 0 012.25-2.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-3.75H4.5a2.25 2.25 0 01-2.25-2.25s0-4.5 2.25-4.5z" /></svg>' // Rectangle-stack (para baños).
-            ],
-            [
-                'name' => 'zona de yoga / meditación',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>' // Heart-pulse (para yoga/meditación).
-            ]
         ];
 
         foreach ($Amenities as $AmenitiesData) {

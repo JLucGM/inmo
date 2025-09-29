@@ -8,6 +8,7 @@ import DangerButton from '@/Components/DangerButton';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
 import TypesPropertiesForm from './TypesPropertiesForm';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Create({ auth, role, permission }) {
 
@@ -53,8 +54,11 @@ export default function Create({ auth, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Crear tipo de propiedad</h2>
-                </div>
+                    <SectionHeader
+                        title="Crear tipos de propiedades"
+                        subtitle="Aquí puedes crear el tipos de propiedades."
+                    />
+                                    </div>
             }
         >
             <Breadcrumb items={items} />

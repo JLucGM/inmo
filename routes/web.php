@@ -227,5 +227,6 @@ Route::get('blog', [FrontendController::class, 'blog'])->name('blog.show');
 Route::get('posts/{slug}', [FrontendController::class, 'postsShow'])->name('posts.show');
 Route::get('pages/{slug}', [FrontendController::class, 'pagesShow'])->name('pages.show');
 Route::get('properties', [FrontendController::class, 'propertiesList'])->name('propertiesList.show');
+Route::get('types-properties/{typeProperty}', [FrontendController::class, 'typePropertiesList'])->name('typePropertiesList.show');
 
 require __DIR__ . '/auth.php';

@@ -7,6 +7,7 @@ import { Head, useForm } from '@inertiajs/react';
 import { useEffect } from 'react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Create({ auth, country, role, permission }) {
 
@@ -19,7 +20,7 @@ export default function Create({ auth, country, role, permission }) {
 
     useEffect(() => {
         setData('country_id', country[0].id);
-    }, [country]); 
+    }, [country]);
 
     const submit = (e) => {
         e.preventDefault();
@@ -57,9 +58,10 @@ export default function Create({ auth, country, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear estado
-                    </h2>
+                    <SectionHeader
+                        title="Crear estados"
+                        subtitle="Aquí puedes crear un nuevo estado."
+                    />
                 </div>
             }
         >

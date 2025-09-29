@@ -6,6 +6,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Create({ auth, permissions, role, permission }) {
     const initialValues = {
@@ -64,9 +65,10 @@ export default function Create({ auth, permissions, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear
-                    </h2>
+                    <SectionHeader
+                        title="Crear roles"
+                        subtitle="Aquí puedes crear un nuevo rol de usuario."
+                    />
                 </div>
             }
         >

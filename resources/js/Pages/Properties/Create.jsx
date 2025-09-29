@@ -13,10 +13,11 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import TextAreaRich from '@/Components/TextAreaRich';
 import { useRef } from 'react';
 import customStyles from '@/Components/lib/SelectCustom'
+import SectionHeader from '@/Components/SectionHeader';
 
 
 export default function Create({ auth, typepropety, typebusiness, country, state, city, phystate, amenities, role, permission }) {
-// console.log(amenities)
+    // console.log(amenities)
     const [selectedCountry, setSelectedCountry] = useState(country[0].id);;
     const [selectedState, setSelectedState] = useState(state[0].id);
 
@@ -108,9 +109,10 @@ export default function Create({ auth, typepropety, typebusiness, country, state
             permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear propiedad
-                    </h2>
+                    <SectionHeader
+                        title="Crear propiedad"
+                        subtitle="Aquí puedes crear una nueva propiedad."
+                    />
                 </div>
             }
         >
@@ -144,7 +146,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                 <InputError message={errors.name} className="mt-2" />
                                             </div>
 
-                                            <div className='md:col-span-2'>
+                                            <div className='md:col-span-2 lg:col-span-1'>
                                                 <InputLabel htmlFor="typepropety" value="Tipo de propiedad" />
 
                                                 <select
@@ -166,7 +168,27 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                 <InputError message={errors.typepropety} className="mt-2" />
                                             </div>
 
-                                            
+                                            <div className='md:col-span-2 lg:col-span-1'>
+                                                <InputLabel htmlFor="typebusiness" value="Tipo de negocio" />
+
+                                                <select
+                                                    name="types_businesses_id"
+                                                    id="typebusiness"
+                                                    className="capitalize border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                    value={data.types_businesses_id} // Establecer el valor del select con el valor de types_businesses_id
+                                                    onChange={(e) => {
+                                                        setData('types_businesses_id', parseInt(e.target.value));
+                                                    }}
+                                                >
+                                                    {typebusiness.map((typebusiness) => (
+                                                        <option value={typebusiness.id} key={typebusiness.id}>
+                                                            {typebusiness.name}
+                                                        </option>
+                                                    ))}
+                                                </select>
+
+                                                <InputError message={errors.typebusiness} className="mt-2" />
+                                            </div>
 
                                             <div className='md:col-span-2 lg:col-span-1'>
                                                 <InputLabel htmlFor="identification" value="Nro. de identificación" />
@@ -222,6 +244,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                                 <InputError message={errors.phystate} className="mt-2" />
                                             </div>
 
+<div className="grid grid-cols-1 lg:grid-cols-3 col-span-full gap-4">
                                             <div className='md:col-span-2 lg:col-span-1'>
                                                 <InputLabel htmlFor="bedrooms" value="Dormitorios" />
 
@@ -239,7 +262,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                             </div>
 
                                             <div className='md:col-span-2 lg:col-span-1'>
-                                                <InputLabel htmlFor="bathrooms" value="Baños" />
+                                                <InputLabel htmlFor="Baños" value="Baños" />
 
                                                 <TextInput
                                                     id="bathrooms"
@@ -255,7 +278,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                             </div>
 
                                             <div className='md:col-span-2 lg:col-span-1'>
-                                                <InputLabel htmlFor="garages" value="Garages" />
+                                                <InputLabel htmlFor="Garages" value="Garages" />
 
                                                 <TextInput
                                                     id="garages"
@@ -269,6 +292,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
 
                                                 <InputError message={errors.garages} className="mt-2" />
                                             </div>
+</div>
 
                                             <div className='md:col-span-2 lg:col-span-1'>
                                                 <InputLabel htmlFor="totalMeters" value="Metros totales" />
@@ -318,7 +342,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                             </div>
                                         </ContainerTitle>
 
-                                         <ContainerTitle title={'Imagenes'} className='grid grid-cols-1 gap-4'>
+                                        <ContainerTitle title={'Imagenes'} className='grid grid-cols-1 gap-4'>
                                             <div>
                                                 <InputLabel htmlFor="images" value="images" />
                                                 <TextInput
@@ -335,27 +359,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                     </div>
                                     <div className="col-span-full lg:col-span-1">
                                         <ContainerTitle title={'Publicación'} className=''>
-                                        <div className='md:col-span-1'>
-                                                <InputLabel htmlFor="typebusiness" value="Tipo de negocio" />
 
-                                                <select
-                                                    name="types_businesses_id"
-                                                    id="typebusiness"
-                                                    className="capitalize border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.types_businesses_id} // Establecer el valor del select con el valor de types_businesses_id
-                                                    onChange={(e) => {
-                                                        setData('types_businesses_id', parseInt(e.target.value));
-                                                    }}
-                                                >
-                                                    {typebusiness.map((typebusiness) => (
-                                                        <option value={typebusiness.id} key={typebusiness.id}>
-                                                            {typebusiness.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                <InputError message={errors.typebusiness} className="mt-2" />
-                                            </div>
 
                                             <div className='md:col-span-2 lg:col-span-1'>
                                                 <InputLabel htmlFor="status" value="Publicar" />
@@ -494,7 +498,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                             </div>
                                         </ContainerTitle>
 
-                                       
+
 
                                     </div>
                                 </div>

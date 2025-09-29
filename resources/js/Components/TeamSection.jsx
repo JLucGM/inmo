@@ -1,4 +1,5 @@
 import React from 'react';
+import HeaderSection from './HeaderSection';
 
 export default function TeamSection({ data = [], setting }) {
   const anonymousFallbackImage = "https://placehold.co/48x48/6B7280/FFFFFF?text=AA"; // Placeholder para avatars faltantes
@@ -6,15 +7,11 @@ export default function TeamSection({ data = [], setting }) {
   return (
     <section className="py-24 bg-white dark:bg-black">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-12">
-          <h2 className="font-manrope text-5xl text-center font-bold text-gray-900 dark:text-white mb-6">
-            {setting?.titleTeamSection || 'Meet the brains'} {/* Fallback si no hay setting */}
-          </h2>
-          <p className="text-lg text-gray-500 dark:text-gray-400 text-center">
-            {setting?.descriptionTeamSection || 'These people work on making our product best.'} {/* Fallback */}
-          </p>
-        </div>
+
+        <HeaderSection
+          title={setting?.titleTeamSection}
+          description={setting?.descriptionTeamSection}
+        />
 
         {/* Grid de Miembros del Equipo */}
         {data.length > 0 ? (
@@ -22,10 +19,10 @@ export default function TeamSection({ data = [], setting }) {
             {data.map((person, index) => (
               <div key={person.id || index} className="group block text-center lg:w-1/5 sm:w-1/3 min-[450px]:w-1/2 w-full">
                 <div className="relative mb-5">
-                  <img 
-                    src={person.avatar || anonymousFallbackImage} 
-                    alt={`${person.name} image`} 
-                    className="w-28 h-28 rounded-2xl object-cover mx-auto transition-all duration-500 border-2 border-solid border-transparent group-hover:border-indigo-600 dark:group-hover:border-indigo-400" 
+                  <img
+                    src={person.avatar || anonymousFallbackImage}
+                    alt={`${person.name} image`}
+                    className="w-28 h-28 rounded-2xl object-cover mx-auto transition-all duration-500 border-2 border-solid border-transparent group-hover:border-indigo-600 dark:group-hover:border-indigo-400"
                     onError={(e) => {
                       const target = e.target;
                       target.onerror = null;

@@ -11,6 +11,7 @@ import TextAreaRich from '@/Components/TextAreaRich';
 import React, { useRef } from 'react';
 import CharacterCounter from '@/Components/CharacterCounter';
 import { useState } from 'react';
+import SectionHeader from '@/Components/SectionHeader';
 
 
 export default function Create({ auth, categryposts, role, permission }) {
@@ -78,9 +79,10 @@ export default function Create({ auth, categryposts, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear Publicación
-                    </h2>
+                    <SectionHeader
+                        title="Crear publicación"
+                        subtitle="Aquí puedes crear una nueva publicación."
+                    />
                 </div>
             }
         >

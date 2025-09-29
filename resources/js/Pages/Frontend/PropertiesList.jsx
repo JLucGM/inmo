@@ -1,12 +1,25 @@
 import FrontedLayout from "@/Layouts/FrontedLayout";
 import { Head } from "@inertiajs/react";
 import ProductsList from '@/Components/ProductsLists';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputLabel from "@/Components/InputLabel";
 import { Select } from "@headlessui/react";
 import PaginationPage from "@/Components/PaginationPage";
 
-export default function PropertiesList({ auth, setting, pages, properties, countries, states, cities, phyStates, typeBusinesses, typeProperties }) {
+export default function PropertiesList({
+    auth,
+    setting,
+    pages,
+    properties,
+    countries,
+    states,
+    cities,
+    phyStates,
+    typeBusinesses,
+    typeProperties,
+    filters: initialFilters = {}, // filtros iniciales desde props
+}) {
+    // console.log(properties)
     const [filters, setFilters] = useState({
         priceRange: [0, 100000000000000],
         country: '',
@@ -15,10 +28,16 @@ export default function PropertiesList({ auth, setting, pages, properties, count
         phyState: '',
         typeBusiness: '',
         typeProperty: '',
+        ...initialFilters, // inicializa con filtros que vienen del servidor
     });
 
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 12;
+
+    // Actualizar filtros si cambian los props iniciales (opcional)
+    // useEffect(() => {
+    //     setFilters(prev => ({ ...prev, ...initialFilters }));
+    // }, [initialFilters]);
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
@@ -40,8 +59,10 @@ export default function PropertiesList({ auth, setting, pages, properties, count
                 [name]: value,
             }));
         }
+        setCurrentPage(1); // resetear página al cambiar filtro
     };
 
+    // Filtrar propiedades según filtros
     const filteredProperties = properties.filter((property) => {
         const matchesPrice = property.price >= filters.priceRange[0] && property.price <= filters.priceRange[1];
         const matchesCountry = filters.country ? property.country?.id === parseInt(filters.country) : true;
@@ -54,36 +75,31 @@ export default function PropertiesList({ auth, setting, pages, properties, count
         return matchesPrice && matchesCountry && matchesState && matchesCity && matchesPhyState && matchesTypeBusiness && matchesTypeProperty;
     });
 
-    // Lógica de paginación
+    // Paginación
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = filteredProperties.slice(indexOfFirstPost, indexOfLastPost); // Asegúrate de usar currentPosts aquí
+    const currentPosts = filteredProperties.slice(indexOfFirstPost, indexOfLastPost);
     const totalPages = Math.ceil(filteredProperties.length / postsPerPage);
 
     const nextPage = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
-        }
+        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
     };
 
     const prevPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
     };
 
     return (
         <FrontedLayout auth={auth} setting={setting} pages={pages}>
             <Head title='Lista de propiedades' />
 
-            <div className="mx-auto max-w-7xl">
-            <div className=" px-4 ">
-                <h2 className="text-lg font-bold">Filtros</h2>
-                <div className="grid grid-cols-4 gap-4">
+            <div className="mx-auto max-w-7xl px-4">
+                <h2 className="text-lg font-bold mb-4">Filtros</h2>
+                <div className="grid grid-cols-4 gap-4 mb-8">
 
-                    <div className="">
+                    <div>
                         <InputLabel htmlFor="typeProperty" value="Tipo de propiedad" />
-                        <Select name="typeProperty" onChange={handleFilterChange} className="w-full rounded-full">
+                        <Select name="typeProperty" onChange={handleFilterChange} value={filters.typeProperty} className="w-full rounded-full">
                             <option value="">Todos</option>
                             {typeProperties.map((typeProperty) => (
                                 <option className="capitalize" key={typeProperty.id} value={typeProperty.id}>{typeProperty.name}</option>
@@ -91,7 +107,7 @@ export default function PropertiesList({ auth, setting, pages, properties, count
                         </Select>
                     </div>
 
-                    <div className="">
+                    <div>
                         <InputLabel htmlFor="minPrice" value="Rango de precios" />
                         <div className="flex">
                             <input type="number" name="minPrice" placeholder="Mínimo" onChange={handleFilterChange} className="w-1/2 rounded-s-full" />
@@ -99,9 +115,9 @@ export default function PropertiesList({ auth, setting, pages, properties, count
                         </div>
                     </div>
 
-                    <div className="">
-                        <InputLabel htmlFor="phyState" value="estado fisico" />
-                        <Select name="phyState" onChange={handleFilterChange} className="w-full rounded-full">
+                    <div>
+                        <InputLabel htmlFor="phyState" value="Estado físico" />
+                        <Select name="phyState" onChange={handleFilterChange} value={filters.phyState} className="w-full rounded-full">
                             <option value="">Todos</option>
                             {phyStates.map((phyState) => (
                                 <option className="capitalize" key={phyState.id} value={phyState.id}>{phyState.name}</option>
@@ -109,9 +125,9 @@ export default function PropertiesList({ auth, setting, pages, properties, count
                         </Select>
                     </div>
 
-                    <div className="">
+                    <div>
                         <InputLabel htmlFor="typeBusiness" value="Tipo de negocio" />
-                        <Select name="typeBusiness" onChange={handleFilterChange} className="w-full rounded-full">
+                        <Select name="typeBusiness" onChange={handleFilterChange} value={filters.typeBusiness} className="w-full rounded-full">
                             <option value="">Todos</option>
                             {typeBusinesses.map((typeBusiness) => (
                                 <option className="capitalize" key={typeBusiness.id} value={typeBusiness.id}>{typeBusiness.name}</option>
@@ -119,9 +135,9 @@ export default function PropertiesList({ auth, setting, pages, properties, count
                         </Select>
                     </div>
 
-                    <div className="">
-                        <InputLabel htmlFor="country" value="Pais" />
-                        <Select name="country" onChange={handleFilterChange} className="w-full rounded-full">
+                    <div>
+                        <InputLabel htmlFor="country" value="País" />
+                        <Select name="country" onChange={handleFilterChange} value={filters.country} className="w-full rounded-full">
                             <option value="">Todos</option>
                             {countries.map((country) => (
                                 <option className="capitalize" key={country.id} value={country.id}>{country.name}</option>
@@ -129,9 +145,9 @@ export default function PropertiesList({ auth, setting, pages, properties, count
                         </Select>
                     </div>
 
-                    <div className="">
+                    <div>
                         <InputLabel htmlFor="state" value="Estado" />
-                        <Select name="state" onChange={handleFilterChange} className="w-full rounded-full">
+                        <Select name="state" onChange={handleFilterChange} value={filters.state} className="w-full rounded-full">
                             <option value="">Todos</option>
                             {states.map((state) => (
                                 <option className="capitalize" key={state.id} value={state.id}>{state.name}</option>
@@ -139,9 +155,9 @@ export default function PropertiesList({ auth, setting, pages, properties, count
                         </Select>
                     </div>
 
-                    <div className="">
+                    <div>
                         <InputLabel htmlFor="city" value="Ciudad" />
-                        <Select name="city" onChange={handleFilterChange} className="w-full rounded-full">
+                        <Select name="city" onChange={handleFilterChange} value={filters.city} className="w-full rounded-full">
                             <option value="">Todos</option>
                             {cities.map((city) => (
                                 <option className="capitalize" key={city.id} value={city.id}>{city.name}</option>
@@ -150,20 +166,16 @@ export default function PropertiesList({ auth, setting, pages, properties, count
                     </div>
 
                 </div>
-            </div>
 
-            <ProductsList data={currentPosts} setting={setting} />
+                <ProductsList data={currentPosts} setting={setting} />
 
-
-            {/* Componente de Paginación */}
-            <PaginationPage
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onNext={nextPage}
-                onPrev={prevPage}
+                <PaginationPage
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onNext={nextPage}
+                    onPrev={prevPage}
                 />
-
-                </div>
+            </div>
         </FrontedLayout>
     );
 }

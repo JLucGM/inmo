@@ -11,6 +11,9 @@ import { useRef } from 'react';
 import TextAreaRich from '@/Components/TextAreaRich';
 import CharacterCounter from '@/Components/CharacterCounter';
 import { useState } from 'react';
+import { Alert } from 'flowbite-react';
+import { LinkIcon } from '@heroicons/react/24/outline';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Edit({ auth, posts, categryposts, role, permission }) {
 
@@ -31,8 +34,15 @@ export default function Edit({ auth, posts, categryposts, role, permission }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('post.update', posts))
-        console.log(data)
+        post(route('post.update', posts),{
+            onSuccess: () => {
+                
+            },
+            onError: (error) => {
+                console.log(error)
+            },
+
+        })
     }
 
     const handleExtractChange = (e) => {
@@ -76,11 +86,14 @@ export default function Edit({ auth, posts, categryposts, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Publicación</h2>
+                    <SectionHeader
+                        title="Actualizar publicación"
+                        subtitle="Aquí puedes actualizar la información de la publicación."
+                    />
                     <Link href={route('post.create')}
                         className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear
+                        Crear publicación
                     </Link>
                 </div>
             }
@@ -96,13 +109,23 @@ export default function Edit({ auth, posts, categryposts, role, permission }) {
 
                             <Transition
                                 show={recentlySuccessful}
-                                enter="transition ease-in-out"
-                                enterFrom="opacity-0"
-                                leave="transition ease-in-out"
-                                leaveTo="opacity-0"
+                                enter="transition ease-out duration-300"
+                                enterFrom="opacity-0 translate-y-[-100%]"
+                                enterTo="opacity-100 translate-y-0"
+                                leave="transition ease-in duration-200"
+                                leaveFrom="opacity-100 translate-y-0"
+                                leaveTo="opacity-0 translate-y-[-100%]"
                             >
-                                <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
+                                <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+                                    <Alert
+                                        color="success"
+                                        className="border-0 shadow-lg"
+                                    >
+                                        <span className="font-medium">¡Bien hecho!</span> publicación actualizado exitosamente.
+                                    </Alert>
+                                </div>
                             </Transition>
+
                             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
 
                                 <div className="col-span-full lg:col-span-3">
@@ -110,7 +133,6 @@ export default function Edit({ auth, posts, categryposts, role, permission }) {
 
                                         <div className='col-span-2'>
                                             <InputLabel htmlFor="name" value="Nombre" />
-
                                             <TextInput
                                                 id="name"
                                                 type="text"
@@ -120,8 +142,15 @@ export default function Edit({ auth, posts, categryposts, role, permission }) {
                                                 isFocused={true}
                                                 onChange={(e) => setData('name', e.target.value)}
                                             />
-
                                             <InputError message={errors.name} className="mt-2" />
+                                            <a
+                        href={route('posts.show', posts.slug)}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className="flex items-start justify-start underline underline-offset-4 text-blue-500 hover:text-blue-400 text-sm"
+                    >
+                        <LinkIcon className='size-4 me-2' /> {route('posts.show', posts.slug)}
+                    </a>
                                         </div>
 
                                         <div className='col-span-2'>

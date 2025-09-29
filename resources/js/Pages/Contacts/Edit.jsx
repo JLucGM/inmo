@@ -8,6 +8,8 @@ import { Textarea, Transition } from '@headlessui/react';
 import { useState } from 'react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
+import { Alert } from 'flowbite-react';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Edit({ auth, contacts, typepropety, country, state, city, users, statuses, typecontacts, origins, role, permission }) {
 
@@ -77,11 +79,14 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Contacto</h2>
+                    <SectionHeader
+                        title="Actualizar contactos"
+                        subtitle="Aquí puedes actualizar los contactos y gestionar sus demandas de las propiedades."
+                    />
                     <Link href={route('contacts.create')}
                         className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear
+                        Crear contacto
                     </Link>
                 </div>
             }
@@ -99,12 +104,21 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
 
                                 <Transition
                                     show={recentlySuccessful}
-                                    enter="transition ease-in-out"
-                                    enterFrom="opacity-0"
-                                    leave="transition ease-in-out"
-                                    leaveTo="opacity-0"
+                                    enter="transition ease-out duration-300"
+                                    enterFrom="opacity-0 translate-y-[-100%]"
+                                    enterTo="opacity-100 translate-y-0"
+                                    leave="transition ease-in duration-200"
+                                    leaveFrom="opacity-100 translate-y-0"
+                                    leaveTo="opacity-0 translate-y-[-100%]"
                                 >
-                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
+                                    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+                                        <Alert
+                                            color="success"
+                                            className="border-0 shadow-lg"
+                                        >
+                                            <span className="font-medium">¡Bien hecho!</span> contacto actualizado exitosamente.
+                                        </Alert>
+                                    </div>
                                 </Transition>
 
                                 <div className="xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4">

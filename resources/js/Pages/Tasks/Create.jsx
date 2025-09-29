@@ -7,6 +7,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { Select, Textarea } from '@headlessui/react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Create({ auth, statuses, contacts, typetasks, properties, role, permission }) {
 
@@ -60,9 +61,10 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear
-                    </h2>
+                    <SectionHeader
+                        title="Crear tarea"
+                        subtitle="Aquí puedes crear las tareas y vincularlas con el contacto y la propiedad."
+                    />
                 </div>
             }
         >

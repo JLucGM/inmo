@@ -36,25 +36,25 @@ export default function Authenticated({ user, header, children, roles, permissio
    };
 
    const globalSettings = [
-      { label: 'Settings', route: 'settings.index', permission: 'admin.setting-generals.index' },
+      { label: 'Configuración', route: 'settings.index', permission: 'admin.setting-generals.index' },
       { label: 'Slide', route: 'slides.index', permission: 'admin.slides.index' },
-      { label: 'Info web', route: 'info-web.index', permission: 'admin.info-webs.index' },
-      { label: 'Testimonial', route: 'testimonial.index', permission: 'admin.testimonials.index' },
-      { label: 'page', route: 'pages.index', permission: 'admin.pages.index' },
-      { label: 'Faq', route: 'faqs.index', permission: 'admin.faqs.index' },
-      { label: 'role', route: 'roles.index', permission: 'admin.role.index' },
+      { label: 'Información de servicio', route: 'info-web.index', permission: 'admin.info-webs.index' },
+      { label: 'Testimonios', route: 'testimonial.index', permission: 'admin.testimonials.index' },
+      { label: 'Página', route: 'pages.index', permission: 'admin.pages.index' },
+      { label: 'Preguntas frecuentes', route: 'faqs.index', permission: 'admin.faqs.index' },
+      { label: 'Roles', route: 'roles.index', permission: 'admin.role.index' },
       // { label: 'Tipo de negocios quitar', route: 'typesBusinesses.index', permission: 'admin.typebusiness.index' },
    ];
 
    const posts = [
-      { label: 'Posts', route: 'post.index', permission: 'admin.posts.index' },
-      { label: 'Categoria de posts', route: 'category-post.index', permission: 'admin.categoriesPost.index' },
+      { label: 'Publicaciones', route: 'post.index', permission: 'admin.posts.index' },
+      { label: 'Categoría de Publicaciones', route: 'category-post.index', permission: 'admin.categoriesPost.index' },
    ];
 
    const crm = [
       { label: 'Contactos', route: 'contacts.index', permission: 'admin.contactos.index' },
-      { label: 'calendary', route: 'tasks.calendary', permission: 'admin.tasks.calendary' },
-      { label: 'tasks', route: 'tasks.index', permission: 'admin.tasks.index' },
+      { label: 'Calendario', route: 'tasks.calendary', permission: 'admin.tasks.calendary' },
+      { label: 'Tareas', route: 'tasks.index', permission: 'admin.tasks.index' },
       // { label: 'Documentos', route: 'documents.index', permission: 'admin.documents.index' },
       // { label: 'Tipos de contactos quitar', route: 'typesContacts.index', permission: 'admin.tasks.index' },
       // { label: 'Status de contactos quitar', route: 'statuscontacts.index', permission: 'admin.tasks.index' },
@@ -70,8 +70,8 @@ export default function Authenticated({ user, header, children, roles, permissio
    const propertiesMenu = [
       { label: 'Lista de Propiedades', route: 'properties.index', permission: 'admin.properties.index' },
       { label: 'Crear Propiedades', route: 'properties.create', permission: 'admin.properties.create' },
-      { label: 'Comodidades', route: 'amenities.index', permission: 'admin.amenities-checks.index' },
-      { label: 'Tipos de propiedades', route: 'typesproperties.index', permission: 'admin.typesProperties.index' },
+      // { label: 'Comodidades', route: 'amenities.index', permission: 'admin.amenities-checks.index' },
+      // { label: 'Tipos de propiedades', route: 'typesproperties.index', permission: 'admin.typesProperties.index' },
       // { label: 'Estados fisicos quitar', route: 'phyStates.index', permission: 'admin.phystates.index' },
    ];
 

@@ -7,6 +7,7 @@ import { Head, useForm } from '@inertiajs/react';
 import { useEffect } from 'react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Create({ auth, state, role, permission }) {
 
@@ -48,7 +49,7 @@ export default function Create({ auth, state, role, permission }) {
             },
         },
     ];
-    
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -56,9 +57,11 @@ export default function Create({ auth, state, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear ciudad
-                    </h2>
+                    <SectionHeader
+                        title="Crear ciudad"
+                        subtitle="Aquí puedes crear una nueva ciudad."
+                    />
+
                 </div>
             }
         >

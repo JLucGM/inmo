@@ -8,6 +8,7 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels, Textarea, Transition } fro
 import Breadcrumb from '@/Components/Breadcrumb';
 import ToggleSwitch from '@/Components/ToggleSwitch';
 import { Alert } from 'flowbite-react';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Edit({ auth, setting, currencies, role, permission }) {
 
@@ -80,7 +81,10 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Configuraciones</h2>
+<SectionHeader
+                        title="Actualizar configuración"
+                        subtitle="Aquí puedes actualizar la configuración de la aplicación."
+                    />
                 </div>
             }
         >

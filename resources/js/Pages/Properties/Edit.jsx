@@ -15,6 +15,7 @@ import { HandThumbUpIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
 import { Alert } from 'flowbite-react';
 import customStyles from '@/Components/lib/SelectCustom';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Edit({ auth, property, countries, states, cities, typeProperties, typeBusinesses, phyStates, amenities, role, permissions }) {
     console.log(property);
@@ -222,8 +223,10 @@ export default function Edit({ auth, property, countries, states, cities, typePr
             permission={permissions || []}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar propiedad</h2>
-                    
+                    <SectionHeader
+                        title="Actualizar propiedad"
+                        subtitle="Aquí puedes actualizar la información de la propiedad."
+                    />
                 </div>
             }
         >
@@ -252,8 +255,8 @@ export default function Edit({ auth, property, countries, states, cities, typePr
                                         >
                                             <div className="flex items-center">
 
-                                            <HandThumbUpIcon className="w-5 h-5 text-green-700 dark:text-green-400" />
-                                            La propiedad <span className="font-bold">{property.name}</span> se actualizó correctamente.
+                                                <HandThumbUpIcon className="w-5 h-5 text-green-700 dark:text-green-400" />
+                                                La propiedad <span className="font-bold">{property.name}</span> se actualizó correctamente.
                                             </div>
                                         </Alert>
                                     </div>
@@ -458,120 +461,120 @@ export default function Edit({ auth, property, countries, states, cities, typePr
                                     </div>  {/* Cierre del div col-span-full lg:col-span-1 */}
 
                                     {/* segundo columna */}
-                                         <div className="col-span-full lg:col-span-1">  {/* Agrega spans: full en mobile, 1/3 en lg */}
+                                    <div className="col-span-full lg:col-span-1">  {/* Agrega spans: full en mobile, 1/3 en lg */}
 
-                                    <div className="grid grid-cols-1 gap-4">
+                                        <div className="grid grid-cols-1 gap-4">
 
-                                        <ContainerTitle title={'Publicación'} >
-                                            <div >
-                                                <InputLabel htmlFor="status" value="Publicar" />
-                                                <Select
-                                                    options={statusOptions}
-                                                    value={statusValue}
-                                                    onChange={handleStatusChange}
-                                                    components={animatedComponents}
-                                                    placeholder="Selecciona el estado de publicación"
-                                                    name="status"
-                                                    styles={customStyles}
-                                                />
-                                                <InputError message={errors.status} className="mt-2" />
-                                            </div>
+                                            <ContainerTitle title={'Publicación'} >
+                                                <div >
+                                                    <InputLabel htmlFor="status" value="Publicar" />
+                                                    <Select
+                                                        options={statusOptions}
+                                                        value={statusValue}
+                                                        onChange={handleStatusChange}
+                                                        components={animatedComponents}
+                                                        placeholder="Selecciona el estado de publicación"
+                                                        name="status"
+                                                        styles={customStyles}
+                                                    />
+                                                    <InputError message={errors.status} className="mt-2" />
+                                                </div>
 
-                                            <div className='md:col-span-1 lg:col-span-1'>
-                                                <InputLabel htmlFor="types_businesses_id" value="Tipo de negocio" />
-                                                <Select
-                                                    options={typeBusinesses.map((type) => ({ value: type.id, label: type.name }))}
-                                                    value={typesBusinessesValue}
-                                                    onChange={handleTypesBusinessesChange}
-                                                    components={animatedComponents}
-                                                    placeholder="Selecciona un tipo de negocio"
-                                                    name="types_businesses_id"
-                                                    styles={customStyles}
-                                                />
-                                                <InputError message={errors.types_businesses_id} className="mt-2" />
-                                            </div>
+                                                <div className='md:col-span-1 lg:col-span-1'>
+                                                    <InputLabel htmlFor="types_businesses_id" value="Tipo de negocio" />
+                                                    <Select
+                                                        options={typeBusinesses.map((type) => ({ value: type.id, label: type.name }))}
+                                                        value={typesBusinessesValue}
+                                                        onChange={handleTypesBusinessesChange}
+                                                        components={animatedComponents}
+                                                        placeholder="Selecciona un tipo de negocio"
+                                                        name="types_businesses_id"
+                                                        styles={customStyles}
+                                                    />
+                                                    <InputError message={errors.types_businesses_id} className="mt-2" />
+                                                </div>
 
-                                        </ContainerTitle>
+                                            </ContainerTitle>
 
-                                        <ContainerTitle title={'Ubicación geográfica'}>
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="country_id" value="Países" />
-                                                <Select
-                                                    options={countriesOptions}
-                                                    value={countriesValue}
-                                                    onChange={handleCountryChange}
-                                                    components={animatedComponents}
-                                                    placeholder="Selecciona un país"
-                                                    name="country_id"
-                                                    styles={customStyles}
-                                                />
-                                                <InputError message={errors.country_id} className="mt-2" />
-                                            </div>
-
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="state_id" value="Estados" />
-                                                <Select
-                                                    options={statesOptions}
-                                                    value={statesValue}
-                                                    onChange={handleStateChange}
-                                                    components={animatedComponents}
-                                                    isDisabled={statesByCountry.length === 0}
-                                                    placeholder="Selecciona un estado"
-                                                    name="state_id"
-                                                    styles={customStyles}
-                                                />
-                                                <InputError message={errors.state_id} className="mt-2" />
-                                            </div>
+                                            <ContainerTitle title={'Ubicación geográfica'}>
+                                                <div className='col-span-2'>
+                                                    <InputLabel htmlFor="country_id" value="Países" />
+                                                    <Select
+                                                        options={countriesOptions}
+                                                        value={countriesValue}
+                                                        onChange={handleCountryChange}
+                                                        components={animatedComponents}
+                                                        placeholder="Selecciona un país"
+                                                        name="country_id"
+                                                        styles={customStyles}
+                                                    />
+                                                    <InputError message={errors.country_id} className="mt-2" />
+                                                </div>
 
 
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="city_id" value="Ciudades" />
-                                                <Select
-                                                    options={citiesOptions}
-                                                    value={citiesValue}
-                                                    onChange={handleCityChange}
-                                                    components={animatedComponents}
-                                                    isDisabled={citiesByState.length === 0}
-                                                    placeholder="Selecciona una ciudad"
-                                                    name="city_id"
-                                                    styles={customStyles}
-                                                />
-                                                <InputError message={errors.city_id} className="mt-2" />
-                                            </div>
+                                                <div className='col-span-2'>
+                                                    <InputLabel htmlFor="state_id" value="Estados" />
+                                                    <Select
+                                                        options={statesOptions}
+                                                        value={statesValue}
+                                                        onChange={handleStateChange}
+                                                        components={animatedComponents}
+                                                        isDisabled={statesByCountry.length === 0}
+                                                        placeholder="Selecciona un estado"
+                                                        name="state_id"
+                                                        styles={customStyles}
+                                                    />
+                                                    <InputError message={errors.state_id} className="mt-2" />
+                                                </div>
 
 
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="direction" value="Dirección" />
-                                                <Textarea
-                                                    id="direction"
-                                                    name="direction"
-                                                    rows={5}
-                                                    value={data.direction}
-                                                    className="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    onChange={(e) => setData('direction', e.target.value)}
-                                                />
-                                                <InputError message={errors.direction} className="mt-2" />
-                                            </div>
-                                        </ContainerTitle>
+                                                <div className='col-span-2'>
+                                                    <InputLabel htmlFor="city_id" value="Ciudades" />
+                                                    <Select
+                                                        options={citiesOptions}
+                                                        value={citiesValue}
+                                                        onChange={handleCityChange}
+                                                        components={animatedComponents}
+                                                        isDisabled={citiesByState.length === 0}
+                                                        placeholder="Selecciona una ciudad"
+                                                        name="city_id"
+                                                        styles={customStyles}
+                                                    />
+                                                    <InputError message={errors.city_id} className="mt-2" />
+                                                </div>
 
-                                        <ContainerTitle title={'Características'} >
-                                            <div>
-                                                <InputLabel htmlFor="amenity" value="Comodidades" />
-                                                <Select
-                                                    isMulti
-                                                    options={amenities.map((amenity) => ({ value: amenity.id, label: amenity.name }))}
-                                                    value={amenityValue}
-                                                    onChange={handleAmenityChange}
-                                                    components={animatedComponents}
-                                                    closeMenuOnSelect={false}
-                                                    name='amenity'
-                                                    styles={customStyles}
-                                                />
-                                                <InputError message={errors.amenity} className="mt-2" />
-                                            </div>
-                                        </ContainerTitle>
-                                    </div>
+
+                                                <div className='col-span-2'>
+                                                    <InputLabel htmlFor="direction" value="Dirección" />
+                                                    <Textarea
+                                                        id="direction"
+                                                        name="direction"
+                                                        rows={5}
+                                                        value={data.direction}
+                                                        className="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                        onChange={(e) => setData('direction', e.target.value)}
+                                                    />
+                                                    <InputError message={errors.direction} className="mt-2" />
+                                                </div>
+                                            </ContainerTitle>
+
+                                            <ContainerTitle title={'Características'} >
+                                                <div>
+                                                    <InputLabel htmlFor="amenity" value="Comodidades" />
+                                                    <Select
+                                                        isMulti
+                                                        options={amenities.map((amenity) => ({ value: amenity.id, label: amenity.name }))}
+                                                        value={amenityValue}
+                                                        onChange={handleAmenityChange}
+                                                        components={animatedComponents}
+                                                        closeMenuOnSelect={false}
+                                                        name='amenity'
+                                                        styles={customStyles}
+                                                    />
+                                                    <InputError message={errors.amenity} className="mt-2" />
+                                                </div>
+                                            </ContainerTitle>
+                                        </div>
                                     </div>
 
                                 </div>

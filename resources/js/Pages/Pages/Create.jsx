@@ -10,6 +10,7 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
 import TextAreaRich from '@/Components/TextAreaRich';
 import { useRef } from 'react';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Create({ auth, role, permission }) {
 
@@ -58,9 +59,10 @@ export default function Create({ auth, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center px-6'>
-                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear pagina
-                    </h2>
+                    <SectionHeader
+                        title="Crear página"
+                        subtitle="Aquí puedes crear una nueva página."
+                    />
                 </div>
             }
         >

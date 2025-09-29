@@ -1,4 +1,3 @@
-import Banner from '@/Components/Banner';
 import InfoSection from '@/Components/InfoSection';
 import ProductsList from '@/Components/ProductsLists';
 import SwiperCustom from '@/Components/SwiperCustom';
@@ -8,10 +7,19 @@ import { Autoplay } from 'swiper/modules';
 import TeamSection from '@/Components/TeamSection';
 import InstagramPosts from '@/Components/InstagramPosts';
 import AnimatedComponent from '@/Components/AnimatedComponent';
-import TestimonialSection from '@/Components/TestimonialSection'; // Nueva importación
+import TestimonialSection from '@/Components/TestimonialSection'; // Nueva dimportación
+import TypePropertiesCarousel from '@/Components/TypePropertiesCarousel';
+import Masonary from '@/Components/Masonary';
+import HeaderSection from '@/Components/HeaderSection';
 
-export default function Welcome({ auth, setting, slides, properties, infoweb, testimonials, user, pages }) {
-  console.log(setting)
+export default function Welcome({ auth, setting, slides, properties, infoweb, testimonials, user, pages, posts, typeProperties }) {
+
+  const postsForMasonry = posts.map(post => ({
+    id: post.id,
+    imageUrl: post.image,
+    title: post.name
+  }));
+
   return (
     <>
       <FrontedLayout auth={auth} setting={setting} pages={pages}>
@@ -47,6 +55,12 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
           </AnimatedComponent>
         )}
 
+        {typeProperties && typeProperties.length > 0 && (
+          <AnimatedComponent>
+            <TypePropertiesCarousel typeProperties={typeProperties} />
+          </AnimatedComponent>
+        )}
+
         {setting.status_info_section == 1 && (
           <AnimatedComponent>
             <InfoSection data={infoweb} setting={setting} />
@@ -56,10 +70,10 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
         {setting.status_testimonials == 1 && (
           <AnimatedComponent>
             <div className="my-20">
-              <TestimonialSection 
-                datas={testimonials} 
-                headerTitle={setting.titleTestimonials} 
-                subtitle={setting.descriptionTestimonials} 
+              <TestimonialSection
+                datas={testimonials}
+                headerTitle={setting.titleTestimonials}
+                subtitle={setting.descriptionTestimonials}
               />
             </div>
           </AnimatedComponent>
@@ -78,6 +92,13 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
             <InstagramPosts setting={setting} />
           </AnimatedComponent>
         )}
+
+        {posts && posts.length > 0 && (
+          <div className="my-10">
+            <Masonary items={postsForMasonry} />
+          </div>
+        )}
+
       </FrontedLayout>
     </>
   );

@@ -10,6 +10,7 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import { useState } from 'react';
 import CharacterCounter from '@/Components/CharacterCounter';
 import ReactPlayer from 'react-player';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Edit({ auth, slide, role, permission }) {
 
@@ -22,8 +23,8 @@ export default function Edit({ auth, slide, role, permission }) {
     }
 
     const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
-    const [charCount, setCharCount] = useState((slide.text || '').length); 
-    const charLimit = 250; 
+    const [charCount, setCharCount] = useState((slide.text || '').length);
+    const charLimit = 250;
 
     const submit = (e) => {
         e.preventDefault();
@@ -72,10 +73,14 @@ export default function Edit({ auth, slide, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <h2 className="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar slide</h2>
+                    <SectionHeader
+                        title="Actualizar slide"
+                        subtitle="Aquí puedes actualizar un slide existente."
+                    />
                     <Link href={route('slides.create')}
                         className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >Crear
+                    >
+                        Crear slide
                     </Link>
                 </div>
             }

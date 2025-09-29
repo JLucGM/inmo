@@ -8,6 +8,8 @@ import { Transition } from '@headlessui/react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
 import TypesPropertiesForm from './TypesPropertiesForm';
+import { Alert } from 'flowbite-react';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Edit({ auth, typeproperty, role, permission }) {
 
@@ -53,11 +55,14 @@ export default function Edit({ auth, typeproperty, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <h2 className="font-semibold capitalize text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar tipo de propiedad</h2>
+                    <SectionHeader
+                        title="Actualizar tipos de propiedades"
+                        subtitle="Aquí puedes actualizar el tipos de propiedades."
+                    />
                     <Link href={route('typesproperties.create')}
                         className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear
+                        Crear tipo de propiedad
                     </Link>
                 </div>
             }
@@ -75,13 +80,23 @@ export default function Edit({ auth, typeproperty, role, permission }) {
 
                                 <Transition
                                     show={recentlySuccessful}
-                                    enter="transition ease-in-out"
-                                    enterFrom="opacity-0"
-                                    leave="transition ease-in-out"
-                                    leaveTo="opacity-0"
+                                    enter="transition ease-out duration-300"
+                                    enterFrom="opacity-0 translate-y-[-100%]"
+                                    enterTo="opacity-100 translate-y-0"
+                                    leave="transition ease-in duration-200"
+                                    leaveFrom="opacity-100 translate-y-0"
+                                    leaveTo="opacity-0 translate-y-[-100%]"
                                 >
-                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
+                                    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+                                        <Alert
+                                            color="success"
+                                            className="border-0 shadow-lg"
+                                        >
+                                            <span className="font-medium">Bien hecho!</span> tipo de propiedad actualizada exitosamente.
+                                        </Alert>
+                                    </div>
                                 </Transition>
+
                                 <img src={`${typeproperty.image}`} alt={typeproperty.image} className='w-40 rounded-3xl mx-auto' />
 
 

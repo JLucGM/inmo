@@ -5,6 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
+import { Alert } from 'flowbite-react';
 
 export default function Edit({ auth, typesContact, role, permission }) {
 
@@ -44,12 +45,21 @@ export default function Edit({ auth, typesContact, role, permission }) {
 
                                 <Transition
                                     show={recentlySuccessful}
-                                    enter="transition ease-in-out"
-                                    enterFrom="opacity-0"
-                                    leave="transition ease-in-out"
-                                    leaveTo="opacity-0"
+                                    enter="transition ease-out duration-300"
+                                    enterFrom="opacity-0 translate-y-[-100%]"
+                                    enterTo="opacity-100 translate-y-0"
+                                    leave="transition ease-in duration-200"
+                                    leaveFrom="opacity-100 translate-y-0"
+                                    leaveTo="opacity-0 translate-y-[-100%]"
                                 >
-                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
+                                    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+                                        <Alert
+                                            color="success"
+                                            className="border-0 shadow-lg"
+                                        >
+                                            <span className="font-medium">Bien hecho!</span> testimonio creado exitosamente.
+                                        </Alert>
+                                    </div>
                                 </Transition>
 
                                 <div>

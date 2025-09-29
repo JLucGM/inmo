@@ -3,6 +3,7 @@ import DataTable from '@/Components/DataTable';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 import columns from './columns';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Index({ auth, properties, role, permission }) {
     console.log(properties);
@@ -30,12 +31,15 @@ export default function Index({ auth, properties, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Propiedades</h2>
+                    <SectionHeader
+                        title="Lista de propiedades"
+                        subtitle="Aquí puedes ver la lista de propiedades y la información de cada una."
+                    />
                     {permission.some(perm => perm.name === 'admin.properties.create') && (
                         <Link href={route('properties.create')}
                             className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                         >
-                            Crear
+                            Crear propiedad
                         </Link>
                     )}
                 </div>

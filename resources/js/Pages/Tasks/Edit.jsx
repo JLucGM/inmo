@@ -7,6 +7,8 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { Select, Textarea, Transition } from '@headlessui/react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import Breadcrumb from '@/Components/Breadcrumb';
+import { Alert } from 'flowbite-react';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Edit({ auth, task, statuses, contacts, typetasks, properties, role, permission }) {
 
@@ -25,8 +27,14 @@ export default function Edit({ auth, task, statuses, contacts, typetasks, proper
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('tasks.update', task))
-        // console.log(data)
+        post(route('tasks.update', task), {
+            onSuccess: () => {
+                // Handle success
+            },
+            onError: (error) => {
+                console.log(error)
+            }
+        })
     }
 
     const items = [
@@ -60,11 +68,14 @@ export default function Edit({ auth, task, statuses, contacts, typetasks, proper
 
                 <>
                     <div className='flex justify-between items-center'>
-                        <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar Tarea</h2>
+                        <SectionHeader
+                            title="Actualizar tarea"
+                            subtitle="Aquí puedes actualizar las tareas y vincularlas con el contacto y la propiedad."
+                        />
                         <Link href={route('tasks.create')}
                             className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                         >
-                            Crear
+                            Crear tarea
                         </Link>
                     </div>
                 </>
@@ -82,35 +93,44 @@ export default function Edit({ auth, task, statuses, contacts, typetasks, proper
 
                                 <Transition
                                     show={recentlySuccessful}
-                                    enter="transition ease-in-out"
-                                    enterFrom="opacity-0"
-                                    leave="transition ease-in-out"
-                                    leaveTo="opacity-0"
+                                    enter="transition ease-out duration-300"
+                                    enterFrom="opacity-0 translate-y-[-100%]"
+                                    enterTo="opacity-100 translate-y-0"
+                                    leave="transition ease-in duration-200"
+                                    leaveFrom="opacity-100 translate-y-0"
+                                    leaveTo="opacity-0 translate-y-[-100%]"
                                 >
-                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
+                                    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+                                        <Alert
+                                            color="success"
+                                            className="border-0 shadow-lg"
+                                        >
+                                            <span className="font-medium">¡Bien hecho!</span> pregunta frecuente actualizado exitosamente.
+                                        </Alert>
+                                    </div>
                                 </Transition>
 
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
-                                <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                    <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="name" value="Nombre" />
+                                        <div className='col-span-2'>
+                                            <InputLabel htmlFor="name" value="Nombre" />
 
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
+                                            <TextInput
+                                                id="name"
+                                                type="text"
+                                                name="name"
+                                                value={data.name}
+                                                className="mt-1 block w-full"
+                                                isFocused={true}
+                                                onChange={(e) => setData('name', e.target.value)}
+                                            />
 
-                                        <InputError message={errors.name} className="mt-2" />
-                                    </div>
+                                            <InputError message={errors.name} className="mt-2" />
+                                        </div>
 
-                                    {/* <div>
+                                        {/* <div>
                                         <InputLabel htmlFor="start_time" value="start_time" />
 
                                         <TextInput
@@ -230,149 +250,149 @@ export default function Edit({ auth, task, statuses, contacts, typetasks, proper
                                         <InputError message={errors.statuses} className="mt-2" />
                                     </div> */}
 
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="description" value="descripcion" />
+                                        <div className='col-span-2'>
+                                            <InputLabel htmlFor="description" value="descripcion" />
 
-                                        <Textarea
-                                            id="description"
-                                            type="text"
-                                            name="description"
-                                            rows={10}
-                                            value={data.description}
-                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                            <Textarea
+                                                id="description"
+                                                type="text"
+                                                name="description"
+                                                rows={10}
+                                                value={data.description}
+                                                className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
 
-                                            onChange={(e) => setData('description', e.target.value)}
-                                        />
+                                                onChange={(e) => setData('description', e.target.value)}
+                                            />
 
-                                        <InputError message={errors.description} className="mt-2" />
-                                    </div>
+                                            <InputError message={errors.description} className="mt-2" />
+                                        </div>
 
-                                </ContainerTitle>
+                                    </ContainerTitle>
 
-                                <ContainerTitle title={'Datos secundaria'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                    <ContainerTitle title={'Datos secundaria'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
-                                    <div className='col-span-1'>
-                                        <InputLabel htmlFor="start_time" value="Fecha de inicio" />
+                                        <div className='col-span-1'>
+                                            <InputLabel htmlFor="start_time" value="Fecha de inicio" />
 
-                                        <TextInput
-                                            id="start_time"
-                                            type="datetime-local"
-                                            name="start_time"
-                                            value={data.start_time}
-                                            className="mt-1 block w-full"
-                                            onChange={(e) => setData('start_time', e.target.value)}
-                                        />
+                                            <TextInput
+                                                id="start_time"
+                                                type="datetime-local"
+                                                name="start_time"
+                                                value={data.start_time}
+                                                className="mt-1 block w-full"
+                                                onChange={(e) => setData('start_time', e.target.value)}
+                                            />
 
-                                        <InputError message={errors.start_time} className="mt-2" />
-                                    </div>
+                                            <InputError message={errors.start_time} className="mt-2" />
+                                        </div>
 
-                                    <div className='col-span-1'>
-                                        <InputLabel htmlFor="end_time" value="Fecha de culminación" />
+                                        <div className='col-span-1'>
+                                            <InputLabel htmlFor="end_time" value="Fecha de culminación" />
 
-                                        <TextInput
-                                            id="end_time"
-                                            type="datetime-local"
-                                            name="end_time"
-                                            value={data.end_time}
-                                            className="mt-1 block w-full"
-                                            onChange={(e) => setData('end_time', e.target.value)}
-                                        />
+                                            <TextInput
+                                                id="end_time"
+                                                type="datetime-local"
+                                                name="end_time"
+                                                value={data.end_time}
+                                                className="mt-1 block w-full"
+                                                onChange={(e) => setData('end_time', e.target.value)}
+                                            />
 
-                                        <InputError message={errors.end_time} className="mt-2" />
-                                    </div>
+                                            <InputError message={errors.end_time} className="mt-2" />
+                                        </div>
 
-                                    <div className='col-span-full'>
-                                        <InputLabel htmlFor="statuses" value="Status de tarea" />
+                                        <div className='col-span-full'>
+                                            <InputLabel htmlFor="statuses" value="Status de tarea" />
 
-                                        <Select
-                                            name="status_contacts_id"
-                                            id="statuses"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.status_contacts_id} // Establecer el valor del select con el valor de status_contacts_id
-                                            onChange={(e) => {
-                                                setData('status_contacts_id', parseInt(e.target.value));
-                                            }}
-                                        >
-                                            {statuses.map((statuses) => (
-                                                <option value={statuses.id} key={statuses.id}>
-                                                    {statuses.name}
-                                                </option>
-                                            ))}
-                                        </Select>
+                                            <Select
+                                                name="status_contacts_id"
+                                                id="statuses"
+                                                className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                value={data.status_contacts_id} // Establecer el valor del select con el valor de status_contacts_id
+                                                onChange={(e) => {
+                                                    setData('status_contacts_id', parseInt(e.target.value));
+                                                }}
+                                            >
+                                                {statuses.map((statuses) => (
+                                                    <option value={statuses.id} key={statuses.id}>
+                                                        {statuses.name}
+                                                    </option>
+                                                ))}
+                                            </Select>
 
-                                        <InputError message={errors.statuses} className="mt-2" />
-                                    </div>
+                                            <InputError message={errors.statuses} className="mt-2" />
+                                        </div>
 
-                                    <div className='col-span-full'>
-                                        <InputLabel htmlFor="contacts" value="Contacto" />
+                                        <div className='col-span-full'>
+                                            <InputLabel htmlFor="contacts" value="Contacto" />
 
-                                        <Select
-                                            name="contact_id"
-                                            id="contacts"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.contact_id} // Establecer el valor del select con el valor de contact_id
-                                            onChange={(e) => {
-                                                setData('contact_id', parseInt(e.target.value));
-                                            }}
-                                        >
-                                            <option value="">No seleccionar contacto</option>
-                                            {contacts.map((contacts) => (
-                                                <option value={contacts.id} key={contacts.id}>
-                                                    {contacts.name}
-                                                </option>
-                                            ))}
-                                        </Select>
+                                            <Select
+                                                name="contact_id"
+                                                id="contacts"
+                                                className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                value={data.contact_id} // Establecer el valor del select con el valor de contact_id
+                                                onChange={(e) => {
+                                                    setData('contact_id', parseInt(e.target.value));
+                                                }}
+                                            >
+                                                <option value="">No seleccionar contacto</option>
+                                                {contacts.map((contacts) => (
+                                                    <option value={contacts.id} key={contacts.id}>
+                                                        {contacts.name}
+                                                    </option>
+                                                ))}
+                                            </Select>
 
-                                        <InputError message={errors.statuses} className="mt-2" />
-                                    </div>
+                                            <InputError message={errors.statuses} className="mt-2" />
+                                        </div>
 
-                                    <div className='col-span-full'>
-                                        <InputLabel htmlFor="typetasks" value="tipo de tares" />
+                                        <div className='col-span-full'>
+                                            <InputLabel htmlFor="typetasks" value="tipo de tareas" />
 
-                                        <Select
-                                            name="property_id"
-                                            id="typetasks"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.property_id} // Establecer el valor del select con el valor de property_id
-                                            onChange={(e) => {
-                                                setData('property_id', parseInt(e.target.value));
-                                            }}
-                                        >
-                                            {typetasks.map((typetasks) => (
-                                                <option value={typetasks.id} key={typetasks.id}>
-                                                    {typetasks.name}
-                                                </option>
-                                            ))}
-                                        </Select>
+                                            <Select
+                                                name="property_id"
+                                                id="typetasks"
+                                                className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                value={data.property_id} // Establecer el valor del select con el valor de property_id
+                                                onChange={(e) => {
+                                                    setData('property_id', parseInt(e.target.value));
+                                                }}
+                                            >
+                                                {typetasks.map((typetasks) => (
+                                                    <option value={typetasks.id} key={typetasks.id}>
+                                                        {typetasks.name}
+                                                    </option>
+                                                ))}
+                                            </Select>
 
-                                        <InputError message={errors.statuses} className="mt-2" />
-                                    </div>
+                                            <InputError message={errors.statuses} className="mt-2" />
+                                        </div>
 
-                                    <div className='col-span-full'>
-                                        <InputLabel htmlFor="properties" value="propiedades" />
+                                        <div className='col-span-full'>
+                                            <InputLabel htmlFor="properties" value="propiedades" />
 
-                                        <Select
-                                            name="property_id"
-                                            id="properties"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.property_id} // Establecer el valor del select con el valor de property_id
-                                            onChange={(e) => {
-                                                setData('property_id', parseInt(e.target.value));
-                                            }}
-                                        >
-                                            <option value="">No seleccionar propiedades</option>
-                                            {properties.map((properties) => (
-                                                <option value={properties.id} key={properties.id}>
-                                                    {properties.name}
-                                                </option>
-                                            ))}
-                                        </Select>
+                                            <Select
+                                                name="property_id"
+                                                id="properties"
+                                                className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                value={data.property_id} // Establecer el valor del select con el valor de property_id
+                                                onChange={(e) => {
+                                                    setData('property_id', parseInt(e.target.value));
+                                                }}
+                                            >
+                                                <option value="">No seleccionar propiedades</option>
+                                                {properties.map((properties) => (
+                                                    <option value={properties.id} key={properties.id}>
+                                                        {properties.name}
+                                                    </option>
+                                                ))}
+                                            </Select>
 
-                                        <InputError message={errors.statuses} className="mt-2" />
-                                    </div>
+                                            <InputError message={errors.statuses} className="mt-2" />
+                                        </div>
 
-                                </ContainerTitle>
-</div>
+                                    </ContainerTitle>
+                                </div>
                                 <div className="flex justify-end p-2.5">
                                     <PrimaryButton >
                                         Guardar

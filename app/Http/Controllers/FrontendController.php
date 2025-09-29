@@ -29,13 +29,15 @@ class FrontendController extends Controller
         $slides = Slide::where('status', '1')->get();
         $pages = Page::where('status', '1')->get();
         $properties = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'user', 'media')->where('status', '1')->take(8)->get();
+        $typeProperties = TypesProperties::all();
         $infoweb = Infoweb::all();
+        $posts = Post::where('status', 1)->take(12)->get();
         $testimonials = Testimonial::orderBy('created_at', 'desc') // Más recientes primero; cambia por 'id' o 'order_column' si prefieres
             ->take(12) // Limita a 12 (envía todos si hay menos)
             ->get();
         $user = User::role('agente')->get();
-        // dd($pages);
-        return Inertia::render('Welcome', compact('setting', 'slides', 'properties', 'infoweb', 'testimonials', 'user', 'pages'));
+        // dd($typeProperties);
+        return Inertia::render('Welcome', compact('setting', 'slides', 'properties', 'posts', 'infoweb', 'testimonials', 'user', 'pages', 'typeProperties'));
     }
 
     public function frontendShow(Property $property)
@@ -44,7 +46,7 @@ class FrontendController extends Controller
         $setting = Setting::with('currency')->first();
         $propertyAmenities = $property->amenities;
         $pages = Page::all();
-        //  dd( $setting->currency);
+        //  dd('Frontend/Property');
         return Inertia::render('Frontend/Property', compact('property', 'setting', 'propertyAmenities', 'pages'));
     }
 
@@ -99,36 +101,36 @@ class FrontendController extends Controller
         return Inertia::render('Frontend/Pages', compact('setting', 'pages', 'page'));
     }
 
-       public function storeContactPages(Request $request)
-   {
-       //  dd($request, $property);
-       $data = $request->only(
-           'name',
-           'email',
-           'phone',
-           'description',
-           'types_contacts_id',
-           'types_properties_id',
-           'status_contacts_id',
-           'origin_id',
-           'country_id',
-           'state_id',
-           'city_id',
-       );
+    public function storeContactPages(Request $request)
+    {
+        //  dd($request, $property);
+        $data = $request->only(
+            'name',
+            'email',
+            'phone',
+            'description',
+            'types_contacts_id',
+            'types_properties_id',
+            'status_contacts_id',
+            'origin_id',
+            'country_id',
+            'state_id',
+            'city_id',
+        );
 
-       // Verificar si existen usuarios en la base de datos
-       $randomUser  = User::inRandomOrder()->first();
-       if (!$randomUser ) {
-           // Opcional: Maneja el caso donde no hay usuarios (por ejemplo, lanza una excepción o asigna un valor por defecto)
-           throw new \Exception('No se puede crear el contacto: No existen usuarios en la base de datos.');
-           // Alternativa: $data['user_id'] = 1; // Asigna un ID fijo si sabes que existe el usuario 1
-       } else {
-           $data['user_id'] = $randomUser ->id;
-       }
+        // Verificar si existen usuarios en la base de datos
+        $randomUser  = User::inRandomOrder()->first();
+        if (!$randomUser) {
+            // Opcional: Maneja el caso donde no hay usuarios (por ejemplo, lanza una excepción o asigna un valor por defecto)
+            throw new \Exception('No se puede crear el contacto: No existen usuarios en la base de datos.');
+            // Alternativa: $data['user_id'] = 1; // Asigna un ID fijo si sabes que existe el usuario 1
+        } else {
+            $data['user_id'] = $randomUser->id;
+        }
 
-       Contacts::create($data);
-   }
-   
+        Contacts::create($data);
+    }
+
 
     public function storeContact(Request $request, $property)
     {
@@ -162,7 +164,43 @@ class FrontendController extends Controller
         $phyStates = PhyStates::all();
         $typeBusinesses = TypesBusinesses::all();
         $typeProperties = TypesProperties::all(); // Asegúrate de que este modelo exista y esté relacionado
-
+        // dd('Frontend/PropertiesList');
         return Inertia::render('Frontend/PropertiesList', compact('setting', 'pages', 'properties', 'countries', 'states', 'cities', 'phyStates', 'typeBusinesses', 'typeProperties'));
+    }
+
+    public function typePropertiesList($slug)
+    {
+        $pages = Page::all();
+        $setting = Setting::with('currency')->first();
+
+        $typeProperty = TypesProperties::where('slug', $slug)->firstOrFail();
+
+        $properties = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'typeProperty', 'user', 'media')
+            ->where('status', '1')
+            ->where('types_properties_id', $typeProperty->id)
+            ->get();
+
+        // Pasar filtro para que React lo use
+        $filters = ['typeProperty' => $typeProperty->id];
+
+        $countries = Countries::all();
+        $states = States::all();
+        $cities = Cities::all();
+        $phyStates = PhyStates::all();
+        $typeBusinesses = TypesBusinesses::all();
+        $typeProperties = TypesProperties::all();
+
+        return Inertia::render('Frontend/PropertiesList', compact(
+            'setting',
+            'pages',
+            'properties',
+            'countries',
+            'states',
+            'cities',
+            'phyStates',
+            'typeBusinesses',
+            'typeProperties',
+            'filters'
+        ));
     }
 }

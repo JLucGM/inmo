@@ -7,6 +7,7 @@ import { Head, useForm } from '@inertiajs/react';
 import { Select, Textarea } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ContainerTitle from '@/Components/ContainerTitle';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Create({ auth, role, permission }) {
 
@@ -53,9 +54,10 @@ export default function Create({ auth, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear faqs
-                    </h2>
+                    <SectionHeader
+                        title="Crear preguntas frecuentes"
+                        subtitle="Aquí puedes crear una nueva pregunta frecuente."
+                    />
                 </div>
             }
         >
