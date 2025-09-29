@@ -38,6 +38,30 @@ class TestimonialSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'Ana Martínez',
+                'slug' => 'ana-martinez',
+                'text' => 'Ana Martínez opina: Muy profesional y atento a los detalles.',
+                'avatar' => asset('img/testimonials/ana.jpg'), // Asegúrate de que la imagen exista
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Luis Fernández',
+                'slug' => 'luis-fernandez',
+                'text' => 'Luis Fernández dice: ¡Una experiencia inolvidable! Volveré pronto. ',
+                'avatar' => asset('img/testimonials/luis.jpg'), // Asegúrate de que la imagen exista
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Sofía Rodríguez',
+                'slug' => 'sofia-rodriguez',
+                'text' => 'Sofía Rodríguez comenta: Atención personalizada y resultados excelentes. Muy recomendable. ',
+                'avatar' => asset('img/testimonials/sofia.jpg'), // Asegúrate de que la imagen exista
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

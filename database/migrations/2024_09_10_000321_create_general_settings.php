@@ -30,10 +30,12 @@ return new class extends Migration
             $table->string('titleFaq')->default();
             $table->string('titleContact')->default();
             $table->string('titleAnunciar')->default();
+            $table->string('titleTestimonials')->default();
             $table->string('descriptionBlog')->default(); //text
             $table->string('descriptionFaq')->default(); //text
             $table->string('descriptionContact')->default(); //text
             $table->string('descriptionAnunciar')->default(); //text
+            $table->string('descriptionTestimonials')->default(); //text
             $table->string('instagram')->default(); //text
             $table->string('token_instagram')->nullable(); //text
             $table->tinyInteger('status_banner')->default(1);

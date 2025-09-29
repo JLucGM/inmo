@@ -7,6 +7,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels, Textarea, Transition } from '@headlessui/react';
 import Breadcrumb from '@/Components/Breadcrumb';
 import ToggleSwitch from '@/Components/ToggleSwitch';
+import { Alert } from 'flowbite-react';
 
 export default function Edit({ auth, setting, currencies, role, permission }) {
 
@@ -26,6 +27,8 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
         titleFaq: setting.titleFaq,
         titleContact: setting.titleContact,
         titleAnunciar: setting.titleAnunciar,
+        titleTestimonials: setting.titleTestimonials,
+        descriptionTestimonials: setting.descriptionTestimonials,
         status_banner: setting.status_banner,
         status_products_list: setting.status_products_list,
         status_info_section: setting.status_info_section,
@@ -94,14 +97,23 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                             <form onSubmit={submit} className='space-y-4 '>
 
                                 <Transition
-                                    show={recentlySuccessful}
-                                    enter="transition ease-in-out"
-                                    enterFrom="opacity-0"
-                                    leave="transition ease-in-out"
-                                    leaveTo="opacity-0"
-                                >
-                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
-                                </Transition>
+                                        show={recentlySuccessful}
+                                        enter="transition ease-out duration-300"
+                                        enterFrom="opacity-0 translate-y-[-100%]"
+                                        enterTo="opacity-100 translate-y-0"
+                                        leave="transition ease-in duration-200"
+                                        leaveFrom="opacity-100 translate-y-0"
+                                        leaveTo="opacity-0 translate-y-[-100%]"
+                                      >
+                                        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+                                          <Alert
+                                            color="success"
+                                            className="border-0 shadow-lg"
+                                          >
+                                            <span className="font-medium">¡Éxito!</span> Mensaje creado exitosamente.
+                                          </Alert>
+                                        </div>
+                                      </Transition>
 
                                 <TabGroup vertical className={'border rounded-lg'}>
                                     <div className="grid grid-cols-4">
@@ -123,41 +135,46 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                 Configurar frontend
 
                                             </Tab>
-                                            <Tab
+                                            {/* <Tab
                                                 className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
                                             >
                                                 Redes
 
+                                            </Tab> */}
+                                            <Tab
+                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
+                                            >
+                                                Información de blog
                                             </Tab>
                                             <Tab
                                                 className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
                                             >
-                                                Blog
+                                               Información de preguntas frecuentes
                                             </Tab>
                                             <Tab
                                                 className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
                                             >
-                                                Faq
+                                               Información de contacto
                                             </Tab>
                                             <Tab
                                                 className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
                                             >
-                                                Contact
+                                               Información de anunciar propiedades
                                             </Tab>
                                             <Tab
                                                 className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
                                             >
-                                                Anunciar
+                                               Información de servicios
                                             </Tab>
                                             <Tab
                                                 className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
                                             >
-                                                Sección de información
+                                                Información de equipo de trabajo
                                             </Tab>
                                             <Tab
                                                 className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
                                             >
-                                                Sección de equipo
+                                                Información de Testimonios
                                             </Tab>
                                         </TabList>
 
@@ -358,7 +375,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                         />
                                                     </div>
 
-                                                    <div className="p-4">
+                                                    {/* <div className="p-4">
                                                         <ToggleSwitch
                                                             isChecked={data.status_instagram_posts === 1}
                                                             onToggle={() => {
@@ -367,11 +384,11 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                             }}
                                                             label="Activar status_instagram_posts"
                                                         />
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             </TabPanel>
 
-                                            <TabPanel>
+                                            {/* <TabPanel>
                                                 <div title={'Redes'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                                     <div className='col-span-2'>
@@ -406,7 +423,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                         <InputError message={errors.token_instagram} className="mt-2" />
                                                     </div>
                                                 </div>
-                                            </TabPanel>
+                                            </TabPanel> */}
 
                                             <TabPanel>
                                                 <div title={'Blog'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
@@ -677,6 +694,40 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                             onChange={(e) => setData('descriptionTeamSection', e.target.value)}
                                                         />
                                                         <InputError message={errors.descriptionTeamSection} className="mt-2" />
+                                                    </div>
+
+                                                </div>
+
+                                            </TabPanel>
+                                            <TabPanel>
+                                                <div title={'Anunciar'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
+
+                                                <div>
+                                                        <InputLabel htmlFor="titleTestimonials" value="Título de sección" />
+                                                        <TextInput
+                                                            id="titleTestimonials"
+                                                            type="text"
+                                                            name="titleTestimonials"
+                                                            value={data.titleTestimonials}
+                                                            className="mt-1 block w-full"
+                                                            isFocused={true}
+                                                            onChange={(e) => setData('titleTestimonials', e.target.value)}
+                                                        />
+                                                        <InputError message={errors.titleTestimonials} className="mt-2" />
+                                                    </div>
+                                                
+                                                <div>
+                                                        <InputLabel htmlFor="descriptionTestimonials" value="Descripción de sección" />
+                                                        <Textarea
+                                                            id="descriptionTestimonials"
+                                                            // type="text"
+                                                            name="descriptionTestimonials"
+                                                            rows={10}
+                                                            value={data.descriptionTestimonials}
+                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                                                            onChange={(e) => setData('descriptionTestimonials', e.target.value)}
+                                                        />
+                                                        <InputError message={errors.descriptionTestimonials} className="mt-2" />
                                                     </div>
 
                                                 </div>

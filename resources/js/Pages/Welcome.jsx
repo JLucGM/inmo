@@ -11,6 +11,7 @@ import AnimatedComponent from '@/Components/AnimatedComponent';
 import TestimonialSection from '@/Components/TestimonialSection'; // Nueva importación
 
 export default function Welcome({ auth, setting, slides, properties, infoweb, testimonials, user, pages }) {
+  console.log(setting)
   return (
     <>
       <FrontedLayout auth={auth} setting={setting} pages={pages}>
@@ -57,8 +58,8 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
             <div className="my-20">
               <TestimonialSection 
                 datas={testimonials} 
-                headerTitle="Loved by community" 
-                subtitle="Harum quae dolore corrupti aut temporibus pariatur." 
+                headerTitle={setting.titleTestimonials} 
+                subtitle={setting.descriptionTestimonials} 
               />
             </div>
           </AnimatedComponent>

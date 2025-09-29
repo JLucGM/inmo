@@ -99,25 +99,36 @@ class FrontendController extends Controller
         return Inertia::render('Frontend/Pages', compact('setting', 'pages', 'page'));
     }
 
-    public function storeContactPages(Request $request)
-    {
-        //  dd($request, $property);
-        $data = $request->only(
-            'name',
-            'email',
-            'phone',
-            'description',
-            'types_contacts_id',
-            'types_properties_id',
-            'status_contacts_id',
-            'origin_id',
-            'country_id',
-            'state_id',
-            'city_id',
-        );
+       public function storeContactPages(Request $request)
+   {
+       //  dd($request, $property);
+       $data = $request->only(
+           'name',
+           'email',
+           'phone',
+           'description',
+           'types_contacts_id',
+           'types_properties_id',
+           'status_contacts_id',
+           'origin_id',
+           'country_id',
+           'state_id',
+           'city_id',
+       );
 
-        Contacts::create($data);
-    }
+       // Verificar si existen usuarios en la base de datos
+       $randomUser  = User::inRandomOrder()->first();
+       if (!$randomUser ) {
+           // Opcional: Maneja el caso donde no hay usuarios (por ejemplo, lanza una excepción o asigna un valor por defecto)
+           throw new \Exception('No se puede crear el contacto: No existen usuarios en la base de datos.');
+           // Alternativa: $data['user_id'] = 1; // Asigna un ID fijo si sabes que existe el usuario 1
+       } else {
+           $data['user_id'] = $randomUser ->id;
+       }
+
+       Contacts::create($data);
+   }
+   
 
     public function storeContact(Request $request, $property)
     {

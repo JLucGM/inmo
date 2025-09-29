@@ -7,9 +7,13 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import PDF from '@/Components/PDF/PDF';
+import Demands from '@/Components/Demands';
+import BasicInformation from '@/Components/BasicInformation';
+import { Alert } from 'flowbite-react';
+import SectionHeader from '@/Components/SectionHeader';
 
 export default function Index({ auth, contacts, properties, role, permission, setting }) {
-    // console.log(setting)
+    console.log(contacts)
     let [isOpen, setIsOpen] = useState(false)
     const [selectedProperty, setSelectedProperty] = useState(null);
     const [selectedContact, setSelectedContact] = useState(null);
@@ -161,109 +165,34 @@ export default function Index({ auth, contacts, properties, role, permission, se
                                                         </TabList>
                                                         <TabPanels className={'p-4 '}>
                                                             <TabPanel>
-                                                                <h5>Información Basica</h5>
-                                                                <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '> Nombre:</span>
-                                                                        <p className='capitalize'> {selectedContact.name ? selectedContact.name : 'no disponible'}</p>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>Email:</span>
-                                                                        <p className='capitalize'> {selectedContact.email ? selectedContact.email : 'no disponible'}</p>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>Fecha de nacimiento:</span>
-                                                                        <p className='capitalize'>{selectedContact.birthdate ? selectedContact.birthdate : 'no disponible'}                                                                        </p>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>Teléfono:</span>
-                                                                        <p className='capitalize'>{selectedContact.phone ? selectedContact.phone : 'no disponible'}</p>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>Encargado:</span>
-                                                                        <p className='capitalize'>{selectedContact?.user?.name || 'no disponible'}</p>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>tipo de contacto:</span>
-                                                                        <p className='capitalize'>{selectedContact.typecontact.name ? selectedContact.typecontact.name : 'no disponible'}</p>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>status de contacto:</span>
-                                                                        <p className='capitalize'> {selectedContact.statuscontact.name ? selectedContact.statuscontact.name : 'no disponible'}</p>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>Medio de captacion:</span>
-                                                                        <p className='capitalize'> {selectedContact.origin.name ? selectedContact.origin.name : 'no disponible'}</p>
-                                                                    </div>
-                                                                </div>
+                                                                <BasicInformation selectedContact={selectedContact} />
                                                             </TabPanel>
                                                             <TabPanel>
-                                                                <h5>Demandas del cliente</h5>
-                                                                <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>tipo de propiedad:</span>
-                                                                        <p className='capitalize'> {selectedContact.typeproperty.name ? selectedContact.typeproperty.name : 'no disponible'}</p>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>budget:</span>
-                                                                        <p className='capitalize'> {selectedContact.min_budget ? selectedContact.min_budget : 'no disponible'} - {selectedContact.max_budget ? selectedContact.max_budget : ' no disponible'}</p>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>bedrooms:</span>
-                                                                        <p className='capitalize'> {selectedContact.bedrooms ? selectedContact.bedrooms : 'no disponible'}</p>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>bathrooms:</span>
-                                                                        <p className='capitalize'> {selectedContact.bathrooms ? selectedContact.bathrooms : 'no disponible'}</p>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>Pais:</span>
-                                                                        <p className='capitalize'> {selectedContact.country.name ? selectedContact.country.name : 'no disponible'}</p>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>Estado:</span>
-                                                                        <p className='capitalize'> {selectedContact.state.name ? selectedContact.state.name : 'no disponible'}</p>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <span className='capitalize font-semibold '>Ciudad:</span>
-                                                                        <p className='capitalize'> {selectedContact.city.name ? selectedContact.city.name : 'no disponible'}</p>
-                                                                    </div>
-
-                                                                    <div className='col-span-2'>
-                                                                        <span className='capitalize font-semibold '>direction:</span>
-                                                                        <p className='capitalize'> {selectedContact.direction ? selectedContact.direction : 'no disponible'}</p>
-                                                                    </div>
-                                                                    <div className='col-span-full'>
-                                                                        <span className='capitalize font-semibold  '>description:</span>
-                                                                        <p> {selectedContact.description ? selectedContact.description : 'no disponible'}</p>
-                                                                    </div>
-                                                                </div>
-
+                                                                <Demands selectedContact={selectedContact} />
                                                             </TabPanel>
                                                             <TabPanel>
                                                                 <Transition
                                                                     show={recentlySuccessful}
-                                                                    enter="transition ease-in-out"
-                                                                    enterFrom="opacity-0"
-                                                                    leave="transition ease-in-out"
-                                                                    leaveTo="opacity-0"
+                                                                    enter="transition ease-out duration-300"
+                                                                    enterFrom="opacity-0 translate-y-[-100%]"
+                                                                    enterTo="opacity-100 translate-y-0"
+                                                                    leave="transition ease-in duration-200"
+                                                                    leaveFrom="opacity-100 translate-y-0"
+                                                                    leaveTo="opacity-0 translate-y-[-100%]"
                                                                 >
-                                                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
+                                                                    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+                                                                        <Alert
+                                                                            color="success"
+                                                                            className="border-0 shadow-lg"
+                                                                        >
+                                                                            <span className="font-medium">¡Guardado exitosamente!</span>
+                                                                        </Alert>
+                                                                    </div>
                                                                 </Transition>
-                                                                <h6>Cruces de propiedades - clientes</h6>
+                                                                <SectionHeader
+                                                                    title="Cruces de propiedades - clientes"
+                                                                    subtitle="Puedes asignar las propiedades más relevantes para el contacto."
+                                                                />
                                                                 <ul className='overflow-y-auto max-h-96'>
                                                                     <table className="table-auto w-full">
                                                                         <thead className=''>
@@ -352,20 +281,34 @@ export default function Index({ auth, contacts, properties, role, permission, se
                                 {/* <Description>#{selectedProperty.identification || 'no disponible'}, {selectedProperty.name || 'no disponible'}</Description> */}
                                 <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-4 items-center">
 
-                                    <div className="xs:col-span-1 md:col-span-1 ">
-                                        <img src={`${selectedProperty.main}`} alt={selectedProperty.main} className='w-auto mb-4 rounded-lg ' />
+                                    <div className="xs:col-span-1 md:col-span-1">
+                                        {/* Imagen principal: Primera de media */}
+                                        {selectedProperty.media && selectedProperty.media.length > 0 ? (
+                                            <img
+                                                src={selectedProperty.media[0].original_url}
+                                                alt={selectedProperty.name || 'Imagen principal de propiedad'}
+                                                className='w-full max-w-sm h-64 object-cover rounded-lg mb-4'
+                                                onError={(e) => { // Fallback si falla
+                                                    e.target.src = '/img/placeholder-property.jpg';
+                                                }}
+                                            />
+                                        ) : (
+                                            <div className="w-full max-w-sm h-64 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
+                                                <span className="text-gray-500">Sin imagen disponible</span>
+                                            </div>
+                                        )}
                                     </div>
 
                                     <div className="xs:col-span-1 md:col-span-2">
                                         <div className="grid grid-cols-2 gap-1 mb-2">
 
                                             <p className='capitalize'>Precio: {selectedProperty.price || 'no disponible'}</p>
-                                            <p className='capitalize'>typeproperty: {selectedProperty.typeproperty.name || 'no disponible'}</p>
-                                            <p className='capitalize'>bathrooms: {selectedProperty.bathrooms || 'no disponible'}</p>
-                                            <p className='capitalize'>totalMeters: {selectedProperty.totalMeters || 'no disponible'}</p>
-                                            <p className='capitalize'>builtMeters: {selectedProperty.builtMeters || 'no disponible'}</p>
-                                            <p className='capitalize'>bedrooms: {selectedProperty.bedrooms || 'no disponible'}</p>
-                                            <p className='capitalize'>garages: {selectedProperty.garages || 'no disponible'}</p>
+                                            <p className='capitalize'>Tipo de propiedad: {selectedProperty.typeproperty.name || 'no disponible'}</p>
+                                            <p className='capitalize'>Baños: {selectedProperty.bathrooms || 'no disponible'}</p>
+                                            <p className='capitalize'>Metros totales: {selectedProperty.totalMeters || 'no disponible'}</p>
+                                            <p className='capitalize'>Metros construidos: {selectedProperty.builtMeters || 'no disponible'}</p>
+                                            <p className='capitalize'>Habitaciones: {selectedProperty.bedrooms || 'no disponible'}</p>
+                                            <p className='capitalize'>Garajes: {selectedProperty.garages || 'no disponible'}</p>
                                             <p className='capitalize col-span-full'>Dirección: {selectedProperty.direction || 'no disponible'}, {selectedProperty.country.name}, {selectedProperty.state.name}, {selectedProperty.city.name}</p>
                                         </div>
                                         <p className='text-lg'>Comodidades</p>

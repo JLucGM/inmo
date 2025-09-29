@@ -8,6 +8,8 @@ import { Transition } from "@headlessui/react";
 import { AtSymbolIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { Head, useForm } from "@inertiajs/react";
 import InstagramPosts from '@/Components/InstagramPosts';
+import { Alert } from "flowbite-react";
+import { useEffect } from "react";
 
 export default function Contact({ auth, setting, pages }) {
 
@@ -23,10 +25,15 @@ export default function Contact({ auth, setting, pages }) {
     country_id: 1,
     state_id: 1,
     city_id: 1,
-
   }
 
-  const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
+  const { data, setData, errors, post, reset, recentlySuccessful } = useForm(initialValues)
+
+    useEffect(() => {
+      if (recentlySuccessful) {
+        reset();
+      }
+    }, [recentlySuccessful, reset]);
 
   const submit = (e) => {
     e.preventDefault();
@@ -51,12 +58,21 @@ export default function Contact({ auth, setting, pages }) {
           <form className="space-y-2" onSubmit={submit}>
             <Transition
               show={recentlySuccessful}
-              enter="transition ease-in-out"
-              enterFrom="opacity-0"
-              leave="transition ease-in-out"
-              leaveTo="opacity-0"
+              enter="transition ease-out duration-300"
+              enterFrom="opacity-0 translate-y-[-100%]"
+              enterTo="opacity-100 translate-y-0"
+              leave="transition ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 translate-y-[-100%]"
             >
-              <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
+              <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+                <Alert
+                  color="success"
+                  className="border-0 shadow-lg"
+                >
+                  <span className="font-medium">¡Éxito!</span> Mensaje creado exitosamente.
+                </Alert>
+              </div>
             </Transition>
             <div>
               <InputLabel htmlFor="name" value="Nombre" />
@@ -146,10 +162,10 @@ export default function Contact({ auth, setting, pages }) {
       </div>
 
       {setting.status_instagram_posts == 1 && (
-                    
-                        <InstagramPosts setting={setting} />
-                    
-                )}
+
+        <InstagramPosts setting={setting} />
+
+      )}
 
     </FrontedLayout>
   )

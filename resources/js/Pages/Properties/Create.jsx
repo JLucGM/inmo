@@ -16,7 +16,7 @@ import customStyles from '@/Components/lib/SelectCustom'
 
 
 export default function Create({ auth, typepropety, typebusiness, country, state, city, phystate, amenities, role, permission }) {
-
+// console.log(amenities)
     const [selectedCountry, setSelectedCountry] = useState(country[0].id);;
     const [selectedState, setSelectedState] = useState(state[0].id);
 
@@ -169,7 +169,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                             
 
                                             <div className='md:col-span-2 lg:col-span-1'>
-                                                <InputLabel htmlFor="identification" value="Identificador oficial" />
+                                                <InputLabel htmlFor="identification" value="Nro. de identificación" />
 
                                                 <TextInput
                                                     id="identification"
@@ -306,16 +306,6 @@ export default function Create({ auth, typepropety, typebusiness, country, state
 
                                                 <InputLabel htmlFor="description" value="descripcion" />
 
-                                                {/* <Textarea
-                                                    id="description"
-                                                    type="text"
-                                                    name="description"
-                                                    rows={10}
-                                                    value={data.description}
-                                                    className="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-
-                                                    onChange={(e) => setData('description', e.target.value)}
-                                                /> */}
                                                 <TextAreaRich
 
                                                     initialValue={data.description}

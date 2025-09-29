@@ -37,26 +37,19 @@ class ContactsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
-        $contacts = Contacts::with('user')
-        ->with('typecontact')
-        ->with('statuscontact')
-        ->with('origin')
-        ->with('typeproperty')
-        ->with('country')
-        ->with('state')
-        ->with('city')
-        ->where('user_id', $user->id) // Filtra por user_id
-        ->orderBy('name', 'asc')
-        ->get();        
-        $properties = Property::with('country','state','city','typeproperty','user','amenities')->get();
+
+        $contacts = Contacts::with('user', 'country', 'state', 'city', 'typecontact', 'statuscontact', 'origin', 'typeproperty',)
+            ->where('user_id', $user->id) // Filtra por user_id
+            ->orderBy('name', 'asc')
+            ->get();
+        $properties = Property::with('country', 'state', 'city', 'typeproperty', 'user', 'amenities', 'media')->get();
 
         $user = Auth::user();
         $role = $user->getRoleNames();
         $permission = $user->getAllPermissions();
         $setting = Setting::all();
 
-        return Inertia::render('Contacts/Index', compact('contacts', 'properties','role','permission','setting'));
+        return Inertia::render('Contacts/Index', compact('contacts', 'properties', 'role', 'permission', 'setting'));
     }
 
     /**
@@ -77,7 +70,7 @@ class ContactsController extends Controller
         $role = $user->getRoleNames();
         $permission = $user->getAllPermissions();
 
-        return Inertia::render('Contacts/Create', compact('country', 'state', 'city', 'typepropety', 'users', 'statuses', 'typecontacts', 'origins','role','permission'));
+        return Inertia::render('Contacts/Create', compact('country', 'state', 'city', 'typepropety', 'users', 'statuses', 'typecontacts', 'origins', 'role', 'permission'));
     }
 
     /**
@@ -143,7 +136,7 @@ class ContactsController extends Controller
         $role = $user->getRoleNames();
         $permission = $user->getAllPermissions();
 
-        return Inertia::render('Contacts/Edit', compact('contacts', 'country', 'state', 'city', 'typepropety', 'users', 'statuses', 'typecontacts', 'origins','role','permission'));
+        return Inertia::render('Contacts/Edit', compact('contacts', 'country', 'state', 'city', 'typepropety', 'users', 'statuses', 'typecontacts', 'origins', 'role', 'permission'));
     }
 
     /**
@@ -192,13 +185,13 @@ class ContactsController extends Controller
     }
 
     public function cross($contact_id, $property_id)
-{
-    // Resto de la lógica del controlador
-    ContactProperty::create([
-        'contact_id' => $contact_id,
-        'property_id' => $property_id,
-    ]);
-}
+    {
+        // Resto de la lógica del controlador
+        ContactProperty::create([
+            'contact_id' => $contact_id,
+            'property_id' => $property_id,
+        ]);
+    }
 
     public function deleteProperty(Request $request, $contactId, $propertyId)
     {

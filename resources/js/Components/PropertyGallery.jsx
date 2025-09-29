@@ -5,6 +5,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { Squares2X2Icon } from '@heroicons/react/24/outline';
 
 export default function PropertyGallery({ images }) {
   const [isOpen, setIsOpen] = useState(false); // Estado local para el modal
@@ -81,9 +82,7 @@ export default function PropertyGallery({ images }) {
                       className="bg-white text-gray-800 px-4 py-2 rounded-lg font-medium text-sm hover:bg-gray-100 transition-colors duration-200 flex items-center space-x-2 shadow-md"
                       onClick={() => setIsOpen(true)} // Abre el modal
                     >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                      </svg>
+                      <Squares2X2Icon className="h-5 w-5" />
                       <span>+{totalImages - 3} imágenes más</span>
                     </button>
                   </div>

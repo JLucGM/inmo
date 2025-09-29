@@ -10,7 +10,7 @@ import PropertyDetails from './PropertyDetails';
 import PropertyGallery from './PropertyGallery'; // Asegúrate de que exista y exporte default
 // Removidos todos los imports de Swiper ya que no se usa el modal
 
-export default function PropertySection({ datas, amenities, setting, pages }) { // Removido 'images'; amenities ahora de prop o datas.amenities
+export default function PropertySection({ datas, amenities, setting }) { // Removido 'images'; amenities ahora de prop o datas.amenities
   const initialValues = {
     name: "",
     email: "",
@@ -19,7 +19,7 @@ export default function PropertySection({ datas, amenities, setting, pages }) { 
     status_contacts_id: 1,
     types_contacts_id: 1,
     types_properties_id: 1,
-    user_id: datas?.user?.id || 1, // Fallback si datas.user no existe
+    user_id: datas?.user?.id || 1,
     origin_id: 2,
     country_id: 1,
     state_id: 1,
