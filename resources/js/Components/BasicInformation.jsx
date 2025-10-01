@@ -11,44 +11,45 @@ export default function BasicInformation({ selectedContact }) {
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
                 <div>
-                    <span className="capitalize font-semibold">Nombre:</span>
+                    <span className="capitalize font-semibold">Nombre</span>
                     <p className="capitalize">{selectedContact.name ? selectedContact.name : 'no disponible'}</p>
                 </div>
 
                 <div>
-                    <span className="capitalize font-semibold">Email:</span>
-                    <p className="capitalize">{selectedContact.email ? selectedContact.email : 'no disponible'}</p>
+                    <span className="capitalize font-semibold">Email</span>
+                    <p>{selectedContact.email ? selectedContact.email : 'no disponible'}</p>
                 </div>
 
                 <div>
-                    <span className="capitalize font-semibold">Fecha de nacimiento:</span>
+                    <span className="capitalize font-semibold">Fecha de nacimiento</span>
                     <p className="capitalize">{selectedContact.birthdate ? selectedContact.birthdate : 'no disponible'}</p>
                 </div>
 
                 <div>
-                    <span className="capitalize font-semibold">Teléfono:</span>
+                    <span className="capitalize font-semibold">Teléfono</span>
                     <p className="capitalize">{selectedContact.phone ? selectedContact.phone : 'no disponible'}</p>
                 </div>
 
                 <div>
-                    <span className="capitalize font-semibold">Encargado:</span>
+                    <span className="capitalize font-semibold">Encargado</span>
                     <p className="capitalize">{selectedContact?.user?.name || 'no disponible'}</p>
                 </div>
 
                 <div>
-                    <span className="capitalize font-semibold">Tipo de contacto:</span>
+                    <span className="capitalize font-semibold">Tipo de contacto</span>
                     <p className="capitalize">{selectedContact.typecontact?.name ? selectedContact.typecontact.name : 'no disponible'}</p>
                 </div>
 
                 <div>
-                    <span className="capitalize font-semibold">Status de contacto:</span>
+                    <span className="capitalize font-semibold">Estado de contacto</span>
                     <p className="capitalize">{selectedContact.statuscontact?.name ? selectedContact.statuscontact.name : 'no disponible'}</p>
                 </div>
 
                 <div>
-                    <span className="capitalize font-semibold">Medio de captación:</span>
+                    <span className="capitalize font-semibold">Medio de captación</span>
                     <p className="capitalize">{selectedContact.origin?.name ? selectedContact.origin.name : 'no disponible'}</p>
                 </div>
+               
             </div>
         </>
     );

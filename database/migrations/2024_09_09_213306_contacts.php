@@ -12,9 +12,9 @@ return new class extends Migration
             $table->id();
             $table->text('name')->notNullable();
             $table->string('slug')->unique();
-            $table->text('email')->nullable();
+            $table->text('email')->unique()->nullable();
             $table->text('phone')->nullable();
-            $table->text('identificación_contact')->nullable();
+            $table->text('identificación_contact')->unique()->nullable();
             $table->date('birthdate')->nullable();
             $table->text('min_budget')->nullable();
             $table->text('max_budget')->nullable();
@@ -30,6 +30,7 @@ return new class extends Migration
             $table->foreignId('country_id')->nullable()->constrained();
             $table->foreignId('state_id')->nullable()->constrained();
             $table->foreignId('city_id')->nullable()->constrained();
+            $table->boolean('is_new')->default(true);
             $table->timestamps();
         });
     }

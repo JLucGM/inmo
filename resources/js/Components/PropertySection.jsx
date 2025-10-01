@@ -24,7 +24,10 @@ export default function PropertySection({ datas, amenities, setting }) { // Remo
     country_id: 1,
     state_id: 1,
     city_id: 1,
+    property_id: datas?.id || null,
   };
+
+  // console.log('PropertySection datas:', datas); // Debug: Verifica que datas se recibe correctamente
 
   const { data, setData, errors, post, reset, recentlySuccessful } = useForm(initialValues);
 

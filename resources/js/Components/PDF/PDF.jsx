@@ -66,6 +66,9 @@ const styles = StyleSheet.create({
 });
 
 export default function PDF({ data, setting }) {
+
+      const mainImageUrl = data.media && data.media.length > 0 ? data.media[0].original_url : null;
+
     return (
         <Document>
             <Page size="A4" style={styles.page}>
@@ -83,7 +86,11 @@ export default function PDF({ data, setting }) {
                 </View>
                 <View style={{ marginTop: 30 }}>
                     <View style={styles.section}>
-                        <Image src={`${data.main}`} alt={data.main} />
+                        {mainImageUrl ? (
+              <Image src={mainImageUrl} />
+            ) : (
+              <Text>No hay imagen disponible</Text>
+            )}
                         <Text style={styles.subtitle}>{data.name}</Text>
                         <Text style={styles.text}>Dirección: {data.country.name}, {data.state.name}, {data.city.name}</Text>
                         <View style={{ flexDirection: 'row' }}>
@@ -118,6 +125,17 @@ export default function PDF({ data, setting }) {
                             ))}
                         </View>
 
+                        <Text style={styles.subtitle}>Galería:</Text>
+
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                            {data.media.map((mediaItem, index) => (
+                                <Image
+                                    key={index}
+                                    src={mediaItem.original_url}
+                                    style={{ width: '30%', height: 100, margin: 5 }}
+                                />
+                            ))}
+                        </View>
                         {/* <View style={styles.footer}> */}
                         {/* <Text style={styles.subtitle}>Datos del agente</Text> */}
                         <Text style={styles.footer}>Agente: {data.user.name}, Email: {data.user.email}, Teléfono: {data.user.phone}</Text>

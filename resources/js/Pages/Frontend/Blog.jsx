@@ -1,39 +1,35 @@
-import PostSection from "@/Components/PostSection";
-import SwiperCustom from "@/Components/SwiperCustom";
-import FrontedLayout from "@/Layouts/FrontedLayout";
-import { Head } from "@inertiajs/react";
+import FrontedLayout from '@/Layouts/FrontedLayout';
+import { Head } from '@inertiajs/react';
+import { Suspense, lazy } from 'react';
 import { Autoplay } from 'swiper/modules';
 
 
-export default function Faqs({ auth, setting, posts, pages }) {
-    // console.log(posts)
-    return (
-        <FrontedLayout auth={auth} setting={setting} pages={pages}>
-            <Head title={setting.titleBlog} />
+const PostSection = lazy(() => import('@/Components/PostSection'));
+const SwiperCustom = lazy(() => import('@/Components/SwiperCustom'));
 
-            {/* <CoverPage
-                title={setting.titleBlog}
-                image={setting.portadaBlog}
-            /> */}
+export default function Blog({ auth, setting, posts, pages }) {
+  return (
+    <FrontedLayout auth={auth} setting={setting} pages={pages}>
+      <Head title={setting.titleBlog} />
 
-            <SwiperCustom
-                datas={posts}
-                image={'image'} 
-                text={'extract'} 
-                name={'name'}
-                link={'link'}
-                autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                }}
-                modules={[Autoplay]}
-            />
+      <Suspense fallback={<div>Cargando slider...</div>}>
+        <SwiperCustom
+          datas={posts}
+          image={'image'}
+          text={'extract'}
+          name={'name'}
+          link={'link'}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          modules={[Autoplay]}
+        />
+      </Suspense>
 
-            <PostSection
-                posts={posts}
-                setting={setting}
-            />
-
-        </FrontedLayout>
-    )
+      <Suspense fallback={<div>Cargando posts...</div>}>
+        <PostSection posts={posts} setting={setting} />
+      </Suspense>
+    </FrontedLayout>
+  );
 }

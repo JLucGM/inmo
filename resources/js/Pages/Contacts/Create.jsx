@@ -133,7 +133,7 @@ export default function Create({ auth, typepropety, country, state, city, users,
                                             </div>
 
                                             <div>
-                                                <InputLabel htmlFor="email" value="Email" />
+                                                <InputLabel htmlFor="email" value="Correo electrónico" />
 
                                                 <TextInput
                                                     id="email"
@@ -149,7 +149,7 @@ export default function Create({ auth, typepropety, country, state, city, users,
 
 
                                             <div>
-                                                <InputLabel htmlFor="phone" value="Telefono" />
+                                                <InputLabel htmlFor="phone" value="Teléfono" />
 
                                                 <TextInput
                                                     id="phone"
@@ -166,7 +166,7 @@ export default function Create({ auth, typepropety, country, state, city, users,
 
 
                                             <div>
-                                                <InputLabel htmlFor="birthdate" value="birthdate" />
+                                                <InputLabel htmlFor="birthdate" value="Fecha de nacimiento" />
 
                                                 <TextInput
                                                     id="birthdate"
@@ -181,7 +181,7 @@ export default function Create({ auth, typepropety, country, state, city, users,
                                             </div>
 
                                             <div>
-                                                <InputLabel htmlFor="statuses" value="Status de contacto" />
+                                                <InputLabel htmlFor="statuses" value="Estado de contacto" />
 
                                                 <select
                                                     name="status_contacts_id"
@@ -227,7 +227,7 @@ export default function Create({ auth, typepropety, country, state, city, users,
 
 
                                             <div>
-                                                <InputLabel htmlFor="origins" value="Media de captacion" />
+                                                <InputLabel htmlFor="origins" value="Medio de captación" />
 
                                                 <select
                                                     name="origin_id"
@@ -271,7 +271,7 @@ export default function Create({ auth, typepropety, country, state, city, users,
                                             </div> */}
 
                                             <div className='col-span-2'>
-                                                <InputLabel htmlFor="description" value="descripcion" />
+                                                <InputLabel htmlFor="description" value="Descripción" />
 
                                                 <Textarea
                                                     id="description"
@@ -316,7 +316,7 @@ export default function Create({ auth, typepropety, country, state, city, users,
                                             </div>
 
                                             <div>
-                                                <InputLabel htmlFor="min_budget" value="Presupuesto minimo" />
+                                                <InputLabel htmlFor="min_budget" value="Presupuesto mínimo" />
 
                                                 <TextInput
                                                     id="min_budget"
@@ -330,7 +330,7 @@ export default function Create({ auth, typepropety, country, state, city, users,
                                                 <InputError message={errors.min_budget} className="mt-2" />
                                             </div>
                                             <div>
-                                                <InputLabel htmlFor="max_budget" value="Presupuesto maximo" />
+                                                <InputLabel htmlFor="max_budget" value="Presupuesto máximo" />
 
                                                 <TextInput
                                                     id="max_budget"
@@ -446,7 +446,7 @@ export default function Create({ auth, typepropety, country, state, city, users,
                                                 <InputError message={errors.city} className="mt-2" />
                                             </div>
                                             <div className='col-span-2'>
-                                                <InputLabel htmlFor="direction" value="direccion" />
+                                                <InputLabel htmlFor="direction" value="Dirección" />
 
                                                 <Textarea
                                                     id="direction"

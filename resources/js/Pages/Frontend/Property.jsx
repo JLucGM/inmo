@@ -1,3 +1,4 @@
+import ContainerInfoContact from "@/Components/ConteinerInfoContact";
 import PropertySection from "@/Components/PropertySection";
 import FrontedLayout from "@/Layouts/FrontedLayout";
 import { Head } from "@inertiajs/react";
@@ -12,6 +13,8 @@ export default function ProductsList({ auth, property, propertyAmenities, settin
         amenities={propertyAmenities}
         setting={setting}
       />
+
+      <ContainerInfoContact />
 
     </FrontedLayout>
   )

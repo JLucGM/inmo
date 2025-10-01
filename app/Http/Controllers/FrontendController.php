@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cities;
+use App\Models\ContactProperty;
 use App\Models\Contacts;
 use App\Models\Countries;
 use App\Models\Faqs;
@@ -30,7 +31,7 @@ class FrontendController extends Controller
         $pages = Page::where('status', '1')->get();
         $properties = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'user', 'media')->where('status', '1')->take(8)->get();
         $typeProperties = TypesProperties::all();
-        $infoweb = Infoweb::all();
+        $infoweb = Infoweb::take(12)->get();
         $posts = Post::where('status', 1)->take(12)->get();
         $testimonials = Testimonial::orderBy('created_at', 'desc') // Más recientes primero; cambia por 'id' o 'order_column' si prefieres
             ->take(12) // Limita a 12 (envía todos si hay menos)
@@ -103,7 +104,6 @@ class FrontendController extends Controller
 
     public function storeContactPages(Request $request)
     {
-        //  dd($request, $property);
         $data = $request->only(
             'name',
             'email',
@@ -118,23 +118,22 @@ class FrontendController extends Controller
             'city_id',
         );
 
-        // Verificar si existen usuarios en la base de datos
-        $randomUser  = User::inRandomOrder()->first();
+        $randomUser  = User::whereHas('roles', function ($query) {
+            $query->where('name', 'agente');
+        })->inRandomOrder()->first();
+
         if (!$randomUser) {
-            // Opcional: Maneja el caso donde no hay usuarios (por ejemplo, lanza una excepción o asigna un valor por defecto)
-            throw new \Exception('No se puede crear el contacto: No existen usuarios en la base de datos.');
-            // Alternativa: $data['user_id'] = 1; // Asigna un ID fijo si sabes que existe el usuario 1
-        } else {
-            $data['user_id'] = $randomUser->id;
+            throw new \Exception('No se puede crear el contacto: No existen usuarios con rol agente.');
         }
+
+        $data['user_id'] = $randomUser->id;
 
         Contacts::create($data);
     }
 
-
-    public function storeContact(Request $request, $property)
+    public function storeContact(Request $request)
     {
-        //  dd($request, $property);
+        $property = $request->input('property_id');
         $data = $request->only(
             'name',
             'email',
@@ -150,8 +149,28 @@ class FrontendController extends Controller
             'city_id',
         );
 
-        Contacts::create($data);
+        // Buscar contacto existente por email
+        $contact = Contacts::where('email', $data['email'])->first();
+
+        if (!$contact) {
+            // No existe, crear nuevo contacto
+            $contact = Contacts::create($data);
+        }
+
+        // Verificar si ya existe la relación para evitar duplicados
+        $existsRelation = ContactProperty::where('contact_id', $contact->id)
+            ->where('property_id', $property)
+            ->exists();
+
+        if (!$existsRelation) {
+            // Crear la relación solo si no existe
+            ContactProperty::create([
+                'contact_id' => $contact->id,
+                'property_id' => $property,
+            ]);
+        }
     }
+
 
     public function propertiesList()
     {

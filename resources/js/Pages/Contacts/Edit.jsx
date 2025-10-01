@@ -36,7 +36,7 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
         country_id: contacts.country_id,
         state_id: contacts.state_id,
         city_id: contacts.city_id,
-        user_id: contacts.user_id,
+        // user_id: contacts.user_id,
         origin_id: contacts.origin_id,
     }
     // console.log(contacts);
@@ -157,7 +157,7 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
                                             </div>
 
                                             <div>
-                                                <InputLabel htmlFor="email" value="Email" />
+                                                <InputLabel htmlFor="email" value="Correo electrónico" />
 
                                                 <TextInput
                                                     id="email"
@@ -173,7 +173,7 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
 
 
                                             <div>
-                                                <InputLabel htmlFor="phone" value="Telefono" />
+                                                <InputLabel htmlFor="phone" value="Teléfono" />
 
                                                 <TextInput
                                                     id="phone"
@@ -190,7 +190,7 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
 
 
                                             <div>
-                                                <InputLabel htmlFor="birthdate" value="birthdate" />
+                                                <InputLabel htmlFor="birthdate" value="Fecha de nacimiento" />
 
                                                 <TextInput
                                                     id="birthdate"
@@ -205,7 +205,7 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
                                             </div>
 
                                             <div>
-                                                <InputLabel htmlFor="statuses" value="Status de contacto" />
+                                                <InputLabel htmlFor="statuses" value="Estado de contacto" />
 
                                                 <select
                                                     name="status_contacts_id"
@@ -251,7 +251,7 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
 
 
                                             <div>
-                                                <InputLabel htmlFor="origins" value="Media de captacion" />
+                                                <InputLabel htmlFor="origins" value="Medio de captación" />
 
                                                 <select
                                                     name="origin_id"
@@ -271,7 +271,7 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
 
                                                 <InputError message={errors.origin_id} className="mt-2" />
                                             </div>
-                                            <div>
+                                            {/* <div>
                                                 <InputLabel htmlFor="users" value="Agente" />
 
                                                 <select
@@ -291,10 +291,10 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
                                                 </select>
 
                                                 <InputError message={errors.users} className="mt-2" />
-                                            </div>
+                                            </div> */}
 
                                             <div className='col-span-2'>
-                                                <InputLabel htmlFor="description" value="descripcion" />
+                                                <InputLabel htmlFor="description" value="Descripción" />
 
                                                 <Textarea
                                                     id="description"
@@ -339,7 +339,7 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
                                             </div>
 
                                             <div>
-                                                <InputLabel htmlFor="min_budget" value="Presupuesto minimo" />
+                                                <InputLabel htmlFor="min_budget" value="Presupuesto mínimo" />
 
                                                 <TextInput
                                                     id="min_budget"
@@ -353,7 +353,7 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
                                                 <InputError message={errors.min_budget} className="mt-2" />
                                             </div>
                                             <div>
-                                                <InputLabel htmlFor="max_budget" value="Presupuesto maximo" />
+                                                <InputLabel htmlFor="max_budget" value="Presupuesto máximo" />
 
                                                 <TextInput
                                                     id="max_budget"
@@ -399,75 +399,6 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
 
                                                 <InputError message={errors.bathrooms} className="mt-2" />
                                             </div>
-
-                                            {/* <div className='col-span-2'>
-                                                <InputLabel htmlFor="country" value="Paises" />
-
-                                                <select
-                                                    name="country_id"
-                                                    id="country"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.country_id} // Establecer el valor del select con el valor de country_id
-                                                    onChange={(e) => {
-                                                        setData('country_id', parseInt(e.target.value));
-                                                        setSelectedCountry(parseInt(e.target.value));
-                                                    }}
-                                                >
-                                                    {country.map((country) => (
-                                                        <option value={country.id} key={country.id}>
-                                                            {country.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                <InputError message={errors.country} className="mt-2" />
-                                            </div>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="state" value="Estados" />
-
-                                                <select
-                                                    name="state_id"
-                                                    id="state"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.state_id} // Establecer el valor del select con el valor de state_id
-                                                    onChange={(e) => {
-                                                        setData('state_id', parseInt(e.target.value));
-                                                        setSelectedState(parseInt(e.target.value));
-
-                                                    }}
-                                                >
-                                                    {state.filter((state) => state.country_id === selectedCountry).map((state) => (
-                                                        <option value={state.id} key={state.id}>
-                                                            {state.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                <InputError message={errors.state} className="mt-2" />
-                                            </div>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="city" value="Ciudades" />
-
-                                                <select
-                                                    name="city_id"
-                                                    id="city"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.city_id} // Establecer el valor del select con el valor de city_id
-                                                    onChange={(e) => {
-                                                        setData('city_id', parseInt(e.target.value));
-                                                    }}
-                                                >
-                                                    {city.filter((city) => city.state_id === selectedState).map((city) => (
-                                                        <option value={city.id} key={city.id}>
-                                                            {city.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                <InputError message={errors.city} className="mt-2" />
-                                            </div> */}
 
                                             <div className='col-span-2'>
                                                 <InputLabel htmlFor="country" value="Paises" />
@@ -544,7 +475,7 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
 
 
                                             <div className='col-span-2'>
-                                                <InputLabel htmlFor="direction" value="direccion" />
+                                                <InputLabel htmlFor="direction" value="Dirección" />
 
                                                 <Textarea
                                                     id="direction"

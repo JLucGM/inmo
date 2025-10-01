@@ -11,6 +11,7 @@ import TestimonialSection from '@/Components/TestimonialSection'; // Nueva dimpo
 import TypePropertiesCarousel from '@/Components/TypePropertiesCarousel';
 import Masonary from '@/Components/Masonary';
 import HeaderSection from '@/Components/HeaderSection';
+import ContainerInfoContact from '@/Components/ConteinerInfoContact';
 
 export default function Welcome({ auth, setting, slides, properties, infoweb, testimonials, user, pages, posts, typeProperties }) {
 
@@ -98,6 +99,8 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
             <Masonary items={postsForMasonry} />
           </div>
         )}
+
+        <ContainerInfoContact />
 
       </FrontedLayout>
     </>

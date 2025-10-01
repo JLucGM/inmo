@@ -91,7 +91,7 @@ export default function Contact({ auth, setting, pages }) {
             </div>
 
             <div>
-              <InputLabel htmlFor="email" value="email" />
+              <InputLabel htmlFor="email" value="Correo Electrónico" />
 
               <TextInput
                 id="email"
@@ -106,7 +106,7 @@ export default function Contact({ auth, setting, pages }) {
               <InputError message={errors.name} className="mt-2" />
             </div>
             <div>
-              <InputLabel htmlFor="phone" value="phone" />
+              <InputLabel htmlFor="phone" value="Teléfono" />
 
               <TextInput
                 id="phone"
@@ -122,7 +122,7 @@ export default function Contact({ auth, setting, pages }) {
             </div>
 
             <div>
-              <InputLabel htmlFor="description" value="description" />
+              <InputLabel htmlFor="description" value="Descripción" />
 
               <TextInput
                 id="description"

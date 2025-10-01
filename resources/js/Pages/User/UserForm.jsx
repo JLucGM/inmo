@@ -40,7 +40,7 @@ export default function UserForm({ data, user = "", setData, errors, roles }) {
                     </div>
 
                     <div className='col-span-full'>
-                        <InputLabel htmlFor="email" value="Email" />
+                        <InputLabel htmlFor="email" value="Correo electrónico" />
 
                         <TextInput
                             id="email"

@@ -2,18 +2,17 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import ExclamationCircle from '@/Components/Icon/ExclamationCircleIcon';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Dialog, Description, DialogPanel, DialogTitle, Select, Transition, TabGroup, TabList, Tab, TabPanels, TabPanel, DialogBackdrop, Button } from '@headlessui/react';
+import { Dialog, DialogPanel, DialogTitle, Transition, TabGroup, TabList, Tab, TabPanels, TabPanel, DialogBackdrop, Button } from '@headlessui/react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-import { PDFDownloadLink } from '@react-pdf/renderer';
-import PDF from '@/Components/PDF/PDF';
 import Demands from '@/Components/Demands';
 import BasicInformation from '@/Components/BasicInformation';
 import { Alert } from 'flowbite-react';
 import SectionHeader from '@/Components/SectionHeader';
+import PDFOpenButton from '@/Components/PDF/PDFOpenButton';
 
 export default function Index({ auth, contacts, properties, role, permission, setting }) {
-    // console.log(contacts)
+    // console.log(properties)
     let [isOpen, setIsOpen] = useState(false)
     const [selectedProperty, setSelectedProperty] = useState(null);
     const [selectedContact, setSelectedContact] = useState(null);
@@ -73,6 +72,16 @@ export default function Index({ auth, contacts, properties, role, permission, se
             });
     };
 
+    const groupedContacts = contacts.reduce((groups, contact) => {
+        const firstLetter = contact.name?.charAt(0).toUpperCase() || '#';
+        if (!groups[firstLetter]) {
+            groups[firstLetter] = [];
+        }
+        groups[firstLetter].push(contact);
+        return groups;
+    }, {});
+    const sortedLetters = Object.keys(groupedContacts).sort();
+
     const items = [
         {
             name: 'Dashboard',
@@ -96,9 +105,9 @@ export default function Index({ auth, contacts, properties, role, permission, se
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <SectionHeader 
+                    <SectionHeader
                         title="Lista de contactos"
-                        subtitle="Aquí puedes gestionar los contactos de clientes."
+                        subtitle="Aquí puedes gestionar los contactos de clientes. Clientes nuevos se marcarán con un punto rojo."
                     />
                     {/* <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Lista de contactos</h2> */}
                     {permission.some(perm => perm.name === 'admin.contactos.create') && (
@@ -113,33 +122,58 @@ export default function Index({ auth, contacts, properties, role, permission, se
         >
             <Breadcrumb items={items} />
 
-            <Head className="capitalize" title="Contactos" />
+            <Head className="capitalize" title="Lista de Contactos" />
 
             <div className="">
                 <div className="max-w-7xl mx-auto p-4">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden ">
                         <TabGroup className={'rounded-lg md:h-screen-[-175] border'} vertical>
                             <div className="grid grid-cols-1 md:grid-cols-4">
-                                <TabList className="flex flex-col overflow-y-auto rounded-lg h-44 md:h-screen-[-175] md:border-b md:flex-rowf md:overflow-hidden border-e">
-                                    {
-                                        contacts?.length > 0 ? (
-                                            contacts.map((contact) => (
-                                                <Tab
-                                                    key={contact.id}
-                                                    className="py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
-                                                    onClick={() => setSelectedContact(contact)}
-                                                >
-                                                    {contact.name}
-                                                </Tab>
-                                            ))
-                                        ) : (
-                                            <div className="flex flex-col items-center p-4 text-gray-700 dark:text-gray-400">
-                                                <ExclamationCircle className="size-8" />
-                                                <p> No hay contactos creados.</p>
+                                <TabList
+                                  style={{  overflowY: 'auto' }}
+                                  className="flex flex-col overflow-y-auto rounded-lg h-44 md:h-screen-[-175] md:border-b md:flex-rowf md:overflow-hidden border-e">
+                                    {contacts?.length > 0 ? (() => {
+                                        // Agrupar contactos por primera letra
+                                        const groupedContacts = contacts.reduce((groups, contact) => {
+                                            const firstLetter = contact.name?.charAt(0).toUpperCase() || '#';
+                                            if (!groups[firstLetter]) {
+                                                groups[firstLetter] = [];
+                                            }
+                                            groups[firstLetter].push(contact);
+                                            return groups;
+                                        }, {});
+
+                                        // Ordenar letras
+                                        const sortedLetters = Object.keys(groupedContacts).sort();
+
+                                        return sortedLetters.map((letter) => (
+                                            <div key={letter}>
+                                                <div className="px-3 py-1 font-bold border-y border-gray-200 text-gray-500 dark:text-gray-400">{letter}</div>
+                                                {groupedContacts[letter].map((contact) => (
+                                                    <Tab
+                                                        key={contact.id}
+                                                        className="w-full py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white space-x-2 flex items-center justify-center data-[hover]:underline"
+                                                        onClick={() => setSelectedContact(contact)}
+                                                    >
+                                                        {(contact.is_new === true || contact.is_new === 1) && (
+                                                            <span
+                                                                className="inline-block w-2 h-2 bg-red-600 rounded-full me-2"
+                                                                title="Cliente nuevo"
+                                                            ></span>
+                                                        )}
+                                                        {contact.name}
+                                                    </Tab>
+                                                ))}
                                             </div>
-                                        )
-                                    }
+                                        ));
+                                    })() : (
+                                        <div className="flex flex-col items-center p-4 text-gray-700 dark:text-gray-400">
+                                            <ExclamationCircle className="size-8" />
+                                            <p>No hay contactos creados.</p>
+                                        </div>
+                                    )}
                                 </TabList>
+
                                 <TabPanels className="col-span-3 p-4">
                                     {
                                         contacts?.map((contact, index) => (
@@ -239,13 +273,7 @@ export default function Index({ auth, contacts, properties, role, permission, se
                                                                                                 </PrimaryButton>
                                                                                             )}
 
-                                                                                            <PDFDownloadLink document={<PDF data={property} setting={setting} />} fileName='propiedad.pdf'>
-                                                                                                <Button
-                                                                                                    className='inline-flex items-center px-4 py-2 bg-orange-800 dark:bg-orange-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
-                                                                                                >
-                                                                                                    PDF
-                                                                                                </Button>
-                                                                                            </PDFDownloadLink>
+                                                                                            <PDFOpenButton property={property} setting={setting} />
 
                                                                                         </td>
                                                                                     </tr>
