@@ -20,231 +20,328 @@ class AmenitiesSeeder extends Seeder
             // Comodidades básicas e infraestructura
             [
                 'name' => 'agua potable',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25a.375.375 0 01.375.375v14.25a.375.375 0 01-.75 0V2.625a.375.375 0 01.375-.375zM12 8.25a.375.375 0 01.375.375v5.25a.375.375 0 01-.75 0V8.625a.375.375 0 01.375-.375zM12 14.25a.375.375 0 01.375.375v1.5a.375.375 0 01-.75 0v-1.5a.375.375 0 01.375-.375z" /></svg>' // Cloud (para agua/lluvia).
+                'icon_svg' => '
+<svg fill="#000000" width="2rem" height="2rem" viewBox="-1.82 0 15.99 15.99" xmlns="http://www.w3.org/2000/svg">
+<g id="Layer_2" data-name="Layer 2">
+<g id="Layer_1-2" data-name="Layer 1">
+<path d="M11.08,6.06,6.58.19a.52.52,0,0,0-.8,0L1.28,6.06a6.18,6.18,0,1,0,10.44,6.49A6.13,6.13,0,0,0,11.08,6.06Zm-.26,6A5.07,5.07,0,0,1,6.18,15,5.08,5.08,0,0,1,1.54,12.1a5.08,5.08,0,0,1,.53-5.43L6.18,1.31l4.11,5.36A5.08,5.08,0,0,1,10.82,12.1ZM10.18,10a4,4,0,0,1-4,4,.5.5,0,0,1,0-1,3,3,0,0,0,3-3,.5.5,0,0,1,1,0Z"/>
+</g>
+</g>
+</svg>' // Cloud (para agua/lluvia).
             ],
             [
                 'name' => 'alcantarillado',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H4.875l-.75 1.5H3.75z" /></svg>' // Funnel (para drenaje).
+                'icon_svg' => '
+<svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M21 0C19.355469 0 18 1.355469 18 3L18 4L9.6875 4C8.464844 4 7.644531 4.894531 7.21875 6L7.09375 6C4.84375 6 3 7.867188 3 10.1875L3 11C3 11.550781 3.449219 12 4 12L5.125 12L10.21875 46.75C10.488281 48.636719 12.125 50 14 50L36 50C37.875 50 39.398438 48.605469 39.78125 46.8125C39.78125 46.792969 39.78125 46.769531 39.78125 46.75L44.875 12L46 12C46.550781 12 47 11.550781 47 11L47 10.1875C47 7.867188 45.15625 6 42.90625 6L42.78125 6C42.355469 4.894531 41.535156 4 40.3125 4L32 4L32 3C32 1.355469 30.644531 0 29 0 Z M 21 2L29 2C29.554688 2 30 2.445313 30 3L30 4L20 4L20 3C20 2.445313 20.445313 2 21 2 Z M 9.6875 6L40.3125 6C40.710938 6 41.1875 6.445313 41.1875 7C41.1875 7.550781 41.636719 8 42.1875 8L42.90625 8C43.988281 8 44.835938 8.835938 44.9375 10L5.0625 10C5.164063 8.835938 6.011719 8 7.09375 8L7.8125 8C8.363281 8 8.8125 7.550781 8.8125 7C8.8125 6.445313 9.289063 6 9.6875 6 Z M 7.15625 12L42.84375 12L37.8125 46.375C37.597656 47.378906 36.921875 48 36 48L14 48C13.078125 48 12.316406 47.378906 12.1875 46.46875 Z M 12.25 16.28125C11.984375 16.320313 11.742188 16.464844 11.585938 16.679688C11.425781 16.898438 11.363281 17.171875 11.40625 17.4375L14.71875 42.34375C14.730469 42.726563 14.960938 43.066406 15.3125 43.222656C15.664063 43.378906 16.070313 43.320313 16.363281 43.074219C16.65625 42.824219 16.78125 42.433594 16.6875 42.0625L13.40625 17.15625C13.375 16.882813 13.234375 16.636719 13.015625 16.46875C12.796875 16.304688 12.519531 16.238281 12.25 16.28125 Z M 20.65625 16.28125C20.140625 16.359375 19.773438 16.824219 19.8125 17.34375L20.90625 42.25C20.933594 42.800781 21.402344 43.230469 21.953125 43.203125C22.503906 43.175781 22.933594 42.707031 22.90625 42.15625L21.8125 17.25C21.804688 16.980469 21.6875 16.722656 21.488281 16.539063C21.285156 16.359375 21.019531 16.265625 20.75 16.28125C20.71875 16.28125 20.6875 16.28125 20.65625 16.28125 Z M 29.03125 16.28125C28.550781 16.355469 28.195313 16.765625 28.1875 17.25L27.09375 42.15625C27.066406 42.707031 27.496094 43.175781 28.046875 43.203125C28.597656 43.230469 29.066406 42.800781 29.09375 42.25L30.1875 17.34375C30.207031 17.058594 30.101563 16.777344 29.898438 16.570313C29.691406 16.367188 29.410156 16.261719 29.125 16.28125C29.09375 16.28125 29.0625 16.28125 29.03125 16.28125 Z M 37.4375 16.28125C36.992188 16.347656 36.644531 16.707031 36.59375 17.15625L33.3125 42.0625C33.21875 42.433594 33.34375 42.824219 33.636719 43.074219C33.929688 43.320313 34.335938 43.378906 34.6875 43.222656C35.039063 43.066406 35.269531 42.726563 35.28125 42.34375L38.59375 17.4375C38.640625 17.136719 38.550781 16.828125 38.34375 16.601563C38.136719 16.375 37.835938 16.257813 37.53125 16.28125C37.5 16.28125 37.46875 16.28125 37.4375 16.28125Z"/></svg>' // Funnel (para drenaje).
             ],
             [
                 'name' => 'electricidad',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 00-9 0v3.75A5.25 5.25 0 001.5 18.75h-3v-2.25A2.25 2.25 0 013 16.5h3.75a.75.75 0 00.75-.75V6.75a3 3 0 016 0v3.75a.75.75 0 001.5 0V12h3v2.25a2.25 2.25 0 01-2.25 2.25h-3v3a.75.75 0 00-.75.75H9v-3a.75.75 0 00-.75-.75H3z" /></svg>' // Bolt.
+                'icon_svg' => '
+<svg width="2rem" height="2rem" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M15 8H11.9451L13.9191 3.39392C14.2019 2.73405 13.7179 2 13 2H8C7.59997 2 7.23843 2.2384 7.08086 2.60608L4.08086 9.60608C3.79805 10.2659 4.28208 11 5 11H6.73423L4.07207 17.6273C3.67234 18.6223 4.90667 19.4633 5.68646 18.7272L10.7099 13.9849L15.6501 9.75985C16.3559 9.156 15.9289 8 15 8ZM9.50943 8.60608C9.22663 9.26595 9.71066 10 10.4286 10H12.2929L9.37334 12.4979L7.62514 14.1477L9.14152 10.3727C9.40546 9.71569 8.92168 9 8.21359 9H6.51654L8.6594 4H11.4835L9.50943 8.60608Z" fill="#000000"/>
+</svg>' // Bolt.
             ],
             [
                 'name' => 'red de gas natural',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L16.5 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423L16.5 15.75l.394 1.183a2.25 2.25 0 001.423 1.423L19.5 18.75l-1.183.394a2.25 2.25 0 00-1.423 1.423z" /></svg>' // Fire (para gas).
+                'icon_svg' => '
+<svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M829.44 911.36c45.245 0 81.92-36.675 81.92-81.92V194.56c0-45.245-36.675-81.92-81.92-81.92H194.56c-45.245 0-81.92 36.675-81.92 81.92v634.88c0 45.245 36.675 81.92 81.92 81.92h634.88zm0 40.96H194.56c-67.866 0-122.88-55.014-122.88-122.88V194.56c0-67.866 55.014-122.88 122.88-122.88h634.88c67.866 0 122.88 55.014 122.88 122.88v634.88c0 67.866-55.014 122.88-122.88 122.88z"/><path d="M571.207 679.528c8.948 12.198 13.841 26.88 13.841 42.343 0 39.588-32.094 71.68-71.68 71.68-39.592 0-71.68-32.088-71.68-71.68 0-14.73 4.436-28.756 12.601-40.599l-33.722-23.249c-12.843 18.628-19.839 40.749-19.839 63.849 0 62.214 50.426 112.64 112.64 112.64 62.207 0 112.64-50.429 112.64-112.64 0-24.253-7.715-47.405-21.774-66.57l-33.027 24.227z"/><path d="M580.161 694.89c5.627 9.812 18.143 13.204 27.954 7.577s13.204-18.143 7.577-27.954l-69.284-120.812c-16.261-28.378-49.827-28.378-66.091.006l-69.28 120.805c-5.627 9.812-2.234 22.327 7.577 27.954s22.327 2.234 27.954-7.577l66.796-116.474 66.796 116.474z"/><path d="M656.794 508.65c22.402 30.575 34.665 67.427 34.665 106.178 0 99.233-80.352 179.671-179.456 179.671-99.113 0-179.466-80.436-179.466-179.671 0-36.915 11.12-72.112 31.582-101.823l-33.734-23.232c-25.132 36.492-38.808 79.778-38.808 125.055 0 121.847 98.683 220.631 220.426 220.631 121.735 0 220.416-98.786 220.416-220.631 0-47.531-15.08-92.847-42.585-130.387l-33.04 24.209z"/><path d="M677.683 544.271c5.622 9.815 18.136 13.213 27.951 7.591s13.213-18.136 7.591-27.951L545.043 230.31c-16.261-28.397-49.807-28.397-66.084-.007L310.773 523.911c-5.622 9.815-2.223 22.328 7.591 27.951s22.328 2.223 27.951-7.591l165.684-289.24 165.684 289.24z"/></svg>' // Fire (para gas).
             ],
             [
                 'name' => 'alumbrado público',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189M12 5.25a5.25 5.25 0 00-5.25 5.25v1.5a5.25 5.25 0 0010.5 0V10.5A5.25 5.25 0 0012 5.25z" /></svg>' // Light-bulb.
+                'icon_svg' => '
+<svg width="2rem" height="2rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<style>.cls-1{fill:none;stroke:#020202;stroke-miterlimit:10;stroke-width:1.92px;}</style>
+</defs><g id="roll_brush" data-name="roll brush"><circle class="cls-1" cx="11.99" cy="12.01" r="6.71"/><path class="cls-1" d="M12,8.65a3.36,3.36,0,0,1,0,6.72Z"/><line class="cls-1" x1="11.99" y1="0.5" x2="11.99" y2="2.42"/><line class="cls-1" x1="11.99" y1="21.6" x2="11.99" y2="23.52"/><line class="cls-1" x1="0.48" y1="12.01" x2="2.4" y2="12.01"/><line class="cls-1" x1="21.58" y1="12.01" x2="23.5" y2="12.01"/><line class="cls-1" x1="20.13" y1="3.87" x2="18.77" y2="5.23"/><line class="cls-1" x1="5.21" y1="18.79" x2="3.85" y2="20.15"/><line class="cls-1" x1="3.85" y1="3.87" x2="5.21" y2="5.23"/><line class="cls-1" x1="18.77" y1="18.79" x2="20.13" y2="20.15"/></g></svg>' // Light-bulb.
             ],
             [
                 'name' => 'asfalto',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m-10.5 0h19.5M3 3h18" /></svg>' // Road (adaptado de arrows).
+                'icon_svg' => '
+<svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.97,2.242l-5,20A1,1,0,0,1,2,23a1.025,1.025,0,0,1-.244-.03,1,1,0,0,1-.727-1.212l5-20a1,1,0,1,1,1.94.484Zm10-.484a1,1,0,1,0-1.94.484l5,20A1,1,0,0,0,22,23a1.017,1.017,0,0,0,.243-.03,1,1,0,0,0,.728-1.212ZM12,1a1,1,0,0,0-1,1V6a1,1,0,0,0,2,0V2A1,1,0,0,0,12,1Zm0,7.912a1,1,0,0,0-1,1v4.176a1,1,0,1,0,2,0V9.912A1,1,0,0,0,12,8.912ZM12,17a1,1,0,0,0-1,1v4a1,1,0,0,0,2,0V18A1,1,0,0,0,12,17Z"/></svg>' // Road (adaptado de arrows).
             ],
             [
                 'name' => 'internet / wifi',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25a9.764 9.764 0 012.555.337A5.972 5.972 0 0118.59 3.03a5.969 5.969 0 01.474.065 4.48 4.48 0 00-.978 2.025c-.09.457.133.901.467 1.226C20.07 7.822 21 9.811 21 12z" /></svg>' // Wifi.
+                'icon_svg' => '
+<svg fill="#000000" width="2rem" height="2rem" viewBox="-2 -5 24 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-wifi"><path d="M10 13.992a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM7.894 11.44a1 1 0 0 1-1.788-.894 4.355 4.355 0 0 1 7.788 0 1 1 0 1 1-1.788.894 2.353 2.353 0 0 0-4.212 0zM4.8 8.595a1 1 0 0 1-1.6-1.2 8.503 8.503 0 0 1 13.6 0 .999.999 0 1 1-1.6 1.2 6.503 6.503 0 0 0-10.4 0zm-3.057-2.93A1 1 0 0 1 .257 4.329c4.843-5.377 13.13-5.813 18.512-.973.342.307.667.632.974.973a.999.999 0 1 1-1.486 1.338 10.91 10.91 0 0 0-.826-.826C12.871.74 5.847 1.108 1.743 5.666z" /></svg>' // Wifi.
             ],
             [
                 'name' => 'ascensor',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>' // Building-office-2 (para ascensor en edificio).
+                'icon_svg' => '<?xml version="1.0" encoding="UTF-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg" id="elevator">
+  <path d="M11,1H4A1,1,0,0,0,3,2V13a1,1,0,0,0,1,1h7a1,1,0,0,0,1-1V2A1,1,0,0,0,11,1ZM7.5,12.5l-2-4h4Zm-2-6,2-4,2,4Z"/>
+</svg>' // Building-office-2 (para ascensor en edificio).
             ],
 
             // Seguridad y accesos
             [
                 'name' => 'seguridad 24/7',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>' // Shield-check.
-            ],
-            [
-                'name' => 'garita de seguridad',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.5H4.5m0 0v-4.5m15 4.5H14.25v4.5h5.25m0 0v-4.5m0 4.5H19.5" /></svg>' // Building-office.
+                'icon_svg' => '
+<svg width="2rem" height="2rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22.943C3.533 18.32 2.498 12.026 3.16 4.723l.08-.869.871-.042c3.31-.166 5.668-.934 7.21-2.35L12 .838l.68.624c1.54 1.416 3.9 2.184 7.21 2.35l.87.042.08.869c.666 7.34-.407 13.61-8.84 18.22zM4.16 4.811c-.543 5.988-.04 12.694 7.838 16.993 7.88-4.3 8.39-11.001 7.845-16.99-3.553-.178-6.12-1.036-7.84-2.616-1.72 1.58-4.29 2.435-7.842 2.613z"/><path fill="none" d="M0 0h24v24H0z"/></svg>' // Shield-check.
             ],
             [
                 'name' => 'muros perimetrales',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 7.5h16.5M3.75 16.5h16.5M12 5.25V21m-3-15h6" /></svg>' // Rectangle-stack (para muros).
+                'icon_svg' => '
+<svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="M21,9a1,1,0,0,0,0-2H20V5h1a1,1,0,0,0,0-2H3A1,1,0,0,0,3,5H6V7H3A1,1,0,0,0,3,9H4v2H3a1,1,0,0,0,0,2H6v2H3a1,1,0,0,0,0,2H4v2H3a1,1,0,0,0,0,2H21a1,1,0,0,0,0-2H18V17h3a1,1,0,0,0,0-2H20V13h1a1,1,0,0,0,0-2H18V9ZM8,5h4V7H8Zm8,4v2H12V9ZM6,9h4v2H6Zm6,4v2H8V13Zm-2,6H6V17h4Zm6,0H12V17h4Zm2-4H14V13h4ZM14,7V5h4V7Z"/></svg>' // Rectangle-stack (para muros).
             ],
             [
                 'name' => 'portones eléctricos',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 7.5h16.5M3.75 16.5h16.5" /></svg>' // Lock-open (para portones).
+                'icon_svg' => '<svg width="2rem" height="2rem" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="#000" d="M248 88v32.652c-5.287.834-10.615 2.448-16 4.63V104h-16v29.16c-1.698.96-3.402 1.953-5.115 2.98-3.598 2.16-7.23 4.48-10.885 6.905V120h-16v34.19c-5.324 3.85-10.664 7.826-16 11.822V152h-16v25.965c-5.402 4.008-10.75 7.9-16 11.592V168h-16v32.213c-1.04.647-2.09 1.312-3.115 1.928-4.448 2.67-8.766 5.003-12.885 6.962V200H88V214.973c-2.89.67-5.575 1.027-8 1.027h-8v-32H24v304h48V232h8c2.658 0 5.324-.23 8-.652V488h16V226.717c5.272-2.138 10.6-4.82 16-7.877V488h16V208.955c5.294-3.512 10.637-7.264 16-11.144V488h16V344h16v144h16V162.443c5.462-3.838 10.81-7.427 16-10.656V296h16V142.898c5.793-2.754 11.188-4.755 16-5.87V296h16V137.027c4.812 1.116 10.207 3.117 16 5.87V296h16V151.787c5.19 3.23 10.538 6.818 16 10.656V488h16V344h16v144h16V197.81c5.363 3.88 10.706 7.633 16 11.145V488h16V218.84c5.4 3.056 10.728 5.74 16 7.877V488h16V231.348c2.676.422 5.342.652 8 .652h8v256h48V184h-48v32h-8c-2.425 0-5.11-.357-8-1.027V200h-16v9.102c-4.12-1.96-8.437-4.292-12.885-6.96-1.026-.617-2.075-1.282-3.115-1.93V168h-16V189.557c-5.252-3.69-10.598-7.584-16-11.592V152h-16v14.012c-5.336-3.996-10.676-7.97-16-11.823V120h-16v23.045c-3.654-2.424-7.287-4.746-10.885-6.904-1.713-1.027-3.417-2.02-5.115-2.98V104h-16v21.283c-5.385-2.183-10.713-3.797-16-4.63V88h-16zM48 120c-13.35 0-24 10.65-24 24s10.65 24 24 24 24-10.65 24-24-10.65-24-24-24zm416 0c-13.35 0-24 10.65-24 24s10.65 24 24 24 24-10.65 24-24-10.65-24-24-24zm-280 54.035V328h-16V185.988c1.6-1.198 3.203-2.39 4.8-3.588 3.75-2.81 7.484-5.608 11.2-8.365zm144 0c3.716 2.757 7.45 5.555 11.2 8.365 1.597 1.2 3.2 2.39 4.8 3.588V328h-16V174.035zM216 312v32h80v-32h-80zm0 48v128h16V360h-16zm32 0v128h16V360h-16zm32 0v128h16V360h-16z"/></svg>' // Lock-open (para portones).
             ],
             [
                 'name' => 'alarma',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M15 12h3.75M15 15h3.75M21 4.25V21a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 21V4.25a2.25 2.25 0 012.25-2.25H18.75a2.25 2.25 0 012.25 2.25z" /></svg>' // Bell.
+                'icon_svg' => '
+<svg width="2rem" height="2rem" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.5 3.5L3.5 0.5M11.5 0.5L14.5 3.5M7.5 5V8.5H10M7.5 2.5C4.18629 2.5 1.5 5.18629 1.5 8.5C1.5 11.8137 4.18629 14.5 7.5 14.5C10.8137 14.5 13.5 11.8137 13.5 8.5C13.5 5.18629 10.8137 2.5 7.5 2.5Z" stroke="#000000"/>
+</svg>' // Bell.
             ],
             [
                 'name' => 'cámaras de vigilancia',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>' // Eye.
+                'icon_svg' => '<svg width="49px" height="49px" viewBox="-0.5 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="48" height="48" transform="translate(0 1)" fill="white" fill-opacity="0.01"/>
+<path d="M6 27V43" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6 34H13L17 28" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7 21L33.4735 38.649C33.795 38.8633 34.2113 38.8732 34.5426 38.6744L44 33" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.07803 13.7187C6.53288 13.3553 6.47867 12.5745 6.96837 12.1392L14.4279 5.50854C14.7655 5.20843 15.2624 5.17193 15.6403 5.41949L42.7046 23.1513C43.312 23.5493 43.3061 24.4416 42.6935 24.8314L33.5496 30.6503C33.2155 30.8629 32.7875 30.8583 32.458 30.6387L7.07803 13.7187Z" fill="#000" stroke="black" stroke-width="4"/>
+</svg>' // Eye.
             ],
-            [
-                'name' => 'conserjería/recepción',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 014.5 6h15a.75.75 0 01.75.75v.75m-7.5-3l1.5-1.5m-1.5 1.5l-1.5-1.5m-7.5 6v.75A.75.75 0 004.5 12h15a.75.75 0 01.75.75v.75m-7.5-3l1.5-1.5m-1.5 1.5l-1.5-1.5M12 18.75a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75z" /></svg>' // Cog (para servicio/recepción).
-            ],
-
             // Sostenibilidad y Tecnología
             [
                 'name' => 'paneles solares',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>' // Sun.
+                'icon_svg' => '<?xml version="1.0" ?><svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 56 56" id="Layer_1" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g>
+<path d="M52.1,47.1l-6.8-17.8c-0.1-0.4-0.5-0.6-0.9-0.6H11.6c-0.4,0-0.8,0.3-0.9,0.6L3.9,47.1C3.8,47.4,3.9,47.7,4,48   c0.2,0.3,0.5,0.4,0.8,0.4h5V52c0,0.6,0.4,1,1,1h35.6c0.6,0,1-0.4,1-1v-3.6h3.6c0.3,0,0.6-0.2,0.8-0.4   C52.1,47.7,52.2,47.4,52.1,47.1z M21.8,40.1l0.7-4.7h10.9l0.7,4.7H21.8z M34.3,42.1l0.6,4.4h-14l0.6-4.4H34.3z M10.5,35.4h9.9   l-0.7,4.7h-11L10.5,35.4z M22.7,33.4l0.4-2.7h9.5l0.4,2.7H22.7z M35.3,35.4h10.1l1.8,4.7H36L35.3,35.4z M44.7,33.4h-9.7l-0.4-2.7h9   L44.7,33.4z M12.3,30.7h8.8l-0.4,2.7h-9.4L12.3,30.7z M8,42.1h11.5l-0.6,4.4H6.3L8,42.1z M45.5,51H11.9v-2.6h7.8c0,0,0,0,0.1,0   c0,0,0,0,0,0H36c0,0,0,0,0,0c0,0,0,0,0.1,0h9.4V51z M36.9,46.4l-0.6-4.4H48l1.7,4.4H36.9z"/>
+<path d="M17,16h2.5c0.2,1.6,0.8,3,1.8,4.3L19.5,22c-0.4,0.4-0.4,1,0,1.4c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3l1.8-1.8   c1.2,1,2.7,1.6,4.3,1.8v2.5c0,0.6,0.4,1,1,1s1-0.4,1-1v-2.5c1.6-0.2,3-0.8,4.3-1.8l1.8,1.8c0.2,0.2,0.5,0.3,0.7,0.3   s0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4l-1.8-1.8c1-1.2,1.6-2.7,1.8-4.3H39c0.6,0,1-0.4,1-1s-0.4-1-1-1h-2.5   c-0.2-1.6-0.8-3.1-1.8-4.3l1.8-1.8c0.4-0.4,0.4-1,0-1.4s-1-0.4-1.4,0l-1.8,1.8c-1.2-1-2.7-1.6-4.3-1.8V4c0-0.6-0.4-1-1-1   s-1,0.4-1,1v2.5c-1.6,0.2-3.1,0.8-4.3,1.8l-1.8-1.8c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l1.8,1.8c-1,1.2-1.6,2.7-1.8,4.3H17   c-0.6,0-1,0.4-1,1S16.5,16,17,16z M28,8.4C28,8.4,28,8.4,28,8.4C28,8.4,28,8.4,28,8.4c3.6,0,6.6,2.9,6.6,6.5c0,1.7-0.7,3.4-1.9,4.6   c-1.2,1.2-2.9,1.9-4.6,1.9s-3.4-0.7-4.6-1.9c-1.2-1.2-1.9-2.9-1.9-4.6C21.5,11.4,24.4,8.4,28,8.4z"/>
+</g>
+</svg>' // Sun.
             ],
             [
                 'name' => 'punto de carga para vehículos eléctricos',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3M21 3v1.5M18.75 8.25H21M3 21v-1.5M21 21v-1.5M7.5 17.25h10.5M12 2.25v19.5m-9-9h18" /></svg>' // Bolt (para carga eléctrica).
-            ],
-            [
-                'name' => 'sistema de captación de agua de lluvia',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25a.375.375 0 01.375.375v14.25a.375.375 0 01-.75 0V2.625a.375.375 0 01.375-.375zM12 8.25a.375.375 0 01.375.375v5.25a.375.375 0 01-.75 0V8.625a.375.375 0 01.375-.375zM12 14.25a.375.375 0 01.375.375v1.5a.375.375 0 01-.75 0v-1.5a.375.375 0 01.375-.375z" /></svg>' // Cloud (para lluvia).
+                'icon_svg' => '<?xml version="1.0" encoding="utf-8"?>
+<svg width="2rem" height="2rem" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.37583 7.99997H3C2.72 7.99997 2.5 8.21997 2.5 8.49997V16.5C2.5 16.78 2.72 17 3 17H9.30747M11.3075 7.99994L17.65 7.99997C17.93 7.99997 18.15 8.21997 18.15 8.49997V16.5C18.15 16.78 17.92 17 17.65 17H13.322" stroke="#0F0F0F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M20.38 10.81H21C21.28 10.81 21.5 11.03 21.5 11.31V13.69C21.5 13.97 21.28 14.19 21 14.19H20.38" stroke="#0F0F0F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10.325 6L7.47871 12.0142C7.36924 12.24 7.53343 12.5 7.78659 12.5H12.8634C13.1166 12.5 13.2808 12.76 13.1713 12.9858L10.325 19" stroke="#0F0F0F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>' // Bolt (para carga eléctrica).
             ],
             [
                 'name' => 'ventanas de doble acristalamiento',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 7.5l16.5-9v18m-16.5 0l16.5 9m0 0V21m0 3v-3m-6-9h4.5" /></svg>' // Window (adaptado de arrows para vidrio).
+                'icon_svg' => '
+<svg width="2rem" height="2rem" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#000000"><path d="M14.5 2h-13l-.5.5v11l.5.5h13l.5-.5v-11l-.5-.5zM14 13H2V6h12v7zm0-8H2V3h12v2z"/></svg>' // Window (adaptado de arrows para vidrio).
             ],
             [
                 'name' => 'termostato inteligente',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25l3.375-3.375a3.75 3.75 0 11-4.5 5.25l3.375-3.375M15 12a3 3 0 11-6 0 3 3 0 016 0zM4.5 4.5a.75.75 0 00.75.75h15a.75.75 0 000-1.5H5.25a.75.75 0 00-.75.75z" /></svg>' // Thermometer.
+                'icon_svg' => '<svg width="2rem" height="2rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 19C12.5523 19 13 18.5523 13 18C13 17.4477 12.5523 17 12 17C11.4477 17 11 17.4477 11 18C11 18.5523 11.4477 19 12 19Z" fill="black"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M15 13.9997C16.2144 14.9119 17 16.3642 17 18C17 20.7614 14.7614 23 12 23C9.23858 23 7 20.7614 7 18C7 16.3642 7.78555 14.9119 9 13.9997V4C9 2.34315 10.3431 1 12 1C13.6569 1 15 2.34315 15 4V13.9997ZM13 4V15.1707C14.1652 15.5826 15 16.6938 15 18C15 19.6569 13.6569 21 12 21C10.3431 21 9 19.6569 9 18C9 16.6938 9.83481 15.5826 11 15.1707V4C11 3.44772 11.4477 3 12 3C12.5523 3 13 3.44772 13 4Z" fill="black"/>
+</svg>
+' // Thermometer.
             ],
             [
                 'name' => 'cerradura inteligente',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10a3 3 0 11-6 0 3 3 0 016 0zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>' // Lock-closed.
+                'icon_svg' => '
+<svg width="2rem" height="2rem" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#000000"><path d="M13 7h-1V5a4 4 0 1 0-8 0v2H3L2 8v6l1 1h10l1-1V8l-1-1zM5 5a3 3 0 1 1 6 0v2H5V5zm8 9H3V8h10v6z"/></svg>' // Lock-closed.
             ],
             [
                 'name' => 'iluminación LED',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189M12 5.25a5.25 5.25 0 00-5.25 5.25v1.5a5.25 5.25 0 0010.5 0V10.5A5.25 5.25 0 0012 5.25z" /></svg>' // Light-bulb.
-            ],            
+                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="2rem" height="2rem" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189M12 5.25a5.25 5.25 0 00-5.25 5.25v1.5a5.25 5.25 0 0010.5 0V10.5A5.25 5.25 0 0012 5.25z" /></svg>' // Light-bulb.
+            ],
             // Espacios interiores y equipamiento
             [
                 'name' => 'aire acondicionado',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>' // Wind (para AC).
-            ],
-            [
-                'name' => 'calefacción central',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0zM5.25 15a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM18.75 15a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>' // Fire (para calefacción).
+                'icon_svg' => '
+<svg width="2rem" height="2rem" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+<g fill="none" fill-rule="evenodd">
+<path d="m0 0h32v32h-32z"/>
+<path d="m16 17c.5522847 0 1 .4477153 1 1v10c0 .5522847-.4477153 1-1 1s-1-.4477153-1-1v-10c0-.5522847.4477153-1 1-1zm6 0c.5522847 0 1 .4477153 1 1 0 3.5960656 1.7367768 6.8992385 4.6073687 8.9529161.4491716.3213461.5527946.9459741.2314484 1.3951457-.3213461.4491716-.9459741.5527946-1.3951457.2314485-3.3900202-2.4252868-5.4436714-6.3311225-5.4436714-10.5795103 0-.5522847.4477153-1 1-1zm-12 0c.5522847 0 1 .4477153 1 1 0 4.2435001-2.04890255 8.1453882-5.43243138 10.5714599-.44883053.3218223-1.0735681.2188618-1.3953904-.2299687-.32182231-.4488306-.2188618-1.0735681.22996874-1.3953904 2.86509777-2.0543441 4.59785304-5.3541679 4.59785304-8.9461008 0-.5522847.44771525-1 1-1zm17-15c2.7614237 0 5 2.23857625 5 5v4c0 2.7614237-2.2385763 5-5 5h-22c-2.76142375 0-5-2.2385763-5-5v-4c0-2.76142375 2.23857625-5 5-5zm0 2h-22c-1.65685425 0-3 1.34314575-3 3v4c0 1.6568542 1.34314575 3 3 3h22c1.6568542 0 3-1.3431458 3-3v-4c0-1.65685425-1.3431458-3-3-3zm0 6c.5522847 0 1 .4477153 1 1s-.4477153 1-1 1h-22c-.55228475 0-1-.4477153-1-1s.44771525-1 1-1z" fill="#000000" fill-rule="nonzero"/>
+</g></svg>' // Wind (para AC).
             ],
             [
                 'name' => 'amueblado',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.5H4.5m0 0v-4.5m15 4.5H14.25v4.5h5.25m0 0v-4.5m0 4.5H19.5" /></svg>' // Home (para amueblado).
+                'icon_svg' => '
+<svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 24 24" id="chair" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><path id="secondary" d="M7,17v4m10-4v4M9,9v4m6-4v4" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M16,9H8A1,1,0,0,1,7,8V4A1,1,0,0,1,8,3h8a1,1,0,0,1,1,1V8A1,1,0,0,1,16,9Zm2,8H6V14a1,1,0,0,1,1-1H17a1,1,0,0,1,1,1Z" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>' // Home (para amueblado).
             ],
             [
                 'name' => 'cocina equipada',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 7.25a.75.75 0 000 1.5h6a.75.75 0 000-1.5h-6zM12 19.25l-7.5-7.5V6.75A2.25 2.25 0 016.75 4.5h10.5A2.25 2.25 0 0119.25 6.75v4.5l-7.5 7.5z" /></svg>' // Beaker (para cocina/equipada).
+                'icon_svg' => '
+<svg width="2rem" height="2rem" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11 9.5H35C35.552 9.5 36 9.948 36 10.5V34.5C36 35.052 35.552 35.5 35 35.5H11C10.448 35.5 10 35.052 10 34.5V10.5C10 9.948 10.448 9.5 11 9.5Z" stroke="#3C3C3C" stroke-width="2"/>
+<path d="M36 17.5H10" stroke="#3C3C3C" stroke-width="2"/>
+<path d="M32 12.5C32.552 12.5 33 12.948 33 13.5C33 14.052 32.552 14.5 32 14.5C31.448 14.5 31 14.052 31 13.5C31 12.948 31.448 12.5 32 12.5Z" fill="#3C3C3C"/>
+<path d="M26 12.5C26.552 12.5 27 12.948 27 13.5C27 14.052 26.552 14.5 26 14.5C25.448 14.5 25 14.052 25 13.5C25 12.948 25.448 12.5 26 12.5Z" fill="#3C3C3C"/>
+<path d="M20 12.5C20.552 12.5 21 12.948 21 13.5C21 14.052 20.552 14.5 20 14.5C19.448 14.5 19 14.052 19 13.5C19 12.948 19.448 12.5 20 12.5Z" fill="#3C3C3C"/>
+<path d="M14 12.5C14.552 12.5 15 12.948 15 13.5C15 14.052 14.552 14.5 14 14.5C13.448 14.5 13 14.052 13 13.5C13 12.948 13.448 12.5 14 12.5Z" fill="#3C3C3C"/>
+<path d="M14 21.5H32V31.5H14V21.5Z" stroke="#3C3C3C" stroke-width="2"/>
+<path d="M36 17.5H10" stroke="#3C3C3C" stroke-width="2"/>
+</svg>' // Beaker (para cocina/equipada).
             ],
             [
                 'name' => 'despensa',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h19.5a3 3 0 013 3v12a3 3 0 01-3 3H2.25a3 3 0 01-3-3V6a3 3 0 013 3zm1.5 0v6h18V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6z" /></svg>' // Archive (para despensa).
+                'icon_svg' => '
+<svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 24 24" id="kitchen-cabinet-2" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><line id="secondary" x1="10" y1="13" x2="8" y2="13" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><path id="primary" d="M14,5H4V9H14Zm6,0H4V19H20ZM3,5H21M20,5H14V19h6Z" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>' // Archive (para despensa).
             ],
             [
                 'name' => 'walk-in closet',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 12v6m4-6v6m1.5-6V4.25a2.25 2.25 0 00-2.25-2.25H9.75A2.25 2.25 0 007.5 4.25V10M19.5 10V6a2.25 2.25 0 00-2.25-2.25h-.75a2.25 2.25 0 00-2.25 2.25v4" /></svg>' // Shopping-bag (para closet).
-            ],
-                        [
-                'name' => 'chimenea',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0zM5.25 15a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM18.75 15a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>' // Fire.
+                'icon_svg' => '
+<svg width="2rem" height="2rem" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#020202;stroke-miterlimit:10;stroke-width:1.91px;}</style></defs><rect class="cls-1" x="2.43" y="1.5" width="9.57" height="20.09"/><rect class="cls-1" x="12" y="1.5" width="4.78" height="15.3"/><rect class="cls-1" x="16.78" y="1.5" width="4.78" height="15.3"/><rect class="cls-1" x="12" y="16.8" width="9.57" height="4.78"/><line class="cls-1" x1="5.3" y1="23.5" x2="5.3" y2="21.59"/><line class="cls-1" x1="18.7" y1="23.5" x2="18.7" y2="21.59"/><line class="cls-1" x1="8.17" y1="11.07" x2="8.17" y2="12.98"/><line class="cls-1" x1="16.78" y1="18.72" x2="16.78" y2="16.8"/></svg>' // Shopping-bag (para closet).
             ],
             [
-                'name' => 'jacuzzi interior',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L16.5 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423L16.5 15.75l.394 1.183a2.25 2.25 0 001.423 1.423L19.5 18.75l-1.183.394a2.25 2.25 0 00-1.423 1.423z" /></svg>' // Sparkles (para burbujas/jacuzzi).
+                'name' => 'chimenea',
+                'icon_svg' => '
+<svg width="2rem" height="2rem" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#020202;stroke-miterlimit:10;stroke-width:1.91px;}</style></defs><rect class="cls-1" x="4.36" y="18.68" width="7.64" height="3.82"/><rect class="cls-1" x="8.18" y="14.86" width="7.64" height="3.82"/><rect class="cls-1" x="15.82" y="14.86" width="3.82" height="3.82"/><rect class="cls-1" x="4.36" y="14.86" width="3.82" height="3.82"/><rect class="cls-1" x="12" y="18.68" width="7.64" height="3.82"/><rect class="cls-1" x="4.36" y="11.05" width="7.64" height="3.82"/><rect class="cls-1" x="8.18" y="7.23" width="7.64" height="3.82"/><rect class="cls-1" x="15.82" y="7.23" width="3.82" height="3.82"/><rect class="cls-1" x="4.36" y="7.23" width="3.82" height="3.82"/><rect class="cls-1" x="12" y="11.05" width="7.64" height="3.82"/><rect class="cls-1" x="2.45" y="1.5" width="19.09" height="5.73"/><line class="cls-1" x1="0.55" y1="22.5" x2="23.45" y2="22.5"/></svg>' // Fire.
             ],
             [
                 'name' => 'oficina / estudio',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 18.361A23.448 23.448 0 0112 22.25 23.448 23.448 0 0119.74 18.36M3.27 6.462A23.448 23.448 0 0112 2.25 23.448 23.448 0 0120.73 6.46M16.5 18.361a23.448 23.448 0 00-3.74 3.89m-7.5-3.89a23.448 23.448 0 00-3.74-3.89M15 14.25a4.5 4.5 0 00-9 0m9 0v3.75m-7.5-3.75a4.5 4.5 0 00-9 0m9 0v3.75" /></svg>' // Academic-cap.
+                'icon_svg' => '
+<svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22,7H17V2a1,1,0,0,0-1-1H8A1,1,0,0,0,7,2V7H2A1,1,0,0,0,1,8V22a1,1,0,0,0,1,1H22a1,1,0,0,0,1-1V8A1,1,0,0,0,22,7ZM3,9H7V21H3ZM9,8V3h6V21H13V19a1,1,0,0,0-2,0v2H9ZM21,21H17V9h4ZM13,7H11V5h2Zm0,4H11V9h2Zm0,4H11V13h2ZM4,10H6v2H4Zm0,4H6v2H4Zm0,4H6v2H4Zm16-6H18V10h2Zm0,4H18V14h2Zm0,4H18V18h2Z"/></svg>' // Academic-cap.
             ],
-            [
-                'name' => 'sótano',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5C13.5 4.562 15.062 3 16.875 3H18a2.25 2.25 0 012.25 2.25v11.25a2.25 2.25 0 01-2.25 2.25h-5.625A2.25 2.25 0 0112.75 19.5v-1.5a1.125 1.125 0 01-1.125-1.125h-1.5a3.375 3.375 0 00-3.375 3.375v2.625M6 13.125V21" /></svg>' // Arrow-down (para sótano).
-            ],
-
             [
                 'name' => 'lavandería',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" /></svg>' // Swatch (para lavandería).
+                'icon_svg' => '
+<svg width="2rem" height="2rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14 13C14 14.1046 13.1046 15 12 15M17 6H17.01M17 13C17 15.7614 14.7614 18 12 18C9.23858 18 7 15.7614 7 13C7 10.2386 9.23858 8 12 8C14.7614 8 17 10.2386 17 13ZM6 21H18C19.1046 21 20 20.1046 20 19V5C20 3.89543 19.1046 3 18 3H6C4.89543 3 4 3.89543 4 5V19C4 20.1046 4.89543 21 6 21Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>' // Swatch (para lavandería).
             ],
-            [
-                'name' => 'contador de electricidad individual',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 00-9 0v3.75A5.25 5.25 0 001.5 18.75h-3v-2.25A2.25 2.25 0 013 16.5h3.75a.75.75 0 00.75-.75V6.75a3 3 0 016 0v3.75a.75.75 0 001.5 0V12h3v2.25a2.25 2.25 0 01-2.25 2.25h-3v3a.75.75 0 00-.75.75H9v-3a.75.75 0 00-.75-.75H3z" /></svg>' // Bolt.
-            ],
-            
+
             // Espacios exteriores y comunes
-                        [
+            [
                 'name' => 'piscina',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L16.5 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423L16.5 15.75l.394 1.183a2.25 2.25 0 001.423 1.423L19.5 18.75l-1.183.394a2.25 2.25 0 00-1.423 1.423z" /></svg>' // Sparkles (para piscina cubierta).
+                'icon_svg' => '<svg width="2rem" height="2rem" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <path fill="#000000" d="M468.479,361.5c-9.072-4.233-20.361-9.5-41.054-9.5s-31.983,5.268-41.053,9.5c-7.782,3.631-13.928,6.5-27.523,6.5s-19.739-2.868-27.52-6.5c-9.071-4.232-20.359-9.5-41.052-9.5s-31.981,5.269-41.051,9.5c-7.781,3.631-13.926,6.5-27.519,6.5s-19.737-2.868-27.517-6.5c-9.07-4.232-20.358-9.5-41.05-9.5s-31.981,5.269-41.051,9.5c-7.781,3.631-13.926,6.5-27.519,6.5s-19.738-2.868-27.519-6.5C47.981,357.269,36.692,352,16,352v32c13.593,0,19.738,2.868,27.519,6.5,9.07,4.232,20.359,9.5,41.051,9.5s31.981-5.269,41.051-9.5c7.781-3.631,13.926-6.5,27.519-6.5s19.737,2.868,27.517,6.5c9.07,4.232,20.358,9.5,41.05,9.5s31.981-5.269,41.051-9.5c7.781-3.631,13.927-6.5,27.519-6.5s19.739,2.868,27.52,6.5c9.071,4.232,20.359,9.5,41.052,9.5s31.983-5.268,41.054-9.5c7.781-3.631,13.928-6.5,27.522-6.5s19.741,2.868,27.521,6.5c9.072,4.233,20.361,9.5,41.054,9.5V368C482.406,368,476.259,365.132,468.479,361.5Z" class="ci-primary"/>
+  <path fill="#000000" d="M427.425,448c-20.693,0-31.983,5.268-41.053,9.5-7.782,3.631-13.928,6.5-27.523,6.5s-19.739-2.868-27.52-6.5c-9.071-4.232-20.359-9.5-41.052-9.5s-31.981,5.269-41.051,9.5c-7.781,3.631-13.926,6.5-27.519,6.5s-19.737-2.868-27.517-6.5c-9.07-4.232-20.358-9.5-41.05-9.5s-31.981,5.269-41.051,9.5c-7.781,3.631-13.926,6.5-27.519,6.5s-19.738-2.868-27.519-6.5C47.981,453.269,36.692,448,16,448v32c13.593,0,19.738,2.868,27.519,6.5,9.07,4.232,20.359,9.5,41.051,9.5s31.981-5.269,41.051-9.5c7.781-3.631,13.926-6.5,27.519-6.5s19.737,2.868,27.517,6.5c9.07,4.232,20.358,9.5,41.05,9.5s31.981-5.269,41.051-9.5c7.781-3.631,13.927-6.5,27.519-6.5s19.739,2.868,27.52,6.5c9.071,4.232,20.359,9.5,41.052,9.5s31.983-5.268,41.054-9.5c7.781-3.631,13.928-6.5,27.522-6.5s19.741,2.868,27.521,6.5c9.072,4.233,20.361,9.5,41.054,9.5V464c-13.594,0-19.741-2.868-27.521-6.5C459.407,453.268,448.118,448,427.425,448Z" class="ci-primary"/>
+  <path fill="#000000" d="M248,272H392v56h32V115.878a47.8,47.8,0,0,1,8.446-27.193L482.417,16H443.583L406.076,70.556A79.67,79.67,0,0,0,392,115.878V160H248V115.878a47.8,47.8,0,0,1,8.446-27.193L306.417,16H267.583L230.076,70.556A79.67,79.67,0,0,0,216,115.878V328h32Zm0-80H392v48H248Z" class="ci-primary"/>
+</svg>
+' // Sparkles (para piscina cubierta).
             ],
             [
                 'name' => 'garage',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.5H4.5m0 0v-4.5m15 4.5H14.25v4.5h5.25m0 0v-4.5m0 4.5H19.5" /></svg>' // Home (para garaje residencial).
+                'icon_svg' => '<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="2rem" height="2rem" viewBox="0 0 316.324 316.323" style="enable-background:new 0 0 316.324 316.323;"
+	 xml:space="preserve"><g>	<g>
+		<path d="M259.337,155.958l-15.143-53.331c-0.736-2.62-2.783-4.662-5.403-5.4c-26.44-7.427-53.907-11.192-81.631-11.192
+			c-47.314,0-78.777,10.885-80.098,11.347c-2.396,0.843-4.232,2.804-4.92,5.251l-14.959,53.342
+			c-11.987,0.322-21.632,10.176-21.632,22.236v61.428c0,12.264,9.986,22.252,22.251,22.252h2.234v9.664
+			c0,12.268,9.986,22.251,22.252,22.251h4.819c12.268,0,22.251-9.983,22.251-22.251v-9.664h100.026v9.664
+			c0,12.268,9.983,22.251,22.251,22.251h4.819c12.269,0,22.252-9.983,22.252-22.251v-9.664h0.63
+			c12.268,0,22.257-9.988,22.257-22.252V178.21C281.594,165.941,271.611,155.958,259.337,155.958z M265.995,239.638
+			c0,3.667-2.986,6.652-6.657,6.652h-8.43c-4.307,0-7.8,3.494-7.8,7.8v17.464c0,3.666-2.986,6.651-6.652,6.651h-4.819
+			c-3.666,0-6.651-2.985-6.651-6.651V254.09c0-4.306-3.494-7.8-7.8-7.8H101.554c-4.306,0-7.8,3.494-7.8,7.8v17.464
+			c0,3.666-2.986,6.651-6.652,6.651h-4.819c-3.667,0-6.652-2.985-6.652-6.651V254.09c0-4.306-3.494-7.8-7.8-7.8H57.797
+			c-3.667,0-6.652-2.985-6.652-6.652V178.21c0-3.666,2.986-6.652,6.652-6.652h5.299c3.499,0,6.566-2.325,7.508-5.697l15.412-54.938
+			c9.392-2.734,35.609-9.288,71.145-9.288c24.829,0,49.437,3.184,73.206,9.466l15.361,54.761c0.944,3.366,4.012,5.697,7.511,5.697
+			h6.099c3.671,0,6.657,2.986,6.657,6.652V239.638z"/>
+		<path d="M85.896,186.065c-13.269,0-24.059,10.791-24.059,24.064c0,13.269,10.791,24.06,24.059,24.06
+			c13.271,0,24.06-10.791,24.06-24.06C109.956,196.856,99.167,186.065,85.896,186.065z M85.896,218.59
+			c-4.664,0-8.459-3.788-8.459-8.46s3.791-8.465,8.459-8.465c4.669,0,8.46,3.793,8.46,8.465S90.565,218.59,85.896,218.59z"/>
+		<path d="M230.428,186.065c-13.269,0-24.06,10.791-24.06,24.064c0,13.269,10.791,24.06,24.06,24.06
+			c13.273,0,24.06-10.791,24.06-24.06C254.488,196.856,243.702,186.065,230.428,186.065z M230.428,218.59
+			c-4.661,0-8.46-3.788-8.46-8.46s3.793-8.465,8.46-8.465c4.672,0,8.46,3.793,8.46,8.465S235.1,218.59,230.428,218.59z"/>
+		<path d="M89.408,172.146h137.512c2.381,0,4.636-1.087,6.108-2.945c1.483-1.868,2.031-4.306,1.488-6.621l-8.876-37.999
+			c-0.655-2.785-2.773-4.996-5.535-5.75c-18.778-5.131-39.105-7.731-60.396-7.731c-36.165,0-62.481,7.446-63.589,7.762
+			c-2.709,0.782-4.796,2.971-5.441,5.725l-8.871,38.003c-0.541,2.311,0.007,4.753,1.488,6.617
+			C84.779,171.06,87.026,172.146,89.408,172.146z M104.794,132.752c8.604-2.009,29.196-6.058,54.916-6.058
+			c18.218,0,35.625,2.021,51.813,6.02l5.57,23.836H99.239L104.794,132.752z"/>
+		<path d="M312.127,102.805L158.164,22.519L4.197,102.805c-3.816,1.99-5.304,6.703-3.313,10.519
+			c1.998,3.829,6.708,5.299,10.521,3.313l146.759-76.527l146.754,76.533c1.157,0.596,2.381,0.883,3.6,0.883
+			c2.813,0,5.525-1.523,6.922-4.197C317.429,109.507,315.947,104.795,312.127,102.805z"/>
+	</g></g></svg>'
             ],
             [
                 'name' => 'estacionamiento de visitas',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 7.5L7.5 3.75m0 0L12 7.5m-4.5 0l4.5 4.5M7.5 15.75l-2.25 2.25m0 0L3.75 21l3.75-3.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>' // Map-pin (para estacionamiento).
+                'icon_svg' => '<svg width="2rem" height="2rem" viewBox="0 0 15 15" version="1.1" id="parking" xmlns="http://www.w3.org/2000/svg">
+  <path d="M11.85,8.37c-0.9532,0.7086-2.1239,1.0623-3.31,1H5.79V14H3V1h5.72c1.1305-0.0605,2.244,0.2952,3.13,1&#xA;&#x9;c0.8321,0.8147,1.2543,1.9601,1.15,3.12C13.1271,6.3214,12.7045,7.5159,11.85,8.37z M9.75,3.7C9.3254,3.3892,8.8052,3.237,8.28,3.27&#xA;&#x9;H5.79v3.82h2.49c0.5315,0.0326,1.056-0.1351,1.47-0.47c0.3795-0.3947,0.5693-0.9346,0.52-1.48C10.324,4.606,10.1327,4.0763,9.75,3.7&#xA;&#x9;z"/>
+</svg>'
             ],
             [
                 'name' => 'parrilla / área de BBQ',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0zM5.25 15a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM18.75 15a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>' // Fire (para parrilla/BBQ).
-            ],
-            [
-                'name' => 'balcón',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM6 18.75a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM15 18.75a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>' // Arrow-up-right (para balcón exterior).
+                'icon_svg' => '<svg width="2rem" height="2rem" viewBox="0 0 15 15" id="bbq" xmlns="http://www.w3.org/2000/svg">
+  <path d="M9.32,7.655C10.8782,7.108,11.9471,5.6506,12,4H3c0.053,1.6299,1.0978,3.0728,2.63,3.631L4.923,9.044&#xA;&#x9;c-1.3571-0.2355-2.6482,0.6737-2.8837,2.0308s0.6737,2.6482,2.0308,2.8837C4.9927,14.1187,5.9273,13.7485,6.49,13h4.223l0.335,0.717&#xA;&#x9;c0.0836,0.1735,0.2594,0.2836,0.452,0.283c0.0733,0.0003,0.1457-0.0158,0.212-0.047c0.2497-0.117,0.3575-0.4141,0.241-0.664&#xA;&#x9;L9.32,7.655z M4.5,12.75c-0.6904,0-1.25-0.5596-1.25-1.25s0.5596-1.25,1.25-1.25s1.25,0.5596,1.25,1.25&#xA;&#x9;C5.7484,12.1897,5.1897,12.7484,4.5,12.75z M6.95,12c0.2066-1.007-0.2268-2.0374-1.091-2.594L6.6,7.923&#xA;&#x9;c0.577,0.1042,1.168,0.1042,1.745,0l1.9,4.07L6.95,12z M4.75,1C4.6119,1,4.5,1.1119,4.5,1.25c0,0.5-0.5,0.5-0.5,0.5c-1,0-1,1-1,1&#xA;&#x9;C3,2.8881,3.1119,3,3.25,3S3.5,2.8881,3.5,2.75c0-0.5,0.5-0.5,0.5-0.5c1,0,1-1,1-1C5,1.1119,4.8881,1,4.75,1z M6.75,1&#xA;&#x9;C6.6119,1,6.5,1.1119,6.5,1.25c0,0.5-0.5,0.5-0.5,0.5c-1,0-1,1-1,1C5,2.8881,5.1119,3,5.25,3S5.5,2.8881,5.5,2.75&#xA;&#x9;c0-0.5,0.5-0.5,0.5-0.5c1,0,1-1,1-1C7,1.1119,6.8881,1,6.75,1z M8.75,1C8.6119,1,8.5,1.1119,8.5,1.25c0,0.5-0.5,0.5-0.5,0.5&#xA;&#x9;c-1,0-1,1-1,1C7,2.8881,7.1119,3,7.25,3S7.5,2.8881,7.5,2.75c0-0.5,0.5-0.5,0.5-0.5c1,0,1-1,1-1C9,1.1119,8.8881,1,8.75,1z M10.75,1&#xA;&#x9;c-0.1381,0-0.25,0.1119-0.25,0.25c0,0.5-0.5,0.5-0.5,0.5c-1,0-1,1-1,1C9,2.8881,9.1119,3,9.25,3S9.5,2.8881,9.5,2.75&#xA;&#x9;c0-0.5,0.5-0.5,0.5-0.5c1,0,1-1,1-1C11,1.1119,10.8881,1,10.75,1z M12.75,1c-0.1381,0-0.25,0.1119-0.25,0.25c0,0.5-0.5,0.5-0.5,0.5&#xA;&#x9;c-1,0-1,1-1,1C11,2.8881,11.1119,3,11.25,3s0.25-0.1119,0.25-0.25c0-0.5,0.5-0.5,0.5-0.5c1,0,1-1,1-1C13,1.1119,12.8881,1,12.75,1z"/>
+</svg>'
             ],
             [
                 'name' => 'terraza',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L16.5 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423L16.5 15.75l.394 1.183a2.25 2.25 0 001.423 1.423L19.5 18.75l-1.183.394a2.25 2.25 0 00-1.423 1.423z" /></svg>' // Sparkles (para terraza abierta).
+                'icon_svg' => '
+<svg width="2rem" height="2rem" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#020202;stroke-miterlimit:10;stroke-width:1.91px;}</style></defs><polyline class="cls-1" points="0.55 1.5 22.5 3.41 22.5 6.27 0.55 6.27"/><line class="cls-1" x1="20.59" y1="6.27" x2="20.59" y2="22.5"/><line class="cls-1" x1="23.45" y1="22.5" x2="0.55" y2="22.5"/><polyline class="cls-1" points="4.36 12.96 5.32 18.68 5.32 22.5"/><polyline class="cls-1" points="5.32 22.5 5.32 18.68 9.14 18.68 9.14 22.5"/><line class="cls-1" x1="9.14" y1="15.82" x2="16.77" y2="15.82"/><line class="cls-1" x1="12.95" y1="22.5" x2="12.95" y2="15.82"/></svg>',
             ],
             [
                 'name' => 'jardín privado',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25a.75.75 0 01.75.75v12.75a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM12 8.25a.75.75 0 01.75.75v5.25a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zM12 14.25a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75z" /></svg>' // Cloud (para jardín/lluvia, o leaf si prefieres).
+                'icon_svg' => '<svg fill="#000000" width="2rem" height="2rem" viewBox="-3 0 16 16" xmlns="http://www.w3.org/2000/svg"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1">
+<path d="M9.5,9h-4V5.93A2.28,2.28,0,0,0,6,5.72L7.12,6.83A.5.5,0,0,0,7.47,7a.51.51,0,0,0,.36-.15.51.51,0,0,0,0-.71L6.72,5a2.28,2.28,0,0,0,.21-.51H8.5a.5.5,0,0,0,0-1H6.93A2.28,2.28,0,0,0,6.72,3L7.83,1.88a.51.51,0,0,0,0-.71.51.51,0,0,0-.71,0L6,2.28a2.28,2.28,0,0,0-.51-.21V.5a.5.5,0,0,0-1,0V2.07A2.28,2.28,0,0,0,4,2.28L2.88,1.17a.51.51,0,0,0-.71,0,.51.51,0,0,0,0,.71L3.28,3a2.28,2.28,0,0,0-.21.51H1.5a.5.5,0,0,0,0,1H3.07A2.28,2.28,0,0,0,3.28,5L2.17,6.12a.51.51,0,0,0,0,.71A.51.51,0,0,0,2.53,7a.5.5,0,0,0,.35-.15L4,5.72a2.28,2.28,0,0,0,.51.21V9H.5a.5.5,0,0,0,0,1h.58L2,15.58A.5.5,0,0,0,2.5,16h5A.5.5,0,0,0,8,15.58L8.92,10H9.5a.5.5,0,0,0,0-1ZM4,4A1,1,0,1,1,5,5,1,1,0,0,1,4,4ZM7.08,15H2.92l-.83-5H7.91Z"/>
+</g></g></svg>'
             ],
             [
                 'name' => 'sistema de riego automático',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25a.75.75 0 01.75.75v12.75a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM12 8.25a.75.75 0 01.75.75v5.25a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zM12 14.25a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75z" /></svg>' // Cloud (para riego/lluvia).
+                'icon_svg' => '<svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 24 24" id="water-can-4" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><polyline id="secondary" points="14.62 12.26 19.17 9.76 21 11.59 14.96 17.63" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></polyline><path id="primary" d="M4,21a1,1,0,0,1-1-1.08l.85-11a1,1,0,0,1,1-.92h8.3a1,1,0,0,1,1,.92l.85,11A1,1,0,0,1,14,21Z" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><line id="secondary-2" data-name="secondary" x1="9" y1="3" x2="9" y2="10" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line></svg>'
             ],
-            [
-                'name' => 'zona de juegos infantiles',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 006.372-6.369l.001-.003M15 19.128l-3.75-3.75m0 0a3 3 0 01-3-3 3 3 0 00-6 3c0 1.657 1.007 3.082 2.518 3.72m13.5-3.72a3 3 0 00-3-3m0 0a3 3 0 01-3 3 3 3 0 00-3-3m12 0a9.295 9.295 0 00-3.692-3.292 9.295 9.295 0 00-3.292-3.692 3.045 3.045 0 00-3.044 3.044v2.28L9.75 12m6.75 11.25a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" /></svg>' // User-group (para niños/juegos).
-            ],
+
             [
                 'name' => 'cancha deportiva',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM6 18.75a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM15 18.75a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>' // Trophy (para deportiva).
+                'icon_svg' => '<svg width="2rem" height="2rem" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="icomoon-ignore"></g><path d="M15.999 2.672c-7.361 0-13.327 5.968-13.327 13.329s5.966 13.327 13.327 13.327c7.361 0 13.329-5.966 13.329-13.327s-5.968-13.329-13.329-13.329zM28.248 15.468h-9.562c0.102-3.663 1.248-7.144 3.337-10.142 3.575 2.026 6.037 5.793 6.225 10.142zM15.999 3.738c1.801 0 3.51 0.394 5.052 1.093-2.161 3.15-3.341 6.802-3.441 10.636h-3.22c-0.101-3.835-1.281-7.487-3.442-10.636 1.542-0.7 3.251-1.093 5.051-1.093zM9.976 5.326c2.089 2.997 3.235 6.478 3.337 10.142h-9.562c0.186-4.349 2.65-8.117 6.225-10.142zM3.752 16.534h9.572c-0.102 3.666-1.246 7.15-3.336 10.147-3.581-2.024-6.049-5.794-6.236-10.147zM15.999 28.262c-1.8 0-3.509-0.393-5.051-1.093 2.162-3.149 3.341-6.798 3.442-10.634h3.22c0.1 3.837 1.281 7.486 3.441 10.634-1.542 0.7-3.251 1.093-5.052 1.093zM22.009 26.682c-2.089-2.997-3.232-6.481-3.333-10.148h9.572c-0.187 4.354-2.656 8.124-6.239 10.148z" fill="#000000">
+</path></svg>'
             ],
             [
                 'name' => 'sauna',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0zM5.25 15a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM18.75 15a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>' // Fire (para sauna/calor).
+                'icon_svg' => '<svg width="2rem" height="2rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.1867 1.24497L10.7723 0.619877L10.7722 0.619912L11.1867 1.24497ZM12.8137 1.24497L13.2282 0.619912L13.2282 0.619877L12.8137 1.24497ZM0.629449 7.34595C0.284241 7.57487 0.189971 8.0403 0.418891 8.38551C0.647811 8.73071 1.11323 8.82498 1.45844 8.59606L0.629449 7.34595ZM22.542 8.59606C22.8872 8.82498 23.3526 8.73071 23.5816 8.38551C23.8105 8.0403 23.7162 7.57487 23.371 7.34595L22.542 8.59606ZM11.6012 1.87005C11.719 1.79193 11.8579 1.75 12.0002 1.75V0.25C11.5635 0.25 11.1363 0.378538 10.7723 0.619877L11.6012 1.87005ZM12.0002 1.75C12.1426 1.75 12.2815 1.79193 12.3993 1.87005L13.2282 0.619877C12.8642 0.378538 12.4369 0.25 12.0002 0.25V1.75ZM1.45844 8.59606L11.6012 1.87002L10.7722 0.619912L0.629449 7.34595L1.45844 8.59606ZM12.3992 1.87002L22.542 8.59606L23.371 7.34595L13.2282 0.619912L12.3992 1.87002Z" fill="#000000"/>
+<path d="M8.75 12.231L8.00114 12.1896C8.00038 12.2034 8 12.2172 8 12.231H8.75ZM9.573 16.239L10.3218 16.2809C10.3226 16.2669 10.323 16.253 10.323 16.239H9.573ZM8.16634 17.906C7.90622 18.2283 7.95665 18.7005 8.27899 18.9606C8.60134 19.2208 9.07353 19.1703 9.33366 18.848L8.16634 17.906ZM10.1447 10.5798C10.4032 10.2562 10.3504 9.78425 10.0267 9.52575C9.70309 9.26726 9.23116 9.32008 8.97266 9.64374L10.1447 10.5798ZM8 12.231C8 13.0325 8.24596 13.8112 8.44473 14.4565C8.65753 15.1474 8.823 15.7046 8.823 16.239H10.323C10.323 15.4384 10.077 14.6601 9.87827 14.015C9.66554 13.3243 9.5 12.7665 9.5 12.231H8ZM8.82417 16.1971C8.78922 16.8215 8.55912 17.4193 8.16634 17.906L9.33366 18.848C9.92368 18.1169 10.2693 17.219 10.3218 16.2809L8.82417 16.1971ZM8.97266 9.64374C8.39218 10.3706 8.05246 11.2604 8.00114 12.1896L9.49886 12.2723C9.53298 11.6546 9.75882 11.063 10.1447 10.5798L8.97266 9.64374Z" fill="#000000"/>
+<path d="M14 12.231L13.2511 12.1896C13.2504 12.2034 13.25 12.2172 13.25 12.231H14ZM14.823 16.239L15.5718 16.2809C15.5726 16.267 15.573 16.253 15.573 16.239H14.823ZM13.4163 17.906C13.1562 18.2283 13.2067 18.7005 13.529 18.9607C13.8513 19.2208 14.3235 19.1704 14.5837 18.848L13.4163 17.906ZM15.3905 10.5852C15.6482 10.2609 15.5943 9.78912 15.2701 9.53137C14.9458 9.27361 14.474 9.32752 14.2163 9.65177L15.3905 10.5852ZM13.25 12.231C13.25 13.0325 13.496 13.8112 13.6947 14.4565C13.9075 15.1474 14.073 15.7046 14.073 16.239H15.573C15.573 15.4384 15.327 14.6601 15.1283 14.015C14.9155 13.3243 14.75 12.7665 14.75 12.231H13.25ZM14.0742 16.1971C14.0392 16.8215 13.8091 17.4193 13.4163 17.906L14.5837 18.848C15.1737 18.1169 15.5193 17.219 15.5718 16.2809L14.0742 16.1971ZM14.2163 9.65177C13.6397 10.3771 13.3023 11.2638 13.2511 12.1896L14.7489 12.2724C14.7829 11.6569 15.0072 11.0674 15.3905 10.5852L14.2163 9.65177Z" fill="#000000"/>
+<path d="M3.5 23H2.75C2.75 23.4142 3.08579 23.75 3.5 23.75V23ZM20.5 23V23.75C20.9142 23.75 21.25 23.4142 21.25 23H20.5ZM21.25 6.5C21.25 6.08579 20.9142 5.75 20.5 5.75C20.0858 5.75 19.75 6.08579 19.75 6.5H21.25ZM2.75 6.5V23H4.25V6.5H2.75ZM3.5 23.75H20.5V22.25H3.5V23.75ZM21.25 23V6.5H19.75V23H21.25Z" fill="#000000"/>
+</svg>'
             ],
             [
                 'name' => 'áreas verdes',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.75a.75.75 0 01.75.75v8.19l2.47-2.47a.75.75 0 111.06 1.06l-3.75 3.75a.75.75 0 01-1.06 0l-3.75-3.75a.75.75 0 111.06-1.06l2.47 2.47V3.5a.75.75 0 01.75-.75zM12 18.25a.75.75 0 01.75.75v-8.19l-2.47 2.47a.75.75 0 11-1.06-1.06l3.75-3.75a.75.75 0 011.06 0l3.75 3.75a.75.75 0 11-1.06 1.06L12 10.56v8.19a.75.75 0 01-.75.75z" /></svg>' // Leaf (para bosque/naturaleza).
+                'icon_svg' => '<svg fill="#000000" width="2rem" height="2rem" viewBox="-5 -2 24 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-tree"><path d="M10.728 5.547l-.632-.446-.167-.755a3.002 3.002 0 0 0-5.858 0l-.167.755-.632.446A3 3 0 1 0 6.2 10.75l.801-.35.8.35a3 3 0 0 0 2.927-5.204zM8 12.9V19a1 1 0 0 1-2 0v-6.1a5 5 0 0 1-3.882-8.987 5.002 5.002 0 0 1 9.764 0A5 5 0 0 1 8 12.9z"/></svg>' // Leaf (para bosque/naturaleza).
             ],
             [
                 'name' => 'cerca del mar',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25a.75.75 0 01.75.75v14.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM12 8.25a.75.75 0 01.75.75v5.25a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zM12 14.25a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75z" /></svg>' // Cloud (para mar/agua).
+                'icon_svg' => '<svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><title/><path d="M18,2a3.57,3.57,0,0,0-2.71,1.29c-.49.49-.73.71-1.3.71s-.8-.22-1.29-.71a3.48,3.48,0,0,0-5.41,0C6.8,3.78,6.56,4,6,4s-.8-.22-1.29-.71A3.56,3.56,0,0,0,2,2V4c.56,0,.8.22,1.29.71A3.56,3.56,0,0,0,6,6,3.56,3.56,0,0,0,8.7,4.71C9.19,4.22,9.43,4,10,4s.8.22,1.29.71a3.48,3.48,0,0,0,5.42,0c.49-.49.73-.71,1.3-.71s.8.22,1.3.71A3.57,3.57,0,0,0,22,6V4c-.56,0-.8-.22-1.3-.71A3.57,3.57,0,0,0,18,2Z"/><path d="M18,7a3.57,3.57,0,0,0-2.71,1.29c-.49.49-.73.71-1.3.71s-.8-.22-1.29-.71a3.48,3.48,0,0,0-5.41,0C6.8,8.78,6.56,9,6,9s-.8-.22-1.29-.71A3.56,3.56,0,0,0,2,7V9c.56,0,.8.22,1.29.71A3.56,3.56,0,0,0,6,11,3.56,3.56,0,0,0,8.7,9.71C9.19,9.22,9.43,9,10,9s.8.22,1.29.71a3.48,3.48,0,0,0,5.42,0c.49-.49.73-.71,1.3-.71s.8.22,1.3.71A3.57,3.57,0,0,0,22,11V9c-.56,0-.8-.22-1.3-.71A3.57,3.57,0,0,0,18,7Z"/><path d="M18,13a3.57,3.57,0,0,0-2.71,1.29c-.49.49-.73.71-1.3.71s-.8-.22-1.29-.71a3.48,3.48,0,0,0-5.41,0C6.8,14.78,6.56,15,6,15s-.8-.22-1.29-.71A3.56,3.56,0,0,0,2,13v2c.56,0,.8.22,1.29.71A3.56,3.56,0,0,0,6,17,3.56,3.56,0,0,0,8.7,15.71c.49-.49.73-.71,1.29-.71s.8.22,1.29.71a3.48,3.48,0,0,0,5.42,0c.49-.49.73-.71,1.3-.71s.8.22,1.3.71A3.57,3.57,0,0,0,22,17V15c-.56,0-.8-.22-1.3-.71A3.57,3.57,0,0,0,18,13Z"/><path d="M18,18a3.57,3.57,0,0,0-2.71,1.29c-.49.49-.73.71-1.3.71s-.8-.22-1.29-.71a3.48,3.48,0,0,0-5.41,0C6.8,19.78,6.56,20,6,20s-.8-.22-1.29-.71A3.56,3.56,0,0,0,2,18v2c.56,0,.8.22,1.29.71A3.56,3.56,0,0,0,6,22,3.56,3.56,0,0,0,8.7,20.71c.49-.49.73-.71,1.29-.71s.8.22,1.29.71a3.48,3.48,0,0,0,5.42,0c.49-.49.73-.71,1.3-.71s.8.22,1.3.71A3.57,3.57,0,0,0,22,22V20c-.56,0-.8-.22-1.3-.71A3.57,3.57,0,0,0,18,18Z"/></svg>' // Cloud (para mar/agua).
             ],
             [
                 'name' => 'cerca de la ciudad',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.5H4.5m0 0v-4.5m15 4.5H14.25v4.5h5.25m0 0v-4.5m0 4.5H19.5" /></svg>' // Building-office (para ciudad).
+                'icon_svg' => '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 width="2rem" height="2rem" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve"><g>	<g>		<path fill="#000000" d="M20,48h8v-8h-8V48z M52,40h8v-8h-8V40z M68,40h8v-8h-8V40z M84,40h8v-8h-8V40z M52,24h8v-8h-8V24z M68,24
+			h8v-8h-8V24z M84,24h8v-8h-8V24z M52,72h8v-8h-8V72z M68,72h8v-8h-8V72z M84,72h8v-8h-8V72z M52,88h8v-8h-8V88z M84,88h8v-8h-8V88
+			z M52,104h8v-8h-8V104z M84,104h8v-8h-8V104z M108,96h8v-8h-8V96z M108,72v8h8v-8H108z M108,112h8v-8h-8V112z M52,56h8v-8h-8V56z
+			 M68,56h8v-8h-8V56z M84,56h8v-8h-8V56z M20,64h8v-8h-8V64z M20,80h8v-8h-8V80z M20,96h8v-8h-8V96z M20,112h8v-8h-8V112z M68,88h8
+			v-8h-8V88z"/></g></g><path fill-rule="evenodd" clip-rule="evenodd" fill="#000000" d="M124,120c0,4.422-3.578,8-8,8H12c-4.422,0-8-3.578-8-8V32
+	c0-4.422,3.578-8,8-8h24V8c0-4.422,3.578-8,8-8h56c4.422,0,8,3.578,8,8v48h8c4.422,0,8,3.578,8,8V120z M36,32H12v88h24V32z M100,8
+	H44v112h24V96h8v24h24V8z M116,64h-8v56h8V64z"/></svg>'
             ],
             [
                 'name' => 'cerca de escuelas',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 18.361A23.448 23.448 0 0112 22.25 23.448 23.448 0 0119.74 18.36M3.27 6.462A23.448 23.448 0 0112 2.25 23.448 23.448 0 0120.73 6.46M16.5 18.361a23.448 23.448 0 00-3.74 3.89m-7.5-3.89a23.448 23.448 0 00-3.74-3.89M15 14.25a4.5 4.5 0 00-9 0m9 0v3.75m-7.5-3.75a4.5 4.5 0 00-9 0m9 0v3.75" /></svg>' // Academic-cap.
+                'icon_svg' => '<svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 24 24" id="school-bag" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><path id="secondary" d="M10,17h4M14,4a1,1,0,0,0-1-1H11a1,1,0,0,0-1,1V5h4Zm4,15h1a1,1,0,0,0,1-1V15H18ZM6,15H4v3a1,1,0,0,0,1,1H6Z" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M19,9V6a1,1,0,0,0-1-1H6A1,1,0,0,0,5,6V9a2,2,0,0,0,2,2H17A2,2,0,0,0,19,9Zm-2,2H7a2,2,0,0,1-1-.28V20a1,1,0,0,0,1,1H17a1,1,0,0,0,1-1V10.72A2,2,0,0,1,17,11Z" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><line id="secondary-2" data-name="secondary" x1="12" y1="10" x2="12" y2="12" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line></svg>' // Academic-cap.
             ],
             [
                 'name' => 'cerca de hospitales',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-.25-3M8.367 12.8A3 3 0 118.25 9.75m4.5 0a3 3 0 11-4.5 0m4.5 0h.75M8.25 9.75a3 3 0 01-3-3V5.25A3 3 0 018.25 2.25h3.5A3 3 0 0115 5.25v3.75a3 3 0 01-3 3m-6 0h.75m5.25 0H15" /></svg>' // Heart (para salud/hospital).
+                'icon_svg' => '<svg width="2rem" height="2rem" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.5 0.5L7.72361 0.0527864C7.58284 -0.0175955 7.41716 -0.0175955 7.27639 0.0527864L7.5 0.5ZM1.5 3.5L1.27639 3.05279C1.107 3.13748 1 3.31061 1 3.5H1.5ZM13.5 3.5H14C14 3.31061 13.893 3.13748 13.7236 3.05279L13.5 3.5ZM5.5 10.5V10H5V10.5H5.5ZM9.5 10.5H10V10H9.5V10.5ZM0 15H15V14H0V15ZM7.27639 0.0527864L1.27639 3.05279L1.72361 3.94721L7.72361 0.947214L7.27639 0.0527864ZM13.7236 3.05279L7.72361 0.0527864L7.27639 0.947214L13.2764 3.94721L13.7236 3.05279ZM7 3V5.5H8V3H7ZM7 5.5V8H8V5.5H7ZM5 6H7.5V5H5V6ZM7.5 6H10V5H7.5V6ZM1 3.5V14.5H2V3.5H1ZM13 3.5V14.5H14V3.5H13ZM6 14.5V10.5H5V14.5H6ZM5.5 11H9.5V10H5.5V11ZM9 10.5V14.5H10V10.5H9Z" fill="#000000"/>
+</svg>'
             ],
             [
                 'name' => 'cerca de centros comerciales',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 12v6m4-6v6m1.5-6V4.25a2.25 2.25 0 00-2.25-2.25H9.75A2.25 2.25 0 007.5 4.25V10M19.5 10V6a2.25 2.25 0 00-2.25-2.25h-.75a2.25 2.25 0 00-2.25 2.25v4" /></svg>' // Shopping-bag.
+                'icon_svg' => '<svg width="2rem" height="2rem" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1.5 2.5V2C1.26166 2 1.05645 2.16823 1.00971 2.40194L1.5 2.5ZM13.5 2.5L13.9903 2.40194C13.9435 2.16823 13.7383 2 13.5 2V2.5ZM14.5 7.5V8C14.6498 8 14.7917 7.93284 14.8867 7.81699C14.9816 7.70115 15.0197 7.54883 14.9903 7.40194L14.5 7.5ZM0.5 7.5L0.00970966 7.40194C-0.0196679 7.54883 0.0183596 7.70115 0.113329 7.81699C0.208298 7.93284 0.350203 8 0.5 8V7.5ZM3.5 10.5H3V11H3.5V10.5ZM11.5 10.5V11H12V10.5H11.5ZM0 15H15V14H0V15ZM1 7.5V14.5H2V7.5H1ZM13 7.5V14.5H14V7.5H13ZM1.5 3H13.5V2H1.5V3ZM13.0097 2.59806L14.0097 7.59806L14.9903 7.40194L13.9903 2.40194L13.0097 2.59806ZM14.5 7H0.5V8H14.5V7ZM0.99029 7.59806L1.99029 2.59806L1.00971 2.40194L0.00970966 7.40194L0.99029 7.59806ZM1 1H14V0H1V1ZM3 7.5V10.5H4V7.5H3ZM3.5 11H11.5V10H3.5V11ZM12 10.5V7.5H11V10.5H12Z" fill="#000000"/>
+</svg>'
             ],
             [
                 'name' => 'cerca de transporte público',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 7.5l16.5-9v18m-16.5 0l16.5 9m0 0V21m0 3v-3m-6-9h4.5" /></svg>' // Map-pin (para transporte).
+                'icon_svg' => '<svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M126.03 744.104H72.219c-17.312 0-31.263-13.802-31.263-30.72v-488.11c0-16.912 13.955-30.72 31.263-30.72h879.565c17.311 0 31.252 13.801 31.252 30.72v488.11c0 16.926-13.937 30.72-31.252 30.72h-42.639c-11.311 0-20.48 9.169-20.48 20.48s9.169 20.48 20.48 20.48h42.639c39.843 0 72.212-32.038 72.212-71.68v-488.11c0-39.635-32.373-71.68-72.212-71.68H72.219c-39.833 0-72.223 32.049-72.223 71.68v488.11c0 39.639 32.387 71.68 72.223 71.68h53.811c11.311 0 20.48-9.169 20.48-20.48s-9.169-20.48-20.48-20.48z"/><path d="M693.76 744.104H334.848c-11.311 0-20.48 9.169-20.48 20.48s9.169 20.48 20.48 20.48H693.76c11.311 0 20.48-9.169 20.48-20.48s-9.169-20.48-20.48-20.48zM993.28 467.83h-97.812c-16.962 0-30.72-13.758-30.72-30.72V193.531c0-11.311-9.169-20.48-20.48-20.48s-20.48 9.169-20.48 20.48V437.11c0 39.583 32.097 71.68 71.68 71.68h97.812c11.311 0 20.48-9.169 20.48-20.48s-9.169-20.48-20.48-20.48z"/><path d="M884.53 764.584c0-45.238-36.679-81.92-81.92-81.92-45.234 0-81.92 36.686-81.92 81.92 0 45.241 36.682 81.92 81.92 81.92 45.245 0 81.92-36.675 81.92-81.92zm40.96 0c0 67.866-55.014 122.88-122.88 122.88-67.859 0-122.88-55.017-122.88-122.88 0-67.856 55.024-122.88 122.88-122.88 67.863 0 122.88 55.021 122.88 122.88zm-611.12 0c0-45.234-36.686-81.92-81.92-81.92-45.241 0-81.92 36.682-81.92 81.92 0 45.245 36.675 81.92 81.92 81.92 45.238 0 81.92-36.679 81.92-81.92zm40.96 0c0 67.863-55.021 122.88-122.88 122.88-67.866 0-122.88-55.014-122.88-122.88 0-67.859 55.017-122.88 122.88-122.88 67.856 0 122.88 55.024 122.88 122.88z"/><path d="M698.03 745.894H334.848c-11.311 0-20.48 9.169-20.48 20.48s9.169 20.48 20.48 20.48H698.03c11.311 0 20.48-9.169 20.48-20.48s-9.169-20.48-20.48-20.48zm305.49-156.07h-84.746c-11.311 0-20.48 9.169-20.48 20.48s9.169 20.48 20.48 20.48h84.746c11.311 0 20.48-9.169 20.48-20.48s-9.169-20.48-20.48-20.48zM725.76 468.085V292.633h-102.4v175.452h102.4zm0 40.96h-102.4c-22.616 0-40.96-18.344-40.96-40.96V292.633c0-22.624 18.342-40.96 40.96-40.96h102.4c22.618 0 40.96 18.336 40.96 40.96v175.452c0 22.616-18.344 40.96-40.96 40.96zm-243.825-40.96V292.633h-102.4v175.452h102.4zm0 40.96h-102.4c-22.616 0-40.96-18.344-40.96-40.96V292.633c0-22.624 18.342-40.96 40.96-40.96h102.4c22.618 0 40.96 18.336 40.96 40.96v175.452c0 22.616-18.344 40.96-40.96 40.96zm-243.825-40.96V292.633h-102.4v175.452h102.4zm0 40.96h-102.4c-22.616 0-40.96-18.344-40.96-40.96V292.633c0-22.624 18.342-40.96 40.96-40.96h102.4c22.618 0 40.96 18.336 40.96 40.96v175.452c0 22.616-18.344 40.96-40.96 40.96z"/></svg>' // Map-pin (para transporte).
             ],
             [
                 'name' => 'gimnasio',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 006.372-6.369l.001-.003M15 19.128l-3.75-3.75m0 0a3 3 0 01-3-3 3 3 0 00-6 3c0 1.657 1.007 3.082 2.518 3.72m13.5-3.72a3 3 0 00-3-3m0 0a3 3 0 01-3 3 3 3 0 00-3-3m12 0a9.295 9.295 0 00-3.692-3.292 9.295 9.295 0 00-3.292-3.692 3.045 3.045 0 00-3.044 3.044v2.28L9.75 12m6.75 11.25a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" /></svg>' // User-group (para gimnasio/grupo).
+                'icon_svg' => '<svg width="2rem" height="2rem" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="icomoon-ignore"></g><path d="M32 15.467h-3.147v-6.4h-3.2v-2.667h-4.267v9.067h-10.667v-9.067h-4.267v2.667h-3.2v6.4h-3.253v1.067h3.253v6.4h3.2v2.667h4.267v-9.067h10.667v9.067h4.267v-2.667h3.2v-6.4h3.147v-1.067zM4.32 21.867v-11.733h2.133v11.733h-2.133zM9.653 24.533h-2.133v-17.067h2.133v17.067zM24.587 24.533h-2.133v-17.067h2.133v17.067zM27.787 21.867h-2.133v-11.733h2.133v11.733z" fill="#000000"></path></svg>'
             ],
-                        [
+            [
                 'name' => 'pet friendly',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>' // Heart (para mascotas/pet-friendly).
+                'icon_svg' => '<svg fill="#000000" width="2rem" height="2rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M5,18 C2.790861,18 1,16.209139 1,14 C1,13.2857412 1.18859035,12.5994674 1.53521022,12 C1.18859035,11.4005326 1,10.7142588 1,10 C1,7.790861 2.790861,6 5,6 C6.45671341,6 7.7639237,6.78584495 8.4650385,8 L15.5349615,8 C16.2360763,6.78584495 17.5432866,6 19,6 C21.209139,6 23,7.790861 23,10 C23,10.7142588 22.8114096,11.4005326 22.4647898,12 C22.8114096,12.5994674 23,13.2857412 23,14 C23,16.209139 21.209139,18 19,18 C17.5432866,18 16.2360763,17.214155 15.5349615,16 L8.4650385,16 C7.7639237,17.214155 6.45671341,18 5,18 Z M6.88645441,14.6667539 L7.1221181,14 L16.8778819,14 L17.1135456,14.6667539 C17.393601,15.4591036 18.1454758,16 19,16 C20.1045695,16 21,15.1045695 21,14 C21,13.5002312 20.8173095,13.0315273 20.4909716,12.6669138 L19.8940676,12 L20.4909716,11.3330862 C20.8173095,10.9684727 21,10.4997688 21,10 C21,8.8954305 20.1045695,8 19,8 C18.1454758,8 17.393601,8.54089645 17.1135456,9.33324608 L16.8778819,10 L7.1221181,10 L6.88645441,9.33324608 C6.606399,8.54089645 5.85452417,8 5,8 C3.8954305,8 3,8.8954305 3,10 C3,10.4997688 3.18269047,10.9684727 3.50902838,11.3330862 L4.10593238,12 L3.50902838,12.6669138 C3.18269047,13.0315273 3,13.5002312 3,14 C3,15.1045695 3.8954305,16 5,16 C5.85452417,16 6.606399,15.4591036 6.88645441,14.6667539 Z"/>
+</svg>'
             ],
             [
                 'name' => 'accesible para discapacitados',
-                'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m0 0H3.75m8.25 0H21" /></svg>' // Cog (para accesibilidad/adaptaciones).
+                'icon_svg' => '<svg width="2rem" height="2rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="4" r="2"/><path d="M16.98 14.804A1 1 0 0 0 16 14h-4.133l-.429-3H16V9h-4.847l-.163-1.142A1 1 0 0 0 10 7H9a1.003 1.003 0 0 0-.99 1.142l.877 6.142A2.009 2.009 0 0 0 10.867 16h4.313l.839 4.196c.094.467.504.804.981.804h3v-2h-2.181l-.839-4.196z"/><path d="M12.51 17.5c-.739 1.476-2.25 2.5-4.01 2.5A4.505 4.505 0 0 1 4 15.5a4.503 4.503 0 0 1 2.817-4.167l-.289-2.025C3.905 10.145 2 12.604 2 15.5 2 19.084 4.916 22 8.5 22a6.497 6.497 0 0 0 5.545-3.126l-.274-1.374H12.51z"/></svg>'
             ],
         ];
 
