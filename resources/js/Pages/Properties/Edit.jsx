@@ -280,7 +280,7 @@ export default function Edit({ auth, property, countries, states, cities, typePr
                                                 <InputError message={errors.name} className="mt-2" />
                                             </div>
 
-                                            <div className='md:col-span-2'>
+                                            <div cclassName='md:col-span-2 lg:col-span-1'>
                                                 <InputLabel htmlFor="types_properties_id" value="Tipo de propiedad" />
                                                 <Select
                                                     options={typeProperties.map((type) => ({ value: type.id, label: type.name }))}
@@ -293,6 +293,20 @@ export default function Edit({ auth, property, countries, states, cities, typePr
                                                 />
                                                 <InputError message={errors.types_properties_id} className="mt-2" />
                                             </div>
+
+                                            <div className='md:col-span-2 lg:col-span-1'>
+                                                    <InputLabel htmlFor="types_businesses_id" value="Tipo de negocio" />
+                                                    <Select
+                                                        options={typeBusinesses.map((type) => ({ value: type.id, label: type.name }))}
+                                                        value={typesBusinessesValue}
+                                                        onChange={handleTypesBusinessesChange}
+                                                        components={animatedComponents}
+                                                        placeholder="Selecciona un tipo de negocio"
+                                                        name="types_businesses_id"
+                                                        styles={customStyles}
+                                                    />
+                                                    <InputError message={errors.types_businesses_id} className="mt-2" />
+                                                </div>
 
 
 
@@ -336,7 +350,7 @@ export default function Edit({ auth, property, countries, states, cities, typePr
                                                 <InputError message={errors.phy_states_id} className="mt-2" />
                                             </div>
 
-
+<div className="grid grid-cols-1 lg:grid-cols-3 col-span-full gap-4">
                                             <div className='md:col-span-2 lg:col-span-1'>
                                                 <InputLabel htmlFor="bedrooms" value="Dormitorios" />
                                                 <TextInput
@@ -374,6 +388,7 @@ export default function Edit({ auth, property, countries, states, cities, typePr
                                                     onChange={(e) => setData('garages', e.target.value)}
                                                 />
                                                 <InputError message={errors.garages} className="mt-2" />
+                                            </div>
                                             </div>
 
                                             <div className='md:col-span-2 lg:col-span-1'>
@@ -419,7 +434,7 @@ export default function Edit({ auth, property, countries, states, cities, typePr
                                         <div className="max-w-7xl mx-auto mb-5">
                                             <ContainerTitle title={'Imágenes'} className='col-span-full grid grid-cols-1 gap-4 mt-6'>
                                                 <div className='flex flex-col'>
-                                                    <InputLabel>Imágenes adicionales (múltiples) - Se agregarán al guardar</InputLabel>
+                                                    {/* <InputLabel>Imágenes adicionales (múltiples) - Se agregarán al guardar</InputLabel> */}
                                                     <input
                                                         type="file"
                                                         name="images"
@@ -480,19 +495,7 @@ export default function Edit({ auth, property, countries, states, cities, typePr
                                                     <InputError message={errors.status} className="mt-2" />
                                                 </div>
 
-                                                <div className='md:col-span-1 lg:col-span-1'>
-                                                    <InputLabel htmlFor="types_businesses_id" value="Tipo de negocio" />
-                                                    <Select
-                                                        options={typeBusinesses.map((type) => ({ value: type.id, label: type.name }))}
-                                                        value={typesBusinessesValue}
-                                                        onChange={handleTypesBusinessesChange}
-                                                        components={animatedComponents}
-                                                        placeholder="Selecciona un tipo de negocio"
-                                                        name="types_businesses_id"
-                                                        styles={customStyles}
-                                                    />
-                                                    <InputError message={errors.types_businesses_id} className="mt-2" />
-                                                </div>
+                                                
 
                                             </ContainerTitle>
 

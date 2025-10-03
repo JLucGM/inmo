@@ -111,7 +111,7 @@ export default function Create({ auth, role, permission }) {
                                             </div>
 
                                             <div className='col-span-full'>
-                                                <InputLabel htmlFor="text" value="text" />
+                                                <InputLabel htmlFor="text" value="Descripción" />
 
                                                 <Textarea
                                                     id="text"
@@ -134,7 +134,7 @@ export default function Create({ auth, role, permission }) {
                                         <ContainerTitle title={'Datos secundarios'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
 
                                             <div className="col-span-full">
-                                                <InputLabel htmlFor="image" value="image" />
+                                                <InputLabel htmlFor="image" value="Imagen" />
 
                                                 <TextInput
                                                     id="image"
@@ -149,7 +149,7 @@ export default function Create({ auth, role, permission }) {
                                             </div>
 
                                             <div className="col-span-full">
-                                                <InputLabel htmlFor="status" value="status" />
+                                                <InputLabel htmlFor="status" value="Estado" />
                                                 <Select
                                                     name="status"
                                                     aria-label="Project status"
@@ -165,7 +165,7 @@ export default function Create({ auth, role, permission }) {
                                             </div>
 
                                             <div className="col-span-full">
-                                                <InputLabel htmlFor="link" value="link" />
+                                                <InputLabel htmlFor="link" value="Link (Opcional)" />
 
                                                 <div className="flex">
                                                     <span className='flex flex-col justify-center px-2 rounded-s-full border border-gray-300 dark:border-gray-700'>https://</span>

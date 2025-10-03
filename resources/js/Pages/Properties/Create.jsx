@@ -328,7 +328,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
 
                                             <div className='col-span-2'>
 
-                                                <InputLabel htmlFor="description" value="descripcion" />
+                                                <InputLabel htmlFor="description" value="Descripción" />
 
                                                 <TextAreaRich
 
@@ -344,7 +344,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
 
                                         <ContainerTitle title={'Imagenes'} className='grid grid-cols-1 gap-4'>
                                             <div>
-                                                <InputLabel htmlFor="images" value="images" />
+                                                {/* <InputLabel htmlFor="images" value="images" /> */}
                                                 <TextInput
                                                     id="images"
                                                     type="file"
@@ -450,7 +450,7 @@ export default function Create({ auth, typepropety, typebusiness, country, state
                                             </div>
 
                                             <div className='col-span-2'>
-                                                <InputLabel htmlFor="direction" value="direction" />
+                                                <InputLabel htmlFor="direction" value="Dirección" />
 
                                                 <Textarea
                                                     id="direction"

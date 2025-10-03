@@ -147,7 +147,7 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
                                         </div>
 
                                         <div className='col-span-full'>
-                                            <InputLabel htmlFor="statuses" value="Status de tarea" />
+                                            <InputLabel htmlFor="statuses" value="Estado de la tarea" />
 
                                             <Select
                                                 name="status_contacts_id"

@@ -130,7 +130,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                             <Tab
                                                 className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
                                             >
-                                                images
+                                                Imagenes
 
                                             </Tab>
                                             <Tab
@@ -204,7 +204,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                     </div>
 
                                                     <div>
-                                                        <InputLabel htmlFor="phone" value="phone" />
+                                                        <InputLabel htmlFor="phone" value="Teléfono" />
 
                                                         <TextInput
                                                             id="phone"
@@ -219,7 +219,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                     </div>
 
                                                     <div>
-                                                        <InputLabel htmlFor="direction" value="direction" />
+                                                        <InputLabel htmlFor="direction" value="Dirección" />
 
                                                         <TextInput
                                                             id="direction"
@@ -234,7 +234,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                     </div>
 
                                                     <div>
-                                                        <InputLabel htmlFor="currency_id" value="currencies" />
+                                                        <InputLabel htmlFor="currency_id" value="Moneda" />
 
                                                         <select
                                                             name="currency_id"
@@ -258,7 +258,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
 
 
                                                     <div className='col-span-2'>
-                                                        <InputLabel htmlFor="description" value="description" />
+                                                        <InputLabel htmlFor="description" value="Descripción" />
 
                                                         <Textarea
                                                             id="description"
@@ -281,7 +281,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
 
                                                     <div className=''>
                                                         <img src={`${setting.logo}`} alt={setting.logo} className='w-40' />
-                                                        <InputLabel htmlFor="logo" value="logo" />
+                                                        <InputLabel htmlFor="logo" value="Logo" />
                                                         <TextInput
                                                             id="logo"
                                                             type="file"
@@ -294,7 +294,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
 
                                                     <div>
                                                         <img src={`${setting.logo_footer}`} alt={setting.logo_footer} className='w-40' />
-                                                        <InputLabel htmlFor="logo_footer" value="logo_footer" />
+                                                        <InputLabel htmlFor="logo_footer" value="Logo del pie de página" />
                                                         <TextInput
                                                             id="logo_footer"
                                                             type="file"
@@ -342,7 +342,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                                 const newValue = data.status_products_list === 1 ? 0 : 1;
                                                                 setData('status_products_list', newValue);
                                                             }}
-                                                            label="Activar status_products_list"
+                                                            label="Activar lista de productos"
                                                         />
                                                     </div>
 
@@ -353,7 +353,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                                 const newValue = data.status_info_section === 1 ? 0 : 1;
                                                                 setData('status_info_section', newValue);
                                                             }}
-                                                            label="Activar status_info_section"
+                                                            label="Activar sección de información"
                                                         />
                                                     </div>
 
@@ -364,7 +364,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                                 const newValue = data.status_testimonials === 1 ? 0 : 1;
                                                                 setData('status_testimonials', newValue);
                                                             }}
-                                                            label="Activar status_testimonials"
+                                                            label="Activar sección de testimonios"
                                                         />
                                                     </div>
 
@@ -375,7 +375,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                                 const newValue = data.status_team === 1 ? 0 : 1;
                                                                 setData('status_team', newValue);
                                                             }}
-                                                            label="Activar status_team"
+                                                            label="Activar sección de equipo"
                                                         />
                                                     </div>
 
@@ -447,7 +447,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                     </div> */}
 
                                                     <div className='col-span-2'>
-                                                        <InputLabel htmlFor="titleBlog" value="titleBlog" />
+                                                        <InputLabel htmlFor="titleBlog" value="Título del Blog" />
 
                                                         <TextInput
                                                             id="titleBlog"
@@ -463,7 +463,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                     </div>
 
                                                     <div className='col-span-2'>
-                                                        <InputLabel htmlFor="descriptionBlog" value="descriptionBlog" />
+                                                        <InputLabel htmlFor="descriptionBlog" value="Descripción del Blog" />
 
                                                         <Textarea
                                                             id="descriptionBlog"
@@ -485,7 +485,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
 
                                                     <div className=''>
                                                         <img src={`${setting.portadaFaq}`} alt={setting.portadaFaq} className='w-40 mx-auto rounded-3xl' />
-                                                        <InputLabel htmlFor="portadaFaq" value="portadaFaq" />
+                                                        <InputLabel htmlFor="portadaFaq" value="Portada de Preguntas Frecuentes" />
                                                         <TextInput
                                                             id="portadaFaq"
                                                             type="file"
@@ -498,7 +498,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                     </div>
 
                                                     <div className='col-span-2'>
-                                                        <InputLabel htmlFor="titleFaq" value="titleFaq" />
+                                                        <InputLabel htmlFor="titleFaq" value="Título de Preguntas Frecuentes" />
 
                                                         <TextInput
                                                             id="titleFaq"
@@ -514,7 +514,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                     </div>
 
                                                     <div className='col-span-2'>
-                                                        <InputLabel htmlFor="descriptionFaq" value="descriptionFaq" />
+                                                        <InputLabel htmlFor="descriptionFaq" value="Descripción de Preguntas Frecuentes" />
 
                                                         <Textarea
                                                             id="descriptionFaq"
@@ -536,7 +536,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
 
                                                     <div className=''>
                                                         <img src={`${setting.portadaContact}`} alt={setting.portadaContact} className='w-40 rounded-3xl mx-auto' />
-                                                        <InputLabel htmlFor="portadaContact" value="portadaContact" />
+                                                        <InputLabel htmlFor="portadaContact" value="Portada de Contacto" />
                                                         <TextInput
                                                             id="portadaContact"
                                                             type="file"
@@ -549,7 +549,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                     </div>
 
                                                     <div className='col-span-2'>
-                                                        <InputLabel htmlFor="titleContact" value="titleContact" />
+                                                        <InputLabel htmlFor="titleContact" value="Título de Contacto" />
 
                                                         <TextInput
                                                             id="titleContact"
@@ -565,7 +565,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                     </div>
 
                                                     <div className='col-span-2'>
-                                                        <InputLabel htmlFor="descriptionContact" value="descriptionContact" />
+                                                        <InputLabel htmlFor="descriptionContact" value="Descripción de Contacto" />
 
                                                         <Textarea
                                                             id="descriptionContact"
@@ -587,7 +587,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
 
                                                     <div className=''>
                                                         <img src={`${setting.portadaAnunciar}`} alt={setting.portadaAnunciar} className='w-40 rounded-3xl mx-auto' />
-                                                        <InputLabel htmlFor="portadaAnunciar" value="portadaAnunciar" />
+                                                        <InputLabel htmlFor="portadaAnunciar" value="Portada de Anunciar" />
                                                         <TextInput
                                                             id="portadaAnunciar"
                                                             type="file"
@@ -600,7 +600,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                     </div>
 
                                                     <div className='col-span-2'>
-                                                        <InputLabel htmlFor="titleAnunciar" value="titleAnunciar" />
+                                                        <InputLabel htmlFor="titleAnunciar" value="Título de Anunciar" />
 
                                                         <TextInput
                                                             id="titleAnunciar"
@@ -616,7 +616,7 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
                                                     </div>
 
                                                     <div className='col-span-2'>
-                                                        <InputLabel htmlFor="descriptionAnunciar" value="descriptionAnunciar" />
+                                                        <InputLabel htmlFor="descriptionAnunciar" value="Descripción de Anunciar" />
 
                                                         <Textarea
                                                             id="descriptionAnunciar"

@@ -11,6 +11,8 @@ import { useState } from 'react';
 import CharacterCounter from '@/Components/CharacterCounter';
 import ReactPlayer from 'react-player';
 import SectionHeader from '@/Components/SectionHeader';
+import { Alert } from 'flowbite-react';
+import { HandThumbUpIcon } from '@heroicons/react/24/outline';
 
 export default function Edit({ auth, slide, role, permission }) {
 
@@ -95,17 +97,30 @@ export default function Edit({ auth, slide, role, permission }) {
                 <div className="max-w-7xl mx-auto ">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
                         <div className=" text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
 
                                 <Transition
                                     show={recentlySuccessful}
-                                    enter="transition ease-in-out"
-                                    enterFrom="opacity-0"
-                                    leave="transition ease-in-out"
-                                    leaveTo="opacity-0"
+                                    enter="transition ease-in-out duration-300"
+                                    enterFrom="opacity-0 translate-y-1"
+                                    enterTo="opacity-100 translate-y-0"
+                                    leave="transition ease-in-out duration-300"
+                                    leaveFrom="opacity-100 translate-y-0"
+                                    leaveTo="opacity-0 translate-y-1"
                                 >
-                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
+                                    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+                                        <Alert
+                                            color="success"
+                                            className="border-0 shadow-lg"
+                                        >
+                                            <div className="flex items-center">
+
+                                                <HandThumbUpIcon className="w-5 h-5 text-green-700 dark:text-green-400" />
+                                                <span className="font-bold">¡Se actualizó correctamente!</span>
+                                            </div>
+                                        </Alert>
+                                    </div>
                                 </Transition>
+                            <form onSubmit={submit} className='space-y-4'>
 
                                 <div className="xs:grid md:grid xs:grid-cols-full lg:grid-cols-3 gap-4">
                                     <div className="xs:col-span-full lg:col-span-2">
@@ -130,7 +145,7 @@ export default function Edit({ auth, slide, role, permission }) {
 
 
                                             <div className='col-span-2'>
-                                                <InputLabel htmlFor="text" value="text" />
+                                                <InputLabel htmlFor="text" value="Descripción" />
 
                                                 <Textarea
                                                     id="text"
@@ -164,7 +179,7 @@ export default function Edit({ auth, slide, role, permission }) {
                                                     <img src={slide.image} alt={slide.image} className='mx-auto w-60 rounded-3xl' />
                                                 )}
 
-                                                <InputLabel htmlFor="image" value="image" />
+                                                <InputLabel htmlFor="image" value="Imagen" />
                                                 <TextInput
                                                     id="image"
                                                     type="file"
@@ -177,7 +192,7 @@ export default function Edit({ auth, slide, role, permission }) {
                                             </div>
 
                                             <div className="col-span-full">
-                                                <InputLabel htmlFor="status" value="status" />
+                                                <InputLabel htmlFor="status" value="Estado" />
                                                 <Select
                                                     name="status"
                                                     aria-label="Project status"
@@ -192,7 +207,7 @@ export default function Edit({ auth, slide, role, permission }) {
                                             </div>
 
                                             <div className="col-span-full">
-                                                <InputLabel htmlFor="link" value="link" />
+                                                <InputLabel htmlFor="link" value="Link (Opcional)" />
                                                 <div className="flex">
                                                     <span className='flex flex-col justify-center px-2 rounded-s-full border border-gray-300 dark:border-gray-700'>https://</span>
                                                     <TextInput

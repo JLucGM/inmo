@@ -130,126 +130,6 @@ export default function Edit({ auth, task, statuses, contacts, typetasks, proper
                                             <InputError message={errors.name} className="mt-2" />
                                         </div>
 
-                                        {/* <div>
-                                        <InputLabel htmlFor="start_time" value="start_time" />
-
-                                        <TextInput
-                                            id="start_time"
-                                            type="datetime-local"
-                                            name="start_time"
-                                            value={data.start_time}
-                                            className="mt-1 block w-full"
-                                            onChange={(e) => setData('start_time', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.start_time} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="end_time" value="end_time" />
-
-                                        <TextInput
-                                            id="end_time"
-                                            type="datetime-local"
-                                            name="end_time"
-                                            value={data.end_time}
-                                            className="mt-1 block w-full"
-                                            onChange={(e) => setData('end_time', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.end_time} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="statuses" value="Status de tarea" />
-
-                                        <Select
-                                            name="status_contacts_id"
-                                            id="statuses"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.status_contacts_id} // Establecer el valor del select con el valor de status_contacts_id
-                                            onChange={(e) => {
-                                                setData('status_contacts_id', parseInt(e.target.value));
-                                            }}
-                                        >
-                                            {statuses.map((statuses) => (
-                                                <option value={statuses.id} key={statuses.id}>
-                                                    {statuses.name}
-                                                </option>
-                                            ))}
-                                        </Select>
-
-                                        <InputError message={errors.statuses} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="contacts" value="Contacto" />
-
-                                        <Select
-                                            name="contact_id"
-                                            id="contacts"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.contact_id} // Establecer el valor del select con el valor de contact_id
-                                            onChange={(e) => {
-                                                setData('contact_id', parseInt(e.target.value));
-                                            }}
-                                        >
-                                            <option value="">No seleccionar contacto</option>
-                                            {contacts.map((contacts) => (
-                                                <option value={contacts.id} key={contacts.id}>
-                                                    {contacts.name}
-                                                </option>
-                                            ))}
-                                        </Select>
-
-                                        <InputError message={errors.statuses} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="typetasks" value="tipo de tares" />
-
-                                        <Select
-                                            name="property_id"
-                                            id="typetasks"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.property_id} // Establecer el valor del select con el valor de property_id
-                                            onChange={(e) => {
-                                                setData('property_id', parseInt(e.target.value));
-                                            }}
-                                        >
-                                            {typetasks.map((typetasks) => (
-                                                <option value={typetasks.id} key={typetasks.id}>
-                                                    {typetasks.name}
-                                                </option>
-                                            ))}
-                                        </Select>
-
-                                        <InputError message={errors.statuses} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="properties" value="propiedades" />
-
-                                        <Select
-                                            name="property_id"
-                                            id="properties"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.property_id} // Establecer el valor del select con el valor de property_id
-                                            onChange={(e) => {
-                                                setData('property_id', parseInt(e.target.value));
-                                            }}
-                                        >
-                                            <option value="">No seleccionar propiedades</option>
-                                            {properties.map((properties) => (
-                                                <option value={properties.id} key={properties.id}>
-                                                    {properties.name}
-                                                </option>
-                                            ))}
-                                        </Select>
-
-                                        <InputError message={errors.statuses} className="mt-2" />
-                                    </div> */}
-
                                         <div className='col-span-2'>
                                             <InputLabel htmlFor="description" value="descripcion" />
 
@@ -302,7 +182,7 @@ export default function Edit({ auth, task, statuses, contacts, typetasks, proper
                                         </div>
 
                                         <div className='col-span-full'>
-                                            <InputLabel htmlFor="statuses" value="Status de tarea" />
+                                            <InputLabel htmlFor="statuses" value="Estado de la tarea" />
 
                                             <Select
                                                 name="status_contacts_id"
