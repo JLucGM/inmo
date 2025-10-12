@@ -12,15 +12,15 @@ return new class extends Migration
             $table->id();
             $table->text('name')->notNullable();
             $table->string('slug')->unique();
-            $table->text('email')->unique()->nullable();
+            $table->string('email', 191)->unique()->nullable();
             $table->text('phone')->nullable();
-            $table->text('identificación_contact')->unique()->nullable();
+            $table->string('identificación_contact', 191)->unique()->nullable();
             $table->date('birthdate')->nullable();
             $table->text('min_budget')->nullable();
             $table->text('max_budget')->nullable();
             $table->text('bedrooms')->nullable();
             $table->text('bathrooms')->nullable();
-            $table->mediumText('description')->nullable();
+            $table->mediumText('description')->nullable();  
             $table->mediumText('direction')->nullable();
             $table->foreignId('types_contacts_id')->nullable()->constrained();
             $table->foreignId('status_contacts_id')->nullable()->constrained();
