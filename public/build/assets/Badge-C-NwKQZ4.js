@@ -1,0 +1,1 @@
+import{j as e}from"./app-C8ZRnhkg.js";function i({className:n="",children:s,...t}){return e.jsx("div",{className:"center relative inline-block select-none whitespace-nowrap rounded-full  py-2 px-3.5 align-baseline font-sans text-xs font-bold uppercase leading-none text-white "+n,children:e.jsx("div",{className:"mt-px",children:s})})}export{i as B};

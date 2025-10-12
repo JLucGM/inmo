@@ -1,0 +1,1 @@
+import{j as e}from"./app-C8ZRnhkg.js";const a=[{header:"#id",cell:({row:s})=>e.jsx(e.Fragment,{children:e.jsxs("div",{className:"flex items-center",children:[e.jsx("p",{className:"me-2",children:s.original.id}),e.jsx("img",{src:`${s.original.image}`,alt:s.original.image,className:"w-14"})]})})},{header:"Nombre",accessorKey:"name"}],r=a;export{r as default};

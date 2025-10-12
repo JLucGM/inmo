@@ -1,0 +1,1 @@
+import{j as s}from"./app-C8ZRnhkg.js";function m({value:t,className:e="",children:a,...r}){return s.jsx("label",{...r,className:"block font-medium text-sm text-gray-700 dark:text-gray-300 capitalize "+e,children:t||a})}export{m as I};
