@@ -26,11 +26,7 @@ class TypesBusinessesController extends Controller
     {
         $typesBusinesses = TypesBusinesses::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('TypesBusinesses/Index', compact('typesBusinesses', 'role', 'permission'));
+        return Inertia::render('TypesBusinesses/Index', compact('typesBusinesses'));
     }
 
     /**
@@ -38,11 +34,8 @@ class TypesBusinessesController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('TypesBusinesses/Create', compact('role', 'permission'));
+        return Inertia::render('TypesBusinesses/Create', []);
 
     }
 
@@ -71,11 +64,8 @@ class TypesBusinessesController extends Controller
      */
     public function edit(TypesBusinesses $typesBusiness)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('TypesBusinesses/Edit', compact('typesBusiness', 'role', 'permission'));
+        return Inertia::render('TypesBusinesses/Edit', compact('typesBusiness'));
 
     }
 

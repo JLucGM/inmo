@@ -8,7 +8,7 @@ import { Button } from '@/Components/ui/button';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
-export default function Edit({ auth, categoryPost, role, permission }) {
+export default function Edit({ auth, categoryPost }) {
     const { data, setData, errors, post, recentlySuccessful } = useForm({
         name: categoryPost.name || "",
     });
@@ -22,8 +22,8 @@ export default function Edit({ auth, categoryPost, role, permission }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Actualizar Categoría" subtitle="Edita el nombre de la categoría." />

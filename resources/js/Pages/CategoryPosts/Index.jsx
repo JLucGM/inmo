@@ -20,7 +20,7 @@ const columns = [
     }
 ];
 
-export default function Index({ auth, categoryPost, role, permission }) {
+export default function Index({ auth, categoryPost }) {
     // Definimos las acciones fuera del array de columnas para tener acceso a los permisos si fuera necesario, 
     // pero el patrón es incluirlas en el array.
     const columnsWithActions = [
@@ -43,7 +43,7 @@ export default function Index({ auth, categoryPost, role, permission }) {
     ];
 
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission} roles={role}>
+        <AuthenticatedLayout user={auth.user}  >
             <div className='flex justify-between items-center mb-6'>
                 <SectionHeader
                     title="Categorías de Publicaciones"
@@ -58,7 +58,7 @@ export default function Index({ auth, categoryPost, role, permission }) {
                 <DataTable
                     columns={columnsWithActions}
                     data={categoryPost}
-                    permissions={permission}
+                    
                 />
             </div>
         </AuthenticatedLayout>

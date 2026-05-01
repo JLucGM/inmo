@@ -6,7 +6,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import SectionHeader from '@/Components/SectionHeader';
 import UserForm from './UserForm';
 
-export default function Edit({ auth, user, roles, role, permission }) {
+export default function Edit({ auth, user, roles }) {
     const { data, setData, errors, post, recentlySuccessful } = useForm({
         name: user.name,
         email: user.email,
@@ -25,7 +25,7 @@ export default function Edit({ auth, user, roles, role, permission }) {
     return (
         <AuthenticatedLayout 
             user={auth.user} 
-            permission={permission}
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Actualizar usuario" subtitle="Gestiona los datos, contraseña y rol de este usuario." />

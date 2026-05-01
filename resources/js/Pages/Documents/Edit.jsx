@@ -11,7 +11,7 @@ import { Button } from '@/Components/ui/button';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
-export default function Edit({ auth, document, contacts, properties, users, role, permission }) {
+export default function Edit({ auth, document, contacts, properties, users }) {
 
     const initialValues = {
         name: document.name || "",
@@ -33,8 +33,8 @@ export default function Edit({ auth, document, contacts, properties, users, role
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Actualizar documento" subtitle="Edita la información o estado de este documento." />

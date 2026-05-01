@@ -24,11 +24,7 @@ class CategoryPostController extends Controller
     {
         $categoryPost = CategoryPost::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('CategoryPosts/Index', compact('categoryPost','role','permission'));
+        return Inertia::render('CategoryPosts/Index', compact('categoryPost'));
     }
 
     /**
@@ -36,11 +32,8 @@ class CategoryPostController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('CategoryPosts/Create', compact('role','permission'));
+        return Inertia::render('CategoryPosts/Create', []);
 
     }
 
@@ -69,11 +62,8 @@ class CategoryPostController extends Controller
      */
     public function edit(CategoryPost $categoryPost)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('CategoryPosts/Edit', compact('categoryPost','role','permission'));
+        return Inertia::render('CategoryPosts/Edit', compact('categoryPost'));
 
     }
 

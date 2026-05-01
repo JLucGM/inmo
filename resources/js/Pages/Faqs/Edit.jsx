@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Edit({ auth, faqs, role, permission }) {
+export default function Edit({ auth, faqs }) {
     const { data, setData, errors, post, recentlySuccessful } = useForm({
         name: faqs.name || "",
         content: faqs.content || "",
@@ -22,7 +22,7 @@ export default function Edit({ auth, faqs, role, permission }) {
     };
 
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission}>
+        <AuthenticatedLayout user={auth.user} >
             <Head title="Editar Pregunta Frecuente" />
 
             {recentlySuccessful && (

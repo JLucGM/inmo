@@ -8,7 +8,8 @@ import {
     getFilteredRowModel,
     getExpandedRowModel,
 } from '@tanstack/react-table';
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
+import { usePermissions } from '@/hooks/use-permissions';
 
 import {
     Table,
@@ -41,8 +42,10 @@ export default function DataTable({
     className = '',
     data,
     columns,
-    permissions = [],
+    permissions: propPermissions,
 }) {
+    const { permissions: globalPermissions } = usePermissions();
+    const permissions = propPermissions || globalPermissions;
     // Handle paginated data from Laravel
     const tableData = data?.data || data;
 

@@ -11,7 +11,7 @@ import { Button } from '@/Components/ui/button';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
-export default function Edit({ auth, testimonial, role, permission }) {
+export default function Edit({ auth, testimonial }) {
     const [charCount, setCharCount] = useState(testimonial.text?.length || 0);
     const charLimit = 500;
 
@@ -25,7 +25,7 @@ export default function Edit({ auth, testimonial, role, permission }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('testimonial.update', testimonial));
+        post(route('testimonial.update', testimonial.slug));
     };
 
     const handleTextChange = (e) => {
@@ -42,8 +42,8 @@ export default function Edit({ auth, testimonial, role, permission }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Actualizar testimonio" subtitle="Edita la opinión o los datos del cliente." />

@@ -4,6 +4,7 @@ import DataTable from '@/Components/DataTable';
 import SectionHeader from '@/Components/SectionHeader';
 import { Badge } from '@/Components/ui/badge';
 import { CalendarIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { DataTableRowActions } from '@/Components/DataTableRowActions';
 
 const columns = [
     {
@@ -67,12 +68,27 @@ const columns = [
                 </Badge>
             );
         }
+    },
+    {
+        id: 'actions',
+        cell: ({ row, table }) => (
+            <div className="text-right">
+                <DataTableRowActions
+                    row={row}
+                    routeEdit="tasks.edit"
+                    routeDestroy="tasks.destroy"
+                    editPermission="admin.tasks.edit"
+                    deletePermission="admin.tasks.delete"
+                    permissions={table.options.meta?.permissions}
+                />
+            </div>
+        ),
     }
 ];
 
-export default function Index({ auth, tasks, role, permission }) {
+export default function Index({ auth, tasks }) {
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission}>
+        <AuthenticatedLayout user={auth.user} >
             <div className='flex justify-between items-center mb-6'>
                 <SectionHeader
                     title="Tareas"
@@ -86,7 +102,7 @@ export default function Index({ auth, tasks, role, permission }) {
                 <DataTable
                     columns={columns}
                     data={tasks}
-                    permissions={permission}
+                    
                 />
             </div>
         </AuthenticatedLayout>

@@ -27,11 +27,7 @@ class SettingController extends Controller
         $setting = Setting::first();
         $currencies = Currency::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Setting/Edit', compact('setting', 'currencies', 'role', 'permission'));
+        return Inertia::render('Setting/Edit', compact('setting', 'currencies'));
     }
 
     /**

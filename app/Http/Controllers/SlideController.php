@@ -26,11 +26,7 @@ class SlideController extends Controller
     {
         $slide = Slide::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Slides/Index', compact('slide', 'role', 'permission'));
+        return Inertia::render('Slides/Index', compact('slide'));
     }
 
     /**
@@ -38,11 +34,8 @@ class SlideController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Slides/Create', compact('role', 'permission'));
+        return Inertia::render('Slides/Create', []);
     }
 
     /**
@@ -90,11 +83,8 @@ class SlideController extends Controller
      */
     public function edit(Slide $slide)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Slides/Edit', compact('slide', 'role', 'permission'));
+        return Inertia::render('Slides/Edit', compact('slide'));
     }
 
     /**

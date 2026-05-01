@@ -8,7 +8,7 @@ import { Alert, AlertDescription } from '@/Components/ui/alert';
 import ContainerTitle from '@/Components/ContainerTitle';
 import SectionHeader from '@/Components/SectionHeader';
 
-export default function Create({ auth, permissions, role, permission }) {
+export default function Create({ auth, permissions }) {
     const { data, setData, errors, post } = useForm({
         name: '',
         permissions: [],
@@ -29,7 +29,7 @@ export default function Create({ auth, permissions, role, permission }) {
     return (
         <AuthenticatedLayout 
             user={auth.user} 
-            permission={permission}
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Crear rol" subtitle="Define un nuevo rol con permisos personalizados." />

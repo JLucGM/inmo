@@ -43,11 +43,11 @@ const columns = [
     }
 ];
 
-export default function Index({ auth, infoweb, role, permission }) {
+export default function Index({ auth, infoweb }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            permission={permission}
+            
             header={
                 <SectionHeader
                     title="Información web"
@@ -61,7 +61,7 @@ export default function Index({ auth, infoweb, role, permission }) {
                 <DataTable
                     columns={columns}
                     data={infoweb}
-                    permissions={permission}
+                    
                 />
             </div>
         </AuthenticatedLayout>

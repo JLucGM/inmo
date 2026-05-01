@@ -13,7 +13,7 @@ import { Switch } from '@/Components/ui/switch';
 import { Select as ShadcnSelect, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
-export default function Edit({ auth, setting, currencies, role, permission }) {
+export default function Edit({ auth, setting, currencies }) {
 
     const initialValues = {
         name: setting.name || "",
@@ -61,8 +61,8 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Actualizar configuración" subtitle="Administra los ajustes generales, información de contacto, imágenes y secciones del frontend." />

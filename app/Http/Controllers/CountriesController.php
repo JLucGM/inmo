@@ -26,11 +26,7 @@ class CountriesController extends Controller
     {
         $countries = Countries::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Countries/Index', compact('countries','role','permission'));
+        return Inertia::render('Countries/Index', compact('countries'));
     }
 
     /**
@@ -38,11 +34,8 @@ class CountriesController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Countries/Create', compact('role','permission'));
+        return Inertia::render('Countries/Create', []);
 
     }
 
@@ -71,11 +64,8 @@ class CountriesController extends Controller
      */
     public function edit(Countries $country)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Countries/Edit', compact('country','role','permission'));
+        return Inertia::render('Countries/Edit', compact('country'));
 
     }
 

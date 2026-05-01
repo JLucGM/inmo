@@ -24,7 +24,7 @@ import {
     useComboboxAnchor,
 } from '@/Components/ui/combobox';
 
-export default function Create({ auth, typeProperties, typeBusinesses, countries, states, cities, phyStates, amenities, role, permission }) {
+export default function Create({ auth, typeProperties, typeBusinesses, countries, states, cities, phyStates, amenities }) {
 
     const textAreaRef = useRef();
 
@@ -61,8 +61,8 @@ export default function Create({ auth, typeProperties, typeBusinesses, countries
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Crear propiedad" subtitle="Añade una nueva propiedad al catálogo con todos sus detalles." />

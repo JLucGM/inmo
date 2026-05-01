@@ -36,12 +36,12 @@ const columns = [
     },
 ];
 
-export default function Index({ auth, roles, role, permission }) {
+export default function Index({ auth, roles }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            permission={permission}
-            roles={role}
+            
+            
             header={
                 <SectionHeader
                     title="Roles del sistema"
@@ -55,7 +55,7 @@ export default function Index({ auth, roles, role, permission }) {
                 <DataTable
                     columns={columns}
                     data={roles}
-                    permissions={permission}
+                    
                 />
             </div>
         </AuthenticatedLayout>

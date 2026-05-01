@@ -7,7 +7,7 @@ import { Input } from '@/Components/ui/input';
 import { Button } from '@/Components/ui/button';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 
-export default function Create({ auth, role, permission }) {
+export default function Create({ auth }) {
     const { data, setData, errors, post } = useForm({
         name: "",
     });
@@ -20,8 +20,8 @@ export default function Create({ auth, role, permission }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Crear Categoría" subtitle="Añade una categoría para la sección de Blog." />

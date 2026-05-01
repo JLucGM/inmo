@@ -34,16 +34,16 @@ const columns = [
     },
 ];
 
-export default function Index({ auth, statuscontacts, role, permission }) {
+export default function Index({ auth, statuscontacts }) {
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission} roles={role}>
+        <AuthenticatedLayout user={auth.user}  >
             <Head title="Estatus de Contacto" />
 
             <div className="max-w-7xl p-4">
                 <DataTable
                     columns={columns}
                     data={statuscontacts}
-                    permissions={permission}
+                    
                 />
             </div>
         </AuthenticatedLayout>

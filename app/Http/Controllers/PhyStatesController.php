@@ -26,11 +26,7 @@ class PhyStatesController extends Controller
     {
         $phyStates = PhyStates::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('PhyStates/Index', compact('phyStates','role', 'permission'));
+        return Inertia::render('PhyStates/Index', compact('phyStates'));
     }
 
     /**
@@ -38,11 +34,8 @@ class PhyStatesController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('PhyStates/Create', compact('role', 'permission'));
+        return Inertia::render('PhyStates/Create', []);
     }
 
     /**
@@ -70,11 +63,8 @@ class PhyStatesController extends Controller
      */
     public function edit(PhyStates $phyState)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('PhyStates/Edit', compact('phyState', 'role', 'permission'));
+        return Inertia::render('PhyStates/Edit', compact('phyState'));
 
     }
 

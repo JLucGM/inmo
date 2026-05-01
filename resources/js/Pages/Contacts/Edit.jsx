@@ -12,7 +12,7 @@ import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import LocationSelect from '@/Components/LocationSelect';
 
-export default function Edit({ auth, contacts, typeProperties, countries, states, cities, statuses, typeContacts, origins, role, permission }) {
+export default function Edit({ auth, contacts, typeProperties, countries, states, cities, statuses, typeContacts, origins }) {
 
     const initialValues = {
         name: contacts.name || "",
@@ -47,8 +47,8 @@ export default function Edit({ auth, contacts, typeProperties, countries, states
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Actualizar contacto" subtitle="Modifica los datos y demandas del contacto." />

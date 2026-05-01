@@ -3,7 +3,7 @@ import { Head, useForm } from '@inertiajs/react';
 import { Button } from '@/Components/ui/button';
 import AmenitiesForm from './AmenitiesForm';
 
-export default function Create({ auth, role, permission }) {
+export default function Create({ auth }) {
     const { data, setData, errors, post } = useForm({
         name: '',
     });
@@ -14,7 +14,7 @@ export default function Create({ auth, role, permission }) {
     };
 
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission}>
+        <AuthenticatedLayout user={auth.user} >
             <Head title="Crear Comodidad" />
             
             <form onSubmit={submit} className="space-y-6">

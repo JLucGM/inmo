@@ -11,7 +11,7 @@ import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import React, { useRef } from 'react';
 
-export default function Edit({ auth, page, role, permission }) {
+export default function Edit({ auth, page }) {
 
     const initialValues = {
         name: page.name || "",
@@ -31,8 +31,8 @@ export default function Edit({ auth, page, role, permission }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Actualizar página" subtitle="Actualiza la información y el contenido de la página." />

@@ -28,11 +28,7 @@ class AmenitiesController extends Controller
     {
         $amenities = Amenity::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Amenities/Index', compact('amenities','role','permission'));
+        return Inertia::render('Amenities/Index', compact('amenities'));
     }
 
     /**
@@ -40,11 +36,8 @@ class AmenitiesController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Amenities/Create', compact('role', 'permission'));
+        return Inertia::render('Amenities/Create', []);
     }
 
     /**
@@ -72,11 +65,8 @@ class AmenitiesController extends Controller
      */
     public function edit(Amenity $amenity)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Amenities/Edit', compact('amenity', 'role', 'permission'));
+        return Inertia::render('Amenities/Edit', compact('amenity'));
     }
 
     /**

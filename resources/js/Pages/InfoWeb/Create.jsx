@@ -9,7 +9,7 @@ import { Alert, AlertDescription } from '@/Components/ui/alert';
 import TextAreaRich from '@/Components/TextAreaRich';
 import { useRef } from 'react';
 
-export default function Create({ auth, role, permission }) {
+export default function Create({ auth }) {
 
     const initialValues = {
         name: "",
@@ -28,8 +28,8 @@ export default function Create({ auth, role, permission }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Crear información web" subtitle="Añade una nueva entrada de información estática." />

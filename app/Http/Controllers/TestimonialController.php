@@ -25,13 +25,9 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $testimonial = Testimonial::select('id', 'name', 'position', 'avatar', 'created_at')->paginate(15);
+        $testimonial = Testimonial::select('id', 'slug', 'name', 'avatar', 'created_at')->paginate(15);
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Testimonials/Index', compact('testimonial','role', 'permission'));
+        return Inertia::render('Testimonials/Index', compact('testimonial'));
     }
 
     /**
@@ -39,11 +35,8 @@ class TestimonialController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Testimonials/Create', compact('role', 'permission'));
+        return Inertia::render('Testimonials/Create', []);
     }
 
     /**
@@ -83,11 +76,8 @@ class TestimonialController extends Controller
      */
     public function edit(Testimonial $testimonial)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Testimonials/Edit', compact('testimonial','role','permission'));
+        return Inertia::render('Testimonials/Edit', compact('testimonial'));
     }
 
     /**
@@ -125,9 +115,14 @@ class TestimonialController extends Controller
      */
     public function destroy(Testimonial $testimonial)
     {
-        if ($testimonial->avatar != 'default.jpg') {
-            // Delete the existing avatar
-            unlink(public_path('img/testimonials/' . $testimonial->avatar));
+        if ($testimonial->avatar && !str_contains($testimonial->avatar, 'default.jpg')) {
+            // Extraer el nombre del archivo de la URL
+            $filename = basename($testimonial->avatar);
+            $filePath = public_path('img/testimonials/' . $filename);
+
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
         }
 
         $testimonial->delete();

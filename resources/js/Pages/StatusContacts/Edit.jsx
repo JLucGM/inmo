@@ -7,7 +7,7 @@ import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Edit({ auth, statusContact, role, permission }) {
+export default function Edit({ auth, statusContact }) {
     const { data, setData, errors, post, recentlySuccessful } = useForm({
         name: statusContact.name || '',
     });
@@ -18,7 +18,7 @@ export default function Edit({ auth, statusContact, role, permission }) {
     };
 
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission}>
+        <AuthenticatedLayout user={auth.user} >
             <Head title="Editar Estatus de Contacto" />
 
             {recentlySuccessful && (

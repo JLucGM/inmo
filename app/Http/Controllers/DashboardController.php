@@ -63,8 +63,6 @@ class DashboardController extends Controller
 
         // $newStatusId = StatusContact::where('name', 'new')->value('id');s
 
-        $roles = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
         $propertiesByMonth = Property::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
             ->whereYear('created_at', now()->year)
@@ -96,11 +94,8 @@ class DashboardController extends Controller
             'contacts' => $contacts,
             'properties' => $properties,
             'tasks' => $tasks,
-            'roles' => $roles,
-            'permission' => $permission,
             'propertyCounts' => array_values($monthlyCountsProperties),
             'contactsCounts' => array_values($monthlyCountsContacts),
-
         ]);
     }
 

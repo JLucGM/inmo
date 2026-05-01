@@ -4,7 +4,7 @@ import { Button } from '@/Components/ui/button';
 import SectionHeader from '@/Components/SectionHeader';
 import UserForm from './UserForm';
 
-export default function Create({ auth, role, permission, roles }) {
+export default function Create({ auth, roles }) {
     const { data, setData, errors, post } = useForm({
         name: '',
         phone: '',
@@ -23,7 +23,7 @@ export default function Create({ auth, role, permission, roles }) {
     return (
         <AuthenticatedLayout 
             user={auth.user} 
-            permission={permission}
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Crear usuario" subtitle="Añade un nuevo miembro al equipo y asígnale un rol." />

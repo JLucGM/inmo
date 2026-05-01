@@ -30,7 +30,7 @@ class TaskController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $tasks = Task::select('id', 'name', 'description', 'start_time', 'end_time', 'contact_id', 'user_id', 'property_id', 'types_tasks_id', 'status_contacts_id', 'created_at')
+        $tasks = Task::select('id', 'slug', 'name', 'description', 'start_time', 'end_time', 'contact_id', 'user_id', 'property_id', 'types_tasks_id', 'status_contacts_id', 'created_at')
             ->with([
                 'contact:id,name',
                 'user:id,name',
@@ -41,10 +41,7 @@ class TaskController extends Controller
             ->where('user_id', $user->id)
             ->paginate(15);
 
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Tasks/Index', compact('tasks', 'role', 'permission'));
+        return Inertia::render('Tasks/Index', compact('tasks'));
     }
 
     /**
@@ -57,11 +54,7 @@ class TaskController extends Controller
         $typetasks = TypeTasks::all();
         $properties = Property::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Tasks/Create', compact('statuses', 'contacts', 'typetasks', 'properties', 'role', 'permission'));
+        return Inertia::render('Tasks/Create', compact('statuses', 'contacts', 'typetasks', 'properties'));
     }
 
     /**
@@ -105,11 +98,7 @@ class TaskController extends Controller
         $typetasks = TypeTasks::all();
         $properties = Property::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Tasks/Edit', compact('task', 'statuses', 'contacts', 'typetasks', 'properties', 'role', 'permission'));
+        return Inertia::render('Tasks/Edit', compact('task', 'statuses', 'contacts', 'typetasks', 'properties'));
 
     }
 
@@ -147,9 +136,6 @@ class TaskController extends Controller
         $user = Auth::user();
         $tasks = Task::with('typeTask', 'statusContact')->where('user_id', $user->id)->get();
 
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Tasks/Calendary', compact('tasks', 'role', 'permission'));
+        return Inertia::render('Tasks/Calendary', compact('tasks'));
     }
 }

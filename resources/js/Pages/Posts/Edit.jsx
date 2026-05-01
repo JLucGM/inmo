@@ -13,7 +13,7 @@ import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { LinkIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import React, { useRef, useState } from 'react';
 
-export default function Edit({ auth, posts, categryposts, role, permission }) {
+export default function Edit({ auth, posts, categryposts }) {
 
     const initialValues = {
         name: posts.name,
@@ -49,8 +49,8 @@ export default function Edit({ auth, posts, categryposts, role, permission }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Actualizar publicación" subtitle="Edita la información y contenido de la publicación." />

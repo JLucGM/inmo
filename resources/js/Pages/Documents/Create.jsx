@@ -10,7 +10,7 @@ import { Select as ShadcnSelect, SelectContent, SelectItem, SelectTrigger, Selec
 import { Button } from '@/Components/ui/button';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 
-export default function Create({ auth, contacts, properties, users, role, permission }) {
+export default function Create({ auth, contacts, properties, users }) {
 
     const initialValues = {
         name: "",
@@ -32,8 +32,8 @@ export default function Create({ auth, contacts, properties, users, role, permis
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Crear documento" subtitle="Redacta un nuevo documento legal o informativo." />

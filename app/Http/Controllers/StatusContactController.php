@@ -25,12 +25,8 @@ class StatusContactController extends Controller
     public function index()
     {
         $statuscontacts = StatusContact::all();
-        
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('StatusContacts/Index', compact('statuscontacts','role','permission'));
+        return Inertia::render('StatusContacts/Index', compact('statuscontacts'));
     }
 
     /**
@@ -38,11 +34,8 @@ class StatusContactController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('StatusContacts/Create', compact('role','permission'));
+        return Inertia::render('StatusContacts/Create', []);
 
     }
 
@@ -71,11 +64,8 @@ class StatusContactController extends Controller
      */
     public function edit(StatusContact $statusContact)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('StatusContacts/Edit', compact('statusContact','role','permission'));
+        return Inertia::render('StatusContacts/Edit', compact('statusContact'));
 
     }
 

@@ -24,12 +24,7 @@ class OriginsController extends Controller
     {
         $origins = Origins::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-
-        return Inertia::render('Origins/Index', compact('origins','role','permission'));
+        return Inertia::render('Origins/Index', compact('origins'));
     }
 
     /**
@@ -37,11 +32,8 @@ class OriginsController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Origins/Create', compact('role','permission'));
+        return Inertia::render('Origins/Create', []);
     }
 
     /**
@@ -69,11 +61,8 @@ class OriginsController extends Controller
      */
     public function edit(Origins $origins)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Origins/Edit', compact('origins','role','permission'));
+        return Inertia::render('Origins/Edit', compact('origins'));
     }
 
     /**

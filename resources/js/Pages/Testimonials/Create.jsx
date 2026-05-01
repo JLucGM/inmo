@@ -10,7 +10,7 @@ import { Textarea } from '@/Components/ui/textarea';
 import { Button } from '@/Components/ui/button';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 
-export default function Create({ auth, role, permission }) {
+export default function Create({ auth }) {
     const [charCount, setCharCount] = useState(0);
     const charLimit = 500;
 
@@ -41,8 +41,8 @@ export default function Create({ auth, role, permission }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Crear testimonio" subtitle="Agrega un nuevo testimonio o reseña de cliente." />

@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Edit({ auth, city, states, selectedStateId, role, permission }) {
+export default function Edit({ auth, city, states, selectedStateId }) {
     const { data, setData, errors, post, recentlySuccessful } = useForm({
         name: city.name || '',
         state_id: selectedStateId || states?.[0]?.id || '',
@@ -20,7 +20,7 @@ export default function Edit({ auth, city, states, selectedStateId, role, permis
     };
 
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission}>
+        <AuthenticatedLayout user={auth.user} >
             <Head title="Editar Ciudad" />
 
             {recentlySuccessful && (

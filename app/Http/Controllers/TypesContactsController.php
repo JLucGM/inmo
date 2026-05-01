@@ -18,11 +18,7 @@ class TypesContactsController extends Controller
     {
         $typesContacts = TypesContacts::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('TypesContacts/Index', compact('typesContacts', 'role','permission'));
+        return Inertia::render('TypesContacts/Index', compact('typesContacts'));
     }
 
     /**
@@ -30,11 +26,8 @@ class TypesContactsController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('TypesContacts/Create', compact( 'role','permission'));
+        return Inertia::render('TypesContacts/Create', []);
 
     }
 
@@ -63,11 +56,8 @@ class TypesContactsController extends Controller
      */
     public function edit(TypesContacts $typesContact)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('TypesContacts/Edit', compact('typesContact','role','permission'));
+        return Inertia::render('TypesContacts/Edit', compact('typesContact'));
     }
 
     /**

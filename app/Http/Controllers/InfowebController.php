@@ -26,11 +26,7 @@ class InfowebController extends Controller
     {
         $infoweb = Infoweb::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('InfoWeb/Index', compact('infoweb','role', 'permission'));
+        return Inertia::render('InfoWeb/Index', compact('infoweb'));
     }
 
     /**
@@ -38,11 +34,8 @@ class InfowebController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('InfoWeb/Create', compact('role', 'permission'));
+        return Inertia::render('InfoWeb/Create', []);
     }
 
     /**
@@ -82,11 +75,8 @@ class InfowebController extends Controller
      */
     public function edit(Infoweb $infoweb)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('InfoWeb/Edit', compact('infoweb','role', 'permission'));
+        return Inertia::render('InfoWeb/Edit', compact('infoweb'));
 
     }
 

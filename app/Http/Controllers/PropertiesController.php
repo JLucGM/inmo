@@ -49,12 +49,7 @@ class PropertiesController extends Controller
             ])
             ->paginate(15);
 
-        $user = Auth::user();
-
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Properties/Index', compact('properties', 'role', 'permission'));
+        return Inertia::render('Properties/Index', compact('properties'));
     }
 
     /**
@@ -70,11 +65,7 @@ class PropertiesController extends Controller
         $phyStates = PhyStates::all();
         $amenities = Amenity::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Properties/Create', compact('countries', 'states', 'cities', 'typeProperties', 'typeBusinesses', 'phyStates', 'amenities', 'role', 'permission'));
+        return Inertia::render('Properties/Create', compact('countries', 'states', 'cities', 'typeProperties', 'typeBusinesses', 'phyStates', 'amenities'));
     }
 
     /**
@@ -167,10 +158,6 @@ class PropertiesController extends Controller
         $phyStates = PhyStates::all();
         $amenities = Amenity::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
         Log::info('Edit method: Property loaded with media and amenities', [
             'property_id' => $property->id,
             'media_count' => $property->media->count(),
@@ -186,10 +173,7 @@ class PropertiesController extends Controller
             'typeBusinesses',
             'users',
             'phyStates',
-            'amenities',
-            'role',
-            'permission'
-        ));
+            'amenities'));
     }
 
     /**

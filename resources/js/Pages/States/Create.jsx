@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import ContainerTitle from '@/Components/ContainerTitle';
 import { useEffect } from 'react';
 
-export default function Create({ auth, country, role, permission }) {
+export default function Create({ auth, country }) {
     const { data, setData, errors, post } = useForm({
         name: '',
         country_id: country?.[0]?.id || '',
@@ -26,7 +26,7 @@ export default function Create({ auth, country, role, permission }) {
     };
 
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission}>
+        <AuthenticatedLayout user={auth.user} >
             <Head title="Crear Estado" />
             
             <form onSubmit={submit} className="space-y-6">

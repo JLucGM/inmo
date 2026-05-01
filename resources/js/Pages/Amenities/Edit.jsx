@@ -5,7 +5,7 @@ import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import AmenitiesForm from './AmenitiesForm';
 
-export default function Edit({ auth, amenity, role, permission }) {
+export default function Edit({ auth, amenity }) {
     const { data, setData, errors, post, recentlySuccessful } = useForm({
         name: amenity.name || '',
     });
@@ -16,7 +16,7 @@ export default function Edit({ auth, amenity, role, permission }) {
     };
 
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission}>
+        <AuthenticatedLayout user={auth.user} >
             <Head title="Editar Comodidad" />
 
             {recentlySuccessful && (

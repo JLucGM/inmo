@@ -24,11 +24,7 @@ class FaqsController extends Controller
     {
         $faqs = Faqs::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Faqs/Index', compact('faqs','role','permission'));
+        return Inertia::render('Faqs/Index', compact('faqs'));
     }
 
     /**
@@ -36,11 +32,8 @@ class FaqsController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Faqs/Create', compact('role','permission'));
+        return Inertia::render('Faqs/Create', []);
     }
 
     /**
@@ -68,11 +61,8 @@ class FaqsController extends Controller
      */
     public function edit(Faqs $faqs)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Faqs/Edit', compact('faqs','role','permission'));
+        return Inertia::render('Faqs/Edit', compact('faqs'));
     }
 
     /**

@@ -8,8 +8,10 @@ import { Textarea } from '@/Components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { Button } from '@/Components/ui/button';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { usePermissions } from '@/hooks/use-permissions';
 
-export default function Create({ auth, statuses, contacts, typetasks, properties, role, permission }) {
+export default function Create({ auth, statuses, contacts, typetasks, properties }) {
+    const { can } = usePermissions();
 
     const initialValues = {
         name: "",
@@ -32,8 +34,8 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Crear tarea" subtitle="Programa una nueva actividad vinculada a contactos y propiedades." />
@@ -157,7 +159,7 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
                                     <div>
                                         <div className="flex justify-between items-center mb-1">
                                             <Label htmlFor="contact_id">Contacto asignado</Label>
-                                            {permission?.some(perm => perm.name === 'admin.tasks.create') && (
+                                            {can('admin.contactos.create') && (
                                                 <Link href={route('contacts.create')} className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400">Crear nuevo</Link>
                                             )}
                                         </div>
@@ -179,7 +181,7 @@ export default function Create({ auth, statuses, contacts, typetasks, properties
                                     <div>
                                         <div className="flex justify-between items-center mb-1">
                                             <Label htmlFor="property_id">Propiedad asignada</Label>
-                                            {permission?.some(perm => perm.name === 'admin.tasks.create') && (
+                                            {can('admin.properties.create') && (
                                                 <Link href={route('properties.create')} className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400">Crear nueva</Link>
                                             )}
                                         </div>

@@ -10,7 +10,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import TextAreaRich from '@/Components/TextAreaRich';
 import { useRef } from 'react';
 
-export default function Edit({ auth, infoweb, role, permission }) {
+export default function Edit({ auth, infoweb }) {
 
     const initialValues = {
         name: infoweb.name || "",
@@ -29,8 +29,8 @@ export default function Edit({ auth, infoweb, role, permission }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Actualizar información web" subtitle="Modifica los textos e imágenes de esta entrada." />

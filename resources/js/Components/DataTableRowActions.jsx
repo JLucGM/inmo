@@ -28,8 +28,10 @@ export function DataTableRowActions({
     permissions = [],
     children, // Para acciones personalizadas adicionales
 }) {
-    const hasPermission = (perm) =>
-        permissions?.some((p) => p.name === perm) ?? false;
+    const hasPermission = (perm) => {
+        if (!permissions || !Array.isArray(permissions)) return false;
+        return permissions.some((p) => (typeof p === 'string' ? p === perm : p.name === perm));
+    };
 
     const id = row.original.slug ?? row.original.id;
 
@@ -51,7 +53,7 @@ export function DataTableRowActions({
                 {routeShow && (
                     <DropdownMenuItem
                         render={
-                            <Link href={route(routeShow, [id])}>
+                            <Link href={route(routeShow, row.original)}>
                                 <EyeIcon className="mr-2 h-4 w-4" />
                                 Ver
                             </Link>
@@ -62,7 +64,7 @@ export function DataTableRowActions({
                 {routeEdit && (!editPermission || hasPermission(editPermission)) && (
                     <DropdownMenuItem
                         render={
-                            <Link href={route(routeEdit, [id])}>
+                            <Link href={route(routeEdit, row.original)}>
                                 <PencilSquareIcon className="mr-2 h-4 w-4" />
                                 Editar
                             </Link>
@@ -93,7 +95,7 @@ export function DataTableRowActions({
                             variant="destructive"
                             render={
                                 <Link
-                                    href={route(routeDestroy, [id])}
+                                    href={route(routeDestroy, row.original)}
                                     method="delete"
                                     className="w-full text-left flex items-center"
                                 >

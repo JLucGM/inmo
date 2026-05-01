@@ -13,7 +13,7 @@ import { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
-export default function Edit({ auth, slide, role, permission }) {
+export default function Edit({ auth, slide }) {
     const { data, setData, errors, post, recentlySuccessful } = useForm({
         name: slide.name || "",
         text: slide.text || "",
@@ -47,8 +47,8 @@ export default function Edit({ auth, slide, role, permission }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Actualizar slide" subtitle="Aquí puedes actualizar un slide existente." />

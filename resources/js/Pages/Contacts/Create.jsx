@@ -11,7 +11,7 @@ import { Button } from '@/Components/ui/button';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 import LocationSelect from '@/Components/LocationSelect';
 
-export default function Create({ auth, typeProperties, countries, states, cities, statuses, typeContacts, origins, role, permission }) {
+export default function Create({ auth, typeProperties, countries, states, cities, statuses, typeContacts, origins }) {
 
     const initialValues = {
         name: "",
@@ -44,8 +44,8 @@ export default function Create({ auth, typeProperties, countries, states, cities
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Crear contacto" subtitle="Aquí puedes crear los contactos y gestionar sus demandas de las propiedades." />

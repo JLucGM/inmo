@@ -75,12 +75,12 @@ const columns = [
     },
 ];
 
-export default function Index({ auth, contacts, role, permission }) {
+export default function Index({ auth, contacts }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader
@@ -97,7 +97,7 @@ export default function Index({ auth, contacts, role, permission }) {
                 <DataTable
                     columns={columns}
                     data={contacts}
-                    permissions={permission}
+                    
                 />
             </div>
 

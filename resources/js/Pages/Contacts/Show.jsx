@@ -25,7 +25,7 @@ import {
 // Headless UI used before for property preview fallback if it's reused
 import { Dialog as HeadlessDialog, DialogPanel as HeadlessDialogPanel, DialogTitle as HeadlessDialogTitle, DialogBackdrop as HeadlessDialogBackdrop } from '@headlessui/react';
 
-export default function Show({ auth, contact, properties, role, permission, setting }) {
+export default function Show({ auth, contact, properties, setting }) {
     const [contactProperties, setContactProperties] = useState([]);
     const [reload, setReload] = useState(false);
 
@@ -134,8 +134,8 @@ export default function Show({ auth, contact, properties, role, permission, sett
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader

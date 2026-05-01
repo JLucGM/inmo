@@ -7,7 +7,7 @@ import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import ContainerTitle from '@/Components/ContainerTitle';
 
-export default function Edit({ auth, country, role, permission }) {
+export default function Edit({ auth, country }) {
     const { data, setData, errors, post, recentlySuccessful } = useForm({
         name: country.name,
     });
@@ -18,7 +18,7 @@ export default function Edit({ auth, country, role, permission }) {
     };
 
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission}>
+        <AuthenticatedLayout user={auth.user} >
             <Head title="Editar País" />
 
             {recentlySuccessful && (

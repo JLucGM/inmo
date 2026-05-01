@@ -9,7 +9,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import ContainerTitle from '@/Components/ContainerTitle';
 import { useEffect } from 'react';
 
-export default function Edit({ auth, state, country, selectedCountryId, role, permission }) {
+export default function Edit({ auth, state, country, selectedCountryId }) {
     const { data, setData, errors, post, recentlySuccessful } = useForm({
         name: state.name || '',
         country_id: selectedCountryId || country?.[0]?.id || '',
@@ -21,7 +21,7 @@ export default function Edit({ auth, state, country, selectedCountryId, role, pe
     };
 
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission}>
+        <AuthenticatedLayout user={auth.user} >
             <Head title="Editar Estado" />
 
             {recentlySuccessful && (

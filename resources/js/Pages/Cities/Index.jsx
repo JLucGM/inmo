@@ -40,16 +40,16 @@ const columns = [
     },
 ];
 
-export default function Index({ auth, cities, role, permission }) {
+export default function Index({ auth, cities }) {
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission} roles={role}>
+        <AuthenticatedLayout user={auth.user}  >
             <Head title="Ciudades" />
 
             <div className="max-w-7xl p-4">
                 <DataTable
                     columns={columns}
                     data={cities}
-                    permissions={permission}
+                    
                 />
             </div>
         </AuthenticatedLayout>

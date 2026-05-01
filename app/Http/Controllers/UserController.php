@@ -30,16 +30,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::select('id', 'name', 'email', 'created_at')->paginate(15);
+        $users = User::select('id', 'name', 'slug', 'email', 'created_at')->paginate(15);
         $roles = Cache::remember('roles', 3600, function () {
             return Role::select('id', 'name')->get();
         });
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('User/Index', compact('users', 'roles','role','permission'));
+        return Inertia::render('User/Index', compact('users', 'roles'));
     }
 
     /**
@@ -47,12 +43,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
         $roles = Role::all();
 
-        return Inertia::render('User/Create', compact('roles','role','permission'));
+        return Inertia::render('User/Create', compact('roles'));
     }
 
     /**
@@ -103,11 +96,7 @@ class UserController extends Controller
 
         $roles = Role::all();
 
-        $users = Auth::user();
-        $role = $users->getRoleNames();
-        $permission = $users->getAllPermissions();
-
-        return Inertia::render('User/Edit', compact('user', 'roles','role','permission'));
+        return Inertia::render('User/Edit', compact('user', 'roles'));
     }
 
     /**

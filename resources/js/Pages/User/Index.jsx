@@ -4,11 +4,11 @@ import DataTable from '@/Components/DataTable';
 import SectionHeader from '@/Components/SectionHeader';
 import columns from '@/Pages/User/Column';
 
-export default function Index({ auth, users, role, permission }) {
+export default function Index({ auth, users }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            permission={permission}
+            
             header={
                 <SectionHeader
                     title="Usuarios del sistema"
@@ -22,7 +22,7 @@ export default function Index({ auth, users, role, permission }) {
                 <DataTable
                     columns={columns}
                     data={users}
-                    permissions={permission}
+                    
                 />
             </div>
 

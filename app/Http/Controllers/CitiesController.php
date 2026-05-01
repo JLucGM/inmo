@@ -28,11 +28,7 @@ class CitiesController extends Controller
         $cities = Cities::with('state')->get();
         $state = States::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Cities/Index', compact('cities','state', 'role', 'permission'));
+        return Inertia::render('Cities/Index', compact('cities','state'));
     }
 
     /**
@@ -42,11 +38,7 @@ class CitiesController extends Controller
     {
         $state = States::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Cities/Create', compact('state', 'role', 'permission'));
+        return Inertia::render('Cities/Create', compact('state'));
     }
 
     /**
@@ -78,11 +70,7 @@ class CitiesController extends Controller
         $states = States::all();
         $selectedStateId = $city->state_id; 
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Cities/Edit', compact('city', 'states', 'selectedStateId', 'role', 'permission'));
+        return Inertia::render('Cities/Edit', compact('city', 'states', 'selectedStateId'));
     }
 
     /**

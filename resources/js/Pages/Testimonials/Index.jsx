@@ -27,12 +27,6 @@ const columns = [
         ),
     },
     {
-        accessorKey: 'position',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Posición" />
-        ),
-    },
-    {
         id: 'actions',
         cell: ({ row, table }) => (
             <DataTableRowActions
@@ -47,9 +41,9 @@ const columns = [
     }
 ];
 
-export default function Index({ auth, testimonial, role, permission }) {
+export default function Index({ auth, testimonial }) {
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission}>
+        <AuthenticatedLayout user={auth.user} >
             <SectionHeader
                 title="Testimonios"
                 subtitle="Gestiona los testimonios y opiniones de los clientes."
@@ -61,7 +55,7 @@ export default function Index({ auth, testimonial, role, permission }) {
                 <DataTable
                     columns={columns}
                     data={testimonial}
-                    permissions={permission}
+                    
                 />
             </div>
         </AuthenticatedLayout>

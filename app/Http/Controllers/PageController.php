@@ -26,11 +26,7 @@ class PageController extends Controller
     {
         $page = Page::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Pages/Index', compact('page','role','permission'));
+        return Inertia::render('Pages/Index', compact('page'));
     }
 
     /**
@@ -38,11 +34,8 @@ class PageController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Pages/Create', compact('role','permission'));
+        return Inertia::render('Pages/Create', []);
     }
 
     /**
@@ -82,11 +75,8 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('Pages/Edit', compact('page','role','permission'));
+        return Inertia::render('Pages/Edit', compact('page'));
     }
 
     /**

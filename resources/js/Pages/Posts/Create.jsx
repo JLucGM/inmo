@@ -12,7 +12,7 @@ import { Button } from '@/Components/ui/button';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 import React, { useRef, useState } from 'react';
 
-export default function Create({ auth, categryposts, role, permission }) {
+export default function Create({ auth, categryposts }) {
 
     const initialValues = {
         name: "",
@@ -47,8 +47,8 @@ export default function Create({ auth, categryposts, role, permission }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Crear publicación" subtitle="Aquí puedes crear una nueva publicación." />

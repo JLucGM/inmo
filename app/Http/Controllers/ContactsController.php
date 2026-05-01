@@ -53,9 +53,7 @@ class ContactsController extends Controller
             ->orderBy('name', 'asc')
             ->paginate(15);
 
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-        return Inertia::render('Contacts/Index', compact('contacts', 'role', 'permission'));
+        return Inertia::render('Contacts/Index', compact('contacts'));
     }
 
     /**
@@ -72,11 +70,7 @@ class ContactsController extends Controller
         $typeContacts = TypesContacts::all();
         $origins = Origins::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Contacts/Create', compact('countries', 'states', 'cities', 'typeProperties', 'users', 'statuses', 'typeContacts', 'origins', 'role', 'permission'));
+        return Inertia::render('Contacts/Create', compact('countries', 'states', 'cities', 'typeProperties', 'users', 'statuses', 'typeContacts', 'origins'));
     }
 
     /**
@@ -123,13 +117,10 @@ class ContactsController extends Controller
     {
         $contact = $contacts->load('user', 'country', 'state', 'city', 'typecontact', 'statuscontact', 'origin', 'typeproperty');
         $properties = Property::with('country', 'state', 'city', 'typeproperty', 'user', 'amenities', 'media')->get();
-        
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
+
         $setting = Setting::first();
 
-        return Inertia::render('Contacts/Show', compact('contact', 'properties', 'role', 'permission', 'setting'));
+        return Inertia::render('Contacts/Show', compact('contact', 'properties', 'setting'));
     }
 
     /**
@@ -148,11 +139,7 @@ class ContactsController extends Controller
         $typeContacts = TypesContacts::all();
         $origins = Origins::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Contacts/Edit', compact('contacts', 'countries', 'states', 'cities', 'typeProperties', 'users', 'statuses', 'typeContacts', 'origins', 'role', 'permission'));
+        return Inertia::render('Contacts/Edit', compact('contacts', 'countries', 'states', 'cities', 'typeProperties', 'users', 'statuses', 'typeContacts', 'origins'));
     }
 
     /**

@@ -10,7 +10,7 @@ import { Button } from '@/Components/ui/button';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 import React, { useRef } from 'react';
 
-export default function Create({ auth, role, permission }) {
+export default function Create({ auth }) {
 
     const initialValues = {
         name: "",
@@ -30,8 +30,8 @@ export default function Create({ auth, role, permission }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permission}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Crear página" subtitle="Añade una nueva página estática al sitio." />

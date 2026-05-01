@@ -25,7 +25,7 @@ import {
     useComboboxAnchor,
 } from '@/Components/ui/combobox';
 
-export default function Edit({ auth, property, countries, states, cities, typeProperties, typeBusinesses, phyStates, amenities, role, permissions }) {
+export default function Edit({ auth, property, countries, states, cities, typeProperties, typeBusinesses, phyStates, amenities }) {
 
     const [currentMedia, setCurrentMedia] = useState(property.media || []);
     const [imagesToDelete, setImagesToDelete] = useState([]);
@@ -94,8 +94,8 @@ export default function Edit({ auth, property, countries, states, cities, typePr
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
-            permission={permissions}
+            
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Actualizar propiedad" subtitle="Edita los datos e imágenes de esta propiedad." />

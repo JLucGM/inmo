@@ -27,11 +27,7 @@ class RoleController extends Controller
     {
         $roles = Role::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Roles/Index', compact('roles', 'role', 'permission'));
+        return Inertia::render('Roles/Index', compact('roles'));
     }
 
     /**
@@ -41,11 +37,7 @@ class RoleController extends Controller
     {
         $permissions = Permission::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Roles/Create', compact('permissions', 'role', 'permission'));
+        return Inertia::render('Roles/Create', compact('permissions'));
     }
 
     /**
@@ -83,11 +75,7 @@ class RoleController extends Controller
         $permissions = Permission::all();
         $assignedPermissions = $roles->permissions()->pluck('id')->toArray();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Roles/Edit', compact('roles', 'permissions', 'assignedPermissions', 'role', 'permission'));
+        return Inertia::render('Roles/Edit', compact('roles', 'permissions', 'assignedPermissions'));
     }
 
     /**

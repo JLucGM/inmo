@@ -6,6 +6,7 @@ import {
   HomeIcon 
 } from '@heroicons/react/24/outline';
 import { AppSidebar } from "@/Components/app-sidebar"
+import { usePermissions } from '@/hooks/use-permissions';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -312,7 +313,7 @@ function getCreateButton(permission) {
       return null;
    }
 
-   const hasPermission = permission.some((perm) => perm.name === config.permission);
+   const hasPermission = permission.includes(config.permission);
    if (!hasPermission) {
       return null;
    }
@@ -328,7 +329,8 @@ function getHeaderText(header) {
    return '';
 }
 
-export default function Authenticated({ user, header, children, permission, breadcrumbs }) {
+export default function Authenticated({ user, header, children, breadcrumbs }) {
+   const { can, permissions } = usePermissions();
    const [theme, setTheme] = useState(() => {
       if (typeof window === 'undefined') {
          return 'light';
@@ -350,7 +352,7 @@ export default function Authenticated({ user, header, children, permission, brea
       return getRouteBreadcrumbs();
    }, [pageUrl]);
 
-   const createButton = useMemo(() => getCreateButton(permission), [pageUrl, permission]);
+   const createButton = useMemo(() => getCreateButton(permissions), [pageUrl, permissions]);
 
    useEffect(() => {
       if (theme === 'dark') {
@@ -383,7 +385,7 @@ export default function Authenticated({ user, header, children, permission, brea
 
    return (
       <SidebarProvider>
-         <AppSidebar user={user} permission={permission} />
+         <AppSidebar />
          <SidebarInset>
             <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
                <div className="flex items-center gap-2 flex-1">

@@ -34,9 +34,9 @@ const columns = [
     },
 ];
 
-export default function Index({ auth, phyStates, role, permission }) {
+export default function Index({ auth, phyStates }) {
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission} roles={role}>
+        <AuthenticatedLayout user={auth.user}  >
             <Head title="Estados Físicos" />
 
             <div className="max-w-7xl p-4">
@@ -44,7 +44,7 @@ export default function Index({ auth, phyStates, role, permission }) {
                 <DataTable
                     columns={columns}
                     data={phyStates}
-                    permissions={permission}
+                    
                 />
             </div>
         </AuthenticatedLayout>

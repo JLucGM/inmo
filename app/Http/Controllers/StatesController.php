@@ -28,11 +28,7 @@ class StatesController extends Controller
         $states = States::with('country')->get();
         $country = Countries::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('States/Index', compact('states', 'country', 'role', 'permission'));
+        return Inertia::render('States/Index', compact('states', 'country'));
     }
 
     /**
@@ -42,11 +38,7 @@ class StatesController extends Controller
     {
         $country = Countries::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('States/Create', compact('country', 'role', 'permission'));
+        return Inertia::render('States/Create', compact('country'));
     }
 
     /**
@@ -79,11 +71,7 @@ class StatesController extends Controller
         $country = Countries::all();
         $selectedCountryId = $state->country_id;
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('States/Edit', compact('state', 'country', 'selectedCountryId', 'role', 'permission'));
+        return Inertia::render('States/Edit', compact('state', 'country', 'selectedCountryId'));
     }
 
     /**

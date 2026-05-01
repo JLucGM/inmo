@@ -26,11 +26,7 @@ class PostController extends Controller
     {
         $posts = Post::select('id', 'name', 'slug', 'status', 'image', 'extract', 'created_at')->paginate(15);
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Posts/Index', compact('posts', 'role','permission'));
+        return Inertia::render('Posts/Index', compact('posts'));
     }
 
     /**
@@ -40,11 +36,7 @@ class PostController extends Controller
     {
         $categryposts = CategoryPost::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Posts/Create', compact('categryposts', 'role','permission'));
+        return Inertia::render('Posts/Create', compact('categryposts'));
     }
 
     /**
@@ -89,11 +81,7 @@ class PostController extends Controller
     {
         $categryposts = CategoryPost::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('Posts/Edit', compact('posts', 'categryposts','role','permission'));
+        return Inertia::render('Posts/Edit', compact('posts', 'categryposts'));
     }
 
     /**

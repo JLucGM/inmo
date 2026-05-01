@@ -27,11 +27,7 @@ class TypesPropertiesController extends Controller
     {
         $typesproperties = TypesProperties::all();
 
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
-
-        return Inertia::render('TypesProperties/Index', compact('typesproperties','role','permission'));
+        return Inertia::render('TypesProperties/Index', compact('typesproperties'));
     }
 
     /**
@@ -39,11 +35,8 @@ class TypesPropertiesController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('TypesProperties/Create', compact('role','permission'));
+        return Inertia::render('TypesProperties/Create', []);
     }
 
     /**
@@ -83,11 +76,8 @@ class TypesPropertiesController extends Controller
      */
     public function edit(TypesProperties $typeproperty)
     {
-        $user = Auth::user();
-        $role = $user->getRoleNames();
-        $permission = $user->getAllPermissions();
 
-        return Inertia::render('TypesProperties/Edit', compact('typeproperty', 'role', 'permission'));
+        return Inertia::render('TypesProperties/Edit', compact('typeproperty'));
     }
 
     /**

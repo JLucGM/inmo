@@ -19,9 +19,14 @@ import {
   Cog6ToothIcon,
   ChartPieIcon
 } from "@heroicons/react/24/outline"
-import { Link } from "@inertiajs/react"
+import { Link, usePage } from "@inertiajs/react"
+import { usePermissions } from "@/hooks/use-permissions"
 
-export function AppSidebar({ user, permission, ...props }) {
+export function AppSidebar({ ...props }) {
+  const { auth } = usePage().props;
+  const { permissions } = usePermissions();
+  const user = auth.user;
+
   // Seguridad: Si no hay usuario, no renderizamos para evitar errores de 'undefined'
   if (!user) return null;
 
@@ -108,10 +113,10 @@ export function AppSidebar({ user, permission, ...props }) {
   // Filtrar navegación por permisos
   const filteredNav = data.navMain.filter(item => {
     if (!item.permission && !item.items) return true;
-    if (item.permission && (permission?.some(p => p.name === item.permission))) return true;
+    if (item.permission && (permissions?.includes(item.permission))) return true;
     if (item.items) {
       item.items = item.items.filter(subItem => 
-        !subItem.permission || (permission?.some(p => p.name === subItem.permission))
+        !subItem.permission || (permissions?.includes(subItem.permission))
       );
       return item.items.length > 0;
     }

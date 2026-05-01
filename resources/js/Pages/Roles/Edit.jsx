@@ -9,7 +9,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import ContainerTitle from '@/Components/ContainerTitle';
 import SectionHeader from '@/Components/SectionHeader';
 
-export default function Edit({ auth, roles, permissions, assignedPermissions, role, permission }) {
+export default function Edit({ auth, roles, permissions, assignedPermissions }) {
     const { data, setData, errors, post, recentlySuccessful } = useForm({
         name: roles.name,
         permissions: assignedPermissions.map(String),
@@ -31,7 +31,7 @@ export default function Edit({ auth, roles, permissions, assignedPermissions, ro
     return (
         <AuthenticatedLayout 
             user={auth.user} 
-            permission={permission}
+            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader title="Actualizar rol" subtitle="Modifica el nombre del rol y los permisos asignados a este." />

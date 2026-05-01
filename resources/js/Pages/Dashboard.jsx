@@ -30,7 +30,7 @@ import { Button } from '@/Components/ui/button';
 
 const months = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
-export default function Dashboard({ auth, permission, contacts, properties, tasks, taskCounts, propertyCounts, contactsCounts }) {
+export default function Dashboard({ auth, contacts, properties, tasks, taskCounts, propertyCounts, contactsCounts }) {
     
     // Transformar datos para el gráfico de tendencias (Área)
     const chartData = months.map((month, index) => ({
@@ -50,7 +50,7 @@ export default function Dashboard({ auth, permission, contacts, properties, task
     return (
         <AuthenticatedLayout
             user={auth.user}
-            permission={permission}
+            
             header={
                 <div className="flex flex-col gap-1 w-full">
                     <h2 className="font-bold text-2xl text-gray-800 dark:text-gray-100 leading-tight tracking-tight">

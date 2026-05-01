@@ -56,9 +56,9 @@ const columns = [
     }
 ];
 
-export default function Index({ auth, page, role, permission }) {
+export default function Index({ auth, page }) {
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission} header={
+        <AuthenticatedLayout user={auth.user}  header={
             <SectionHeader
                 title="Páginas del Sitio"
                 subtitle="Gestiona las páginas estáticas y contenedores de información."
@@ -70,7 +70,7 @@ export default function Index({ auth, page, role, permission }) {
                 <DataTable
                     columns={columns}
                     data={page}
-                    permissions={permission}
+                    
                 />
             </div>
         </AuthenticatedLayout>

@@ -5,7 +5,7 @@ import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import TypesPropertiesForm from './TypesPropertiesForm';
 
-export default function Edit({ auth, typeproperty, role, permission }) {
+export default function Edit({ auth, typeproperty }) {
     const { data, setData, errors, post, recentlySuccessful } = useForm({
         name: typeproperty.name || '',
     });
@@ -16,7 +16,7 @@ export default function Edit({ auth, typeproperty, role, permission }) {
     };
 
     return (
-        <AuthenticatedLayout user={auth.user} permission={permission}>
+        <AuthenticatedLayout user={auth.user} >
             <Head title="Editar Tipo de Propiedad" />
 
             {recentlySuccessful && (
