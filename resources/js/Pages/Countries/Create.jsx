@@ -1,104 +1,46 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
-import Breadcrumb from '@/Components/Breadcrumb';
+import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
 import ContainerTitle from '@/Components/ContainerTitle';
-import SectionHeader from '@/Components/SectionHeader';
 
 export default function Create({ auth, role, permission }) {
-
-    const initialValues = {
-        name: "",
-    }
-
-    const { data, setData, errors, post } = useForm(initialValues)
+    const { data, setData, errors, post } = useForm({ name: '' });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('countries.store'))
-    }
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de paises',
-            href: 'countries.index',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-        {
-            name: 'Crear pais',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
+        post(route('countries.store'));
+    };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            roles={role}
-            permission={permission}
-            header={
-                <div className='flex justify-between items-center'>
-                    <SectionHeader
-                        title="Crear pais"
-                        subtitle="Aquí puedes crear un nuevo pais."
-                    />
-                </div>
-            }
-        >
-
-            <Breadcrumb items={items} />
-
-            <Head className="capitalize" title="Crear pais" />
-
-            <div className="">
-                <div className="max-w-7xl mx-auto">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                        <div className="text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
-
-                                <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="name" value="Nombre" />
-
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.name} className="mt-2" />
-                                    </div>
-                                </ContainerTitle>
-
-                                <div className="flex justify-end p-2.5">
-                                    <PrimaryButton >
-                                        Guardar
-                                    </PrimaryButton>
-                                </div>
-
-                            </form>
+        <AuthenticatedLayout user={auth.user} permission={permission}>
+            <Head title="Crear País" />
+            <form onSubmit={submit} className="space-y-6">
+                <ContainerTitle title="Datos del país">
+                    <div className="space-y-4">
+                        <div>
+                            <Label htmlFor="name">Nombre</Label>
+                            <Input
+                                id="name"
+                                type="text"
+                                value={data.name}
+                                autoFocus
+                                onChange={(e) => setData('name', e.target.value)}
+                            />
+                            {errors.name && (
+                                <Alert variant="destructive" className="mt-1 py-2">
+                                    <AlertDescription>{errors.name}</AlertDescription>
+                                </Alert>
+                            )}
                         </div>
                     </div>
+                </ContainerTitle>
+                <div className="flex justify-end">
+                    <Button type="submit">Guardar</Button>
                 </div>
-            </div>
+            </form>
         </AuthenticatedLayout>
-    )
+    );
 }

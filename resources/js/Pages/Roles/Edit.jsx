@@ -1,157 +1,110 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Select, Textarea, Transition } from '@headlessui/react';
-import Breadcrumb from '@/Components/Breadcrumb';
+import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import { Checkbox } from '@/Components/ui/checkbox';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import ContainerTitle from '@/Components/ContainerTitle';
 import SectionHeader from '@/Components/SectionHeader';
 
 export default function Edit({ auth, roles, permissions, assignedPermissions, role, permission }) {
-
-    const initialValues = {
+    const { data, setData, errors, post, recentlySuccessful } = useForm({
         name: roles.name,
-        content: roles.content,
-        status: roles.status,
-        permissions: assignedPermissions.map(String), // Asegúrate de que sean strings
-    }
-
-    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
+        permissions: assignedPermissions.map(String),
+    });
 
     const handleCheckboxChange = (permissionId) => {
-        const currentIndex = data.permissions.indexOf(permissionId);
-        const newPermissions = [...data.permissions];
-
-        if (currentIndex === -1) {
-            newPermissions.push(permissionId); // Agrega el permiso si no está seleccionado
-        } else {
-            newPermissions.splice(currentIndex, 1); // Elimina el permiso si ya está seleccionado
-        }
-
+        const id = permissionId.toString();
+        const newPermissions = data.permissions.includes(id)
+            ? data.permissions.filter((p) => p !== id)
+            : [...data.permissions, id];
         setData('permissions', newPermissions);
     };
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('roles.update', roles))
-    }
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de roles',
-            href: 'roles.index',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-        {
-            name: 'Actualizar roles',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
+        post(route('roles.update', roles));
+    };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            roles={role}
+        <AuthenticatedLayout 
+            user={auth.user} 
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <SectionHeader
-                        title="Actualizar rol"
-                        subtitle="Aquí puedes actualizar los roles de usuario."
-                    />
-                    <Link href={route('roles.create')}
-                        className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    <SectionHeader title="Actualizar rol" subtitle="Modifica el nombre del rol y los permisos asignados a este." />
+                    <Link href={route('roles.index')}
+                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear nuevo rol
+                        Volver
                     </Link>
                 </div>
             }
         >
-            <Breadcrumb items={items} />
+            <Head className="capitalize" title="Editar Rol" />
 
-            <Head className="capitalize" title="Actualizar roles" />
+            <div className="max-w-7xl mx-auto p-4">
+                {recentlySuccessful && (
+                    <Alert className="mb-6 border-green-500 bg-green-50 text-green-800 dark:bg-green-950 dark:text-green-200">
+                        <CheckCircleIcon className="size-4" />
+                        <AlertDescription>Rol actualizado exitosamente.</AlertDescription>
+                    </Alert>
+                )}
 
-            <div className="">
-                <div className="max-w-7xl mx-auto ">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                        <div className=" text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
-
-                                <Transition
-                                    show={recentlySuccessful}
-                                    enter="transition ease-in-out"
-                                    enterFrom="opacity-0"
-                                    leave="transition ease-in-out"
-                                    leaveTo="opacity-0"
-                                >
-                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
-                                </Transition>
-
-                                <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                    <div className='col-span-2'>
-                                        <InputLabel htmlFor="name" value="Titulo" />
-
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full disabled:opacity-75"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                            disabled={true}
-                                        />
-
-                                        <InputError message={errors.name} className="mt-2" />
-                                    </div>
-
-                                    <div className=''>
-                                        {/* <InputLabel htmlFor="name" value="Titulo" /> */}
-                                        {permissions.map((permission) => (
-                                            <div key={permission.id} className="flex items-center">
-                                                <input
-                                                    id={`permission-${permission.id}`}
-                                                    type="checkbox"
-                                                    checked={data.permissions.includes(permission.id.toString())}
-                                                    onChange={() => handleCheckboxChange(permission.id.toString())}
-                                                    className="mr-2"
-                                                />
-                                                {/* <label htmlFor={`permission-${permission.id}`} className="text-gray-700">
-                                                        {permission.name}
-                                                    </label> */}
-                                                <InputLabel htmlFor={`permission-${permission.id}`} value={permission.description} />
-                                            </div>
-                                        ))}
-                                        <InputError message={errors.permissions} className="mt-2" />
-                                    </div>
-
-                                </ContainerTitle>
-
-                                <div className="flex justify-end p-2.5">
-                                    <PrimaryButton >
-                                        Guardar
-                                    </PrimaryButton>
-                                </div>
-
-                            </form>
+                <form onSubmit={submit} className="space-y-6">
+                    <ContainerTitle title="Datos del rol y Permisos" className="grid grid-cols-1 gap-6">
+                        <div className="col-span-full max-w-lg">
+                            <Label htmlFor="name">Nombre del rol</Label>
+                            <Input
+                                id="name"
+                                type="text"
+                                value={data.name}
+                                disabled
+                                className="mt-1 opacity-60"
+                                onChange={(e) => setData('name', e.target.value)}
+                            />
+                            {errors.name && (
+                                <Alert variant="destructive" className="mt-2 py-2">
+                                    <AlertDescription>{errors.name}</AlertDescription>
+                                </Alert>
+                            )}
                         </div>
+
+                        <div className="col-span-full mt-4">
+                            <Label className="mb-4 block text-base font-semibold border-b pb-2 dark:border-gray-800">Permisos asignados al rol</Label>
+                            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 bg-gray-50/50 dark:bg-gray-900/20 p-4 rounded-lg border border-gray-100 dark:border-gray-800">
+                                {permissions?.map((perm) => (
+                                    <div key={perm.id} className="flex items-start gap-3 bg-white dark:bg-gray-800 p-2.5 rounded shadow-sm border border-gray-100 dark:border-gray-700">
+                                        <Checkbox
+                                            id={`perm-${perm.id}`}
+                                            checked={data.permissions.includes(perm.id.toString())}
+                                            onCheckedChange={() => handleCheckboxChange(perm.id)}
+                                            className="mt-0.5"
+                                        />
+                                        <Label
+                                            htmlFor={`perm-${perm.id}`}
+                                            className="cursor-pointer text-sm font-normal leading-tight h-full w-full flex items-center"
+                                        >
+                                            {perm.description || perm.name}
+                                        </Label>
+                                    </div>
+                                ))}
+                            </div>
+                            {errors.permissions && (
+                                <Alert variant="destructive" className="mt-2 py-2">
+                                    <AlertDescription>{errors.permissions}</AlertDescription>
+                                </Alert>
+                            )}
+                        </div>
+                    </ContainerTitle>
+
+                    <div className="flex justify-end pt-4">
+                        <Button type="submit">Guardar cambios</Button>
                     </div>
-                </div>
+                </form>
             </div>
         </AuthenticatedLayout>
-    )
+    );
 }

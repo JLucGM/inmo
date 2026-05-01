@@ -1,172 +1,107 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
-import { Select, Textarea, Transition } from '@headlessui/react';
-import Breadcrumb from '@/Components/Breadcrumb';
+import { Head, useForm } from '@inertiajs/react';
+import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import { Textarea } from '@/Components/ui/textarea';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import ContainerTitle from '@/Components/ContainerTitle';
-import { Alert } from 'flowbite-react';
 
 export default function Edit({ auth, faqs, role, permission }) {
-
-    const initialValues = {
-        name: faqs.name,
-        content: faqs.content,
-        status: faqs.status,
-    }
-
-    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
+    const { data, setData, errors, post, recentlySuccessful } = useForm({
+        name: faqs.name || "",
+        content: faqs.content || "",
+        status: faqs.status ? faqs.status.toString() : "0",
+    });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('faqs.update', faqs))
-    }
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de faqs',
-            href: 'faqs.index',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-        {
-            name: 'Actualizar faqs',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
+        post(route('faqs.update', faqs));
+    };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            roles={role}
-            permission={permission}
-            header={
-                <div className='flex justify-between items-center'>
-                    <SectionHeader
-                        title="Actualizar preguntas frecuentes"
-                        subtitle="Aquí puedes realizar la actualización de preguntas frecuentes."
-                    />
-                    <Link href={route('faqs.create')}
-                        className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >
-                        Crear
-                    </Link>
-                </div>
-            }
-        >
-            <Breadcrumb items={items} />
+        <AuthenticatedLayout user={auth.user} permission={permission}>
+            <Head title="Editar Pregunta Frecuente" />
 
-            <Head className="capitalize" title="Actualizar faq" />
+            {recentlySuccessful && (
+                <Alert className="mb-4 border-green-500 bg-green-50 text-green-800 dark:bg-green-950 dark:text-green-200">
+                    <CheckCircleIcon className="size-4" />
+                    <AlertDescription>Pregunta frecuente actualizada correctamente.</AlertDescription>
+                </Alert>
+            )}
 
-            <div className="">
-                <div className="max-w-7xl mx-auto ">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                        <div className=" text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
-
-                                <Transition
-                                    show={recentlySuccessful}
-                                    enter="transition ease-out duration-300"
-                                    enterFrom="opacity-0 translate-y-[-100%]"
-                                    enterTo="opacity-100 translate-y-0"
-                                    leave="transition ease-in duration-200"
-                                    leaveFrom="opacity-100 translate-y-0"
-                                    leaveTo="opacity-0 translate-y-[-100%]"
-                                >
-                                    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
-                                        <Alert
-                                            color="success"
-                                            className="border-0 shadow-lg"
-                                        >
-                                            <span className="font-medium">¡Bien hecho!</span> pregunta frecuente actualizado exitosamente.
+            <form onSubmit={submit} className="space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="lg:col-span-2 space-y-6">
+                        <ContainerTitle title="Datos principales">
+                            <div className="space-y-4">
+                                <div>
+                                    <Label htmlFor="name">Título</Label>
+                                    <Input
+                                        id="name"
+                                        type="text"
+                                        value={data.name}
+                                        autoFocus
+                                        onChange={(e) => setData('name', e.target.value)}
+                                    />
+                                    {errors.name && (
+                                        <Alert variant="destructive" className="mt-1 py-2">
+                                            <AlertDescription>{errors.name}</AlertDescription>
                                         </Alert>
-                                    </div>
-                                </Transition>
-
-                                <div className="grid xs:grid-cols-full lg:grid-cols-3 gap-4">
-                                    <div className="col-span-full lg:col-span-2">
-                                        <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="name" value="Titulo" />
-
-                                                <TextInput
-                                                    id="name"
-                                                    type="text"
-                                                    name="name"
-                                                    value={data.name}
-                                                    className="mt-1 block w-full"
-                                                    isFocused={true}
-                                                    onChange={(e) => setData('name', e.target.value)}
-                                                />
-
-                                                <InputError message={errors.name} className="mt-2" />
-                                            </div>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="content" value="Contenido" />
-
-                                                <Textarea
-                                                    id="content"
-                                                    type="text"
-                                                    name="content"
-                                                    rows={10}
-                                                    value={data.content}
-                                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    onChange={(e) => setData('content', e.target.value)}
-                                                >
-
-                                                </Textarea>
-
-                                                <InputError message={errors.content} className="mt-2" />
-                                            </div>
-
-                                        </ContainerTitle>
-                                    </div>
-                                    <div className="col-span-full lg:col-span-1">
-                                        <ContainerTitle title={'Datos'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="status" value="Status" />
-                                                <Select
-                                                    name="status"
-                                                    value={data.status}
-                                                    onChange={(e) => setData('status', e.target.value)}
-                                                    className={'mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm '}
-                                                >
-                                                    <option defaultValue="0">Borrador</option>
-                                                    <option value="1">Publicar</option>
-                                                </Select>
-                                            </div>
-
-                                        </ContainerTitle>
-                                    </div>
-
+                                    )}
                                 </div>
-
-                                <div className="flex justify-end p-2.5">
-                                    <PrimaryButton >
-                                        Guardar
-                                    </PrimaryButton>
+                                <div>
+                                    <Label htmlFor="content">Contenido</Label>
+                                    <Textarea
+                                        id="content"
+                                        rows={10}
+                                        value={data.content}
+                                        onChange={(e) => setData('content', e.target.value)}
+                                    />
+                                    {errors.content && (
+                                        <Alert variant="destructive" className="mt-1 py-2">
+                                            <AlertDescription>{errors.content}</AlertDescription>
+                                        </Alert>
+                                    )}
                                 </div>
+                            </div>
+                        </ContainerTitle>
+                    </div>
 
-                            </form>
-                        </div>
+                    <div className="lg:col-span-1 space-y-6">
+                        <ContainerTitle title="Estado">
+                            <div className="space-y-4">
+                                <div>
+                                    <Label htmlFor="status">Estado de publicación</Label>
+                                    <Select 
+                                        value={data.status} 
+                                        onValueChange={(val) => setData('status', val)}
+                                    >
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Seleccione un estado" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="0">Borrador</SelectItem>
+                                            <SelectItem value="1">Publicar</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    {errors.status && (
+                                        <Alert variant="destructive" className="mt-1 py-2">
+                                            <AlertDescription>{errors.status}</AlertDescription>
+                                        </Alert>
+                                    )}
+                                </div>
+                            </div>
+                        </ContainerTitle>
                     </div>
                 </div>
-            </div>
+
+                <div className="flex justify-end">
+                    <Button type="submit">Guardar cambios</Button>
+                </div>
+            </form>
         </AuthenticatedLayout>
-    )
+    );
 }

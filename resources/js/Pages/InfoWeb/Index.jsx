@@ -1,92 +1,69 @@
-import Breadcrumb from '@/Components/Breadcrumb';
-import DataTable from '@/Components/DataTable';
-import SectionHeader from '@/Components/SectionHeader';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
+import DataTable from '@/Components/DataTable';
+import SectionHeader from '@/Components/SectionHeader';
+import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
+import { DataTableRowActions } from '@/Components/DataTableRowActions';
+
+const columns = [
+    {
+        accessorKey: 'id',
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="#id" />
+        ),
+        cell: ({ row }) => (
+            <div className="flex items-center space-x-3">
+                <p className="w-5 text-gray-500">{row.original.id}</p>
+                {row.original.image ? (
+                    <img src={row.original.image} alt={row.original.name} className="w-12 h-12 rounded-lg object-cover border border-gray-100 dark:border-gray-800" loading="lazy" />
+                ) : (
+                    <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-[10px] text-gray-400">Sin img</div>
+                )}
+            </div>
+        )
+    },
+    {
+        accessorKey: 'name',
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Nombre de la entrada" />
+        ),
+    },
+    {
+        id: 'actions',
+        cell: ({ row, table }) => (
+            <DataTableRowActions
+                row={row}
+                routeEdit="info-web.edit"
+                routeDestroy="info-web.destroy"
+                editPermission="admin.info-webs.edit"
+                deletePermission="admin.info-webs.delete"
+                permissions={table.options.meta?.permissions}
+            />
+        ),
+    }
+];
 
 export default function Index({ auth, infoweb, role, permission }) {
-    const columns = [
-        {
-            header: "#id",
-            cell: ({ row }) => {
-                return (
-                    <>
-                        <div className="flex items-center">
-                            <p className='me-2'>{row.original.id}</p>
-                            <img src={`${row.original.image}`} alt={row.original.image} className='w-14' />
-                        </div>
-                    </>
-                )
-            },
-        },
-        {
-            header: "Nombre",
-            accessorKey: "name",
-        },
-    ]
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de informacion web',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-
-    ];
-
     return (
         <AuthenticatedLayout
             user={auth.user}
-            roles={role}
             permission={permission}
             header={
-                <div className='flex justify-between items-center'>
-                    <SectionHeader
-                        title="Lista de información web"
-                        subtitle="Aquí puedes ver la lista de información web."
-                    />
-                    {permission.some(perm => perm.name === 'admin.info-webs.create') && (
-                        <Link href={route('info-web.create')}
-                            className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                        >
-                            Crear Información web
-                        </Link>
-                    )}
-                </div>
+                <SectionHeader
+                    title="Información web"
+                    subtitle="Administra la información estática mostrada en la página web."
+                />
             }
         >
-            <Breadcrumb items={items} />
+            <Head title="Información web" />
 
-            <Head className="capitalize" title="Informacion web" />
-
-            <div className="">
-                <div className="max-w-7xl mx-auto ">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden ">
-                        <div className=" text-gray-900 dark:text-gray-100">
-                            <div className="relative overflow-x-auto">
-                                <DataTable
-                                    columns={columns}
-                                    data={infoweb}
-                                    routeEdit={'info-web.edit'}
-                                    routeDestroy={'info-web.destroy'}
-                                    editPermission={'admin.info-webs.edit'} // Pasa el permiso de editar
-                                    deletePermission={'admin.info-webs.delete'} // Pasa el permiso de eliminar
-                                    // downloadPdfPermission={'downloadPdfPermission'} // Pasa el permiso de descargar PDF
-                                    permissions={permission}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div className="max-w-7xl p-4">
+                <DataTable
+                    columns={columns}
+                    data={infoweb}
+                    permissions={permission}
+                />
             </div>
         </AuthenticatedLayout>
-    )
+    );
 }

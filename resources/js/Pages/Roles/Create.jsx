@@ -1,135 +1,101 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
-import Breadcrumb from '@/Components/Breadcrumb';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import { Checkbox } from '@/Components/ui/checkbox';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
 import ContainerTitle from '@/Components/ContainerTitle';
 import SectionHeader from '@/Components/SectionHeader';
 
 export default function Create({ auth, permissions, role, permission }) {
-    const initialValues = {
-        name: "",
+    const { data, setData, errors, post } = useForm({
+        name: '',
         permissions: [],
-    }
-
-    const { data, setData, errors, post } = useForm(initialValues)
+    });
 
     const handleCheckboxChange = (permissionId) => {
-        const currentIndex = data.permissions.indexOf(permissionId);
-        const newPermissions = [...data.permissions];
-
-        if (currentIndex === -1) {
-            newPermissions.push(permissionId);
-        } else {
-            newPermissions.splice(currentIndex, 1);
-        }
-
-        setData('permissions', newPermissions); // Asegúrate de que esto esté configurado correctamente
+        const newPermissions = data.permissions.includes(permissionId)
+            ? data.permissions.filter((id) => id !== permissionId)
+            : [...data.permissions, permissionId];
+        setData('permissions', newPermissions);
     };
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('roles.store'))
-        // console.log(data)
-    }
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de roles',
-            href: 'roles.index',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-        {
-            name: 'Crear roles',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
+        post(route('roles.store'));
+    };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            roles={role}
+        <AuthenticatedLayout 
+            user={auth.user} 
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <SectionHeader
-                        title="Crear roles"
-                        subtitle="Aquí puedes crear un nuevo rol de usuario."
-                    />
+                    <SectionHeader title="Crear rol" subtitle="Define un nuevo rol con permisos personalizados." />
+                    <Link href={route('roles.index')}
+                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    >
+                        Volver
+                    </Link>
                 </div>
             }
         >
+            <Head title="Crear Rol" />
 
-            <Breadcrumb items={items} />
-
-            <Head className="capitalize" title="Crear roles" />
-
-            <div className="">
-                <div className="max-w-7xl mx-auto">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                        <div className="text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
-                                <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                    <div className="col-span-2">
-                                        <InputLabel htmlFor="name" value="Titulo" />
-
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.name} className="mt-2" />
-                                    </div>
-
-                                    <div className=''>
-                                        {permissions.map((permission) => (
-                                            <div key={permission.id} className="flex items-center">
-                                                <input
-                                                    type="checkbox"
-                                                    id={`permission-${permission.id}`}
-                                                    value={permission.id} // Cambiar a ID
-                                                    checked={data.permissions.includes(permission.id)} // Verifica si el permiso está seleccionado
-                                                    // onChange={() => handleCheckboxChange(permission.id)} // Maneja el cambio
-                                                    onChange={() => handleCheckboxChange(permission.id)}
-                                                    className="mr-2"
-                                                />
-                                                <InputLabel htmlFor={`permission-${permission.id}`} value={permission.description} />
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                </ContainerTitle>
-
-                                <div className="flex justify-end p-2.5">
-                                    <PrimaryButton >
-                                        Guardar
-                                    </PrimaryButton>
-                                </div>
-
-                            </form>
+            <div className="max-w-7xl mx-auto p-4">
+                <form onSubmit={submit} className="space-y-6">
+                    <ContainerTitle title="Datos del rol y Permisos" className="grid grid-cols-1 gap-6">
+                        <div className="col-span-full max-w-lg">
+                            <Label htmlFor="name">Nombre del rol</Label>
+                            <Input
+                                id="name"
+                                type="text"
+                                value={data.name}
+                                autoFocus
+                                className="mt-1"
+                                onChange={(e) => setData('name', e.target.value)}
+                            />
+                            {errors.name && (
+                                <Alert variant="destructive" className="mt-2 py-2">
+                                    <AlertDescription>{errors.name}</AlertDescription>
+                                </Alert>
+                            )}
                         </div>
+
+                        <div className="col-span-full mt-4">
+                            <Label className="mb-4 block text-base font-semibold border-b pb-2 dark:border-gray-800">Permisos asignados al rol</Label>
+                            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 bg-gray-50/50 dark:bg-gray-900/20 p-4 rounded-lg border border-gray-100 dark:border-gray-800">
+                                {permissions?.map((perm) => (
+                                    <div key={perm.id} className="flex items-start gap-3 bg-white dark:bg-gray-800 p-2.5 rounded shadow-sm border border-gray-100 dark:border-gray-700">
+                                        <Checkbox
+                                            id={`perm-${perm.id}`}
+                                            checked={data.permissions.includes(perm.id)}
+                                            onCheckedChange={() => handleCheckboxChange(perm.id)}
+                                            className="mt-0.5"
+                                        />
+                                        <Label
+                                            htmlFor={`perm-${perm.id}`}
+                                            className="cursor-pointer text-sm font-normal leading-tight h-full w-full flex items-center"
+                                        >
+                                            {perm.description || perm.name}
+                                        </Label>
+                                    </div>
+                                ))}
+                            </div>
+                            {errors.permissions && (
+                                <Alert variant="destructive" className="mt-2 py-2">
+                                    <AlertDescription>{errors.permissions}</AlertDescription>
+                                </Alert>
+                            )}
+                        </div>
+                    </ContainerTitle>
+
+                    <div className="flex justify-end pt-4">
+                        <Button type="submit">Guardar rol</Button>
                     </div>
-                </div>
+                </form>
             </div>
         </AuthenticatedLayout>
-    )
+    );
 }

@@ -9,8 +9,8 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -30,8 +30,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        $roles = Role::all();
+        $users = User::select('id', 'name', 'email', 'created_at')->paginate(15);
+        $roles = Cache::remember('roles', 3600, function () {
+            return Role::select('id', 'name')->get();
+        });
 
         $user = Auth::user();
         $role = $user->getRoleNames();

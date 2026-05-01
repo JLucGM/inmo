@@ -1,139 +1,66 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
-import { useState } from 'react';
-import { Button, Description, Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
+import { Head } from '@inertiajs/react';
 import DataTable from '@/Components/DataTable';
-import Breadcrumb from '@/Components/Breadcrumb';
 import SectionHeader from '@/Components/SectionHeader';
+import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
+import { DataTableRowActions } from '@/Components/DataTableRowActions';
+
+const columns = [
+    {
+        accessorKey: 'id',
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="#" />
+        ),
+    },
+    {
+        accessorKey: 'name',
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Nombre" />
+        ),
+    }
+];
 
 export default function Index({ auth, categoryPost, role, permission }) {
-    const [isOpen, setIsOpen] = useState(false);
-    const { data, setData, errors, post } = useForm({
-        name: "",
-    })
-
-    const columns = [
+    // Definimos las acciones fuera del array de columnas para tener acceso a los permisos si fuera necesario, 
+    // pero el patrón es incluirlas en el array.
+    const columnsWithActions = [
+        ...columns,
         {
-            header: "#id",
-            accessorKey: "id",
-        },
-        {
-            header: "Nombre",
-            accessorKey: "name",
-        }
-    ]
-
-    const submit = (e) => {
-        e.preventDefault();
-        post(route('category-post.store'))
-        setData({
-            name: "",
-        });
-    }
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de categorias',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
+            id: 'actions',
+            cell: ({ row, table }) => (
+                <div className="text-right">
+                    <DataTableRowActions
+                        row={row}
+                        routeEdit="category-post.edit"
+                        routeDestroy="category-post.destroy"
+                        editPermission="admin.categoriesPost.edit"
+                        deletePermission="admin.categoriesPost.delete"
+                        permissions={table.options.meta?.permissions}
+                    />
+                </div>
+            ),
         },
     ];
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            roles={role}
-            permission={permission}
-            header={
-                <div className='flex justify-between items-center px-6'>
-                    <SectionHeader
-                        title="Lista de categorias de publicaciones"
-                        subtitle="Aquí puedes gestionar las categorias de publicaciones."
-                    />
-                    {permission.some(perm => perm.name === 'admin.categoriesPost.create') && (
-                        <Button
-                            onClick={() => setIsOpen(true)}
-                            className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                        >
-                            Crear categoria
-                        </Button>
-                    )}
-                </div>
-            }
-        >
+        <AuthenticatedLayout user={auth.user} permission={permission} roles={role}>
+            <div className='flex justify-between items-center mb-6'>
+                <SectionHeader
+                    title="Categorías de Publicaciones"
+                    subtitle="Gestiona las categorías de tus posts para el blog."
+                />
 
-            <Breadcrumb items={items} />
-
-            <Head className="capitalize" title="Categoria de posts" />
-
-            <div className="">
-                <div className="max-w-7xl mx-auto ">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden ">
-                        <div className=" text-gray-900 dark:text-gray-100">
-
-                            <div className="relative overflow-x-auto">
-
-                                <DataTable
-                                    columns={columns}
-                                    data={categoryPost}
-                                    routeEdit={'category-post.edit'}
-                                    routeDestroy={'category-post.destroy'}
-                                    editPermission={'admin.categoriesPost.edit'} // Pasa el permiso de editar
-                                    deletePermission={'admin.categoriesPost.delete'} // Pasa el permiso de eliminar
-                                    // downloadPdfPermission={'downloadPdfPermission'} // Pasa el permiso de descargar PDF
-                                    permissions={permission}
-                                />
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-            <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50 ">
-                <DialogBackdrop className="fixed inset-0 bg-black/40" />
+            <Head title="Categorías de Publicaciones" />
 
-                <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-                    <DialogPanel className="w-[40rem] space-y-4 border bg-white p-8 dark:bg-gray-800 rounded-2xl">
-                        <DialogTitle className="font-bold text-gray-700 dark:text-gray-300 capitalize">Crear Categoria de posts</DialogTitle>
-                        <form onSubmit={submit} className='space-y-4'>
-                            <div>
-                                <InputLabel htmlFor="name" value="Nombre" />
-
-                                <TextInput
-                                    id="name"
-                                    type="text"
-                                    name="name"
-                                    value={data.name}
-                                    className="mt-1 block w-full"
-                                    isFocused={true}
-                                    onChange={(e) => setData('name', e.target.value)}
-                                />
-
-                                <InputError message={errors.name} className="mt-2" />
-                            </div>
-
-                            <div className="flex justify-end p-2.5">
-                                <PrimaryButton>
-                                    Guardar
-                                </PrimaryButton>
-                            </div>
-                        </form>
-                    </DialogPanel>
-                </div>
-            </Dialog>
+            <div className="max-w-7xl p-4">
+                <DataTable
+                    columns={columnsWithActions}
+                    data={categoryPost}
+                    permissions={permission}
+                />
+            </div>
         </AuthenticatedLayout>
-    )
+    );
 }

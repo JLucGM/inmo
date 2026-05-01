@@ -1,5 +1,5 @@
 import { LinkIcon } from "@heroicons/react/24/outline";
-import { Badge } from "flowbite-react";
+import { Badge } from "@/components/ui/badge";
 
 const columns = [
     {
@@ -85,3 +85,4 @@ const columns = [
 ];
 
 export default columns;
+

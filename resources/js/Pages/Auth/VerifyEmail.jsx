@@ -1,6 +1,6 @@
 import GuestLayout from '@/Layouts/GuestLayout';
-import PrimaryButton from '@/Components/PrimaryButton';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { Button } from '@/Components/ui/button';
 
 export default function VerifyEmail({ status }) {
     const { post, processing } = useForm({});
@@ -13,31 +13,37 @@ export default function VerifyEmail({ status }) {
 
     return (
         <GuestLayout>
-            <Head title="Email Verification" />
+            <Head title="Verificación de correo" />
 
-            <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
-                Thanks for signing up! Before getting started, could you verify your email address by clicking on the
-                link we just emailed to you? If you didn't receive the email, we will gladly send you another.
+            <div className="flex flex-col items-center mb-8">
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Verifica tu cuenta</h1>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mt-3 text-center">
+                    ¡Gracias por registrarte! Antes de comenzar, ¿podrías verificar tu dirección de correo electrónico haciendo clic en el enlace que te acabamos de enviar? Si no lo recibiste, con gusto te enviaremos otro.
+                </p>
             </div>
 
             {status === 'verification-link-sent' && (
-                <div className="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-                    A new verification link has been sent to the email address you provided during registration.
+                <div className="mb-4 font-medium text-sm text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-100 dark:border-green-800">
+                    Se ha enviado un nuevo enlace de verificación a la dirección de correo electrónico que proporcionaste durante el registro.
                 </div>
             )}
 
             <form onSubmit={submit}>
-                <div className="mt-4 flex items-center justify-between">
-                    <PrimaryButton disabled={processing}>Resend Verification Email</PrimaryButton>
+                <div className="mt-4 flex flex-col gap-4">
+                    <Button disabled={processing} className="w-full">
+                        Reenviar correo de verificación
+                    </Button>
 
-                    <Link
-                        href={route('logout')}
-                        method="post"
-                        as="button"
-                        className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                    >
-                        Log Out
-                    </Link>
+                    <div className="text-center">
+                        <Link
+                            href={route('logout')}
+                            method="post"
+                            as="button"
+                            className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 underline underline-offset-4"
+                        >
+                            Cerrar sesión
+                        </Link>
+                    </div>
                 </div>
             </form>
         </GuestLayout>

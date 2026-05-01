@@ -1,143 +1,87 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
-import { Transition } from '@headlessui/react';
-import Breadcrumb from '@/Components/Breadcrumb';
+import { Head, useForm } from '@inertiajs/react';
+import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import ContainerTitle from '@/Components/ContainerTitle';
 
 export default function Edit({ auth, city, states, selectedStateId, role, permission }) {
-
-    const initialValues = {
-        name: city.name,
-        state_id: selectedStateId, // Set the state_id value to the selected state ID
-    }
-
-    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
+    const { data, setData, errors, post, recentlySuccessful } = useForm({
+        name: city.name || '',
+        state_id: selectedStateId || states?.[0]?.id || '',
+    });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('cities.update', city))
-    }
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de ciudades',
-            href: 'cities.index',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-        {
-            name: 'Actualizar ciudad',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
+        post(route('cities.update', city));
+    };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            roles={role}
-            permission={permission}
-            header={
-                <div className='flex justify-between items-center'>
-<SectionHeader
-                        title="Actualizar ciudad"
-                        subtitle="Aquí puedes actualizar la ciudad."
-                    />
-                    <Link href={route('cities.create')}
-                        className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >
-                        Crear ciudad
-                    </Link>
-                </div>
-            }
-        >
+        <AuthenticatedLayout user={auth.user} permission={permission}>
+            <Head title="Editar Ciudad" />
 
-            <Breadcrumb items={items} />
+            {recentlySuccessful && (
+                <Alert className="mb-4 border-green-500 bg-green-50 text-green-800 dark:bg-green-950 dark:text-green-200">
+                    <CheckCircleIcon className="size-4" />
+                    <AlertDescription>Ciudad actualizada correctamente.</AlertDescription>
+                </Alert>
+            )}
 
-            <Head className="capitalize" title="Actualizar ciudad" />
-
-            <div className="">
-                <div className="max-w-7xl mx-auto ">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                        <div className=" text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
-
-                                <Transition
-                                    show={recentlySuccessful}
-                                    enter="transition ease-in-out"
-                                    enterFrom="opacity-0"
-                                    leave="transition ease-in-out"
-                                    leaveTo="opacity-0"
-                                >
-                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
-                                </Transition>
-
-                                <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                    <div>
-                                        <InputLabel htmlFor="name" value="Nombre" />
-
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.name} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="states" value="Estado" />
-
-                                        <select
-                                            name="state_id"
-                                            id="states"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.state_id} // Set the value prop to the current state_id value
-                                            onChange={(e) => {
-                                                setData('state_id', parseInt(e.target.value), { merge: true });
-                                            }}
-                                        >
-                                            {states.map((states) => (
-                                                <option value={states.id} key={states.id}>
-                                                    {states.name}
-                                                </option>
-                                            ))}
-                                        </select>
-
-                                        <InputError message={errors.states} className="mt-2" />
-                                    </div>
-
-                                </ContainerTitle>
-
-                                <div className="flex justify-end p-2.5">
-                                    <PrimaryButton >
-                                        Guardar
-                                    </PrimaryButton>
-                                </div>
-
-                            </form>
-                        </div>
+            <form onSubmit={submit} className="space-y-6">
+                <ContainerTitle title="Datos principales" className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <div>
+                        <Label htmlFor="name">Nombre</Label>
+                        <Input
+                            id="name"
+                            type="text"
+                            value={data.name}
+                            autoFocus
+                            onChange={(e) => setData('name', e.target.value)}
+                        />
+                        {errors.name && (
+                            <Alert variant="destructive" className="mt-1 py-2">
+                                <AlertDescription>{errors.name}</AlertDescription>
+                            </Alert>
+                        )}
                     </div>
+                    
+                    <div>
+                        <Label htmlFor="state_id">Estado</Label>
+                        <Select
+                            value={String(data.state_id)}
+                            onValueChange={(val) => setData('state_id', Number(val))}
+                        >
+                            <SelectTrigger id="state_id" className="w-full">
+                                <SelectValue placeholder="Seleccionar estado" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {states?.map((s) => (
+                                    <SelectItem key={s.id} value={String(s.id)}>
+                                        {s.name}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        {errors.state_id && (
+                            <Alert variant="destructive" className="mt-1 py-2">
+                                <AlertDescription>{errors.state_id}</AlertDescription>
+                            </Alert>
+                        )}
+                        {errors.states && (
+                            <Alert variant="destructive" className="mt-1 py-2">
+                                <AlertDescription>{errors.states}</AlertDescription>
+                            </Alert>
+                        )}
+                    </div>
+                </ContainerTitle>
+                
+                <div className="flex justify-end">
+                    <Button type="submit">Guardar cambios</Button>
                 </div>
-            </div>
+            </form>
         </AuthenticatedLayout>
-    )
+    );
 }

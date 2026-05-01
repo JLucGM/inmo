@@ -2,9 +2,10 @@ import FrontedLayout from "@/Layouts/FrontedLayout";
 import { Head } from "@inertiajs/react";
 import ProductsList from '@/Components/ProductsLists';
 import { useState, useEffect } from "react";
-import InputLabel from "@/Components/InputLabel";
+import { Label } from "@/Components/ui/label";
 import { Select } from "@headlessui/react";
 import PaginationPage from "@/Components/PaginationPage";
+import LocationSelect from "@/Components/LocationSelect";
 
 export default function PropertiesList({
     auth,
@@ -98,8 +99,8 @@ export default function PropertiesList({
                 <div className="grid grid-cols-4 gap-4 mb-8">
 
                     <div>
-                        <InputLabel htmlFor="typeProperty" value="Tipo de propiedad" />
-                        <Select name="typeProperty" onChange={handleFilterChange} value={filters.typeProperty} className="w-full rounded-full">
+                        <Label htmlFor="typeProperty">Tipo de propiedad</Label>
+                        <Select name="typeProperty" id="typeProperty" onChange={handleFilterChange} value={filters.typeProperty} className="w-full rounded-full">
                             <option value="">Todos</option>
                             {typeProperties.map((typeProperty) => (
                                 <option className="capitalize" key={typeProperty.id} value={typeProperty.id}>{typeProperty.name}</option>
@@ -108,7 +109,7 @@ export default function PropertiesList({
                     </div>
 
                     <div>
-                        <InputLabel htmlFor="minPrice" value="Rango de precios" />
+                        <Label htmlFor="minPrice">Rango de precios</Label>
                         <div className="flex">
                             <input type="number" name="minPrice" placeholder="Mínimo" onChange={handleFilterChange} className="w-1/2 rounded-s-full" />
                             <input type="number" name="maxPrice" placeholder="Máximo" onChange={handleFilterChange} className="w-1/2 rounded-e-full" />
@@ -116,7 +117,7 @@ export default function PropertiesList({
                     </div>
 
                     <div>
-                        <InputLabel htmlFor="phyState" value="Estado físico" />
+                        <Label htmlFor="phyState">Estado físico</Label>
                         <Select name="phyState" onChange={handleFilterChange} value={filters.phyState} className="w-full rounded-full">
                             <option value="">Todos</option>
                             {phyStates.map((phyState) => (
@@ -126,7 +127,7 @@ export default function PropertiesList({
                     </div>
 
                     <div>
-                        <InputLabel htmlFor="typeBusiness" value="Tipo de negocio" />
+                        <Label htmlFor="typeBusiness">Tipo de negocio</Label>
                         <Select name="typeBusiness" onChange={handleFilterChange} value={filters.typeBusiness} className="w-full rounded-full">
                             <option value="">Todos</option>
                             {typeBusinesses.map((typeBusiness) => (
@@ -135,35 +136,38 @@ export default function PropertiesList({
                         </Select>
                     </div>
 
-                    <div>
-                        <InputLabel htmlFor="country" value="País" />
-                        <Select name="country" onChange={handleFilterChange} value={filters.country} className="w-full rounded-full">
-                            <option value="">Todos</option>
-                            {countries.map((country) => (
-                                <option className="capitalize" key={country.id} value={country.id}>{country.name}</option>
-                            ))}
-                        </Select>
-                    </div>
-
-                    <div>
-                        <InputLabel htmlFor="state" value="Estado" />
-                        <Select name="state" onChange={handleFilterChange} value={filters.state} className="w-full rounded-full">
-                            <option value="">Todos</option>
-                            {states.map((state) => (
-                                <option className="capitalize" key={state.id} value={state.id}>{state.name}</option>
-                            ))}
-                        </Select>
-                    </div>
-
-                    <div>
-                        <InputLabel htmlFor="city" value="Ciudad" />
-                        <Select name="city" onChange={handleFilterChange} value={filters.city} className="w-full rounded-full">
-                            <option value="">Todos</option>
-                            {cities.map((city) => (
-                                <option className="capitalize" key={city.id} value={city.id}>{city.name}</option>
-                            ))}
-                        </Select>
-                    </div>
+                    <LocationSelect
+                        className="contents"
+                        hasAllOption={true}
+                        countries={countries}
+                        states={states}
+                        cities={cities}
+                        data={{
+                            country_id: filters.country,
+                            state_id: filters.state,
+                            city_id: filters.city
+                        }}
+                        setData={(keyOrUpdater, val) => {
+                            if (typeof keyOrUpdater === 'function') {
+                                const simData = { country_id: filters.country, state_id: filters.state, city_id: filters.city };
+                                const result = keyOrUpdater(simData);
+                                setFilters(prev => ({
+                                    ...prev,
+                                    country: result.country_id !== undefined ? result.country_id : prev.country,
+                                    state: result.state_id !== undefined ? result.state_id : prev.state,
+                                    city: result.city_id !== undefined ? result.city_id : prev.city,
+                                }));
+                                setCurrentPage(1);
+                            } else {
+                                const mapKey = { 'country_id': 'country', 'state_id': 'state', 'city_id': 'city' };
+                                setFilters(prev => ({
+                                    ...prev,
+                                    [mapKey[keyOrUpdater] || keyOrUpdater]: val
+                                }));
+                                setCurrentPage(1);
+                            }
+                        }}
+                    />
 
                 </div>
 

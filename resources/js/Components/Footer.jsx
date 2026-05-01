@@ -1,75 +1,103 @@
 import { Link } from "@inertiajs/react";
+import { Separator } from "@/Components/ui/separator";
 
 export default function Footer({ setting, pages }) {
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-20 pb-16 px-10 text-center text-sm text-black dark:text-white/70">
-
-      <div className="border-t pt-12 pb-32 px-4 lg:px-0">
-        <div>
-          <img src={`${setting.logo_footer}`} alt={setting.logo_footer} className="h-16 " />
-
-        </div>
-        <div className="flex flex-wrap ">
-          <div className="w-full lg:w-2/5">
-            <p className="text-gray-600 hidden lg:block mt-4 p-0 lg:pr-12">
-              {setting.description}
+    <footer className="bg-gray-50 dark:bg-gray-900 border-t dark:border-gray-800 mt-20 pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+          
+          {/* Brand & Description */}
+          <div className="space-y-6">
+            <Link href={route('home')} className="inline-block">
+              <img 
+                src={`${setting.logo_footer}`} 
+                alt="Logo Footer" 
+                className="h-12 w-auto brightness-90 hover:brightness-100 transition-all" 
+              />
+            </Link>
+            <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed max-w-xs italic">
+              {setting.description || "Tu socio confiable en el mercado inmobiliario. Encontramos el hogar de tus sueños con profesionalismo y dedicación."}
             </p>
-            {/* <p className="text-gray-600 hidden lg:block mt-4 p-0 lg:pr-12">
-              {setting.phone}
-            </p>
-            <p className="text-gray-600 hidden lg:block mt-4 p-0 lg:pr-12">
-              {setting.direction}
-            </p> */}
           </div>
 
-          <div className="w-full mt-6 lg:mt-0 md:w-1/2 lg:w-1/5">
-            <h6 className="font-semibold text-gray-700 mb-4">Empresa</h6>
-            <ul className="list-none	">
-              {/* <li> <a href="" className="block text-gray-600 py-2">Team</a> </li>
-              <li> <a href="" className="block text-gray-600 py-2">About us</a> </li>
-              <li> <a href="" className="block text-gray-600 py-2">Press</a> </li> */}
+          {/* Company Links */}
+          <div>
+            <h4 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-widest mb-6">Empresa</h4>
+            <ul className="space-y-4">
               {pages.map((item) => (
-                <li
-                  key={item.name}
-                >
-                  <div className="flex-auto">
-                    <Link href={route('pages.show', item.slug)} className="capitalize block text-gray-600 py-2">
-                      {item.name}
-
-                    </Link>
-                    <p className="mt-1 text-gray-600">{item.description}</p>
-                  </div>
+                <li key={item.name}>
+                  <Link 
+                    href={route('pages.show', item.slug)} 
+                    className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm capitalize"
+                  >
+                    {item.name}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="w-full mt-6 lg:mt-0 md:w-1/2 lg:w-1/5">
-            <h6 className="font-semibold text-gray-700 mb-4">Sitio</h6>
-            <ul className="list-none	">
-              <li> <Link href={route('blog.show')} className="block text-gray-600 py-2">Blog</Link> </li>
-              <li> <Link href={route('faqs.show')} className="block text-gray-600 py-2">Preguntas frecuentes</Link> </li>
-              <li> <Link href={route('ContactPage.index')} className="block text-gray-600 py-2">Contactanos</Link> </li>
-              {/* <li> <Link href={route('pages.show', 'documentation')} className="block text-gray-600 py-2">Documentación</Link> </li> */}
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-widest mb-6">Explorar</h4>
+            <ul className="space-y-4">
+              <li>
+                <Link href={route('propertiesList.show')} className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm">
+                  Propiedades
+                </Link>
+              </li>
+              <li>
+                <Link href={route('blog.show')} className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm">
+                  Blog & Noticias
+                </Link>
+              </li>
+              <li>
+                <Link href={route('faqs.show')} className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm">
+                  Preguntas Frecuentes
+                </Link>
+              </li>
+              <li>
+                <Link href={route('ContactPage.index')} className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm">
+                  Contáctanos
+                </Link>
+              </li>
             </ul>
           </div>
 
-          <div className="w-full mt-6 lg:mt-0 md:w-1/2 lg:w-1/5">
-            <h6 className="font-semibold text-gray-700 mb-4">Contacto</h6>
-            <ul className="list-none	">
-              <li> <p href="" className="block text-gray-600 py-2">{setting.direction}</p> </li>
-              <li> <p href="" className="block text-gray-600 py-2">{setting.email}</p> </li>
-              <li> <p href="" className="block text-gray-600 py-2">{setting.phone}</p> </li>
+          {/* Contact Info */}
+          <div>
+            <h4 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-widest mb-6">Contacto</h4>
+            <ul className="space-y-4">
+              <li className="flex flex-col gap-1">
+                <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">Ubicación</span>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">{setting.direction}</p>
+              </li>
+              <li className="flex flex-col gap-1">
+                <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">Email</span>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">{setting.email}</p>
+              </li>
+              <li className="flex flex-col gap-1">
+                <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">Teléfono</span>
+                <p className="text-gray-600 dark:text-gray-400 text-sm font-semibold">{setting.phone}</p>
+              </li>
             </ul>
           </div>
+        </div>
 
+        <Separator className="bg-gray-200 dark:bg-gray-800" />
+
+        <div className="py-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+          <p>© {currentYear} <span className="font-bold text-gray-900 dark:text-white">Knots Agency</span>. Todos los derechos reservados.</p>
+          <div className="flex gap-6">
+            <Link href="#" className="hover:text-gray-900 dark:hover:text-white transition-colors">Privacidad</Link>
+            <Link href="#" className="hover:text-gray-900 dark:hover:text-white transition-colors">Términos</Link>
+            <Link href="#" className="hover:text-gray-900 dark:hover:text-white transition-colors">Cookies</Link>
+          </div>
         </div>
       </div>
-      <div className="border-t pt-8 w-full">
-        <p>© 2024 <Link href="#">Knots Agency</Link>. All rights reserved.</p>
-      </div>
-
     </footer>
-  )
+  );
 }

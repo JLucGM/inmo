@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Dialog, DialogPanel, DialogTitle, Description, DialogBackdrop } from '@headlessui/react'
-import { Button } from "flowbite-react";
+import { Button } from "@/components/ui/button";
 import { Squares2X2Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 

@@ -24,7 +24,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::select('id', 'name', 'slug', 'status', 'image', 'extract', 'created_at')->paginate(15);
 
         $user = Auth::user();
         $role = $user->getRoleNames();

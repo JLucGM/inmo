@@ -1,48 +1,21 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
-import Breadcrumb from '@/Components/Breadcrumb';
-import ContainerTitle from '@/Components/ContainerTitle';
+import { Head, useForm, Link } from '@inertiajs/react';
 import SectionHeader from '@/Components/SectionHeader';
+import ContainerTitle from '@/Components/ContainerTitle';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import { Button } from '@/Components/ui/button';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
 
 export default function Create({ auth, role, permission }) {
-
-    const initialValues = {
+    const { data, setData, errors, post } = useForm({
         name: "",
-    }
-
-    const { data, setData, errors, post } = useForm(initialValues)
+    });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('category-post.store'))
-    }
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de categorias de publicaciones',
-            href: 'category-post.index',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Crear categorias de publicaciones',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
+        post(route('category-post.store'));
+    };
 
     return (
         <AuthenticatedLayout
@@ -51,53 +24,44 @@ export default function Create({ auth, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <SectionHeader
-                        title="Crear categoria de publicaciones"
-                        subtitle="Aquí puedes crear una nueva categoria de publicaciones."
-                    />
+                    <SectionHeader title="Crear Categoría" subtitle="Añade una categoría para la sección de Blog." />
+                    <Link href={route('category-post.index')}
+                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    >
+                        Volver
+                    </Link>
                 </div>
             }
         >
-            <Breadcrumb items={items} />
+            <Head title="Crear Categoría de Posts" />
 
-            <Head className="capitalize" title="Crear Categoria de posts" />
-
-            <div className="">
-                <div className="max-w-7xl mx-auto">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                        <div className="text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
-
-                                <ContainerTitle className='space-y-4'>
-
-                                    <div>
-                                        <InputLabel htmlFor="name" value="Nombre" />
-
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.name} className="mt-2" />
-                                    </div>
-                                </ContainerTitle>
-
-                                <div className="flex justify-end p-2.5">
-                                    <PrimaryButton >
-                                        Guardar
-                                    </PrimaryButton>
-                                </div>
-
-                            </form>
+            <div className="max-w-3xl mx-auto p-4">
+                <form onSubmit={submit} className="space-y-6">
+                    <ContainerTitle title="Detalles de la Categoría">
+                        <div className="space-y-4">
+                            <div>
+                                <Label htmlFor="name">Nombre de Categoría</Label>
+                                <Input
+                                    id="name"
+                                    value={data.name}
+                                    onChange={(e) => setData('name', e.target.value)}
+                                    autoFocus
+                                    className="mt-1"
+                                />
+                                {errors.name && (
+                                    <Alert variant="destructive" className="mt-2 py-2">
+                                        <AlertDescription>{errors.name}</AlertDescription>
+                                    </Alert>
+                                )}
+                            </div>
                         </div>
+                    </ContainerTitle>
+
+                    <div className="flex justify-end">
+                        <Button type="submit">Guardar categoría</Button>
                     </div>
-                </div>
+                </form>
             </div>
         </AuthenticatedLayout>
-    )
+    );
 }

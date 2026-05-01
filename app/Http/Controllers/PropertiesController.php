@@ -37,7 +37,17 @@ class PropertiesController extends Controller
      */
     public function index()
     {
-        $properties = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'typeProperty', 'user', 'media')->get();
+        $properties = Property::select('id', 'slug', 'name', 'price', 'identification', 'direction', 'status', 'country_id', 'state_id', 'city_id', 'phy_states_id', 'types_businesses_id', 'types_properties_id', 'user_id', 'created_at')
+            ->with([
+                'country:id,name',
+                'state:id,name',
+                'city:id,name',
+                'phyState:id,name',
+                'typeBusiness:id,name',
+                'typeProperty:id,name',
+                'user:id,name'
+            ])
+            ->paginate(15);
 
         $user = Auth::user();
 
@@ -52,20 +62,19 @@ class PropertiesController extends Controller
      */
     public function create()
     {
-
-        $country = Countries::all();
-        $state = States::all();
-        $city = Cities::all();
-        $typepropety = TypesProperties::all();
-        $typebusiness = TypesBusinesses::all();
-        $phystate = PhyStates::all();
+        $countries = Countries::all();
+        $states = States::all();
+        $cities = Cities::all();
+        $typeProperties = TypesProperties::all();
+        $typeBusinesses = TypesBusinesses::all();
+        $phyStates = PhyStates::all();
         $amenities = Amenity::all();
 
         $user = Auth::user();
         $role = $user->getRoleNames();
         $permission = $user->getAllPermissions();
 
-        return Inertia::render('Properties/Create', compact('country', 'state', 'city', 'typepropety', 'typebusiness', 'phystate', 'amenities', 'role', 'permission'));
+        return Inertia::render('Properties/Create', compact('countries', 'states', 'cities', 'typeProperties', 'typeBusinesses', 'phyStates', 'amenities', 'role', 'permission'));
     }
 
     /**
@@ -122,7 +131,7 @@ class PropertiesController extends Controller
         }
 
         // Relación con amenities usando modelo intermedio
-        $amenitiesIds = $request->input('amenitiy', []);
+        $amenitiesIds = $request->input('amenity', []);
         foreach ($amenitiesIds as $amenityId) {
             PropertyAmenity::create([
                 'property_id' => $property->id,
@@ -148,7 +157,7 @@ class PropertiesController extends Controller
      */
     public function edit(Property $property)
     {
-        $property->load('media', 'amenities');
+        $property->load(['media', 'amenities', 'country', 'state', 'city', 'phyState', 'typeProperty', 'typeBusiness']);
         $countries = Countries::all();
         $states = States::all();
         $cities = Cities::all();
@@ -160,7 +169,7 @@ class PropertiesController extends Controller
 
         $user = Auth::user();
         $role = $user->getRoleNames();
-        $permissions = $user->getAllPermissions();
+        $permission = $user->getAllPermissions();
 
         Log::info('Edit method: Property loaded with media and amenities', [
             'property_id' => $property->id,
@@ -179,7 +188,7 @@ class PropertiesController extends Controller
             'phyStates',
             'amenities',
             'role',
-            'permissions'
+            'permission'
         ));
     }
 

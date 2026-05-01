@@ -1,76 +1,48 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Textarea, Transition } from '@headlessui/react';
 import { useState } from 'react';
-import ContainerTitle from '@/Components/ContainerTitle';
-import Breadcrumb from '@/Components/Breadcrumb';
-import { Alert } from 'flowbite-react';
 import SectionHeader from '@/Components/SectionHeader';
+import ContainerTitle from '@/Components/ContainerTitle';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import { Textarea } from '@/Components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import { Button } from '@/Components/ui/button';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import LocationSelect from '@/Components/LocationSelect';
 
-export default function Edit({ auth, contacts, typepropety, country, state, city, users, statuses, typecontacts, origins, role, permission }) {
-
-    const [selectedCountry, setSelectedCountry] = useState(country[0].id);;
-    const [selectedState, setSelectedState] = useState(state[0].id);
-    const [statesByCountry, setStatesByCountry] = useState(state);
-    const [citiesByState, setCitiesByState] = useState(city);
+export default function Edit({ auth, contacts, typeProperties, countries, states, cities, statuses, typeContacts, origins, role, permission }) {
 
     const initialValues = {
-        name: contacts.name,
-        identificación_contact: contacts.identificación_contact,
-        email: contacts.email,
-        phone: contacts.phone,
-        birthdate: contacts.birthdate,
-        description: contacts.description,
-        bedrooms: contacts.bedrooms,
-        bathrooms: contacts.bathrooms,
-        min_budget: contacts.min_budget,
-        max_budget: contacts.max_budget,
-        direction: contacts.direction,
-        status_contacts_id: contacts.status_contacts_id,
-        types_properties_id: contacts.types_properties_id,
-        types_contacts_id: contacts.types_contacts_id,
-        country_id: contacts.country_id,
-        state_id: contacts.state_id,
-        city_id: contacts.city_id,
-        // user_id: contacts.user_id,
-        origin_id: contacts.origin_id,
-    }
-    // console.log(contacts);
+        name: contacts.name || "",
+        identificación_contact: contacts.identificación_contact || "",
+        email: contacts.email || "",
+        phone: contacts.phone || "",
+        birthdate: contacts.birthdate || "",
+        description: contacts.description || "",
+        bedrooms: contacts.bedrooms || "",
+        bathrooms: contacts.bathrooms || "",
+        min_budget: contacts.min_budget || "",
+        max_budget: contacts.max_budget || "",
+        direction: contacts.direction || "",
+        status_contacts_id: contacts.status_contacts_id?.toString() || "",
+        types_properties_id: contacts.types_properties_id?.toString() || "",
+        types_contacts_id: contacts.types_contacts_id?.toString() || "",
+        country_id: contacts.country_id?.toString() || "",
+        state_id: contacts.state_id?.toString() || "",
+        city_id: contacts.city_id?.toString() || "",
+        origin_id: contacts.origin_id?.toString() || "",
+    };
 
-    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
+    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues);
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('contacts.update', contacts))
-        // console.log(data)
-    }
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de contactos',
-            href: 'contacts.index',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-        {
-            name: 'Actualizar contacto',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
+        // Since Inertia handles standard forms with PUT properly via post+simulation 
+        // using route model binding for update
+        post(route('contacts.update', contacts));
+    };
 
     return (
         <AuthenticatedLayout
@@ -79,434 +51,235 @@ export default function Edit({ auth, contacts, typepropety, country, state, city
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-                    <SectionHeader
-                        title="Actualizar contactos"
-                        subtitle="Aquí puedes actualizar los contactos y gestionar sus demandas de las propiedades."
-                    />
-                    <Link href={route('contacts.create')}
-                        className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    <SectionHeader title="Actualizar contacto" subtitle="Modifica los datos y demandas del contacto." />
+                    <Link href={route('contacts.show', contacts.id)}
+                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear contacto
+                        Volver
                     </Link>
                 </div>
             }
         >
+            <Head className="capitalize" title="Actualizar Contacto" />
 
-            <Breadcrumb items={items} />
+            <div className="max-w-7xl mx-auto p-4">
+                {recentlySuccessful && (
+                    <Alert className="mb-6 border-green-500 bg-green-50 text-green-800 dark:bg-green-950 dark:text-green-200">
+                        <CheckCircleIcon className="size-4" />
+                        <AlertDescription>¡Contacto actualizado exitosamente!</AlertDescription>
+                    </Alert>
+                )}
 
-            <Head className="capitalize" title="Crear Contacto" />
-
-            <div className="">
-                <div className="max-w-7xl mx-auto ">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden">
-                        <div className=" text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
-
-                                <Transition
-                                    show={recentlySuccessful}
-                                    enter="transition ease-out duration-300"
-                                    enterFrom="opacity-0 translate-y-[-100%]"
-                                    enterTo="opacity-100 translate-y-0"
-                                    leave="transition ease-in duration-200"
-                                    leaveFrom="opacity-100 translate-y-0"
-                                    leaveTo="opacity-0 translate-y-[-100%]"
-                                >
-                                    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
-                                        <Alert
-                                            color="success"
-                                            className="border-0 shadow-lg"
-                                        >
-                                            <span className="font-medium">¡Bien hecho!</span> contacto actualizado exitosamente.
-                                        </Alert>
-                                    </div>
-                                </Transition>
-
-                                <div className="xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="">
-                                        <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="name" value="Nombre" />
-
-                                                <TextInput
-                                                    id="name"
-                                                    type="text"
-                                                    name="name"
-                                                    value={data.name}
-                                                    className="mt-1 block w-full"
-                                                    isFocused={true}
-                                                    onChange={(e) => setData('name', e.target.value)}
-                                                />
-
-                                                <InputError message={errors.name} className="mt-2" />
-                                            </div>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="identificación_contact" value="N. de indentificacion" />
-
-                                                <TextInput
-                                                    id="identificación_contact"
-                                                    type="text"
-                                                    name="identificación_contact"
-                                                    value={data.identificación_contact}
-                                                    className="mt-1 block w-full"
-                                                    onChange={(e) => setData('identificación_contact', e.target.value)}
-                                                />
-
-                                                <InputError message={errors.identificación_contact} className="mt-2" />
-                                            </div>
-
-                                            <div>
-                                                <InputLabel htmlFor="email" value="Correo electrónico" />
-
-                                                <TextInput
-                                                    id="email"
-                                                    type="text"
-                                                    name="email"
-                                                    value={data.email}
-                                                    className="mt-1 block w-full"
-                                                    onChange={(e) => setData('email', e.target.value)}
-                                                />
-
-                                                <InputError message={errors.email} className="mt-2" />
-                                            </div>
-
-
-                                            <div>
-                                                <InputLabel htmlFor="phone" value="Teléfono" />
-
-                                                <TextInput
-                                                    id="phone"
-                                                    type="text"
-                                                    name="phone"
-                                                    value={data.phone}
-                                                    className="mt-1 block w-full"
-                                                    onChange={(e) => setData('phone', e.target.value)}
-                                                />
-
-                                                <InputError message={errors.phone} className="mt-2" />
-                                            </div>
-
-
-
-                                            <div>
-                                                <InputLabel htmlFor="birthdate" value="Fecha de nacimiento" />
-
-                                                <TextInput
-                                                    id="birthdate"
-                                                    type="date"
-                                                    name="birthdate"
-                                                    value={data.birthdate}
-                                                    className="mt-1 block w-full"
-                                                    onChange={(e) => setData('birthdate', e.target.value)}
-                                                />
-
-                                                <InputError message={errors.birthdate} className="mt-2" />
-                                            </div>
-
-                                            <div>
-                                                <InputLabel htmlFor="statuses" value="Estado de contacto" />
-
-                                                <select
-                                                    name="status_contacts_id"
-                                                    id="statuses"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.status_contacts_id} // Establecer el valor del select con el valor de status_contacts_id
-                                                    onChange={(e) => {
-                                                        setData('status_contacts_id', parseInt(e.target.value));
-                                                    }}
-                                                >
-                                                    {statuses.map((statuses) => (
-                                                        <option value={statuses.id} key={statuses.id}>
-                                                            {statuses.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                <InputError message={errors.statuses} className="mt-2" />
-                                            </div>
-
-
-                                            <div>
-                                                <InputLabel htmlFor="typecontacts" value="Tipo de contacto" />
-
-                                                <select
-                                                    name="types_contacts_id"
-                                                    id="typecontacts"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.types_contacts_id} // Establecer el valor del select con el valor de types_contacts_id
-                                                    onChange={(e) => {
-                                                        setData('types_contacts_id', parseInt(e.target.value));
-                                                    }}
-                                                >
-                                                    {typecontacts.map((typecontacts) => (
-                                                        <option value={typecontacts.id} key={typecontacts.id}>
-                                                            {typecontacts.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                <InputError message={errors.typecontacts} className="mt-2" />
-                                            </div>
-
-
-                                            <div>
-                                                <InputLabel htmlFor="origins" value="Medio de captación" />
-
-                                                <select
-                                                    name="origin_id"
-                                                    id="origins"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.origin_id} // Establecer el valor del select con el valor de origin_id
-                                                    onChange={(e) => {
-                                                        setData('origin_id', parseInt(e.target.value));
-                                                    }}
-                                                >
-                                                    {origins.map((origins) => (
-                                                        <option value={origins.id} key={origins.id}>
-                                                            {origins.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                <InputError message={errors.origin_id} className="mt-2" />
-                                            </div>
-                                            {/* <div>
-                                                <InputLabel htmlFor="users" value="Agente" />
-
-                                                <select
-                                                    name="user_id"
-                                                    id="users"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.user_id} // Establecer el valor del select con el valor de user_id
-                                                    onChange={(e) => {
-                                                        setData('user_id', parseInt(e.target.value));
-                                                    }}
-                                                >
-                                                    {users.map((users) => (
-                                                        <option value={users.id} key={users.id}>
-                                                            {users.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                <InputError message={errors.users} className="mt-2" />
-                                            </div> */}
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="description" value="Descripción" />
-
-                                                <Textarea
-                                                    id="description"
-                                                    type="text"
-                                                    name="description"
-                                                    rows={10}
-                                                    value={data.description}
-                                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    onChange={(e) => setData('description', e.target.value)}
-                                                />
-
-                                                <InputError message={errors.description} className="mt-2" />
-                                            </div>
-
-                                        </ContainerTitle>
+                <form onSubmit={submit} className="space-y-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+                        
+                        {/* MAIN DATA */}
+                        <div className="space-y-6">
+                            <ContainerTitle title="Datos principales">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="name">Nombre</Label>
+                                        <Input
+                                            id="name"
+                                            value={data.name}
+                                            onChange={(e) => setData('name', e.target.value)}
+                                            autoFocus
+                                            className="mt-1"
+                                        />
+                                        {errors.name && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.name}</AlertDescription></Alert>}
                                     </div>
 
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="identificación_contact">N. de identificación</Label>
+                                        <Input
+                                            id="identificación_contact"
+                                            value={data.identificación_contact}
+                                            onChange={(e) => setData('identificación_contact', e.target.value)}
+                                            className="mt-1"
+                                        />
+                                        {errors.identificación_contact && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.identificación_contact}</AlertDescription></Alert>}
+                                    </div>
 
                                     <div>
-                                        <ContainerTitle title={'Demandas del contacto'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                                        <Label htmlFor="email">Correo electrónico</Label>
+                                        <Input
+                                            id="email"
+                                            type="email"
+                                            value={data.email}
+                                            onChange={(e) => setData('email', e.target.value)}
+                                            className="mt-1"
+                                        />
+                                        {errors.email && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.email}</AlertDescription></Alert>}
+                                    </div>
 
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="typepropety" value="Tipo de propiedad" />
+                                    <div>
+                                        <Label htmlFor="phone">Teléfono</Label>
+                                        <Input
+                                            id="phone"
+                                            value={data.phone}
+                                            onChange={(e) => setData('phone', e.target.value)}
+                                            className="mt-1"
+                                        />
+                                        {errors.phone && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.phone}</AlertDescription></Alert>}
+                                    </div>
 
-                                                <select
-                                                    name="types_properties_id"
-                                                    id="typepropety"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.types_properties_id} // Establecer el valor del select con el valor de types_properties_id
-                                                    onChange={(e) => {
-                                                        setData('types_properties_id', parseInt(e.target.value));
-                                                    }}
-                                                >
-                                                    {typepropety.map((typepropety) => (
-                                                        <option value={typepropety.id} key={typepropety.id}>
-                                                            {typepropety.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
+                                    <div>
+                                        <Label htmlFor="birthdate">Fecha de nacimiento</Label>
+                                        <Input
+                                            id="birthdate"
+                                            type="date"
+                                            value={data.birthdate}
+                                            onChange={(e) => setData('birthdate', e.target.value)}
+                                            className="mt-1"
+                                        />
+                                        {errors.birthdate && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.birthdate}</AlertDescription></Alert>}
+                                    </div>
 
-                                                <InputError message={errors.typepropety} className="mt-2" />
-                                            </div>
+                                    <div>
+                                        <Label htmlFor="status_contacts_id">Estado de contacto</Label>
+                                        <Select value={data.status_contacts_id} onValueChange={(val) => setData('status_contacts_id', val)}>
+                                            <SelectTrigger className="mt-1 w-full"><SelectValue placeholder="Seleccionar" /></SelectTrigger>
+                                            <SelectContent>
+                                                {statuses?.map((st) => (
+                                                    <SelectItem value={st.id.toString()} key={st.id}>{st.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.status_contacts_id && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.status_contacts_id}</AlertDescription></Alert>}
+                                    </div>
 
-                                            <div>
-                                                <InputLabel htmlFor="min_budget" value="Presupuesto mínimo" />
+                                    <div>
+                                        <Label htmlFor="types_contacts_id">Tipo de contacto</Label>
+                                        <Select value={data.types_contacts_id} onValueChange={(val) => setData('types_contacts_id', val)}>
+                                            <SelectTrigger className="mt-1 w-full"><SelectValue placeholder="Seleccionar" /></SelectTrigger>
+                                            <SelectContent>
+                                                {typeContacts?.map((tc) => (
+                                                    <SelectItem value={tc.id.toString()} key={tc.id}>{tc.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.types_contacts_id && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.types_contacts_id}</AlertDescription></Alert>}
+                                    </div>
 
-                                                <TextInput
-                                                    id="min_budget"
-                                                    type="text"
-                                                    name="min_budget"
-                                                    value={data.min_budget}
-                                                    className="mt-1 block w-full"
-                                                    onChange={(e) => setData('min_budget', e.target.value)}
-                                                />
+                                    <div>
+                                        <Label htmlFor="origin_id">Medio de captación</Label>
+                                        <Select value={data.origin_id} onValueChange={(val) => setData('origin_id', val)}>
+                                            <SelectTrigger className="mt-1 w-full"><SelectValue placeholder="Seleccionar" /></SelectTrigger>
+                                            <SelectContent>
+                                                {origins?.map((org) => (
+                                                    <SelectItem value={org.id.toString()} key={org.id}>{org.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.origin_id && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.origin_id}</AlertDescription></Alert>}
+                                    </div>
 
-                                                <InputError message={errors.min_budget} className="mt-2" />
-                                            </div>
-                                            <div>
-                                                <InputLabel htmlFor="max_budget" value="Presupuesto máximo" />
-
-                                                <TextInput
-                                                    id="max_budget"
-                                                    type="text"
-                                                    name="max_budget"
-                                                    value={data.max_budget}
-                                                    className="mt-1 block w-full"
-                                                    onChange={(e) => setData('max_budget', e.target.value)}
-                                                />
-
-                                                <InputError message={errors.max_budget} className="mt-2" />
-                                            </div>
-
-
-
-                                            <div>
-                                                <InputLabel htmlFor="bedrooms" value="Dormitorios" />
-
-                                                <TextInput
-                                                    id="bedrooms"
-                                                    type="text"
-                                                    name="bedrooms"
-                                                    value={data.bedrooms}
-                                                    className="mt-1 block w-full"
-
-                                                    onChange={(e) => setData('bedrooms', e.target.value)}
-                                                />
-
-                                                <InputError message={errors.bedrooms} className="mt-2" />
-                                            </div>
-
-                                            <div>
-                                                <InputLabel htmlFor="bathrooms" value="Baños" />
-
-                                                <TextInput
-                                                    id="bathrooms"
-                                                    type="text"
-                                                    name="bathrooms"
-                                                    value={data.bathrooms}
-                                                    className="mt-1 block w-full"
-                                                    onChange={(e) => setData('bathrooms', e.target.value)}
-                                                />
-
-                                                <InputError message={errors.bathrooms} className="mt-2" />
-                                            </div>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="country" value="Paises" />
-
-                                                <select
-                                                    name="country_id"
-                                                    id="country"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.country_id}
-                                                    onChange={(e) => {
-                                                        setData('country_id', parseInt(e.target.value));
-                                                        setSelectedCountry(parseInt(e.target.value));
-                                                        const states = state.filter((s) => s.country_id === parseInt(e.target.value));
-                                                        setStatesByCountry(states);
-                                                        setCitiesByState([]);
-                                                    }}
-                                                >
-                                                    {country.map((country) => (
-                                                        <option value={country.id} key={country.id}>
-                                                            {country.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                <InputError message={errors.country} className="mt-2" />
-                                            </div>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="state" value="Estados" />
-
-                                                <select
-                                                    name="state_id"
-                                                    id="state"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.state_id}
-                                                    onChange={(e) => {
-                                                        setData('state_id', parseInt(e.target.value));
-                                                        setSelectedState(parseInt(e.target.value));
-                                                        const cities = city.filter((c) => c.state_id === parseInt(e.target.value));
-                                                        setCitiesByState(cities);
-                                                    }}
-                                                >
-                                                    {statesByCountry.map((state) => (
-                                                        <option value={state.id} key={state.id}>
-                                                            {state.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                <InputError message={errors.state} className="mt-2" />
-                                            </div>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="city" value="Ciudades" />
-
-                                                <select
-                                                    name="city_id"
-                                                    id="city"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.city_id}
-                                                    onChange={(e) => {
-                                                        setData('city_id', parseInt(e.target.value));
-                                                    }}
-                                                >
-                                                    {citiesByState.map((city) => (
-                                                        <option value={city.id} key={city.id}>
-                                                            {city.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                <InputError message={errors.city} className="mt-2" />
-                                            </div>
-
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="direction" value="Dirección" />
-
-                                                <Textarea
-                                                    id="direction"
-                                                    type="text"
-                                                    name="direction"
-                                                    rows={5}
-                                                    value={data.direction}
-                                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    onChange={(e) => setData('direction', e.target.value)}
-                                                />
-
-                                                <InputError message={errors.direction} className="mt-2" />
-                                            </div>
-                                        </ContainerTitle>
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="description">Descripción</Label>
+                                        <Textarea
+                                            id="description"
+                                            rows={4}
+                                            value={data.description}
+                                            onChange={(e) => setData('description', e.target.value)}
+                                            className="mt-1"
+                                        />
+                                        {errors.description && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.description}</AlertDescription></Alert>}
                                     </div>
                                 </div>
+                            </ContainerTitle>
+                        </div>
 
+                        {/* DEMANDS AND LOCATION */}
+                        <div className="space-y-6">
+                            <ContainerTitle title="Demandas del contacto">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="types_properties_id">Tipo de propiedad ideal</Label>
+                                        <Select value={data.types_properties_id} onValueChange={(val) => setData('types_properties_id', val)}>
+                                            <SelectTrigger className="mt-1 w-full"><SelectValue placeholder="Seleccionar" /></SelectTrigger>
+                                            <SelectContent>
+                                                {typeProperties?.map((tp) => (
+                                                    <SelectItem value={tp.id.toString()} key={tp.id}>{tp.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.types_properties_id && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.types_properties_id}</AlertDescription></Alert>}
+                                    </div>
 
+                                    <div>
+                                        <Label htmlFor="min_budget">Presupuesto mínimo</Label>
+                                        <Input
+                                            id="min_budget"
+                                            value={data.min_budget}
+                                            onChange={(e) => setData('min_budget', e.target.value)}
+                                            className="mt-1"
+                                        />
+                                        {errors.min_budget && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.min_budget}</AlertDescription></Alert>}
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="max_budget">Presupuesto máximo</Label>
+                                        <Input
+                                            id="max_budget"
+                                            value={data.max_budget}
+                                            onChange={(e) => setData('max_budget', e.target.value)}
+                                            className="mt-1"
+                                        />
+                                        {errors.max_budget && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.max_budget}</AlertDescription></Alert>}
+                                    </div>
 
-                                <div className="flex justify-end p-2.5">
-                                    <PrimaryButton >
-                                        Guardar
-                                    </PrimaryButton>
+                                    <div>
+                                        <Label htmlFor="bedrooms">Dormitorios ideales</Label>
+                                        <Input
+                                            id="bedrooms"
+                                            value={data.bedrooms}
+                                            onChange={(e) => setData('bedrooms', e.target.value)}
+                                            className="mt-1"
+                                        />
+                                        {errors.bedrooms && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.bedrooms}</AlertDescription></Alert>}
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="bathrooms">Baños ideales</Label>
+                                        <Input
+                                            id="bathrooms"
+                                            value={data.bathrooms}
+                                            onChange={(e) => setData('bathrooms', e.target.value)}
+                                            className="mt-1"
+                                        />
+                                        {errors.bathrooms && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.bathrooms}</AlertDescription></Alert>}
+                                    </div>
+
+                                    <div className="md:col-span-2">
+                                        <LocationSelect 
+                                            countries={countries}
+                                            states={states}
+                                            cities={cities}
+                                            data={data}
+                                            setData={setData}
+                                            errors={errors}
+                                        />
+                                    </div>
+
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="direction">Observaciones de dirección</Label>
+                                        <Textarea
+                                            id="direction"
+                                            rows={2}
+                                            value={data.direction}
+                                            onChange={(e) => setData('direction', e.target.value)}
+                                            className="mt-1"
+                                        />
+                                        {errors.direction && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.direction}</AlertDescription></Alert>}
+                                    </div>
                                 </div>
-
-                            </form>
+                            </ContainerTitle>
                         </div>
                     </div>
-                </div>
-            </div>
 
+                    <div className="flex justify-end pt-4">
+                        <Button type="submit">Guardar cambios</Button>
+                    </div>
+                </form>
+            </div>
         </AuthenticatedLayout>
-    )
+    );
 }

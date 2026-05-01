@@ -1,15 +1,16 @@
 import CoverPage from "@/Components/CoverPage";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
 import FrontedLayout from "@/Layouts/FrontedLayout";
 import { Transition } from "@headlessui/react";
 import { AtSymbolIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/24/outline";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, useForm, Link } from "@inertiajs/react";
 import InstagramPosts from '@/Components/InstagramPosts';
-import { Alert } from "flowbite-react";
+import { Alert, AlertDescription, AlertTitle } from "@/Components/ui/alert";
+import { Label } from "@/Components/ui/label";
+import { Input } from "@/Components/ui/input";
+import { Textarea } from "@/Components/ui/textarea";
+import { Button } from "@/Components/ui/button";
 import { useEffect } from "react";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
 export default function Contact({ auth, setting, pages }) {
 
@@ -27,7 +28,7 @@ export default function Contact({ auth, setting, pages }) {
     city_id: 1,
   }
 
-  const { data, setData, errors, post, reset, recentlySuccessful } = useForm(initialValues)
+  const { data, setData, errors, post, reset, recentlySuccessful, processing } = useForm(initialValues)
 
     useEffect(() => {
       if (recentlySuccessful) {
@@ -42,129 +43,124 @@ export default function Contact({ auth, setting, pages }) {
 
   return (
     <FrontedLayout auth={auth} setting={setting} pages={pages}>
-      <Head title="Contact" />
+      <Head title="Contacto" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        
+        <div className="space-y-8">
+            <CoverPage
+                title={setting.titleContact}
+                image={setting.portadaContact}
+            />
+            
+            <div className="bg-gray-50 dark:bg-gray-900/50 p-8 rounded-3xl border dark:border-gray-800 space-y-6">
+                <h3 className="text-xl font-bold italic">Información de contacto</h3>
+                <div className="space-y-4">
+                    <p className="flex items-start gap-3">
+                        <MapPinIcon className="size-6 text-blue-600 mt-0.5" />
+                        <span className="text-gray-600 dark:text-gray-400">{setting.direction}</span>
+                    </p>
+                    <p className="flex items-center gap-3">
+                        <PhoneIcon className="size-6 text-blue-600" />
+                        <span className="text-gray-600 dark:text-gray-400">{setting.phone}</span>
+                    </p>
+                    <p className="flex items-center gap-3">
+                        <AtSymbolIcon className="size-6 text-blue-600" />
+                        <span className="text-gray-600 dark:text-gray-400">{setting.email}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
 
+        <div className="content-center">
+          <div className="mb-6">
+            <h2 className="text-3xl font-bold mb-2 italic">Envíanos un mensaje</h2>
+            <p className="text-gray-500 dark:text-gray-400">{setting.descriptionContact}</p>
+          </div>
 
-        <CoverPage
-          title={setting.titleContact}
-          image={setting.portadaContact}
-        />
-
-        <div className="px-10 content-center">
-          {setting.descriptionContact}
-
-          <form className="space-y-2" onSubmit={submit}>
+          <form className="space-y-5 relative" onSubmit={submit}>
             <Transition
               show={recentlySuccessful}
               enter="transition ease-out duration-300"
-              enterFrom="opacity-0 translate-y-[-100%]"
-              enterTo="opacity-100 translate-y-0"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
               leave="transition ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-[-100%]"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
             >
-              <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
-                <Alert
-                  color="success"
-                  className="border-0 shadow-lg"
-                >
-                  <span className="font-medium">¡Éxito!</span> Mensaje creado exitosamente.
+              <div className="mb-6">
+                <Alert className="bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800">
+                  <CheckCircleIcon className="h-5 w-5 text-emerald-600" />
+                  <AlertTitle className="text-emerald-800 dark:text-emerald-400 font-bold">¡Éxito!</AlertTitle>
+                  <AlertDescription className="text-emerald-700 dark:text-emerald-500">
+                    Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo pronto.
+                  </AlertDescription>
                 </Alert>
               </div>
             </Transition>
-            <div>
-              <InputLabel htmlFor="name" value="Nombre" />
 
-              <TextInput
-                id="name"
-                type="text"
-                name="name"
-                value={data.name}
-                className="mt-1 block w-full"
-                isFocused={true}
-                onChange={(e) => setData('name', e.target.value)}
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                    <Label htmlFor="name">Nombre</Label>
+                    <Input
+                        id="name"
+                        value={data.name}
+                        onChange={(e) => setData('name', e.target.value)}
+                        placeholder="Tu nombre completo"
+                        required
+                    />
+                    {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
+                </div>
 
-              <InputError message={errors.name} className="mt-2" />
+                <div className="space-y-2">
+                    <Label htmlFor="phone">Teléfono</Label>
+                    <Input
+                        id="phone"
+                        value={data.phone}
+                        onChange={(e) => setData('phone', e.target.value)}
+                        placeholder="+1 234 567 890"
+                    />
+                    {errors.phone && <p className="text-xs text-red-500">{errors.phone}</p>}
+                </div>
             </div>
 
-            <div>
-              <InputLabel htmlFor="email" value="Correo Electrónico" />
-
-              <TextInput
-                id="email"
-                type="text"
-                name="email"
-                value={data.email}
-                className="mt-1 block w-full"
-                isFocused={true}
-                onChange={(e) => setData('email', e.target.value)}
-              />
-
-              <InputError message={errors.name} className="mt-2" />
-            </div>
-            <div>
-              <InputLabel htmlFor="phone" value="Teléfono" />
-
-              <TextInput
-                id="phone"
-                type="text"
-                name="phone"
-                value={data.phone}
-                className="mt-1 block w-full"
-                isFocused={true}
-                onChange={(e) => setData('phone', e.target.value)}
-              />
-
-              <InputError message={errors.phone} className="mt-2" />
+            <div className="space-y-2">
+                <Label htmlFor="email">Correo Electrónico</Label>
+                <Input
+                    id="email"
+                    type="email"
+                    value={data.email}
+                    onChange={(e) => setData('email', e.target.value)}
+                    placeholder="ejemplo@correo.com"
+                    required
+                />
+                {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
             </div>
 
-            <div>
-              <InputLabel htmlFor="description" value="Descripción" />
-
-              <TextInput
-                id="description"
-                type="text"
-                name="description"
-                value={data.description}
-                className="mt-1 block w-full"
-                isFocused={true}
-                onChange={(e) => setData('description', e.target.value)}
-              />
-
-              <InputError message={errors.description} className="mt-2" />
+            <div className="space-y-2">
+                <Label htmlFor="description">Mensaje</Label>
+                <Textarea
+                    id="description"
+                    value={data.description}
+                    onChange={(e) => setData('description', e.target.value)}
+                    placeholder="Cuéntanos en qué podemos ayudarte..."
+                    className="min-h-[120px]"
+                    required
+                />
+                {errors.description && <p className="text-xs text-red-500">{errors.description}</p>}
             </div>
 
-            <div className="flex justify-end p-2.5">
-              <PrimaryButton >
-                Guardar
-              </PrimaryButton>
+            <div className="pt-2">
+              <Button className="w-full md:w-auto px-8" disabled={processing} type="submit">
+                {processing ? 'Enviando...' : 'Enviar mensaje'}
+              </Button>
             </div>
           </form>
-
-          <div className=" space-y-4">
-            <p className="flex">
-              <MapPinIcon className="size-6" />
-              {setting.direction}
-            </p>
-            <p className="flex">
-              <PhoneIcon className="size-6" />
-              {setting.phone}
-            </p>
-            <p className="flex">
-              <AtSymbolIcon className="size-6" />
-              {setting.email}
-            </p>
-          </div>
         </div>
       </div>
 
       {setting.status_instagram_posts == 1 && (
-
         <InstagramPosts setting={setting} />
-
       )}
 
     </FrontedLayout>

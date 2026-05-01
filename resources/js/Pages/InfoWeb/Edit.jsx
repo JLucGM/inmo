@@ -1,69 +1,30 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Textarea, Transition } from '@headlessui/react';
-import Breadcrumb from '@/Components/Breadcrumb';
+import SectionHeader from '@/Components/SectionHeader';
 import ContainerTitle from '@/Components/ContainerTitle';
-import { useState } from 'react';
-import CharacterCounter from '@/Components/CharacterCounter';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import { Button } from '@/Components/ui/button';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import TextAreaRich from '@/Components/TextAreaRich';
 import { useRef } from 'react';
-import { Alert } from 'flowbite-react';
-import SectionHeader from '@/Components/SectionHeader';
 
 export default function Edit({ auth, infoweb, role, permission }) {
-    const textAreaRef = useRef();
-    const initialValues = {
-        name: infoweb.name,
-        text: infoweb.text,
-    }
 
-    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
-    const [charCount, setCharCount] = useState(infoweb.text.length); // Estado para contar caracteres
-    const charLimit = 500; // Límite de caracteres
+    const initialValues = {
+        name: infoweb.name || "",
+        text: infoweb.text || "",
+        image: null,
+    };
+
+    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues);
+    const textAreaRef = useRef();
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('info-web.update', infoweb))
-    }
-
-    const handleTextChange = (e) => {
-        const { value } = e.target;
-        if (value.length <= charLimit) { // Limitar a 500 caracteres
-            setData('text', value); // Actualizar el estado con el nuevo texto
-            setCharCount(value.length); // Actualizar contador de caracteres
-        } else {
-            // Si se excede, puedes actualizar el contador para mostrar el límite
-            setData('text', value.substring(0, charLimit)); // Limitar el texto a 500 caracteres
-            setCharCount(charLimit); // Mantener el contador en 500
-        }
-    }
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de Informacion web',
-            href: 'info-web.index',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-        {
-            name: 'Actualizar Informacion web',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
+        post(route('info-web.update', infoweb));
+    };
 
     return (
         <AuthenticatedLayout
@@ -71,119 +32,93 @@ export default function Edit({ auth, infoweb, role, permission }) {
             roles={role}
             permission={permission}
             header={
-                <div className='flex justify-between items-center px-6'>
-                    <SectionHeader
-                        title="Actualizar información web"
-                        subtitle="Aquí puedes actualizar la información web."
-                    />
-                    <Link href={route('info-web.create')}
-                        className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                <div className='flex justify-between items-center'>
+                    <SectionHeader title="Actualizar información web" subtitle="Modifica los textos e imágenes de esta entrada." />
+                    <Link href={route('info-web.index')}
+                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear
+                        Volver
                     </Link>
                 </div>
             }
         >
-            <Breadcrumb items={items} />
+            <Head className="capitalize" title="Actualizar Información web" />
 
-            <Head className="capitalize" title="Actualizar informacion web" />
+            <div className="max-w-7xl mx-auto p-4">
+                {recentlySuccessful && (
+                    <Alert className="mb-6 border-green-500 bg-green-50 text-green-800 dark:bg-green-950 dark:text-green-200">
+                        <CheckCircleIcon className="size-4" />
+                        <AlertDescription>¡Entrada actualizada exitosamente!</AlertDescription>
+                    </Alert>
+                )}
 
-            <div className="p-6">
-                <div className="max-w-7xl mx-auto ">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                        <div className=" text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
+                <form onSubmit={submit} className="space-y-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                                <Transition
-                                    show={recentlySuccessful}
-                                    enter="transition ease-out duration-300"
-                                    enterFrom="opacity-0 translate-y-[-100%]"
-                                    enterTo="opacity-100 translate-y-0"
-                                    leave="transition ease-in duration-200"
-                                    leaveFrom="opacity-100 translate-y-0"
-                                    leaveTo="opacity-0 translate-y-[-100%]"
-                                >
-                                    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
-                                        <Alert
-                                            color="success"
-                                            className="border-0 shadow-lg"
-                                        >
-                                            <span className="font-medium">Bien hecho!</span> información actualizada exitosamente.
-                                        </Alert>
-                                    </div>
-                                </Transition>
-
-                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                                    <div className="col-span-full lg:col-span-2">
-                                        <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="name" value="Nombre" />
-
-                                                <TextInput
-                                                    id="name"
-                                                    type="text"
-                                                    name="name"
-                                                    value={data.name}
-                                                    className="mt-1 block w-full"
-                                                    isFocused={true}
-                                                    onChange={(e) => setData('name', e.target.value)}
-                                                />
-
-                                                <InputError message={errors.name} className="mt-2" />
-                                            </div>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="text" value="Descripción" />
-                                                <TextAreaRich
-                                                    initialValue={data.text}
-                                                    ref={textAreaRef}
-                                                    name="text"
-                                                    onChange={(newText) => setData('text', newText)}
-                                                />
-                                                <InputError message={errors.text} className="mt-2" />
-                                            </div>
-
-                                        </ContainerTitle>
+                        {/* Columna Principal - 2/3 */}
+                        <div className="lg:col-span-2 space-y-6">
+                            <ContainerTitle title="Detalles del contenido">
+                                <div className="space-y-4">
+                                    <div>
+                                        <Label htmlFor="name">Etiqueta / Nombre</Label>
+                                        <Input
+                                            id="name"
+                                            value={data.name}
+                                            onChange={(e) => setData('name', e.target.value)}
+                                            autoFocus
+                                            className="mt-1"
+                                        />
+                                        {errors.name && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.name}</AlertDescription></Alert>}
                                     </div>
 
-                                    <div className="col-span-full lg:col-span-1">
-                                        <ContainerTitle title={'Datos'} className='grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
-
-
-                                            <div>
-                                                <img src={`${infoweb.image}`} alt={infoweb.image} className='w-auto rounded-3xl mx-auto' />
-                                                <InputLabel htmlFor="image" value="image" />
-
-                                                <TextInput
-                                                    id="image"
-                                                    type="file"
-                                                    name="image"
-                                                    className="mt-1 block w-full"
-                                                    isFocused={true}
-                                                    onChange={(e) => setData('image', e.target.files[0])}
-                                                />
-
-                                                <InputError message={errors.image} className="mt-2" />
-                                            </div>
-
-
-                                        </ContainerTitle>
+                                    <div className="pt-2">
+                                        <Label htmlFor="text">Cuerpo / Texto</Label>
+                                        <div className="mt-1 rounded-md overflow-hidden bg-white dark:bg-gray-900 shadow-sm border dark:border-gray-800">
+                                            <TextAreaRich
+                                                initialValue={data.text}
+                                                ref={textAreaRef}
+                                                name="text"
+                                                onChange={(newText) => setData('text', newText)}
+                                            />
+                                        </div>
+                                        {errors.text && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.text}</AlertDescription></Alert>}
                                     </div>
-
                                 </div>
+                            </ContainerTitle>
+                        </div>
 
-                                <div className="flex justify-end p-2.5">
-                                    <PrimaryButton >
-                                        Guardar
-                                    </PrimaryButton>
+                        {/* Columna Secundaria - 1/3 */}
+                        <div className="lg:col-span-1 space-y-6">
+                            <ContainerTitle title="Recursos multimedia">
+                                <div className="space-y-4">
+                                    {infoweb.image && (
+                                        <div className="mb-4">
+                                            <Label className="block mb-2 text-gray-600 dark:text-gray-400">Imagen actual</Label>
+                                            <img src={infoweb.image} alt="Imagen actual" className="w-full max-w-sm rounded-lg object-cover border border-gray-200 dark:border-gray-700 shadow-sm" />
+                                        </div>
+                                    )}
+                                    
+                                    <div>
+                                        <Label htmlFor="image">Actualizar imagen (Opcional)</Label>
+                                        <Input
+                                            id="image"
+                                            type="file"
+                                            onChange={(e) => setData('image', e.target.files[0])}
+                                            className="mt-2"
+                                            accept="image/*"
+                                        />
+                                        {errors.image && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.image}</AlertDescription></Alert>}
+                                    </div>
                                 </div>
-
-                            </form>
+                            </ContainerTitle>
                         </div>
                     </div>
-                </div>
+
+                    <div className="flex justify-end pt-4">
+                        <Button type="submit">Guardar cambios</Button>
+                    </div>
+                </form>
             </div>
         </AuthenticatedLayout>
-    )
+    );
 }

@@ -49,6 +49,21 @@ export default function BasicInformation({ selectedContact }) {
                     <span className="capitalize font-semibold">Medio de captación</span>
                     <p className="capitalize">{selectedContact.origin?.name ? selectedContact.origin.name : 'no disponible'}</p>
                 </div>
+
+                <div>
+                    <span className="capitalize font-semibold">País</span>
+                    <p className="capitalize">{selectedContact.country?.name || 'no disponible'}</p>
+                </div>
+
+                <div>
+                    <span className="capitalize font-semibold">Estado/Provincia</span>
+                    <p className="capitalize">{selectedContact.state?.name || 'no disponible'}</p>
+                </div>
+
+                <div>
+                    <span className="capitalize font-semibold">Ciudad</span>
+                    <p className="capitalize">{selectedContact.city?.name || 'no disponible'}</p>
+                </div>
                
             </div>
         </>

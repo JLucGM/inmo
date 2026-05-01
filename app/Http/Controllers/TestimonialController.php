@@ -25,7 +25,7 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $testimonial = Testimonial::all();
+        $testimonial = Testimonial::select('id', 'name', 'position', 'avatar', 'created_at')->paginate(15);
 
         $user = Auth::user();
         $role = $user->getRoleNames();

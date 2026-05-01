@@ -25,9 +25,8 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
     <>
       <FrontedLayout auth={auth} setting={setting} pages={pages}>
         <Head title="Bienvenido" />
-        {setting.status_banner == 1 && (
+        {setting?.status_banner == 1 && (
           <AnimatedComponent>
-            {/* <Banner data={slides} /> */}
             <SwiperCustom
               datas={slides}
               image={'image'}

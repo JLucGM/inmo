@@ -1,10 +1,10 @@
-import Checkbox from '@/Components/Checkbox';
 import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import { Button } from '@/Components/ui/button';
+import { Checkbox } from '@/Components/ui/checkbox';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
 
 export default function Login({ status, canResetPassword, setting }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -13,7 +13,6 @@ export default function Login({ status, canResetPassword, setting }) {
         remember: false,
     });
 
-    console.log(setting)
     const submit = (e) => {
         e.preventDefault();
 
@@ -24,72 +23,90 @@ export default function Login({ status, canResetPassword, setting }) {
 
     return (
         <GuestLayout>
-            <Head title="Log in" />
+            <Head title="Acceder" />
 
-            <img
-                alt=""
-                src={`${setting}`}
-                className="h-16 w-auto my-10"
-            />
-            {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
-            <form onSubmit={submit}>
+            <div className="flex flex-col items-center mb-8">
+                <img
+                    alt="Logo"
+                    src={`${setting}`}
+                    className="h-16 w-auto mb-6"
+                />
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Bienvenido</h1>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Ingresa tus credenciales para continuar</p>
+            </div>
+
+            {status && <div className="mb-4 font-medium text-sm text-green-600 dark:text-green-400">{status}</div>}
+
+            <form onSubmit={submit} className="space-y-5">
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
+                    <Label htmlFor="email">Correo electrónico</Label>
+                    <Input
                         id="email"
                         type="email"
                         name="email"
                         value={data.email}
-                        className="mt-1 block w-full"
+                        className="mt-1"
                         autoComplete="username"
-                        isFocused={true}
+                        autoFocus
                         onChange={(e) => setData('email', e.target.value)}
                     />
-
-                    <InputError message={errors.email} className="mt-2" />
+                    {errors.email && (
+                        <p className="text-xs text-red-500 mt-1">{errors.email}</p>
+                    )}
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
+                    <div className="flex items-center justify-between mb-1">
+                        <Label htmlFor="password">Contraseña</Label>
+                        {canResetPassword && (
+                            <Link
+                                href={route('password.request')}
+                                className="text-xs text-blue-600 hover:underline dark:text-blue-400"
+                            >
+                                ¿Olvidaste tu contraseña?
+                            </Link>
+                        )}
+                    </div>
+                    <Input
                         id="password"
                         type="password"
                         name="password"
                         value={data.password}
-                        className="mt-1 block w-full"
                         autoComplete="current-password"
                         onChange={(e) => setData('password', e.target.value)}
                     />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="block mt-4">
-                    <label className="flex items-center">
-                        <Checkbox
-                            name="remember"
-                            checked={data.remember}
-                            onChange={(e) => setData('remember', e.target.checked)}
-                        />
-                        <span className="ms-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
-                    </label>
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                        >
-                            Forgot your password?
-                        </Link>
+                    {errors.password && (
+                        <p className="text-xs text-red-500 mt-1">{errors.password}</p>
                     )}
+                </div>
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
+                <div className="flex items-center space-x-2">
+                    <Checkbox
+                        id="remember"
+                        checked={data.remember}
+                        onCheckedChange={(checked) => setData('remember', checked)}
+                    />
+                    <Label 
+                        htmlFor="remember" 
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                        Recordarme
+                    </Label>
+                </div>
+
+                <div className="pt-2">
+                    <Button className="w-full" disabled={processing} type="submit">
+                        Iniciar sesión
+                    </Button>
+                </div>
+                
+                <div className="text-center mt-4">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                        ¿No tienes una cuenta? {' '}
+                        <Link href={route('register')} className="text-blue-600 font-semibold hover:underline">
+                            Regístrate aquí
+                        </Link>
+                    </p>
                 </div>
             </form>
         </GuestLayout>

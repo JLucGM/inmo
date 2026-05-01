@@ -1,5 +1,5 @@
 import Badge from '@/Components/Badge';
-import Breadcrumb from '@/Components/Breadcrumb';
+
 import SectionHeader from '@/Components/SectionHeader';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
@@ -55,7 +55,7 @@ export default function Index({ auth, tasks, role, permission }) {
                 </div>
             }
         >
-            <Breadcrumb items={items} />
+            
 
             <Head className="capitalize" title="Calendario" />
 

@@ -1,248 +1,181 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Select, Textarea, Transition } from '@headlessui/react';
-import ContainerTitle from '@/Components/ContainerTitle';
-import Breadcrumb from '@/Components/Breadcrumb';
-import TextAreaRich from '@/Components/TextAreaRich';
 import { useRef } from 'react';
+import SectionHeader from '@/Components/SectionHeader';
+import ContainerTitle from '@/Components/ContainerTitle';
+import TextAreaRich from '@/Components/TextAreaRich';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import { Select as ShadcnSelect, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import { Button } from '@/Components/ui/button';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
 export default function Edit({ auth, document, contacts, properties, users, role, permission }) {
 
-    console.log(document)
     const initialValues = {
-        name: document.name,
-        body: document.body,
-        status: document.status,
-        contact_id: document.contact_id,
-        property_id: document.property_id,
-        user_id: document.user_id,
+        name: document.name || "",
+        body: document.body || "",
+        status: document.status?.toString() || "0",
+        contact_id: document.contact_id?.toString() || "",
+        property_id: document.property_id?.toString() || "",
+        user_id: document.user_id?.toString() || "",
+    };
 
-    }
-
-    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
+    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues);
     const textAreaRef = useRef();
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('documents.update', document))
-        console.log(data)
-    }
+        post(route('documents.update', document));
+    };
 
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de documentos',
-            href: 'documents.index',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-        {
-            name: 'Actualizar documento',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
     return (
         <AuthenticatedLayout
             user={auth.user}
             roles={role}
             permission={permission}
             header={
-                <>
-                    <div className='flex justify-between items-center'>
-                        <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Actualizar documento</h2>
-                        <Link href={route('documents.create')}
-                            className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                        >
-                            Crear
-                        </Link>
-                    </div>
-                </>
+                <div className='flex justify-between items-center'>
+                    <SectionHeader title="Actualizar documento" subtitle="Edita la información o estado de este documento." />
+                    <Link href={route('documents.index')}
+                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    >
+                        Volver
+                    </Link>
+                </div>
             }
         >
-            <Breadcrumb items={items} />
-
             <Head className="capitalize" title="Actualizar documento" />
 
-            <div className="">
-                <div className="max-w-7xl mx-auto ">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                        <div className=" text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
+            <div className="max-w-7xl mx-auto p-4">
+                {recentlySuccessful && (
+                    <Alert className="mb-6 border-green-500 bg-green-50 text-green-800 dark:bg-green-950 dark:text-green-200">
+                        <CheckCircleIcon className="size-4" />
+                        <AlertDescription>¡Documento actualizado exitosamente!</AlertDescription>
+                    </Alert>
+                )}
 
-                                <Transition
-                                    show={recentlySuccessful}
-                                    enter="transition ease-in-out"
-                                    enterFrom="opacity-0"
-                                    leave="transition ease-in-out"
-                                    leaveTo="opacity-0"
-                                >
-                                    <p className="text-sm text-green-600 dark:text-gray-400 text-center">Saved.</p>
-                                </Transition>
-                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <form onSubmit={submit} className="space-y-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                                    <div className="col-span-full lg:col-span-2">
-                                        <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="name" value="Nombre" />
-
-                                                <TextInput
-                                                    id="name"
-                                                    type="text"
-                                                    name="name"
-                                                    value={data.name}
-                                                    className="mt-1 block w-full"
-                                                    isFocused={true}
-                                                    onChange={(e) => setData('name', e.target.value)}
-                                                />
-
-                                                <InputError message={errors.name} className="mt-2" />
-                                            </div>
-
-                                            <div className='col-span-2'>
-                                                <InputLabel htmlFor="body" value="descripcion" />
-
-                                                <TextAreaRich
-                                                    initialValue={data.body}
-                                                    ref={textAreaRef}
-                                                    name="body"
-                                                    onChange={(newText) => setData('body', newText)}
-                                                />
-
-                                                <InputError message={errors.body} className="mt-2" />
-                                            </div>
-
-                                        </ContainerTitle>
+                        {/* Columna Principal - 2/3 */}
+                        <div className="lg:col-span-2 space-y-6">
+                            <ContainerTitle title="Datos principales">
+                                <div className="space-y-4">
+                                    <div>
+                                        <Label htmlFor="name">Nombre / Título del documento</Label>
+                                        <Input
+                                            id="name"
+                                            value={data.name}
+                                            onChange={(e) => setData('name', e.target.value)}
+                                            autoFocus
+                                            className="mt-1"
+                                        />
+                                        {errors.name && (
+                                            <Alert variant="destructive" className="mt-2 py-2">
+                                                <AlertDescription>{errors.name}</AlertDescription>
+                                            </Alert>
+                                        )}
                                     </div>
 
-                                    <div className="col-span-full lg:col-span-1">
-                                        <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                            <div className='col-span-full'>
-                                                <InputLabel htmlFor="contacts" value="Contacto" />
-
-                                                <Select
-                                                    name="contact_id"
-                                                    id="contacts"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.contact_id} // Establecer el valor del select con el valor de contact_id
-                                                    onChange={(e) => {
-                                                        setData('contact_id', parseInt(e.target.value));
-                                                    }}
-                                                >
-                                                    {contacts.length === 0 ? (
-                                                        <option value="" disabled>
-                                                            No contacts created
-                                                        </option>
-                                                    ) : (
-                                                        contacts.map((contact) => (
-                                                            <option value={contact.id} key={contact.id}>
-                                                                {contact.name}
-                                                            </option>
-                                                        ))
-                                                    )}
-                                                </Select>
-
-                                                <InputError message={errors.contact_id} className="mt-2" />
-                                            </div>
-
-                                            <div className='col-span-full'>
-                                                <InputLabel htmlFor="properties" value="propiedades" />
-
-                                                <Select
-                                                    name="property_id"
-                                                    id="properties"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.property_id} // Establecer el valor del select con el valor de property_id
-                                                    onChange={(e) => {
-                                                        setData('property_id', parseInt(e.target.value));
-                                                    }}
-                                                >
-                                                    {properties.length === 0 ? (
-                                                        <option value="" disabled>
-                                                            No properties created
-                                                        </option>
-                                                    ) : (
-                                                        properties.map((property) => (
-                                                            <option value={property.id} key={property.id}>
-                                                                {property.name}
-                                                            </option>
-                                                        ))
-                                                    )}
-                                                </Select>
-
-                                                <InputError message={errors.property_id} className="mt-2" />
-                                            </div>
-
-                                            <div className='col-span-full'>
-                                                <InputLabel htmlFor="users" value="Agente" />
-
-                                                <select
-                                                    name="user_id"
-                                                    id="users"
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                    value={data.user_id} // Establecer el valor del select con el valor de user_id
-                                                    onChange={(e) => {
-                                                        setData('user_id', parseInt(e.target.value));
-                                                    }}
-                                                >
-                                                    {users.map((users) => (
-                                                        <option value={users.id} key={users.id}>
-                                                            {users.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-
-                                                <InputError message={errors.users} className="mt-2" />
-                                            </div>
-
-                                            <div className='col-span-full'>
-                                                <InputLabel htmlFor="status" value="Publicar" />
-
-                                                <select
-                                                    name="status"
-                                                    id="status"
-                                                    value={data.status}
-                                                    className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
-                                                    onChange={(e) => setData('status', e.target.value)}
-                                                >
-                                                    <option value={0}>Nuevo</option>
-                                                    <option value={1}>Revisión</option>
-                                                    <option value={2}>Archivado</option>
-                                                    <option value={3}>Finalizado</option>
-                                                </select>
-
-                                                <InputError message={errors.status} className="mt-2" />
-                                            </div>
-
-                                        </ContainerTitle>
+                                    <div className="pt-2">
+                                        <Label htmlFor="body">Cuerpo / Contenido</Label>
+                                        <div className="mt-1 rounded-md overflow-hidden bg-white dark:bg-gray-900 shadow-sm border dark:border-gray-800">
+                                            <TextAreaRich
+                                                initialValue={data.body}
+                                                ref={textAreaRef}
+                                                name="body"
+                                                onChange={(newText) => setData('body', newText)}
+                                            />
+                                        </div>
+                                        {errors.body && (
+                                            <Alert variant="destructive" className="mt-2 py-2">
+                                                <AlertDescription>{errors.body}</AlertDescription>
+                                            </Alert>
+                                        )}
                                     </div>
                                 </div>
-
-                                <div className="flex justify-end p-2.5">
-                                    <PrimaryButton >
-                                        Guardar
-                                    </PrimaryButton>
-                                </div>
-
-                            </form>
+                            </ContainerTitle>
                         </div>
+
+                        {/* Columna Secundaria - 1/3 */}
+                        <div className="lg:col-span-1 space-y-6">
+                            <ContainerTitle title="Relaciones y Estado">
+                                <div className="space-y-4">
+                                    
+                                    <div>
+                                        <Label htmlFor="contact_id">Contacto asociado</Label>
+                                        {contacts?.length === 0 ? (
+                                             <div className="text-sm text-gray-500 italic mt-1 bg-gray-50 dark:bg-gray-800 p-2 rounded pt-2 pb-2">No hay contactos creados</div>
+                                        ) : (
+                                            <ShadcnSelect value={data.contact_id} onValueChange={(val) => setData('contact_id', val)}>
+                                                <SelectTrigger className="mt-1 w-full"><SelectValue placeholder="Seleccionar contacto" /></SelectTrigger>
+                                                <SelectContent>
+                                                    {contacts?.map(contact => (
+                                                        <SelectItem value={contact.id.toString()} key={contact.id}>{contact.name}</SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </ShadcnSelect>
+                                        )}
+                                        {errors.contact_id && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.contact_id}</AlertDescription></Alert>}
+                                    </div>
+
+                                    <div>
+                                        <Label htmlFor="property_id">Propiedad asociada</Label>
+                                        {properties?.length === 0 ? (
+                                            <div className="text-sm text-gray-500 italic mt-1 bg-gray-50 dark:bg-gray-800 p-2 rounded pt-2 pb-2">No hay propiedades creadas</div>
+                                        ) : (
+                                            <ShadcnSelect value={data.property_id} onValueChange={(val) => setData('property_id', val)}>
+                                                <SelectTrigger className="mt-1 w-full"><SelectValue placeholder="Seleccionar propiedad" /></SelectTrigger>
+                                                <SelectContent>
+                                                    {properties?.map(property => (
+                                                        <SelectItem value={property.id.toString()} key={property.id}>{property.name}</SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </ShadcnSelect>
+                                        )}
+                                        {errors.property_id && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.property_id}</AlertDescription></Alert>}
+                                    </div>
+
+                                    <div>
+                                        <Label htmlFor="user_id">Agente asignado</Label>
+                                        <ShadcnSelect value={data.user_id} onValueChange={(val) => setData('user_id', val)}>
+                                            <SelectTrigger className="mt-1 w-full"><SelectValue placeholder="Seleccionar agente" /></SelectTrigger>
+                                            <SelectContent>
+                                                {users?.map(user => (
+                                                    <SelectItem value={user.id.toString()} key={user.id}>{user.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </ShadcnSelect>
+                                        {errors.user_id && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.user_id}</AlertDescription></Alert>}
+                                    </div>
+
+                                    <div>
+                                        <Label htmlFor="status">Estado</Label>
+                                        <ShadcnSelect value={data.status} onValueChange={(val) => setData('status', val)}>
+                                            <SelectTrigger className="mt-1 w-full"><SelectValue placeholder="Seleccionar estado" /></SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="0">Nuevo</SelectItem>
+                                                <SelectItem value="1">Revisión</SelectItem>
+                                                <SelectItem value="2">Archivado</SelectItem>
+                                                <SelectItem value="3">Finalizado</SelectItem>
+                                            </SelectContent>
+                                        </ShadcnSelect>
+                                        {errors.status && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.status}</AlertDescription></Alert>}
+                                    </div>
+
+                                </div>
+                            </ContainerTitle>
+                        </div>
+
                     </div>
-                </div>
+
+                    <div className="flex justify-end pt-4">
+                        <Button type="submit">Guardar cambios</Button>
+                    </div>
+                </form>
             </div>
         </AuthenticatedLayout>
-    )
+    );
 }

@@ -35,8 +35,8 @@ class StoreRequest extends FormRequest
             //'builtMeters'  => 'required',
             //'garages'  => 'required',
             'direction'  => 'required',
-            'amenitiy' => 'required|array',
-            'amenitiy.*' => 'exists:amenities,id',
+            'amenity' => 'required|array',
+            'amenity.*' => 'exists:amenities,id',
                 //  'main' => 'nullable|image|max:2048',  // 2MB max
      'images.*' => 'image|max:2048',  // Para múltiples
      
@@ -64,9 +64,9 @@ class StoreRequest extends FormRequest
             // 'builtMeters.required' => 'El campo metros construidos es obligatorio.',
             // 'garages.required' => 'El campo garajes es obligatorio.',
             'direction.required' => 'El campo dirección es obligatorio.',
-            'amenitiy.required' => 'Debe seleccionar al menos una amenidad.',
-            'amenitiy.array' => 'Las amenidades deben ser un arreglo válido.',
-            'amenitiy.*.exists' => 'Una o más amenidades seleccionadas no son válidas.',
+            'amenity.required' => 'Debe seleccionar al menos una amenidad.',
+            'amenity.array' => 'Las amenidades deben ser un arreglo válido.',
+            'amenity.*.exists' => 'Una o más amenidades seleccionadas no son válidas.',
 
         ];
     }

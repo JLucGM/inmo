@@ -1,31 +1,28 @@
 import ContainerTitle from "@/Components/ContainerTitle";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
 
-export default function AmenitiesForm({ data, setData, errors, }) {
-
+export default function AmenitiesForm({ data, setData, errors }) {
     return (
-        <>
-            <ContainerTitle className='space-y-4'>
-
+        <ContainerTitle title="Datos de la comodidad">
+            <div className="space-y-4">
                 <div>
-                    <InputLabel htmlFor="name" value="Nombre" />
-
-                    <TextInput
+                    <Label htmlFor="name">Nombre</Label>
+                    <Input
                         id="name"
                         type="text"
-                        name="name"
                         value={data.name}
-                        className="mt-1 block w-full"
-                        isFocused={true}
+                        autoFocus
                         onChange={(e) => setData('name', e.target.value)}
                     />
-
-                    <InputError message={errors.name} className="mt-2" />
+                    {errors.name && (
+                        <Alert variant="destructive" className="mt-1 py-2">
+                            <AlertDescription>{errors.name}</AlertDescription>
+                        </Alert>
+                    )}
                 </div>
-
-            </ContainerTitle>
-        </>
-    )
+            </div>
+        </ContainerTitle>
+    );
 }

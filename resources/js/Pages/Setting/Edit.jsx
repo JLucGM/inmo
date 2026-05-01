@@ -1,78 +1,62 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Tab, TabGroup, TabList, TabPanel, TabPanels, Textarea, Transition } from '@headlessui/react';
-import Breadcrumb from '@/Components/Breadcrumb';
-import ToggleSwitch from '@/Components/ToggleSwitch';
-import { Alert } from 'flowbite-react';
+
 import SectionHeader from '@/Components/SectionHeader';
+import ContainerTitle from '@/Components/ContainerTitle';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/Components/ui/tabs';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import { Textarea } from '@/Components/ui/textarea';
+import { Button } from '@/Components/ui/button';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { Switch } from '@/Components/ui/switch';
+import { Select as ShadcnSelect, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
 export default function Edit({ auth, setting, currencies, role, permission }) {
 
     const initialValues = {
-        name: setting.name,
-        phone: setting.phone,
-        logo: setting.logo,
-        logo_footer: setting.logo_footer,
-        favicon: setting.favicon,
-        direction: setting.direction,
-        description: setting.description,
-        descriptionBlog: setting.descriptionBlog,
-        descriptionFaq: setting.descriptionFaq,
-        descriptionContact: setting.descriptionContact,
-        descriptionAnunciar: setting.descriptionAnunciar,
-        titleBlog: setting.titleBlog,
-        titleFaq: setting.titleFaq,
-        titleContact: setting.titleContact,
-        titleAnunciar: setting.titleAnunciar,
-        titleTestimonials: setting.titleTestimonials,
-        descriptionTestimonials: setting.descriptionTestimonials,
+        name: setting.name || "",
+        phone: setting.phone || "",
+        logo: setting.logo || null,
+        logo_footer: setting.logo_footer || null,
+        favicon: setting.favicon || null,
+        direction: setting.direction || "",
+        description: setting.description || "",
+        descriptionBlog: setting.descriptionBlog || "",
+        descriptionFaq: setting.descriptionFaq || "",
+        descriptionContact: setting.descriptionContact || "",
+        descriptionAnunciar: setting.descriptionAnunciar || "",
+        titleBlog: setting.titleBlog || "",
+        titleFaq: setting.titleFaq || "",
+        titleContact: setting.titleContact || "",
+        titleAnunciar: setting.titleAnunciar || "",
+        titleTestimonials: setting.titleTestimonials || "",
+        descriptionTestimonials: setting.descriptionTestimonials || "",
         status_banner: setting.status_banner,
         status_products_list: setting.status_products_list,
         status_info_section: setting.status_info_section,
         status_testimonials: setting.status_testimonials,
         status_team: setting.status_team,
         status_instagram_posts: setting.status_instagram_posts,
-        instagram: setting.instagram,
-        token_instagram: setting.token_instagram,
-        portadaContact: setting.portadaContact,
-        portadaFaq: setting.portadaFaq,
-        portadaAnunciar: setting.portadaAnunciar,
+        instagram: setting.instagram || "",
+        token_instagram: setting.token_instagram || "",
+        portadaContact: null,
+        portadaFaq: null,
+        portadaAnunciar: null,
+        titleInfoSection: setting.titleInfoSection || "",
+        descriptionInfoSection: setting.descriptionInfoSection || "",
+        titleTeamSection: setting.titleTeamSection || "",
+        descriptionTeamSection: setting.descriptionTeamSection || "",
+        currency_id: setting.currency_id?.toString() || (currencies?.length > 0 ? currencies[0].id.toString() : ""),
+    };
 
-        titleInfoSection: setting.titleInfoSection,
-        descriptionInfoSection: setting.descriptionInfoSection,
-        titleTeamSection: setting.titleTeamSection,
-        descriptionTeamSection: setting.descriptionTeamSection,
-
-        currency_id: setting.currency_id || (currencies.length > 0 ? currencies[0].id : null), // Usar el valor de setting si existe
-    }
-
-    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
+    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues);
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('settings.update', setting))
-        // console.log(data)
-    }
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Configuraciones',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
+        post(route('settings.update', setting));
+    };
 
     return (
         <AuthenticatedLayout
@@ -81,677 +65,296 @@ export default function Edit({ auth, setting, currencies, role, permission }) {
             permission={permission}
             header={
                 <div className='flex justify-between items-center'>
-<SectionHeader
-                        title="Actualizar configuración"
-                        subtitle="Aquí puedes actualizar la configuración de la aplicación."
-                    />
+                    <SectionHeader title="Actualizar configuración" subtitle="Administra los ajustes generales, información de contacto, imágenes y secciones del frontend." />
                 </div>
             }
         >
-
-            <Breadcrumb items={items} />
-
-
-            <Head className="capitalize" title="Actualizar Configuraciones" />
-
-            <div className="">
-                <div className="max-w-7xl mx-auto">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                        <div className=" text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4 '>
-
-                                <Transition
-                                        show={recentlySuccessful}
-                                        enter="transition ease-out duration-300"
-                                        enterFrom="opacity-0 translate-y-[-100%]"
-                                        enterTo="opacity-100 translate-y-0"
-                                        leave="transition ease-in duration-200"
-                                        leaveFrom="opacity-100 translate-y-0"
-                                        leaveTo="opacity-0 translate-y-[-100%]"
-                                      >
-                                        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
-                                          <Alert
-                                            color="success"
-                                            className="border-0 shadow-lg"
-                                          >
-                                            <span className="font-medium">¡Éxito!</span> Mensaje creado exitosamente.
-                                          </Alert>
-                                        </div>
-                                      </Transition>
-
-                                <TabGroup vertical className={'border rounded-lg'}>
-                                    <div className="grid grid-cols-4">
-                                        <TabList className="flex flex-col overflow-y-auto rounded-lg h-44s md:min-h-screen-[-175] md:border-b md:flex-rowf md:overflow-hidden border-e  col-span-full md:col-span-1">
-                                            <Tab
-                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
-                                            >
-                                                Datos principales
-                                            </Tab>
-                                            <Tab
-                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
-                                            >
-                                                Imagenes
-
-                                            </Tab>
-                                            <Tab
-                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
-                                            >
-                                                Configurar frontend
-
-                                            </Tab>
-                                            {/* <Tab
-                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
-                                            >
-                                                Redes
-
-                                            </Tab> */}
-                                            <Tab
-                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
-                                            >
-                                                Información de blog
-                                            </Tab>
-                                            <Tab
-                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
-                                            >
-                                               Información de preguntas frecuentes
-                                            </Tab>
-                                            <Tab
-                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
-                                            >
-                                               Información de contacto
-                                            </Tab>
-                                            <Tab
-                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
-                                            >
-                                               Información de anunciar propiedades
-                                            </Tab>
-                                            <Tab
-                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
-                                            >
-                                               Información de servicios
-                                            </Tab>
-                                            <Tab
-                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
-                                            >
-                                                Información de equipo de trabajo
-                                            </Tab>
-                                            <Tab
-                                                className="rounded-lg py-5 bg-white border-b capitalize text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 data-[selected]:bg-blue-500 data-[selected]:text-white"
-                                            >
-                                                Información de Testimonios
-                                            </Tab>
-                                        </TabList>
-
-                                        <TabPanels className={'col-span-full md:col-span-3'}>
-
-                                            <TabPanel className={'w-full'}>
-                                                <div title={'Datos principales'} className=' p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                                    <div>
-                                                        <InputLabel htmlFor="name" value="Nombre" />
-
-                                                        <TextInput
-                                                            id="name"
-                                                            type="text"
-                                                            name="name"
-                                                            value={data.name}
-                                                            className="mt-1 block w-full"
-                                                            isFocused={true}
-                                                            onChange={(e) => setData('name', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.name} className="mt-2" />
-                                                    </div>
-
-                                                    <div>
-                                                        <InputLabel htmlFor="phone" value="Teléfono" />
-
-                                                        <TextInput
-                                                            id="phone"
-                                                            type="text"
-                                                            name="phone"
-                                                            value={data.phone}
-                                                            className="mt-1 block w-full"
-                                                            onChange={(e) => setData('phone', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.phone} className="mt-2" />
-                                                    </div>
-
-                                                    <div>
-                                                        <InputLabel htmlFor="direction" value="Dirección" />
-
-                                                        <TextInput
-                                                            id="direction"
-                                                            type="text"
-                                                            name="direction"
-                                                            value={data.direction}
-                                                            className="mt-1 block w-full"
-                                                            onChange={(e) => setData('direction', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.phone} className="mt-2" />
-                                                    </div>
-
-                                                    <div>
-                                                        <InputLabel htmlFor="currency_id" value="Moneda" />
-
-                                                        <select
-                                                            name="currency_id"
-                                                            id="currency_id"
-                                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                            value={data.currency_id}
-                                                            onChange={(e) => {
-                                                                setData('currency_id', parseInt(e.target.value));
-                                                            }}
-                                                        >
-                                                            {currencies.map((currency) => (
-                                                                <option value={currency.id} key={currency.id}>
-                                                                    {currency.symbol} - {currency.name}
-                                                                </option>
-                                                            ))}
-                                                        </select>
-
-                                                        <InputError message={errors.currency_id} className="mt-2" />
-                                                    </div>
-
-
-
-                                                    <div className='col-span-2'>
-                                                        <InputLabel htmlFor="description" value="Descripción" />
-
-                                                        <Textarea
-                                                            id="description"
-                                                            type="text"
-                                                            name="description"
-                                                            rows={10}
-                                                            value={data.description}
-                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                            onChange={(e) => setData('description', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.description} className="mt-2" />
-                                                    </div>
-
-                                                </div>
-                                            </TabPanel>
-
-                                            <TabPanel>
-                                                <div title={'Datos principales'} className=' p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                                    <div className=''>
-                                                        <img src={`${setting.logo}`} alt={setting.logo} className='w-40' />
-                                                        <InputLabel htmlFor="logo" value="Logo" />
-                                                        <TextInput
-                                                            id="logo"
-                                                            type="file"
-                                                            name="logo"
-                                                            className="mt-1 block w-full"
-                                                            onChange={(e) => setData('logo', e.target.files[0])}
-                                                        />
-                                                        <InputError message={errors.logo} className="mt-2" />
-                                                    </div>
-
-                                                    <div>
-                                                        <img src={`${setting.logo_footer}`} alt={setting.logo_footer} className='w-40' />
-                                                        <InputLabel htmlFor="logo_footer" value="Logo del pie de página" />
-                                                        <TextInput
-                                                            id="logo_footer"
-                                                            type="file"
-                                                            name="logo_footer"
-                                                            className="mt-1 block w-full"
-                                                            onChange={(e) => setData('logo_footer', e.target.files[0])}
-                                                        />
-                                                        <InputError message={errors.logo_footer} className="mt-2" />
-                                                    </div>
-
-                                                    <div className=''>
-                                                        <img src={`${setting.favicon}`} alt={setting.favicon} className='w-40' />
-                                                        <InputLabel htmlFor="favicon" value="favicon" />
-                                                        <TextInput
-                                                            id="favicon"
-                                                            type="file"
-                                                            name="favicon"
-                                                            className="mt-1 block w-full"
-                                                            onChange={(e) => setData('favicon', e.target.files[0])}
-                                                        />
-
-                                                        <InputError message={errors.favicon} className="mt-2" />
-                                                    </div>
-                                                </div>
-                                            </TabPanel>
-
-                                            <TabPanel>
-                                                <div title={'Configurar Frontend'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                                    <div className="p-4">
-                                                        <ToggleSwitch
-                                                            isChecked={data.status_banner === 1}
-                                                            onToggle={() => {
-                                                                const newValue = data.status_banner === 1 ? 0 : 1;
-                                                                setData('status_banner', newValue);
-                                                            }}
-                                                            label="Activar Banner"
-                                                        />
-                                                    </div>
-
-                                                    <div className="p-4">
-                                                        <ToggleSwitch
-                                                            isChecked={data.status_products_list === 1}
-                                                            onToggle={() => {
-                                                                const newValue = data.status_products_list === 1 ? 0 : 1;
-                                                                setData('status_products_list', newValue);
-                                                            }}
-                                                            label="Activar lista de productos"
-                                                        />
-                                                    </div>
-
-                                                    <div className="p-4">
-                                                        <ToggleSwitch
-                                                            isChecked={data.status_info_section === 1}
-                                                            onToggle={() => {
-                                                                const newValue = data.status_info_section === 1 ? 0 : 1;
-                                                                setData('status_info_section', newValue);
-                                                            }}
-                                                            label="Activar sección de información"
-                                                        />
-                                                    </div>
-
-                                                    <div className="p-4">
-                                                        <ToggleSwitch
-                                                            isChecked={data.status_testimonials === 1}
-                                                            onToggle={() => {
-                                                                const newValue = data.status_testimonials === 1 ? 0 : 1;
-                                                                setData('status_testimonials', newValue);
-                                                            }}
-                                                            label="Activar sección de testimonios"
-                                                        />
-                                                    </div>
-
-                                                    <div className="p-4">
-                                                        <ToggleSwitch
-                                                            isChecked={data.status_team === 1}
-                                                            onToggle={() => {
-                                                                const newValue = data.status_team === 1 ? 0 : 1;
-                                                                setData('status_team', newValue);
-                                                            }}
-                                                            label="Activar sección de equipo"
-                                                        />
-                                                    </div>
-
-                                                    {/* <div className="p-4">
-                                                        <ToggleSwitch
-                                                            isChecked={data.status_instagram_posts === 1}
-                                                            onToggle={() => {
-                                                                const newValue = data.status_instagram_posts === 1 ? 0 : 1;
-                                                                setData('status_instagram_posts', newValue);
-                                                            }}
-                                                            label="Activar status_instagram_posts"
-                                                        />
-                                                    </div> */}
-                                                </div>
-                                            </TabPanel>
-
-                                            {/* <TabPanel>
-                                                <div title={'Redes'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                                    <div className='col-span-2'>
-                                                        <InputLabel htmlFor="instagram" value="Username Instagram" />
-
-                                                        <TextInput
-                                                            id="instagram"
-                                                            type="text"
-                                                            name="instagram"
-                                                            value={data.instagram}
-                                                            className="mt-1 block w-full"
-                                                            isFocused={true}
-                                                            onChange={(e) => setData('instagram', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.instagram} className="mt-2" />
-                                                    </div>
-
-                                                    <div className='col-span-2'>
-                                                        <InputLabel htmlFor="token_instagram" value="token_instagram" />
-
-                                                        <TextInput
-                                                            id="token_instagram"
-                                                            type="text"
-                                                            name="token_instagram"
-                                                            value={data.token_instagram}
-                                                            className="mt-1 block w-full"
-                                                            isFocused={true}
-                                                            onChange={(e) => setData('token_instagram', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.token_instagram} className="mt-2" />
-                                                    </div>
-                                                </div>
-                                            </TabPanel> */}
-
-                                            <TabPanel>
-                                                <div title={'Blog'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                                    {/* <div className=''>
-                                                        <img src={`${setting.portadaContact}`} alt={setting.portadaContact} className='w-40' />
-                                                        <InputLabel htmlFor="portadaContact" value="portadaContact" />
-                                                        <TextInput
-                                                            id="portadaContact"
-                                                            type="file"
-                                                            name="portadaContact"
-                                                            className="mt-1 block w-full"
-                                                            onChange={(e) => setData('portadaContact', e.target.files[0])}
-                                                        />
-
-                                                        <InputError message={errors.portadaContact} className="mt-2" />
-                                                    </div> */}
-
-                                                    <div className='col-span-2'>
-                                                        <InputLabel htmlFor="titleBlog" value="Título del Blog" />
-
-                                                        <TextInput
-                                                            id="titleBlog"
-                                                            type="text"
-                                                            name="titleBlog"
-                                                            value={data.titleBlog}
-                                                            className="mt-1 block w-full"
-                                                            isFocused={true}
-                                                            onChange={(e) => setData('titleBlog', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.titleBlog} className="mt-2" />
-                                                    </div>
-
-                                                    <div className='col-span-2'>
-                                                        <InputLabel htmlFor="descriptionBlog" value="Descripción del Blog" />
-
-                                                        <Textarea
-                                                            id="descriptionBlog"
-                                                            type="text"
-                                                            name="descriptionBlog"
-                                                            rows={10}
-                                                            value={data.descriptionBlog}
-                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                            onChange={(e) => setData('descriptionBlog', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.descriptionBlog} className="mt-2" />
-                                                    </div>
-                                                </div>
-                                            </TabPanel>
-
-                                            <TabPanel>
-                                                <div title={'FAQS'} className='p-5 grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
-
-                                                    <div className=''>
-                                                        <img src={`${setting.portadaFaq}`} alt={setting.portadaFaq} className='w-40 mx-auto rounded-3xl' />
-                                                        <InputLabel htmlFor="portadaFaq" value="Portada de Preguntas Frecuentes" />
-                                                        <TextInput
-                                                            id="portadaFaq"
-                                                            type="file"
-                                                            name="portadaFaq"
-                                                            className="mt-1 block w-full"
-                                                            onChange={(e) => setData('portadaFaq', e.target.files[0])}
-                                                        />
-
-                                                        <InputError message={errors.portadaFaq} className="mt-2" />
-                                                    </div>
-
-                                                    <div className='col-span-2'>
-                                                        <InputLabel htmlFor="titleFaq" value="Título de Preguntas Frecuentes" />
-
-                                                        <TextInput
-                                                            id="titleFaq"
-                                                            type="text"
-                                                            name="titleFaq"
-                                                            value={data.titleFaq}
-                                                            className="mt-1 block w-full"
-                                                            isFocused={true}
-                                                            onChange={(e) => setData('titleFaq', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.titleFaq} className="mt-2" />
-                                                    </div>
-
-                                                    <div className='col-span-2'>
-                                                        <InputLabel htmlFor="descriptionFaq" value="Descripción de Preguntas Frecuentes" />
-
-                                                        <Textarea
-                                                            id="descriptionFaq"
-                                                            type="text"
-                                                            name="descriptionFaq"
-                                                            rows={10}
-                                                            value={data.descriptionFaq}
-                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                            onChange={(e) => setData('descriptionFaq', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.descriptionFaq} className="mt-2" />
-                                                    </div>
-                                                </div>
-                                            </TabPanel>
-
-                                            <TabPanel>
-                                                <div title={'Contacto'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
-
-                                                    <div className=''>
-                                                        <img src={`${setting.portadaContact}`} alt={setting.portadaContact} className='w-40 rounded-3xl mx-auto' />
-                                                        <InputLabel htmlFor="portadaContact" value="Portada de Contacto" />
-                                                        <TextInput
-                                                            id="portadaContact"
-                                                            type="file"
-                                                            name="portadaContact"
-                                                            className="mt-1 block w-full"
-                                                            onChange={(e) => setData('portadaContact', e.target.files[0])}
-                                                        />
-
-                                                        <InputError message={errors.portadaContact} className="mt-2" />
-                                                    </div>
-
-                                                    <div className='col-span-2'>
-                                                        <InputLabel htmlFor="titleContact" value="Título de Contacto" />
-
-                                                        <TextInput
-                                                            id="titleContact"
-                                                            type="text"
-                                                            name="titleContact"
-                                                            value={data.titleContact}
-                                                            className="mt-1 block w-full"
-                                                            isFocused={true}
-                                                            onChange={(e) => setData('titleContact', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.titleContact} className="mt-2" />
-                                                    </div>
-
-                                                    <div className='col-span-2'>
-                                                        <InputLabel htmlFor="descriptionContact" value="Descripción de Contacto" />
-
-                                                        <Textarea
-                                                            id="descriptionContact"
-                                                            type="text"
-                                                            name="descriptionContact"
-                                                            rows={10}
-                                                            value={data.descriptionContact}
-                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                            onChange={(e) => setData('descriptionContact', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.descriptionContact} className="mt-2" />
-                                                    </div>
-                                                </div>
-                                            </TabPanel>
-
-                                            <TabPanel>
-                                                <div title={'Anunciar'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
-
-                                                    <div className=''>
-                                                        <img src={`${setting.portadaAnunciar}`} alt={setting.portadaAnunciar} className='w-40 rounded-3xl mx-auto' />
-                                                        <InputLabel htmlFor="portadaAnunciar" value="Portada de Anunciar" />
-                                                        <TextInput
-                                                            id="portadaAnunciar"
-                                                            type="file"
-                                                            name="portadaAnunciar"
-                                                            className="mt-1 block w-full"
-                                                            onChange={(e) => setData('portadaAnunciar', e.target.files[0])}
-                                                        />
-
-                                                        <InputError message={errors.portadaAnunciar} className="mt-2" />
-                                                    </div>
-
-                                                    <div className='col-span-2'>
-                                                        <InputLabel htmlFor="titleAnunciar" value="Título de Anunciar" />
-
-                                                        <TextInput
-                                                            id="titleAnunciar"
-                                                            type="text"
-                                                            name="titleAnunciar"
-                                                            value={data.titleAnunciar}
-                                                            className="mt-1 block w-full"
-                                                            isFocused={true}
-                                                            onChange={(e) => setData('titleAnunciar', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.titleAnunciar} className="mt-2" />
-                                                    </div>
-
-                                                    <div className='col-span-2'>
-                                                        <InputLabel htmlFor="descriptionAnunciar" value="Descripción de Anunciar" />
-
-                                                        <Textarea
-                                                            id="descriptionAnunciar"
-                                                            type="text"
-                                                            name="descriptionAnunciar"
-                                                            rows={10}
-                                                            value={data.descriptionAnunciar}
-                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                            onChange={(e) => setData('descriptionAnunciar', e.target.value)}
-                                                        />
-
-                                                        <InputError message={errors.descriptionAnunciar} className="mt-2" />
-                                                    </div>
-                                                </div>
-
-                                            </TabPanel>
-
-                                            <TabPanel>
-                                                <div title={'Sección de información'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
-
-                                                    <div>
-                                                        <InputLabel htmlFor="titleInfoSection" value="Título de sección" />
-                                                        <TextInput
-                                                            id="titleInfoSection"
-                                                            type="text"
-                                                            name="titleInfoSection"
-                                                            value={data.titleInfoSection}
-                                                            className="mt-1 block w-full"
-                                                            isFocused={true}
-                                                            onChange={(e) => setData('titleInfoSection', e.target.value)}
-                                                        />
-                                                        <InputError message={errors.titleInfoSection} className="mt-2" />
-                                                    </div>
-
-                                                    <div>
-                                                        <InputLabel htmlFor="descriptionInfoSection" value="Descripción de sección" />
-                                                        <Textarea
-                                                            id="descriptionInfoSection"
-                                                            // type="text"
-                                                            name="descriptionInfoSection"
-                                                            rows={10}
-                                                            value={data.descriptionInfoSection}
-                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                            onChange={(e) => setData('descriptionInfoSection', e.target.value)}
-                                                        />
-                                                        <InputError message={errors.descriptionInfoSection} className="mt-2" />
-                                                    </div>
-
-                                                </div>
-
-                                            </TabPanel>
-
-                                            <TabPanel>
-                                                <div title={'Anunciar'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
-
-                                                <div>
-                                                        <InputLabel htmlFor="titleTeamSection" value="Título de sección" />
-                                                        <TextInput
-                                                            id="titleTeamSection"
-                                                            type="text"
-                                                            name="titleTeamSection"
-                                                            value={data.titleTeamSection}
-                                                            className="mt-1 block w-full"
-                                                            isFocused={true}
-                                                            onChange={(e) => setData('titleTeamSection', e.target.value)}
-                                                        />
-                                                        <InputError message={errors.titleTeamSection} className="mt-2" />
-                                                    </div>
-                                                
-                                                <div>
-                                                        <InputLabel htmlFor="descriptionTeamSection" value="Descripción de sección" />
-                                                        <Textarea
-                                                            id="descriptionTeamSection"
-                                                            // type="text"
-                                                            name="descriptionTeamSection"
-                                                            rows={10}
-                                                            value={data.descriptionTeamSection}
-                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                            onChange={(e) => setData('descriptionTeamSection', e.target.value)}
-                                                        />
-                                                        <InputError message={errors.descriptionTeamSection} className="mt-2" />
-                                                    </div>
-
-                                                </div>
-
-                                            </TabPanel>
-                                            <TabPanel>
-                                                <div title={'Anunciar'} className='p-5 xs:grid md:grid xs:grid-cols-1 md:grid-cols-1 gap-4'>
-
-                                                <div>
-                                                        <InputLabel htmlFor="titleTestimonials" value="Título de sección" />
-                                                        <TextInput
-                                                            id="titleTestimonials"
-                                                            type="text"
-                                                            name="titleTestimonials"
-                                                            value={data.titleTestimonials}
-                                                            className="mt-1 block w-full"
-                                                            isFocused={true}
-                                                            onChange={(e) => setData('titleTestimonials', e.target.value)}
-                                                        />
-                                                        <InputError message={errors.titleTestimonials} className="mt-2" />
-                                                    </div>
-                                                
-                                                <div>
-                                                        <InputLabel htmlFor="descriptionTestimonials" value="Descripción de sección" />
-                                                        <Textarea
-                                                            id="descriptionTestimonials"
-                                                            // type="text"
-                                                            name="descriptionTestimonials"
-                                                            rows={10}
-                                                            value={data.descriptionTestimonials}
-                                                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                            onChange={(e) => setData('descriptionTestimonials', e.target.value)}
-                                                        />
-                                                        <InputError message={errors.descriptionTestimonials} className="mt-2" />
-                                                    </div>
-
-                                                </div>
-
-                                            </TabPanel>
-                                        </TabPanels>
+            <Head className="capitalize" title="Configuraciones" />
+
+            <div className="max-w-7xl mx-auto p-4">
+                {recentlySuccessful && (
+                    <Alert className="mb-6 border-green-500 bg-green-50 text-green-800 dark:bg-green-950 dark:text-green-200">
+                        <CheckCircleIcon className="size-4" />
+                        <AlertDescription>¡Ajustes guardados exitosamente!</AlertDescription>
+                    </Alert>
+                )}
+
+                <form onSubmit={submit} className="bg-white dark:bg-gray-800 border dark:border-gray-700 shadow-sm rounded-xl p-4 md:p-6 text-gray-900 dark:text-gray-100">
+                    <Tabs orientation="vertical" className="flex flex-col md:flex-row gap-6" defaultValue="principales">
+                        <TabsList className="flex md:flex-col h-auto w-full md:w-64 items-start justify-start p-1 bg-gray-50 dark:bg-gray-900 border dark:border-gray-800 overflow-x-auto md:overflow-visible">
+                            <TabsTrigger value="principales" className="w-full text-left justify-start">Datos principales</TabsTrigger>
+                            <TabsTrigger value="imagenes" className="w-full text-left justify-start">Imágenes / Logos</TabsTrigger>
+                            <TabsTrigger value="frontend" className="w-full text-left justify-start">Configurar frontend</TabsTrigger>
+                            <TabsTrigger value="blog" className="w-full text-left justify-start">Sección Blog</TabsTrigger>
+                            <TabsTrigger value="faq" className="w-full text-left justify-start">Preguntas Frecuentes</TabsTrigger>
+                            <TabsTrigger value="contacto" className="w-full text-left justify-start">Contacto</TabsTrigger>
+                            <TabsTrigger value="anunciar" className="w-full text-left justify-start">Anunciar Propiedades</TabsTrigger>
+                            <TabsTrigger value="info" className="w-full text-left justify-start">Sección Información</TabsTrigger>
+                            <TabsTrigger value="equipo" className="w-full text-left justify-start">Equipo de trabajo</TabsTrigger>
+                            <TabsTrigger value="testimonios" className="w-full text-left justify-start">Testimonios</TabsTrigger>
+                        </TabsList>
+
+                        <div className="flex-1 w-full min-w-0">
+                            
+                            {/* Datos principales */}
+                            <TabsContent value="principales" className="space-y-4 m-0">
+                                <ContainerTitle title="Ajustes Generales" className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="name">Nombre / Razón Social</Label>
+                                        <Input id="name" value={data.name} onChange={e => setData('name', e.target.value)} className="mt-1" />
+                                        {errors.name && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.name}</AlertDescription></Alert>}
                                     </div>
-                                </TabGroup>
+                                    <div>
+                                        <Label htmlFor="phone">Teléfono principal</Label>
+                                        <Input id="phone" value={data.phone} onChange={e => setData('phone', e.target.value)} className="mt-1" />
+                                        {errors.phone && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.phone}</AlertDescription></Alert>}
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="currency_id">Moneda por defecto</Label>
+                                        <ShadcnSelect value={data.currency_id} onValueChange={val => setData('currency_id', val)}>
+                                            <SelectTrigger className="mt-1 w-full"><SelectValue placeholder="Seleccionar moneda" /></SelectTrigger>
+                                            <SelectContent>
+                                                {currencies?.map(c => (
+                                                    <SelectItem value={c.id.toString()} key={c.id}>{c.symbol} - {c.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </ShadcnSelect>
+                                        {errors.currency_id && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.currency_id}</AlertDescription></Alert>}
+                                    </div>
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="direction">Dirección</Label>
+                                        <Input id="direction" value={data.direction} onChange={e => setData('direction', e.target.value)} className="mt-1" />
+                                        {errors.direction && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.direction}</AlertDescription></Alert>}
+                                    </div>
+                                    <div className="md:col-span-2">
+                                        <Label htmlFor="description">Descripción (Para SEO y Meta Tags)</Label>
+                                        <Textarea id="description" rows={4} value={data.description} onChange={e => setData('description', e.target.value)} className="mt-1" />
+                                        {errors.description && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.description}</AlertDescription></Alert>}
+                                    </div>
+                                </ContainerTitle>
+                            </TabsContent>
 
-                                <div className="flex justify-end p-2.5">
-                                    <PrimaryButton >
-                                        Guardar
-                                    </PrimaryButton>
-                                </div>
+                            {/* Imágenes / Logos */}
+                            <TabsContent value="imagenes" className="space-y-4 m-0">
+                                <ContainerTitle title="Identidad Visual de la Marca" className="grid grid-cols-1 gap-6">
+                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg bg-gray-50/50 dark:bg-gray-800/50">
+                                        <div className="shrink-0">
+                                            <Label className="block mb-2 text-center text-xs text-muted-foreground">Logo Actual</Label>
+                                            {setting.logo ? <img src={setting.logo} alt="Logo" className="w-32 h-32 object-contain bg-white rounded-md p-2 shadow-sm border" /> : <div className="w-32 h-32 bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-xs">Sin logo</div>}
+                                        </div>
+                                        <div className="flex-1 w-full">
+                                            <Label htmlFor="logo">Actualizar Logo Principal</Label>
+                                            <Input id="logo" type="file" onChange={e => setData('logo', e.target.files[0])} className="mt-2" accept="image/*" />
+                                            {errors.logo && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.logo}</AlertDescription></Alert>}
+                                        </div>
+                                    </div>
 
-                            </form>
+                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg bg-gray-50/50 dark:bg-gray-800/50">
+                                        <div className="shrink-0">
+                                            <Label className="block mb-2 text-center text-xs text-muted-foreground">Logo Footer Actual</Label>
+                                            {setting.logo_footer ? <img src={setting.logo_footer} alt="Logo Footer" className="w-32 h-32 object-contain bg-slate-900 rounded-md p-2 shadow-sm border" /> : <div className="w-32 h-32 bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-xs">Sin logo</div>}
+                                        </div>
+                                        <div className="flex-1 w-full">
+                                            <Label htmlFor="logo_footer">Actualizar Logo de Pie de Página</Label>
+                                            <Input id="logo_footer" type="file" onChange={e => setData('logo_footer', e.target.files[0])} className="mt-2" accept="image/*" />
+                                            {errors.logo_footer && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.logo_footer}</AlertDescription></Alert>}
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg bg-gray-50/50 dark:bg-gray-800/50">
+                                        <div className="shrink-0">
+                                            <Label className="block mb-2 text-center text-xs text-muted-foreground">Favicon Actual</Label>
+                                            {setting.favicon ? <img src={setting.favicon} alt="Favicon" className="w-16 h-16 object-cover mx-auto bg-white rounded-md p-1 shadow-sm border" /> : <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-xs">N/A</div>}
+                                        </div>
+                                        <div className="flex-1 w-full">
+                                            <Label htmlFor="favicon">Actualizar Favicon</Label>
+                                            <Input id="favicon" type="file" onChange={e => setData('favicon', e.target.files[0])} className="mt-2" accept="image/*" />
+                                            {errors.favicon && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.favicon}</AlertDescription></Alert>}
+                                        </div>
+                                    </div>
+                                </ContainerTitle>
+                            </TabsContent>
+
+                            {/* Configurar Frontend */}
+                            <TabsContent value="frontend" className="space-y-4 m-0">
+                                <ContainerTitle title="Visibilidad de Secciones Públicas">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm bg-white dark:bg-gray-800">
+                                            <div className="space-y-0.5">
+                                                <Label className="text-base font-medium">Banner Principal</Label>
+                                                <div className="text-sm text-muted-foreground">Muestra el slider/banner en la página de inicio.</div>
+                                            </div>
+                                            <Switch checked={data.status_banner === 1} onCheckedChange={val => setData('status_banner', val ? 1 : 0)} />
+                                        </div>
+
+                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm bg-white dark:bg-gray-800">
+                                            <div className="space-y-0.5">
+                                                <Label className="text-base font-medium">Lista de Propiedades</Label>
+                                                <div className="text-sm text-muted-foreground">Muestra la cuadrícula de propiedades destacadas.</div>
+                                            </div>
+                                            <Switch checked={data.status_products_list === 1} onCheckedChange={val => setData('status_products_list', val ? 1 : 0)} />
+                                        </div>
+
+                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm bg-white dark:bg-gray-800">
+                                            <div className="space-y-0.5">
+                                                <Label className="text-base font-medium">Sección de Información</Label>
+                                                <div className="text-sm text-muted-foreground">Muestra el contenido de "Quiénes Somos" o similares.</div>
+                                            </div>
+                                            <Switch checked={data.status_info_section === 1} onCheckedChange={val => setData('status_info_section', val ? 1 : 0)} />
+                                        </div>
+
+                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm bg-white dark:bg-gray-800">
+                                            <div className="space-y-0.5">
+                                                <Label className="text-base font-medium">Testimonios</Label>
+                                                <div className="text-sm text-muted-foreground">Muestra las opiniones de los clientes.</div>
+                                            </div>
+                                            <Switch checked={data.status_testimonials === 1} onCheckedChange={val => setData('status_testimonials', val ? 1 : 0)} />
+                                        </div>
+
+                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm bg-white dark:bg-gray-800">
+                                            <div className="space-y-0.5">
+                                                <Label className="text-base font-medium">Equipo de Trabajo</Label>
+                                                <div className="text-sm text-muted-foreground">Muestra a los agentes inmobiliarios.</div>
+                                            </div>
+                                            <Switch checked={data.status_team === 1} onCheckedChange={val => setData('status_team', val ? 1 : 0)} />
+                                        </div>
+                                    </div>
+                                </ContainerTitle>
+                            </TabsContent>
+
+                            {/* Opciones Específicas... Blog, FAQ, etc. */}
+                            <TabsContent value="blog" className="space-y-4 m-0">
+                                <ContainerTitle title="Personalización del Blog" className="space-y-4">
+                                    <div>
+                                        <Label htmlFor="titleBlog">Título de la página del Blog</Label>
+                                        <Input id="titleBlog" value={data.titleBlog} onChange={e => setData('titleBlog', e.target.value)} className="mt-1" />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="descriptionBlog">Descripción del Blog</Label>
+                                        <Textarea id="descriptionBlog" rows={6} value={data.descriptionBlog} onChange={e => setData('descriptionBlog', e.target.value)} className="mt-1" />
+                                    </div>
+                                </ContainerTitle>
+                            </TabsContent>
+
+                            <TabsContent value="faq" className="space-y-4 m-0">
+                                <ContainerTitle title="Personalización de Preguntas Frecuentes" className="space-y-4">
+                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg bg-gray-50/50 dark:bg-gray-800/50 mb-4">
+                                        <div className="shrink-0">
+                                            <Label className="block mb-2 text-center text-xs text-muted-foreground">Portada Actual</Label>
+                                            {setting.portadaFaq ? <img src={setting.portadaFaq} alt="FAQ" className="w-32 h-24 object-cover rounded-md shadow-sm border" /> : <div className="w-32 h-24 bg-gray-200 dark:bg-gray-700 rounded-md"></div>}
+                                        </div>
+                                        <div className="flex-1 w-full">
+                                            <Label htmlFor="portadaFaq">Actualizar Portada (Hero Image)</Label>
+                                            <Input id="portadaFaq" type="file" onChange={e => setData('portadaFaq', e.target.files[0])} className="mt-2" accept="image/*" />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <Label htmlFor="titleFaq">Título</Label>
+                                        <Input id="titleFaq" value={data.titleFaq} onChange={e => setData('titleFaq', e.target.value)} className="mt-1" />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="descriptionFaq">Descripción</Label>
+                                        <Textarea id="descriptionFaq" rows={6} value={data.descriptionFaq} onChange={e => setData('descriptionFaq', e.target.value)} className="mt-1" />
+                                    </div>
+                                </ContainerTitle>
+                            </TabsContent>
+
+                            <TabsContent value="contacto" className="space-y-4 m-0">
+                                <ContainerTitle title="Personalización de Página de Contacto" className="space-y-4">
+                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg bg-gray-50/50 dark:bg-gray-800/50 mb-4">
+                                        <div className="shrink-0">
+                                            <Label className="block mb-2 text-center text-xs text-muted-foreground">Portada Actual</Label>
+                                            {setting.portadaContact ? <img src={setting.portadaContact} alt="Contact" className="w-32 h-24 object-cover rounded-md shadow-sm border" /> : <div className="w-32 h-24 bg-gray-200 dark:bg-gray-700 rounded-md"></div>}
+                                        </div>
+                                        <div className="flex-1 w-full">
+                                            <Label htmlFor="portadaContact">Actualizar Portada (Hero Image)</Label>
+                                            <Input id="portadaContact" type="file" onChange={e => setData('portadaContact', e.target.files[0])} className="mt-2" accept="image/*" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="titleContact">Título</Label>
+                                        <Input id="titleContact" value={data.titleContact} onChange={e => setData('titleContact', e.target.value)} className="mt-1" />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="descriptionContact">Descripción</Label>
+                                        <Textarea id="descriptionContact" rows={6} value={data.descriptionContact} onChange={e => setData('descriptionContact', e.target.value)} className="mt-1" />
+                                    </div>
+                                </ContainerTitle>
+                            </TabsContent>
+
+                            <TabsContent value="anunciar" className="space-y-4 m-0">
+                                <ContainerTitle title="Personalización de Vender/Anunciar" className="space-y-4">
+                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg bg-gray-50/50 dark:bg-gray-800/50 mb-4">
+                                        <div className="shrink-0">
+                                            <Label className="block mb-2 text-center text-xs text-muted-foreground">Portada Actual</Label>
+                                            {setting.portadaAnunciar ? <img src={setting.portadaAnunciar} alt="Anunciar" className="w-32 h-24 object-cover rounded-md shadow-sm border" /> : <div className="w-32 h-24 bg-gray-200 dark:bg-gray-700 rounded-md"></div>}
+                                        </div>
+                                        <div className="flex-1 w-full">
+                                            <Label htmlFor="portadaAnunciar">Actualizar Portada (Hero Image)</Label>
+                                            <Input id="portadaAnunciar" type="file" onChange={e => setData('portadaAnunciar', e.target.files[0])} className="mt-2" accept="image/*" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="titleAnunciar">Título</Label>
+                                        <Input id="titleAnunciar" value={data.titleAnunciar} onChange={e => setData('titleAnunciar', e.target.value)} className="mt-1" />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="descriptionAnunciar">Descripción</Label>
+                                        <Textarea id="descriptionAnunciar" rows={6} value={data.descriptionAnunciar} onChange={e => setData('descriptionAnunciar', e.target.value)} className="mt-1" />
+                                    </div>
+                                </ContainerTitle>
+                            </TabsContent>
+
+                            <TabsContent value="info" className="space-y-4 m-0">
+                                <ContainerTitle title="Sección de Información (Quiénes Somos)" className="space-y-4">
+                                    <div>
+                                        <Label htmlFor="titleInfoSection">Título</Label>
+                                        <Input id="titleInfoSection" value={data.titleInfoSection} onChange={e => setData('titleInfoSection', e.target.value)} className="mt-1" />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="descriptionInfoSection">Descripción general / Texto descriptivo</Label>
+                                        <Textarea id="descriptionInfoSection" rows={8} value={data.descriptionInfoSection} onChange={e => setData('descriptionInfoSection', e.target.value)} className="mt-1" />
+                                    </div>
+                                </ContainerTitle>
+                            </TabsContent>
+
+                            <TabsContent value="equipo" className="space-y-4 m-0">
+                                <ContainerTitle title="Sección de Equipo de Trabajo" className="space-y-4">
+                                    <div>
+                                        <Label htmlFor="titleTeamSection">Título</Label>
+                                        <Input id="titleTeamSection" value={data.titleTeamSection} onChange={e => setData('titleTeamSection', e.target.value)} className="mt-1" />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="descriptionTeamSection">Descripción</Label>
+                                        <Textarea id="descriptionTeamSection" rows={6} value={data.descriptionTeamSection} onChange={e => setData('descriptionTeamSection', e.target.value)} className="mt-1" />
+                                    </div>
+                                </ContainerTitle>
+                            </TabsContent>
+
+                            <TabsContent value="testimonios" className="space-y-4 m-0">
+                                <ContainerTitle title="Sección de Testimonios" className="space-y-4">
+                                    <div>
+                                        <Label htmlFor="titleTestimonials">Título</Label>
+                                        <Input id="titleTestimonials" value={data.titleTestimonials} onChange={e => setData('titleTestimonials', e.target.value)} className="mt-1" />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="descriptionTestimonials">Descripción</Label>
+                                        <Textarea id="descriptionTestimonials" rows={6} value={data.descriptionTestimonials} onChange={e => setData('descriptionTestimonials', e.target.value)} className="mt-1" />
+                                    </div>
+                                </ContainerTitle>
+                            </TabsContent>
+
                         </div>
+                    </Tabs>
+
+                    <div className="flex justify-end pt-6 mt-6 border-t dark:border-gray-800">
+                        <Button type="submit" size="lg" className="px-8">
+                            Guardar configuración
+                        </Button>
                     </div>
-                </div>
+                </form>
             </div>
         </AuthenticatedLayout>
-    )
+    );
 }

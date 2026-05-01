@@ -1,289 +1,218 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Select, Textarea, Transition } from '@headlessui/react';
-import ContainerTitle from '@/Components/ContainerTitle';
-import Breadcrumb from '@/Components/Breadcrumb';
-import { Alert } from 'flowbite-react';
 import SectionHeader from '@/Components/SectionHeader';
+import ContainerTitle from '@/Components/ContainerTitle';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import { Textarea } from '@/Components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import { Button } from '@/Components/ui/button';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
 export default function Edit({ auth, task, statuses, contacts, typetasks, properties, role, permission }) {
 
     const initialValues = {
-        name: task.name,
-        start_time: task.start_time,
-        end_time: task.end_time,
-        description: task.description,
-        contact_id: task.contact_id,
-        types_tasks_id: task.types_tasks_id,
-        property_id: task.property_id,
-        status_contacts_id: task.status_contacts_id,
-    }
+        name: task.name || "",
+        start_time: task.start_time || "",
+        end_time: task.end_time || "",
+        description: task.description || "",
+        contact_id: task.contact_id?.toString() || "",
+        types_tasks_id: task.types_tasks_id?.toString() || "",
+        property_id: task.property_id?.toString() || "",
+        status_contacts_id: task.status_contacts_id?.toString() || "",
+    };
 
-    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
+    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues);
 
     const submit = (e) => {
         e.preventDefault();
         post(route('tasks.update', task), {
-            onSuccess: () => {
-                // Handle success
-            },
-            onError: (error) => {
-                console.log(error)
-            }
-        })
-    }
+            onError: (error) => console.log(error)
+        });
+    };
 
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de tareas',
-            href: 'tasks.index',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-        {
-            name: 'Actualizar Tarea',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
     return (
         <AuthenticatedLayout
             user={auth.user}
             roles={role}
             permission={permission}
             header={
-
-                <>
-                    <div className='flex justify-between items-center'>
-                        <SectionHeader
-                            title="Actualizar tarea"
-                            subtitle="Aquí puedes actualizar las tareas y vincularlas con el contacto y la propiedad."
-                        />
-                        <Link href={route('tasks.create')}
-                            className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                        >
-                            Crear tarea
-                        </Link>
-                    </div>
-                </>
+                <div className='flex justify-between items-center'>
+                    <SectionHeader title="Actualizar tarea" subtitle="Modifica los detalles, horarios y asignaciones de la tarea." />
+                    <Link href={route('tasks.index')}
+                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    >
+                        Volver
+                    </Link>
+                </div>
             }
         >
-            <Breadcrumb items={items} />
+            <Head className="capitalize" title="Actualizar tarea" />
 
-            <Head className="capitalize" title="Actualizar Tarea" />
+            <div className="max-w-7xl mx-auto p-4">
+                {recentlySuccessful && (
+                    <Alert className="mb-6 border-green-500 bg-green-50 text-green-800 dark:bg-green-950 dark:text-green-200">
+                        <CheckCircleIcon className="size-4" />
+                        <AlertDescription>¡Tarea actualizada exitosamente!</AlertDescription>
+                    </Alert>
+                )}
 
-            <div className="">
-                <div className="max-w-7xl mx-auto ">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                        <div className=" text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
+                <form onSubmit={submit} className="space-y-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                                <Transition
-                                    show={recentlySuccessful}
-                                    enter="transition ease-out duration-300"
-                                    enterFrom="opacity-0 translate-y-[-100%]"
-                                    enterTo="opacity-100 translate-y-0"
-                                    leave="transition ease-in duration-200"
-                                    leaveFrom="opacity-100 translate-y-0"
-                                    leaveTo="opacity-0 translate-y-[-100%]"
-                                >
-                                    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
-                                        <Alert
-                                            color="success"
-                                            className="border-0 shadow-lg"
-                                        >
-                                            <span className="font-medium">¡Bien hecho!</span> pregunta frecuente actualizado exitosamente.
-                                        </Alert>
+                        {/* Columna Principal - 2/3 */}
+                        <div className="lg:col-span-2 space-y-6">
+                            <ContainerTitle title="Detalles de la tarea">
+                                <div className="space-y-4">
+                                    <div>
+                                        <Label htmlFor="name">Título de la tarea</Label>
+                                        <Input
+                                            id="name"
+                                            value={data.name}
+                                            onChange={(e) => setData('name', e.target.value)}
+                                            autoFocus
+                                            className="mt-1"
+                                        />
+                                        {errors.name && (
+                                            <Alert variant="destructive" className="mt-2 py-2">
+                                                <AlertDescription>{errors.name}</AlertDescription>
+                                            </Alert>
+                                        )}
                                     </div>
-                                </Transition>
-
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-
-                                    <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                        <div className='col-span-2'>
-                                            <InputLabel htmlFor="name" value="Nombre" />
-
-                                            <TextInput
-                                                id="name"
-                                                type="text"
-                                                name="name"
-                                                value={data.name}
-                                                className="mt-1 block w-full"
-                                                isFocused={true}
-                                                onChange={(e) => setData('name', e.target.value)}
-                                            />
-
-                                            <InputError message={errors.name} className="mt-2" />
-                                        </div>
-
-                                        <div className='col-span-2'>
-                                            <InputLabel htmlFor="description" value="descripcion" />
-
-                                            <Textarea
-                                                id="description"
-                                                type="text"
-                                                name="description"
-                                                rows={10}
-                                                value={data.description}
-                                                className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-
-                                                onChange={(e) => setData('description', e.target.value)}
-                                            />
-
-                                            <InputError message={errors.description} className="mt-2" />
-                                        </div>
-
-                                    </ContainerTitle>
-
-                                    <ContainerTitle title={'Datos secundaria'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                        <div className='col-span-1'>
-                                            <InputLabel htmlFor="start_time" value="Fecha de inicio" />
-
-                                            <TextInput
+                                    
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <Label htmlFor="start_time">Fecha y hora de inicio</Label>
+                                            <Input
                                                 id="start_time"
                                                 type="datetime-local"
-                                                name="start_time"
                                                 value={data.start_time}
-                                                className="mt-1 block w-full"
                                                 onChange={(e) => setData('start_time', e.target.value)}
+                                                className="mt-1"
                                             />
-
-                                            <InputError message={errors.start_time} className="mt-2" />
+                                            {errors.start_time && (
+                                                <Alert variant="destructive" className="mt-2 py-2">
+                                                    <AlertDescription>{errors.start_time}</AlertDescription>
+                                                </Alert>
+                                            )}
                                         </div>
-
-                                        <div className='col-span-1'>
-                                            <InputLabel htmlFor="end_time" value="Fecha de culminación" />
-
-                                            <TextInput
+                                        <div>
+                                            <Label htmlFor="end_time">Fecha y hora de fin</Label>
+                                            <Input
                                                 id="end_time"
                                                 type="datetime-local"
-                                                name="end_time"
                                                 value={data.end_time}
-                                                className="mt-1 block w-full"
                                                 onChange={(e) => setData('end_time', e.target.value)}
+                                                className="mt-1"
                                             />
-
-                                            <InputError message={errors.end_time} className="mt-2" />
+                                            {errors.end_time && (
+                                                <Alert variant="destructive" className="mt-2 py-2">
+                                                    <AlertDescription>{errors.end_time}</AlertDescription>
+                                                </Alert>
+                                            )}
                                         </div>
+                                    </div>
 
-                                        <div className='col-span-full'>
-                                            <InputLabel htmlFor="statuses" value="Estado de la tarea" />
-
-                                            <Select
-                                                name="status_contacts_id"
-                                                id="statuses"
-                                                className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                value={data.status_contacts_id} // Establecer el valor del select con el valor de status_contacts_id
-                                                onChange={(e) => {
-                                                    setData('status_contacts_id', parseInt(e.target.value));
-                                                }}
-                                            >
-                                                {statuses.map((statuses) => (
-                                                    <option value={statuses.id} key={statuses.id}>
-                                                        {statuses.name}
-                                                    </option>
-                                                ))}
-                                            </Select>
-
-                                            <InputError message={errors.statuses} className="mt-2" />
-                                        </div>
-
-                                        <div className='col-span-full'>
-                                            <InputLabel htmlFor="contacts" value="Contacto" />
-
-                                            <Select
-                                                name="contact_id"
-                                                id="contacts"
-                                                className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                value={data.contact_id} // Establecer el valor del select con el valor de contact_id
-                                                onChange={(e) => {
-                                                    setData('contact_id', parseInt(e.target.value));
-                                                }}
-                                            >
-                                                <option value="">No seleccionar contacto</option>
-                                                {contacts.map((contacts) => (
-                                                    <option value={contacts.id} key={contacts.id}>
-                                                        {contacts.name}
-                                                    </option>
-                                                ))}
-                                            </Select>
-
-                                            <InputError message={errors.statuses} className="mt-2" />
-                                        </div>
-
-                                        <div className='col-span-full'>
-                                            <InputLabel htmlFor="typetasks" value="tipo de tareas" />
-
-                                            <Select
-                                                name="property_id"
-                                                id="typetasks"
-                                                className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                value={data.property_id} // Establecer el valor del select con el valor de property_id
-                                                onChange={(e) => {
-                                                    setData('property_id', parseInt(e.target.value));
-                                                }}
-                                            >
-                                                {typetasks.map((typetasks) => (
-                                                    <option value={typetasks.id} key={typetasks.id}>
-                                                        {typetasks.name}
-                                                    </option>
-                                                ))}
-                                            </Select>
-
-                                            <InputError message={errors.statuses} className="mt-2" />
-                                        </div>
-
-                                        <div className='col-span-full'>
-                                            <InputLabel htmlFor="properties" value="propiedades" />
-
-                                            <Select
-                                                name="property_id"
-                                                id="properties"
-                                                className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 capitalize dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                value={data.property_id} // Establecer el valor del select con el valor de property_id
-                                                onChange={(e) => {
-                                                    setData('property_id', parseInt(e.target.value));
-                                                }}
-                                            >
-                                                <option value="">No seleccionar propiedades</option>
-                                                {properties.map((properties) => (
-                                                    <option value={properties.id} key={properties.id}>
-                                                        {properties.name}
-                                                    </option>
-                                                ))}
-                                            </Select>
-
-                                            <InputError message={errors.statuses} className="mt-2" />
-                                        </div>
-
-                                    </ContainerTitle>
+                                    <div>
+                                        <Label htmlFor="description">Descripción / Notas</Label>
+                                        <Textarea
+                                            id="description"
+                                            rows={6}
+                                            value={data.description}
+                                            onChange={(e) => setData('description', e.target.value)}
+                                            className="mt-1"
+                                        />
+                                        {errors.description && (
+                                            <Alert variant="destructive" className="mt-2 py-2">
+                                                <AlertDescription>{errors.description}</AlertDescription>
+                                            </Alert>
+                                        )}
+                                    </div>
                                 </div>
-                                <div className="flex justify-end p-2.5">
-                                    <PrimaryButton >
-                                        Guardar
-                                    </PrimaryButton>
-                                </div>
-
-                            </form>
+                            </ContainerTitle>
                         </div>
+
+                        {/* Columna Secundaria - 1/3 */}
+                        <div className="lg:col-span-1 space-y-6">
+                            <ContainerTitle title="Asignaciones y Estado">
+                                <div className="space-y-4">
+                                    
+                                    <div>
+                                        <Label htmlFor="status_contacts_id">Estado</Label>
+                                        <Select value={data.status_contacts_id} onValueChange={(val) => setData('status_contacts_id', val)}>
+                                            <SelectTrigger className="mt-1 w-full"><SelectValue placeholder="Seleccionar estado" /></SelectTrigger>
+                                            <SelectContent>
+                                                {statuses?.map(status => (
+                                                    <SelectItem value={status.id.toString()} key={status.id}>{status.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.status_contacts_id && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.status_contacts_id}</AlertDescription></Alert>}
+                                    </div>
+
+                                    <div>
+                                        <Label htmlFor="types_tasks_id">Tipo de tarea</Label>
+                                        <Select value={data.types_tasks_id} onValueChange={(val) => setData('types_tasks_id', val)}>
+                                            <SelectTrigger className="mt-1 w-full"><SelectValue placeholder="Seleccionar tipo" /></SelectTrigger>
+                                            <SelectContent>
+                                                {typetasks?.map(type => (
+                                                    <SelectItem value={type.id.toString()} key={type.id}>{type.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.types_tasks_id && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.types_tasks_id}</AlertDescription></Alert>}
+                                    </div>
+
+                                    <div>
+                                        <div className="flex justify-between items-center mb-1">
+                                            <Label htmlFor="contact_id">Contacto asignado</Label>
+                                            {permission?.some(perm => perm.name === 'admin.tasks.create') && (
+                                                <Link href={route('contacts.create')} className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400">Crear nuevo</Link>
+                                            )}
+                                        </div>
+                                        <Select value={data.contact_id} onValueChange={(val) => setData('contact_id', val)}>
+                                            <SelectTrigger className="w-full"><SelectValue placeholder="Sin contacto" /></SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="none" onClick={() => setData('contact_id', "")}>Ninguno</SelectItem>
+                                                {contacts?.map(contact => (
+                                                    <SelectItem value={contact.id.toString()} key={contact.id}>{contact.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.contact_id && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.contact_id}</AlertDescription></Alert>}
+                                    </div>
+
+                                    <div>
+                                        <div className="flex justify-between items-center mb-1">
+                                            <Label htmlFor="property_id">Propiedad asignada</Label>
+                                            {permission?.some(perm => perm.name === 'admin.tasks.create') && (
+                                                <Link href={route('properties.create')} className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400">Crear nueva</Link>
+                                            )}
+                                        </div>
+                                        <Select value={data.property_id} onValueChange={(val) => setData('property_id', val)}>
+                                            <SelectTrigger className="w-full"><SelectValue placeholder="Sin propiedad" /></SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="none" onClick={() => setData('property_id', "")}>Ninguna</SelectItem>
+                                                {properties?.map(property => (
+                                                    <SelectItem value={property.id.toString()} key={property.id}>{property.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.property_id && <Alert variant="destructive" className="mt-2 py-2"><AlertDescription>{errors.property_id}</AlertDescription></Alert>}
+                                    </div>
+
+                                </div>
+                            </ContainerTitle>
+                        </div>
+
                     </div>
-                </div>
+
+                    <div className="flex justify-end pt-4">
+                        <Button type="submit">Guardar cambios</Button>
+                    </div>
+                </form>
             </div>
         </AuthenticatedLayout>
-    )
+    );
 }

@@ -1,7 +1,6 @@
 import CoverPage from "@/Components/CoverPage";
 import FrontedLayout from "@/Layouts/FrontedLayout";
 import { Head } from "@inertiajs/react";
-import { Accordion } from "flowbite-react";
 
 export default function Faqs({ auth, setting, faqs, pages }) {
 
@@ -15,25 +14,17 @@ export default function Faqs({ auth, setting, faqs, pages }) {
                 text={setting.descriptionFaq}
             />
 
-            <div className="my-20">
-
-                <Accordion>
-                    {faqs.map((faq, index) => (
-                        <Accordion.Panel key={index}>
-                            <Accordion.Title>
-                                <p className="text-lg">
-
-                                {faq.name}
-                                </p>
-                                </Accordion.Title>
-                            <Accordion.Content>
-                                <p className="mb-2 text-gray-500 dark:text-gray-400">
-                                    {faq.content}
-                                </p>
-                            </Accordion.Content>
-                        </Accordion.Panel>
-                    ))}
-                </Accordion>
+            <div className="my-20 space-y-2">
+                {faqs.map((faq, index) => (
+                    <details key={index} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+                        <summary className="cursor-pointer text-lg font-semibold text-gray-900">
+                            {faq.name}
+                        </summary>
+                        <div className="mt-2 text-gray-500">
+                            {faq.content}
+                        </div>
+                    </details>
+                ))}
             </div>
 
         </FrontedLayout>

@@ -1,49 +1,39 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Textarea, Transition } from '@headlessui/react';
-import Breadcrumb from '@/Components/Breadcrumb';
-import ContainerTitle from '@/Components/ContainerTitle';
-import { useRef } from 'react';
-import TextAreaRich from '@/Components/TextAreaRich';
-import CharacterCounter from '@/Components/CharacterCounter';
-import { useState } from 'react';
-import { Alert } from 'flowbite-react';
-import { LinkIcon } from '@heroicons/react/24/outline';
 import SectionHeader from '@/Components/SectionHeader';
+import ContainerTitle from '@/Components/ContainerTitle';
+import CharacterCounter from '@/Components/CharacterCounter';
+import TextAreaRich from '@/Components/TextAreaRich';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import { Textarea } from '@/Components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import { Button } from '@/Components/ui/button';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { LinkIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import React, { useRef, useState } from 'react';
 
 export default function Edit({ auth, posts, categryposts, role, permission }) {
 
-    const textAreaRef = useRef();
-
     const initialValues = {
         name: posts.name,
-        content: posts.content,
-        extract: posts.extract,
-        status: posts.status,
-        category_post_id: posts.category_post_id,
+        extract: posts.extract || "",
+        content: posts.content || "",
+        status: posts.status ? posts.status.toString() : "0",
+        category_post_id: posts.category_post_id ? posts.category_post_id.toString() : (categryposts?.[0]?.id?.toString() || ""),
+        image: null,
+    };
 
-    }
-
-    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues)
-    const [charCount, setCharCount] = useState(posts.extract.length);
-    const charLimit = 150;
+    const { data, setData, errors, post, recentlySuccessful } = useForm(initialValues);
+    const [charCount, setCharCount] = useState((posts.extract || '').length);
+    const charLimit = 200;
+    const textAreaRef = useRef();
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('post.update', posts),{
-            onSuccess: () => {
-                
-            },
-            onError: (error) => {
-                console.log(error)
-            },
-
-        })
-    }
+        // Since we are uploading a file we use post with method simulation if necessary in laravel.
+        post(route('post.update', posts));
+    };
 
     const handleExtractChange = (e) => {
         const { value } = e.target;
@@ -54,30 +44,7 @@ export default function Edit({ auth, posts, categryposts, role, permission }) {
             setData('extract', value.substring(0, charLimit));
             setCharCount(charLimit);
         }
-    }
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de publicaciones',
-            href: 'post.index',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-        {
-            name: 'Actualizar publicación',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
+    };
 
     return (
         <AuthenticatedLayout
@@ -85,182 +52,174 @@ export default function Edit({ auth, posts, categryposts, role, permission }) {
             roles={role}
             permission={permission}
             header={
-                <div className='flex justify-between items-center px-6'>
-                    <SectionHeader
-                        title="Actualizar publicación"
-                        subtitle="Aquí puedes actualizar la información de la publicación."
-                    />
-                    <Link href={route('post.create')}
-                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                <div className='flex justify-between items-center'>
+                    <SectionHeader title="Actualizar publicación" subtitle="Edita la información y contenido de la publicación." />
+                    <Link href={route('post.index')}
+                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
-                        Crear publicación
+                        Volver
                     </Link>
                 </div>
             }
         >
-            <Breadcrumb items={items} />
-
             <Head className="capitalize" title="Actualizar Publicación" />
 
-            <div className="max-w-7xl mx-auto ">
-                <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                    <div className=" text-gray-900 dark:text-gray-100">
-                        <form onSubmit={submit} className='space-y-4'>
+            <div className="max-w-7xl mx-auto p-4">
+                {recentlySuccessful && (
+                    <Alert className="mb-6 border-green-500 bg-green-50 text-green-800 dark:bg-green-950 dark:text-green-200">
+                        <CheckCircleIcon className="size-4" />
+                        <AlertDescription>¡Publicación actualizada exitosamente!</AlertDescription>
+                    </Alert>
+                )}
 
-                            <Transition
-                                show={recentlySuccessful}
-                                enter="transition ease-out duration-300"
-                                enterFrom="opacity-0 translate-y-[-100%]"
-                                enterTo="opacity-100 translate-y-0"
-                                leave="transition ease-in duration-200"
-                                leaveFrom="opacity-100 translate-y-0"
-                                leaveTo="opacity-0 translate-y-[-100%]"
-                            >
-                                <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
-                                    <Alert
-                                        color="success"
-                                        className="border-0 shadow-lg"
-                                    >
-                                        <span className="font-medium">¡Bien hecho!</span> publicación actualizado exitosamente.
-                                    </Alert>
-                                </div>
-                            </Transition>
+                <form onSubmit={submit} className="space-y-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-
-                                <div className="col-span-full lg:col-span-3">
-                                    <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                        <div className='col-span-2'>
-                                            <InputLabel htmlFor="name" value="Nombre" />
-                                            <TextInput
-                                                id="name"
-                                                type="text"
-                                                name="name"
-                                                value={data.name}
-                                                className="mt-1 block w-full"
-                                                isFocused={true}
-                                                onChange={(e) => setData('name', e.target.value)}
-                                            />
-                                            <InputError message={errors.name} className="mt-2" />
-                                            <a
-                        href={route('posts.show', posts.slug)}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        className="flex items-start justify-start underline underline-offset-4 text-blue-500 hover:text-blue-400 text-sm"
-                    >
-                        <LinkIcon className='size-4 me-2' /> {route('posts.show', posts.slug)}
-                    </a>
-                                        </div>
-
-                                        <div className='col-span-2'>
-                                            <InputLabel htmlFor="extract" value="extract" />
-
-                                            <Textarea
-                                                id="extract"
-                                                type="text"
-                                                name="extract"
-                                                value={data.extract}
-                                                rows={5}
-                                                className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                onChange={handleExtractChange}
-                                            >
-
-                                            </Textarea>
-                                            <CharacterCounter currentCount={charCount} limit={150} /> {/* Usar el componente aquí */}
-
-                                            <InputError message={errors.extract} className="mt-2" />
-                                        </div>
-
-                                        <div className='col-span-2'>
-                                            <InputLabel htmlFor="content" value="content" />
-
+                        {/* Columna Principal - 2/3 */}
+                        <div className="lg:col-span-2 space-y-6">
+                            <ContainerTitle title="Datos principales">
+                                <div className="space-y-4">
+                                    <div>
+                                        <Label htmlFor="name">Nombre / Título</Label>
+                                        <Input
+                                            id="name"
+                                            value={data.name}
+                                            onChange={(e) => setData('name', e.target.value)}
+                                            autoFocus
+                                            className="mt-1"
+                                        />
+                                        {errors.name && (
+                                            <Alert variant="destructive" className="mt-2 py-2">
+                                                <AlertDescription>{errors.name}</AlertDescription>
+                                            </Alert>
+                                        )}
+                                        <a
+                                            href={route('posts.show', posts.slug)}
+                                            target='_blank'
+                                            rel='noopener noreferrer'
+                                            className="inline-flex flex-row items-center justify-start underline underline-offset-4 text-blue-500 hover:text-blue-400 text-sm mt-3"
+                                        >
+                                            <LinkIcon className='size-4 me-2' /> Ver publicación pública ({route('posts.show', posts.slug)})
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="extract">Extracto</Label>
+                                        <Textarea
+                                            id="extract"
+                                            rows={4}
+                                            value={data.extract}
+                                            onChange={handleExtractChange}
+                                            className="mt-1"
+                                        />
+                                        <CharacterCounter currentCount={charCount} limit={charLimit} />
+                                        {errors.extract && (
+                                            <Alert variant="destructive" className="mt-2 py-2">
+                                                <AlertDescription>{errors.extract}</AlertDescription>
+                                            </Alert>
+                                        )}
+                                    </div>
+                                    <div className="pt-2">
+                                        <Label htmlFor="content">Contenido Completo</Label>
+                                        <div className="mt-1 rounded-md overflow-hidden bg-white dark:bg-gray-900 shadow-sm border dark:border-gray-800">
                                             <TextAreaRich
                                                 initialValue={data.content}
                                                 ref={textAreaRef}
                                                 name="content"
                                                 onChange={(newText) => setData('content', newText)}
                                             />
-
-                                            <InputError message={errors.content} className="mt-2" />
                                         </div>
-
-                                    </ContainerTitle>
-
+                                        {errors.content && (
+                                            <Alert variant="destructive" className="mt-2 py-2">
+                                                <AlertDescription>{errors.content}</AlertDescription>
+                                            </Alert>
+                                        )}
+                                    </div>
                                 </div>
-                                <div className="col-span-full lg:col-span-1">
-                                    <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
+                            </ContainerTitle>
+                        </div>
 
-                                        <div className='col-span-full'>
-                                            <img src={`${posts.image}`} alt={posts.image} className='w-40 rounded-3xl mx-auto' />
-                                            <InputLabel htmlFor="image" value="image" />
+                        {/* Columna Secundaria - 1/3 */}
+                        <div className="lg:col-span-1 space-y-6">
+                            <ContainerTitle title="Publicación y Multimedia">
+                                <div className="space-y-4">
+                                    <div className="flex flex-col items-center mb-4 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-800">
+                                        {posts.image ? (
+                                            <img src={posts.image} alt={posts.name} className='w-full max-w-[240px] rounded-md object-cover' />
+                                        ) : (
+                                            <div className="w-full aspect-video bg-gray-200 dark:bg-gray-700 flex items-center justify-center rounded-md">
+                                                <span className="text-gray-400">Sin Imagen</span>
+                                            </div>
+                                        )}
+                                    </div>
 
-                                            <TextInput
-                                                id="image"
-                                                type="file"
-                                                name="image"
-                                                className="mt-1 block w-full"
-                                                isFocused={true}
-                                                onChange={(e) => setData('image', e.target.files[0])}
-                                            />
+                                    <div>
+                                        <Label htmlFor="image">Actualizar Imagen</Label>
+                                        <Input
+                                            id="image"
+                                            type="file"
+                                            onChange={(e) => setData('image', e.target.files[0])}
+                                            className="mt-1"
+                                            accept="image/*"
+                                        />
+                                        {errors.image && (
+                                            <Alert variant="destructive" className="mt-2 py-2">
+                                                <AlertDescription>{errors.image}</AlertDescription>
+                                            </Alert>
+                                        )}
+                                    </div>
 
-                                            <InputError message={errors.image} className="mt-2" />
-                                        </div>
-
-                                        <div className='col-span-full'>
-                                            <InputLabel htmlFor="categryposts" value="categryposts" />
-
-                                            <select
-                                                name="category_post_id"
-                                                id="categryposts"
-                                                className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                                value={data.category_post_id}
-                                                onChange={(e) => {
-                                                    setData('category_post_id', parseInt(e.target.value));
-                                                }}
-                                            >
-                                                {categryposts.map((categryposts) => (
-                                                    <option value={categryposts.id} key={categryposts.id}>
-                                                        {categryposts.name}
-                                                    </option>
+                                    <div>
+                                        <Label htmlFor="category_post_id">Categoría</Label>
+                                        <Select 
+                                            value={data.category_post_id} 
+                                            onValueChange={(val) => setData('category_post_id', val)}
+                                        >
+                                            <SelectTrigger className="w-full mt-1">
+                                                <SelectValue placeholder="Seleccionar categoría" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {categryposts?.map((cat) => (
+                                                    <SelectItem value={cat.id.toString()} key={cat.id}>
+                                                        {cat.name}
+                                                    </SelectItem>
                                                 ))}
-                                            </select>
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.category_post_id && (
+                                            <Alert variant="destructive" className="mt-2 py-2">
+                                                <AlertDescription>{errors.category_post_id}</AlertDescription>
+                                            </Alert>
+                                        )}
+                                    </div>
 
-                                            <InputError message={errors.categryposts} className="mt-2" />
-                                        </div>
-
-                                        <div className='col-span-full'>
-                                            <InputLabel htmlFor="status" value="Publicar" />
-
-                                            <select
-                                                name="status"
-                                                id="status"
-                                                value={data.status}
-                                                className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-full shadow-sm"
-                                                onChange={(e) => setData('status', e.target.value)}
-                                            >
-                                                <option value={0}>Borrador</option>
-                                                <option value={1}>Publicar</option>
-                                            </select>
-
-                                            <InputError message={errors.status} className="mt-2" />
-                                        </div>
-
-
-                                    </ContainerTitle>
-
+                                    <div>
+                                        <Label htmlFor="status">Estado</Label>
+                                        <Select value={data.status} onValueChange={(val) => setData('status', val)}>
+                                            <SelectTrigger className="mt-1 w-full">
+                                                <SelectValue placeholder="Seleccionar..." />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="0">Borrador</SelectItem>
+                                                <SelectItem value="1">Publicar</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        {errors.status && (
+                                            <Alert variant="destructive" className="mt-2 py-2">
+                                                <AlertDescription>{errors.status}</AlertDescription>
+                                            </Alert>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex justify-end p-2.5">
-                                <PrimaryButton >
-                                    Guardar
-                                </PrimaryButton>
-                            </div>
+                            </ContainerTitle>
+                        </div>
 
-                        </form>
                     </div>
-                </div>
+
+                    <div className="flex justify-end pt-4">
+                        <Button type="submit">Guardar cambios</Button>
+                    </div>
+                </form>
             </div>
         </AuthenticatedLayout>
-    )
+    );
 }

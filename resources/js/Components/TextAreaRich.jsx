@@ -1,6 +1,6 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 
 const TextAreaRich = forwardRef(({ initialValue = '', onChange, styles = {}, name }, ref) => {
     const [text, setText] = useState(initialValue);

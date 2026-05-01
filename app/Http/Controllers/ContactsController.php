@@ -38,18 +38,24 @@ class ContactsController extends Controller
     {
         $user = Auth::user();
 
-        $contacts = Contacts::with('user', 'country', 'state', 'city', 'typecontact', 'statuscontact', 'origin', 'typeproperty',)
+        $contacts = Contacts::select('id', 'slug', 'name', 'email', 'phone', 'user_id', 'country_id', 'state_id', 'city_id', 'types_contacts_id', 'status_contacts_id', 'origin_id', 'types_properties_id', 'created_at')
+            ->with([
+                'user:id,name',
+                'country:id,name',
+                'state:id,name',
+                'city:id,name',
+                'typecontact:id,name',
+                'statuscontact:id,name',
+                'origin:id,name',
+                'typeproperty:id,name'
+            ])
             ->where('user_id', $user->id) // Filtra por user_id
             ->orderBy('name', 'asc')
-            ->get();
-        $properties = Property::with('country', 'state', 'city', 'typeproperty', 'user', 'amenities', 'media')->get();
+            ->paginate(15);
 
-        $user = Auth::user();
         $role = $user->getRoleNames();
         $permission = $user->getAllPermissions();
-        $setting = Setting::all();
-
-        return Inertia::render('Contacts/Index', compact('contacts', 'properties', 'role', 'permission', 'setting'));
+        return Inertia::render('Contacts/Index', compact('contacts', 'role', 'permission'));
     }
 
     /**
@@ -57,20 +63,20 @@ class ContactsController extends Controller
      */
     public function create()
     {
-        $country = Countries::all();
-        $state = States::all();
-        $city = Cities::all();
-        $typepropety = TypesProperties::all();
+        $countries = Countries::all();
+        $states = States::all();
+        $cities = Cities::all();
+        $typeProperties = TypesProperties::all();
         $users = User::all();
         $statuses = StatusContact::all();
-        $typecontacts = TypesContacts::all();
+        $typeContacts = TypesContacts::all();
         $origins = Origins::all();
 
         $user = Auth::user();
         $role = $user->getRoleNames();
         $permission = $user->getAllPermissions();
 
-        return Inertia::render('Contacts/Create', compact('country', 'state', 'city', 'typepropety', 'users', 'statuses', 'typecontacts', 'origins', 'role', 'permission'));
+        return Inertia::render('Contacts/Create', compact('countries', 'states', 'cities', 'typeProperties', 'users', 'statuses', 'typeContacts', 'origins', 'role', 'permission'));
     }
 
     /**
@@ -115,7 +121,15 @@ class ContactsController extends Controller
      */
     public function show(Contacts $contacts)
     {
-        //
+        $contact = $contacts->load('user', 'country', 'state', 'city', 'typecontact', 'statuscontact', 'origin', 'typeproperty');
+        $properties = Property::with('country', 'state', 'city', 'typeproperty', 'user', 'amenities', 'media')->get();
+        
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        $permission = $user->getAllPermissions();
+        $setting = Setting::first();
+
+        return Inertia::render('Contacts/Show', compact('contact', 'properties', 'role', 'permission', 'setting'));
     }
 
     /**
@@ -123,20 +137,22 @@ class ContactsController extends Controller
      */
     public function edit(Contacts $contacts)
     {
-        $country = Countries::all();
-        $state = States::all();
-        $city = Cities::all();
-        $typepropety = TypesProperties::all();
+        $contacts->load(['country', 'state', 'city', 'typecontact', 'statuscontact', 'origin', 'typeproperty']);
+        
+        $countries = Countries::all();
+        $states = States::all();
+        $cities = Cities::all();
+        $typeProperties = TypesProperties::all();
         $users = User::all();
         $statuses = StatusContact::all();
-        $typecontacts = TypesContacts::all();
+        $typeContacts = TypesContacts::all();
         $origins = Origins::all();
 
         $user = Auth::user();
         $role = $user->getRoleNames();
         $permission = $user->getAllPermissions();
 
-        return Inertia::render('Contacts/Edit', compact('contacts', 'country', 'state', 'city', 'typepropety', 'users', 'statuses', 'typecontacts', 'origins', 'role', 'permission'));
+        return Inertia::render('Contacts/Edit', compact('contacts', 'countries', 'states', 'cities', 'typeProperties', 'users', 'statuses', 'typeContacts', 'origins', 'role', 'permission'));
     }
 
     /**

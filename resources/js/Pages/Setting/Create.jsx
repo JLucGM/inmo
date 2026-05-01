@@ -1,68 +1,79 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
-import DangerButton from '@/Components/DangerButton';
+import { Head, useForm, Link } from '@inertiajs/react';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/Components/ui/card';
 
-export default function Create({ auth}) {
+export default function Create({ auth }) {
 
     const initialValues = {
         name: "",
     }
 
-    const { data, setData, errors, post } = useForm(initialValues)
+    const { data, setData, errors, post, processing } = useForm(initialValues)
 
     const submit = (e) => {
         e.preventDefault();
         post(route('amenities.store'))
-        console.log(data)
     }
+    
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className='flex justify-between items-center px-6'>
-                    <h2 className="capitalize font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Crear comodidades
+                <div className='flex flex-col gap-1 w-full px-6'>
+                    <h2 className="font-bold text-2xl text-gray-800 dark:text-gray-100 leading-tight tracking-tight">
+                        Crear Amenidad
                     </h2>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                        Agrega una nueva comodidad o servicio para las propiedades.
+                    </p>
                 </div>
             }
         >
-            <Head className="capitalize" title="Crear comodidades" />
+            <Head title="Crear Amenidad" />
 
-            <div className="p-6">
-                <div className="max-w-7xl mx-auto">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                        <div className="text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
-
-                                <div>
-                                    <InputLabel htmlFor="name" value="Nombre" />
-
-                                    <TextInput
+            <div className="p-4 md:p-6 lg:p-8">
+                <div className="max-w-3xl mx-auto">
+                    <Card className="border-none shadow-sm bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                        <CardHeader>
+                            <CardTitle className="text-lg font-semibold italic">Nueva Amenidad</CardTitle>
+                            <CardDescription>
+                                Completa el nombre de la amenidad. Aparecerá en el formulario de propiedades.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <form onSubmit={submit} className='space-y-6'>
+                                <div className="space-y-2">
+                                    <Label htmlFor="name">Nombre de la amenidad</Label>
+                                    <Input
                                         id="name"
                                         type="text"
                                         name="name"
                                         value={data.name}
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
+                                        placeholder="Ej: Piscina, Gimnasio, Seguridad 24/7..."
+                                        autoFocus
                                         onChange={(e) => setData('name', e.target.value)}
+                                        className="bg-white/50 dark:bg-gray-900/50"
                                     />
-
-                                    <InputError message={errors.name} className="mt-2" />
+                                    {errors.name && (
+                                        <p className="text-xs text-red-500 mt-1">{errors.name}</p>
+                                    )}
                                 </div>
 
-                                <div className="flex justify-end p-2.5">
-                                    <PrimaryButton >
-                                        Guardar
-                                    </PrimaryButton>
+                                <div className="flex justify-end pt-4 gap-3">
+                                    <Button
+                                        variant="outline"
+                                        render={<Link href={route('amenities.index')}>Cancelar</Link>}
+                                    />
+                                    <Button disabled={processing} type="submit">
+                                        {processing ? 'Guardando...' : 'Guardar Amenidad'}
+                                    </Button>
                                 </div>
-
                             </form>
-                        </div>
-                    </div>
+                        </CardContent>
+                    </Card>
                 </div>
             </div>
         </AuthenticatedLayout>

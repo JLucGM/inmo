@@ -33,11 +33,13 @@ class FrontendController extends Controller
         $typeProperties = TypesProperties::all();
         $infoweb = Infoweb::take(12)->get();
         $posts = Post::where('status', 1)->take(12)->get();
-        $testimonials = Testimonial::orderBy('created_at', 'desc') // Más recientes primero; cambia por 'id' o 'order_column' si prefieres
-            ->take(12) // Limita a 12 (envía todos si hay menos)
+        $testimonials = Testimonial::orderBy('created_at', 'desc')
+            ->take(12)
             ->get();
-        $user = User::role('agente')->get();
-        // dd($typeProperties);
+        $user = User::whereHas('roles', function ($query) {
+            $query->where('name', 'agente');
+        })->get();
+
         return Inertia::render('Welcome', compact('setting', 'slides', 'properties', 'posts', 'infoweb', 'testimonials', 'user', 'pages', 'typeProperties'));
     }
 

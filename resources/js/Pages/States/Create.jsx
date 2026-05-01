@@ -1,134 +1,81 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
-import { useEffect } from 'react';
-import Breadcrumb from '@/Components/Breadcrumb';
+import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import ContainerTitle from '@/Components/ContainerTitle';
-import SectionHeader from '@/Components/SectionHeader';
+import { useEffect } from 'react';
 
 export default function Create({ auth, country, role, permission }) {
-
-    const initialValues = {
-        name: "",
-        country_id: country[0].id,
-    }
-
-    const { data, setData, errors, post } = useForm(initialValues)
+    const { data, setData, errors, post } = useForm({
+        name: '',
+        country_id: country?.[0]?.id || '',
+    });
 
     useEffect(() => {
-        setData('country_id', country[0].id);
+        if (country?.length > 0 && !data.country_id) {
+            setData('country_id', country[0].id);
+        }
     }, [country]);
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('states.store'))
-    }
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de estados',
-            href: 'states.index',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-        {
-            name: 'Crear estado',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-
-    ];
+        post(route('states.store'));
+    };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            roles={role}
-            permission={permission}
-            header={
-                <div className='flex justify-between items-center'>
-                    <SectionHeader
-                        title="Crear estados"
-                        subtitle="Aquí puedes crear un nuevo estado."
-                    />
-                </div>
-            }
-        >
-
-            <Breadcrumb items={items} />
-
-            <Head className="capitalize" title="Crear estado" />
-
-            <div className="">
-                <div className="max-w-7xl mx-auto">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
-                        <div className="text-gray-900 dark:text-gray-100">
-                            <form onSubmit={submit} className='space-y-4'>
-
-                                <ContainerTitle title={'Datos principales'} className='xs:grid md:grid xs:grid-cols-1 md:grid-cols-2 gap-4'>
-
-                                    <div>
-                                        <InputLabel htmlFor="name" value="Nombre" />
-
-                                        <TextInput
-                                            id="name"
-                                            type="text"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1 block w-full"
-                                            isFocused={true}
-                                            onChange={(e) => setData('name', e.target.value)}
-                                        />
-
-                                        <InputError message={errors.name} className="mt-2" />
-                                    </div>
-
-                                    <div>
-                                        <InputLabel htmlFor="country" value="País" />
-
-                                        <select
-                                            name="country_id"
-                                            id="country"
-                                            className="border-gray-300 w-full dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
-                                            value={data.country_id} // Establecer el valor del select con el valor de country_id
-                                            onChange={(e) => {
-                                                setData('country_id', parseInt(e.target.value));
-                                            }}
-                                        >
-                                            {country.map((country) => (
-                                                <option value={country.id} key={country.id}>
-                                                    {country.name}
-                                                </option>
-                                            ))}
-                                        </select>
-
-                                        <InputError message={errors.country} className="mt-2" />
-                                    </div>
-
-                                </ContainerTitle>
-
-                                <div className="flex justify-end p-2.5">
-                                    <PrimaryButton >
-                                        Guardar
-                                    </PrimaryButton>
-                                </div>
-
-                            </form>
-                        </div>
+        <AuthenticatedLayout user={auth.user} permission={permission}>
+            <Head title="Crear Estado" />
+            
+            <form onSubmit={submit} className="space-y-6">
+                <ContainerTitle title="Datos principales" className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <div>
+                        <Label htmlFor="name">Nombre</Label>
+                        <Input
+                            id="name"
+                            type="text"
+                            value={data.name}
+                            autoFocus
+                            onChange={(e) => setData('name', e.target.value)}
+                        />
+                        {errors.name && (
+                            <Alert variant="destructive" className="mt-1 py-2">
+                                <AlertDescription>{errors.name}</AlertDescription>
+                            </Alert>
+                        )}
                     </div>
+                    
+                    <div>
+                        <Label htmlFor="country_id">País</Label>
+                        <Select
+                            value={String(data.country_id)}
+                            onValueChange={(val) => setData('country_id', Number(val))}
+                        >
+                            <SelectTrigger id="country_id" className="w-full">
+                                <SelectValue placeholder="Seleccionar país" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {country?.map((c) => (
+                                    <SelectItem key={c.id} value={String(c.id)}>
+                                        {c.name}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        {errors.country_id && (
+                            <Alert variant="destructive" className="mt-1 py-2">
+                                <AlertDescription>{errors.country_id}</AlertDescription>
+                            </Alert>
+                        )}
+                    </div>
+                </ContainerTitle>
+                
+                <div className="flex justify-end">
+                    <Button type="submit">Guardar</Button>
                 </div>
-            </div>
+            </form>
         </AuthenticatedLayout>
-    )
+    );
 }

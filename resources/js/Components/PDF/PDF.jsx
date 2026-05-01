@@ -66,87 +66,91 @@ const styles = StyleSheet.create({
 });
 
 export default function PDF({ data, setting }) {
+    if (!data) return null;
 
-      const mainImageUrl = data.media && data.media.length > 0 ? data.media[0].original_url : null;
+    const mainImageUrl = data.media && data.media.length > 0 ? data.media[0].original_url : null;
 
     return (
-        <Document>
+        <Document title={`Propiedad - ${data.name || 'Sin nombre'}`}>
             <Page size="A4" style={styles.page}>
                 <View style={styles.header}>
-
-                    <View style={{ flexDirection: 'row', borderBottom: 1, borderColor: '#6b6969', }}>
+                    <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#6b6969', paddingBottom: 5 }}>
                         <View style={styles.column}>
-                            {/* <Image src={`${setting.logo}`} alt={data.main} /> */}
+                            {setting?.logo ? (
+                                <Image src={setting.logo} style={{ width: 100 }} />
+                            ) : (
+                                <View />
+                            )}
                         </View>
                         <View style={styles.column}>
-                            {/* <Text style={styles.footer}>Agente: {data.user.name}, Email: {data.user.email}, Teléfono: {data.user.phone}</Text> */}
+                             <Text style={{ fontSize: 10, textAlign: 'right' }}>Agente: {String(data.user?.name || 'N/A')}</Text>
+                             <Text style={{ fontSize: 10, textAlign: 'right' }}>Email: {String(data.user?.email || 'N/A')}</Text>
+                             <Text style={{ fontSize: 10, textAlign: 'right' }}>Teléfono: {String(data.user?.phone || 'N/A')}</Text>
                         </View>
-
                     </View>
                 </View>
-                <View style={{ marginTop: 30 }}>
+
+                <View style={{ marginTop: 60, padding: 20 }}>
                     <View style={styles.section}>
                         {mainImageUrl ? (
-              <Image src={mainImageUrl} />
-            ) : (
-              <Text>No hay imagen disponible</Text>
-            )}
-                        <Text style={styles.subtitle}>{data.name}</Text>
-                        <Text style={styles.text}>Dirección: {data.country.name}, {data.state.name}, {data.city.name}</Text>
-                        <View style={{ flexDirection: 'row' }}>
-                            {/* <View style={styles.column}>
-                                <Image src={`${data.main}`} alt={data.main} />
-                            </View> */}
+                            <Image src={mainImageUrl} style={{ marginBottom: 15 }} />
+                        ) : (
+                            <Text style={styles.text}>No hay imagen disponible</Text>
+                        )}
+
+                        <Text style={styles.subtitle}>{String(data.name || 'Propiedad sin nombre')}</Text>
+                        <Text style={styles.text}>Dirección: {String(data.country?.name || 'N/A')}, {String(data.state?.name || 'N/A')}, {String(data.city?.name || 'N/A')}</Text>
+                        
+                        <View style={{ flexDirection: 'row', marginTop: 10 }}>
                             <View style={styles.column}>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Text style={styles.textBold}>Código:</Text>
-                                    <Text style={styles.text}>{data.identification}</Text>
+                                    <Text style={styles.textBold}>Código: </Text>
+                                    <Text style={styles.text}>{String(data.identification || 'N/A')}</Text>
                                 </View>
-                                <Text style={styles.text}>Tipo de propiedad: {data.typeproperty.name}</Text>
-                                <Text style={styles.text}>Metros totales: {data.totalMeters} mt2</Text>
-                                <Text style={styles.text}>Metros construidos: {data.builtMeters} mt2</Text>
+                                <Text style={styles.text}>Tipo: {String(data.typeproperty?.name || 'N/A')}</Text>
+                                <Text style={styles.text}>Metros totales: {String(data.totalMeters || '0')} mt2</Text>
+                                <Text style={styles.text}>Metros constr.: {String(data.builtMeters || '0')} mt2</Text>
                             </View>
                             <View style={styles.column}>
-                                <Text style={styles.text}>Baños: {data.bathrooms}</Text>
-                                <Text style={styles.text}>Habitaciones: {data.bedrooms}</Text>
-                                <Text style={styles.text}>Garage: {data.garages}</Text>
+                                <Text style={styles.text}>Baños: {String(data.bathrooms || '0')}</Text>
+                                <Text style={styles.text}>Habitaciones: {String(data.bedrooms || '0')}</Text>
+                                <Text style={styles.text}>Garage: {String(data.garages || '0')}</Text>
                             </View>
                             <View style={styles.column}>
-                                <Text style={styles.text}>Precio: {data.price}</Text>
+                                <Text style={styles.text}>Precio: {String(data.price || 'Consultar')}</Text>
                             </View>
                         </View>
 
-                        {/* <Text style={styles.text}>{data.description}</Text> */}
-
-                        <Text style={styles.subtitle}>Comodidades:</Text>
-                        <View style={styles.list}>
-                            {data.amenities.map((amenity, index) => (
-                                <Text key={index} style={styles.text}>• {amenity.name}</Text> // Agrega un símbolo de viñeta
-                            ))}
+                        <View style={{ marginTop: 20 }}>
+                            <Text style={styles.subtitle}>Comodidades:</Text>
+                            <View style={styles.list}>
+                                {(data.amenities || []).map((amenity, index) => (
+                                    <Text key={`amenity-${index}`} style={styles.text}>• {String(amenity.name)}</Text>
+                                ))}
+                                {(!data.amenities || data.amenities.length === 0) && (
+                                    <Text style={styles.text}>No se especificaron comodidades.</Text>
+                                )}
+                            </View>
                         </View>
 
-                        <Text style={styles.subtitle}>Galería:</Text>
-
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                            {data.media.map((mediaItem, index) => (
-                                <Image
-                                    key={index}
-                                    src={mediaItem.original_url}
-                                    style={{ width: '30%', height: 100, margin: 5 }}
-                                />
-                            ))}
+                        <View style={{ marginTop: 20 }}>
+                            <Text style={styles.subtitle}>Galería:</Text>
+                            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                                {(data.media || []).map((mediaItem, index) => (
+                                    <Image
+                                        key={`media-${index}`}
+                                        src={mediaItem.original_url}
+                                        style={{ width: '30%', height: 100, margin: 5, objectFit: 'cover' }}
+                                    />
+                                ))}
+                            </View>
                         </View>
-                        {/* <View style={styles.footer}> */}
-                        {/* <Text style={styles.subtitle}>Datos del agente</Text> */}
-                        <Text style={styles.footer}>Agente: {data.user.name}, Email: {data.user.email}, Teléfono: {data.user.phone}</Text>
-                        {/* <Text style={styles.footer}>Email: {data.user.email}</Text>
-                    <Text style={styles.footer}>Teléfono: {data.user.phone}</Text> */}
-                        {/* </View> */}
+
+                        <Text style={styles.footer}>
+                            Agente: {String(data.user?.name || 'N/A')} | Email: {String(data.user?.email || 'N/A')} | Teléfono: {String(data.user?.phone || 'N/A')}
+                        </Text>
                     </View>
                 </View>
-                {/* <Text style={styles.footer} render={({pageNumber, totalPages}) => 
-                    `${pageNumber}/${totalPages}`
-                } fixed /> */}
             </Page>
         </Document>
     );

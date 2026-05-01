@@ -1,25 +1,66 @@
-import React from 'react';
-import { useReactTable, getCoreRowModel, getSortedRowModel, flexRender, getPaginationRowModel, getFilteredRowModel, getExpandedRowModel } from '@tanstack/react-table';
-import { useState } from 'react';
-import TextInput from './TextInput';
-import { Link } from '@inertiajs/react';
-import { Button, Menu, MenuButton, MenuItem, MenuItems, Popover, PopoverButton, PopoverPanel, Select } from '@headlessui/react';
-import ChevronDoubleLeft from './Icon/ChevronDoubleLeft';
-import ChevronDoubleRight from './Icon/ChevronDoubleRight';
-import ChevronLeft from './Icon/ChevronLeft';
-import ChevronRight from './Icon/ChevronRight';
-import MagnifyingGlass from './Icon/MagnifyingGlass';
-import ChevronDown from './Icon/ChevronDown';
-import ChevronUp from './Icon/ChevronUp';
-import { MinusIcon, PencilSquareIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { PDFDownloadLink } from '@react-pdf/renderer';
-// import PDFDocuments from './PDF/PDFDocuments';
+import React, { useState } from 'react';
+import {
+    useReactTable,
+    getCoreRowModel,
+    getSortedRowModel,
+    flexRender,
+    getPaginationRowModel,
+    getFilteredRowModel,
+    getExpandedRowModel,
+} from '@tanstack/react-table';
+import { router } from '@inertiajs/react';
 
-export default function DataTable({ className = '', data, columns, routeEdit = null, routeDestroy = null, PDFComponent, editPermission, deletePermission, downloadPdfPermission, permissions }) {
-    const [filtering, setFiltering] = useState("");
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from '@/Components/ui/table';
+import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/Components/ui/select';
+import {
+    ChevronDoubleLeftIcon,
+    ChevronDoubleRightIcon,
+    ChevronLeftIcon,
+    ChevronRightIcon,
+    MagnifyingGlassIcon,
+    MinusIcon,
+    PlusIcon,
+} from '@heroicons/react/24/outline';
+
+export default function DataTable({
+    className = '',
+    data,
+    columns,
+    permissions = [],
+}) {
+    // Handle paginated data from Laravel
+    const tableData = data?.data || data;
+
+    const [filtering, setFiltering] = useState('');
     const [sorting, setSorting] = useState([]);
+
+    const pagination = data?.links ? {
+        current_page: data.current_page,
+        last_page: data.last_page,
+        per_page: data.per_page,
+        total: data.total,
+        links: data.links,
+    } : null;
+
+    const isServerSide = Boolean(pagination);
+
     const table = useReactTable({
-        data: data,
+        data: tableData,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
@@ -28,250 +69,175 @@ export default function DataTable({ className = '', data, columns, routeEdit = n
         getSortedRowModel: getSortedRowModel(),
         state: {
             globalFilter: filtering,
-            sorting
+            sorting,
+        },
+        meta: {
+            permissions,
         },
         onSortingChange: setSorting,
         initialState: {
-            pagination: {
-                pageSize: 5,
-            }
+            pagination: { pageSize: 10 },
         },
         onGlobalFilterChange: setFiltering,
+    });
 
-    })
+    const navigatePage = (page) => {
+        if (!isServerSide) {
+            table.setPageIndex(page - 1);
+            return;
+        }
 
-    const hasPermission = (perm) => {
-        return permissions.some(permission => permission.name === perm);
+        const params = new URLSearchParams(window.location.search);
+        params.set('page', page);
+
+        router.get(`${window.location.pathname}?${params.toString()}`, null, {
+            preserveState: true,
+            replace: true,
+        });
     };
-    
-    return (
-        <>
-            <div className="relative mt-2 rounded-md shadow-sm ">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <MagnifyingGlass
-                        className='size-4'
-                    />
-                </div>
-                <TextInput
-                    type="text"
-                    value={filtering}
-                    className="mt-1 block w-2/5 py-1.5 pl-7 "
 
+    return (
+        <div className={`space-y-3 ${className}`}>
+            {/* ── Buscador ── */}
+            <div className="relative w-full sm:max-w-xs">
+                <MagnifyingGlassIcon className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                <Input
+                    type="text"
+                    placeholder="Buscar..."
+                    value={filtering}
                     onChange={(e) => setFiltering(e.target.value)}
+                    className="pl-8"
                 />
             </div>
 
-            <table className="w-full  border-collapse border text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 hover:border-collapse my-2">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    {
-                        table.getHeaderGroups().map(headerGroup => (
-                            <tr key={headerGroup.id}>
-                                {
-                                    headerGroup.headers.map(header => (
-                                        <th key={header.id}
-                                            className="cursor-pointer border-slate-300 border px-6 py-3 "
-                                            onClick={header.column.getToggleSortingHandler()}
-                                        >
-                                            <span className="flex items-center">
-                                                {header.column.columnDef.header}
-                                                {{
-                                                    'asc': <ChevronUp className=" size-4" />,
-                                                    'desc': <ChevronDown className=" size-4" />
-                                                }
-                                                [
-                                                    header.column.getIsSorted() ?? null
-                                                ]}
-                                            </span>
+            {/* ── Tabla ── */}
+            <div className="rounded-lg border">
+                <Table>
+                    <TableHeader>
+                        {table.getHeaderGroups().map((headerGroup) => (
+                            <TableRow key={headerGroup.id}>
+                                {headerGroup.headers.map((header) => (
+                                    <TableHead key={header.id}>
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext(),
+                                            )}
+                                    </TableHead>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableHeader>
 
-                                        </th>
-                                    ))
-                                }
-
-                                <th key="acciones" className="border-slate-300 border px-6 py-3 w-20">
-                                    Acciones
-                                </th>
-
-                            </tr>
-                        ))
-                    }
-                </thead>
-
-                <tbody>
-                    {
-                        table.getRowModel().rows?.map((row) => (
-                            <React.Fragment key={row.original.id}>
-                                <tr className="bg-white border dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300 dark:hover:bg-gray-900">
-
-                                    {
-                                        row.getVisibleCells().map((cell, index) => (
-                                            <td key={index} className="capitalize  border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                            </td>
-                                        ))
-                                    }
-
-                                    <td key="acciones" className="flex justify-end space-x-4 capitalize border-slate-200 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {columns.find((column) => column.accessorKey === 'name').expanded && (
-                                            <Button
-                                                className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                                onClick={() => row.toggleExpanded()}
-                                            >
-                                                {row.getIsExpanded() ? <MinusIcon className='size-4' /> : <PlusIcon className='size-4' />}
-                                            </Button>
-                                        )}
-                                        {/* {PDFComponent && (
-                                            <PDFDownloadLink onClick={console.log(row)} document={<PDFComponent data={row.original} />} fileName='pfdprueba1.pdf'>
-                                                <Button
-                                                    className='inline-flex items-center px-4 py-2 bg-orange-800 dark:bg-orange-500 border border-transparent rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
-                                                >
-                                                    PDF
-                                                </Button>
-                                            </PDFDownloadLink>
-                                        )}
-                                        {routeEdit && (
-                                            <Link
-                                                className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                                href={route(routeEdit, [row.original.slug])}
-                                            >
-                                                <PencilSquareIcon className='size-4' />
-                                            </Link>
-                                        )}
-
-                                        {routeDestroy && (
-                                            <Link
-                                                className='inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-500 border border-transparent  rounded-full font-semibold text-xs text-white dark:text-gray-200 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-red-400 focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
-                                                href={route(routeDestroy, [row.original.slug])} method='delete' as="button">
-                                                <TrashIcon className='size-4' />
-                                            </Link>
-                                        )} */}
-
-                                        <Popover className="relative">
-                                            <PopoverButton
-                                                className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                            >
-                                                Opciones
-                                            </PopoverButton>
-                                            <PopoverPanel anchor="bottom" className="flex flex-col space-y-2 p-3 rounded-xl border border-gray-200 bg-white dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 ">
-                                                {hasPermission(downloadPdfPermission) && PDFComponent && (
-                                                    <PDFDownloadLink onClick={console.log(row)} document={<PDFComponent data={row.original} />} fileName='pfdprueba1.pdf'>
-                                                        <Button className="w-full text-left">
-                                                            Descargar PDF
-                                                        </Button>
-                                                    </PDFDownloadLink>
+                    <TableBody>
+                        {table.getRowModel().rows.length ? (
+                            table.getRowModel().rows.map((row) => (
+                                <React.Fragment key={row.original.id}>
+                                    <TableRow data-state={row.getIsSelected() && "selected"}>
+                                        {row.getVisibleCells().map((cell) => (
+                                            <TableCell key={cell.id}>
+                                                {flexRender(
+                                                    cell.column.columnDef.cell,
+                                                    cell.getContext(),
                                                 )}
-                                                {hasPermission(editPermission) && (
-                                                    <Link href={route(routeEdit, [row.original.slug])} className="flex w-full text-left">
-                                                        <PencilSquareIcon className='size-5' /> Editar
-                                                    </Link>
-                                                )}
-                                                {hasPermission(deletePermission) && (
-                                                    <Link
-                                                        className="flex w-full text-left text-red-600"
-                                                        onClick={() => console.log('Delete clicked for:', row.original.slug)}
-                                                        href={route(routeDestroy, [row.original.slug])} method='delete' as="button">
-                                                        <TrashIcon className='size-5' /> Eliminar
-                                                    </Link>
-                                                )}
-                                            </PopoverPanel>
-                                        </Popover>
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
 
+                                    {/* Fila expandida */}
+                                    {row.getIsExpanded() && (
+                                        <TableRow key={`expanded-${row.original.id}`}>
+                                            <TableCell colSpan={row.getVisibleCells().length} className="bg-muted/30 p-4">
+                                                {/* Asumimos que la expansión viene definida en la columna 'name' o similar */}
+                                                {columns.find((c) => c.expanded)?.expanded(row)}
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
+                                </React.Fragment>
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell
+                                    colSpan={columns.length}
+                                    className="h-24 text-center text-muted-foreground"
+                                >
+                                    Sin resultados.
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+            </div>
 
-                                    </td>
-                                </tr>
-                                {
-                                    row.getIsExpanded() && (
-                                        <tr key={`expanded-${row.original.id}`}>
-                                            <td colSpan={row.getVisibleCells().length + 1} className="p-4">
-                                                {columns.find((column) => column.accessorKey === 'name').expanded(row)}
-                                            </td>
-                                        </tr>
-                                    )
-                                }
-                            </React.Fragment>
-                        ))
-                    }
-                </tbody>
-            </table>
-
-            <div className="flex justify-between ">
-                <Select
-                    className={' border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm'}
-                    value={table.getState().pagination.pageSize}
-                    onChange={(e) => {
-                        table.setPageSize(Number(e.target.value))
-                    }}
-                >
-                    {[5, 10, 20, 30].map((pageSize) => (
-
-                        <option key={pageSize} value={pageSize}>
-                            {pageSize}
-                        </option>
-                    ))}
-                </Select>
-
-                <div className="flex">
-                    <Button
-                        className={'disabled:opacity-30'}
-                        onClick={() => table.setPageIndex(0)}
-                        disabled={!table.getCanPreviousPage()}
+            {/* ── Paginación ── */}
+            <div className="flex items-center justify-between gap-4">
+                {/* Selector de filas por página */}
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <span>Filas por página</span>
+                    <Select
+                        value={String(table.getState().pagination.pageSize)}
+                        onValueChange={(val) => table.setPageSize(Number(val))}
                     >
-                        <ChevronDoubleLeft
-                            className='size-4'
-                        />
+                        <SelectTrigger className="w-16 h-8">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {[5, 10, 20, 30, 50].map((size) => (
+                                <SelectItem key={size} value={String(size)}>
+                                    {size}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+
+                {/* Navegación */}
+                <div className="flex items-center gap-1">
+                    <Button
+                        variant="outline"
+                        size="icon-sm"
+                        onClick={() => navigatePage(1)}
+                        disabled={isServerSide ? pagination.current_page <= 1 : !table.getCanPreviousPage()}
+                    >
+                        <ChevronDoubleLeftIcon className="size-4" />
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="icon-sm"
+                        onClick={() => navigatePage(isServerSide ? pagination.current_page - 1 : table.getState().pagination.pageIndex)}
+                        disabled={isServerSide ? pagination.current_page <= 1 : !table.getCanPreviousPage()}
+                    >
+                        <ChevronLeftIcon className="size-4" />
                     </Button>
 
-                    <Button
-                        className={'disabled:opacity-30'}
-                        onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}
-                    >
-                        <ChevronLeft
-                            className='size-4'
-                        />
-
-                    </Button>
-
-
-                    <span className='flex items-center mx-1'>
-                        <TextInput
-                            min={1}
-                            max={table.getPageCount()}
-                            type="number"
-                            value={table.getState().pagination.pageIndex + 1}
-                            onChange={(e) => {
-                                const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                                table.setPageIndex(page);
-                            }}
-                            className={'w-16 border'}
-                        />
-                        <span className='ml-1'>of {table.getPageCount()}</span>
+                    <span className="flex items-center gap-1 px-2 text-sm">
+                        <span className="text-muted-foreground">Página</span>
+                        <strong className="tabular-nums">
+                            {isServerSide ? pagination.current_page : table.getState().pagination.pageIndex + 1}
+                        </strong>
+                        <span className="text-muted-foreground">de</span>
+                        <strong className="tabular-nums">{isServerSide ? pagination.last_page : table.getPageCount()}</strong>
                     </span>
 
-
                     <Button
-                        className={'disabled:opacity-30'}
-                        onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
+                        variant="outline"
+                        size="icon-sm"
+                        onClick={() => navigatePage(isServerSide ? pagination.current_page + 1 : table.getState().pagination.pageIndex + 2)}
+                        disabled={isServerSide ? pagination.current_page >= pagination.last_page : !table.getCanNextPage()}
                     >
-                        <ChevronRight
-                            className='size-4'
-                        />
+                        <ChevronRightIcon className="size-4" />
                     </Button>
-
                     <Button
-                        className={'disabled:opacity-30'}
-                        onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-                        disabled={!table.getCanNextPage()}
+                        variant="outline"
+                        size="icon-sm"
+                        onClick={() => navigatePage(isServerSide ? pagination.last_page : table.getPageCount())}
+                        disabled={isServerSide ? pagination.current_page >= pagination.last_page : !table.getCanNextPage()}
                     >
-                        <ChevronDoubleRight
-                            className='size-4'
-                        />
+                        <ChevronDoubleRightIcon className="size-4" />
                     </Button>
                 </div>
             </div>
-
-
-
-        </>
+        </div>
     );
 }

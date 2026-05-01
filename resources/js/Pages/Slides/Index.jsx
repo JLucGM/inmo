@@ -1,121 +1,92 @@
-import Badge from '@/Components/Badge';
-import Breadcrumb from '@/Components/Breadcrumb';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Head, Link } from '@inertiajs/react';
 import DataTable from '@/Components/DataTable';
 import SectionHeader from '@/Components/SectionHeader';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Badge } from '@/Components/ui/badge';
 import { VideoCameraIcon } from '@heroicons/react/24/outline';
-import { Head, Link } from '@inertiajs/react';
+import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
+import { DataTableRowActions } from '@/Components/DataTableRowActions';
+
+const columns = [
+    {
+        accessorKey: 'id',
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="#" />
+        ),
+        cell: ({ row }) => (
+            <div className="flex items-center">
+                <p className='me-2'>{row.original.id}</p>
+                {row.original.image?.endsWith('.mp4') || row.original.image?.endsWith('.webm') || row.original.image?.endsWith('.ogg') ? (
+                    <VideoCameraIcon className='size-6' />
+                ) : (
+                    row.original.image && <img src={row.original.image} alt="slide" className='w-14 rounded-sm object-cover aspect-video' />
+                )}
+            </div>
+        )
+    },
+    {
+        accessorKey: 'name',
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Nombre" />
+        ),
+    },
+    {
+        accessorKey: 'link',
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Link" />
+        ),
+        cell: ({ row }) => <span className="lowercase">{row.original.link || '-'}</span>
+    },
+    {
+        accessorKey: 'status',
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Estado" />
+        ),
+        cell: ({ row }) => {
+            const isActive = row.original.status === "1";
+            return (
+                <Badge variant={isActive ? "default" : "destructive"}>
+                    {isActive ? 'Activo' : 'Inactivo'}
+                </Badge>
+            );
+        }
+    },
+    {
+        id: 'actions',
+        cell: ({ row, table }) => (
+            <DataTableRowActions
+                row={row}
+                routeEdit="slides.edit"
+                routeDestroy="slides.destroy"
+                editPermission="admin.slides.edit"
+                deletePermission="admin.slides.delete"
+                permissions={table.options.meta?.permissions}
+            />
+        ),
+    }
+];
 
 export default function Index({ auth, slide, role, permission }) {
-    const columns = [
-        {
-            header: "#id",
-            cell: ({ row }) => {
-                return (
-                    <>
-                        <div className="flex items-center">
-                            <p className='me-2'>{row.original.id}</p>
-                            {row.original.image.endsWith('.mp4') || row.original.image.endsWith('.webm') || row.original.image.endsWith('.ogg') ? (
-                                <VideoCameraIcon className='size-6' />
-                            ) : (
-                                <img src={row.original.image} alt={row.original.image} className='w-14 ' />
-                            )}
-                        </div>
-                    </>
-                )
-            },
-        },
-        {
-            header: "Nombre",
-            accessorKey: "name",
-
-        },
-        {
-            header: "Link",
-            accessorKey: "Link",
-            cell: ({ row }) => {
-                return (
-                    <p className={'normal-case	'}>
-                        {row.original.link}
-                    </p>
-                )
-            },
-        },
-        {
-            header: "Estado",
-            accessorKey: "status",
-            cell: ({ row }) => {
-                return (
-                    <Badge className={` ${row.original.status === "1" ? 'bg-green-600' : 'bg-red-600'}`}>
-                        {row.original.status === "1" ? 'Activo' : 'Inactivo'}
-                    </Badge>
-                )
-            },
-        },
-    ]
-
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Lista de Slides',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
-
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            roles={role}
-            permission={permission}
-            header={
-                <div className='flex justify-between items-center'>
-                    <SectionHeader
-                        title="Lista de slides"
-                        subtitle="Aquí puedes ver la lista de slides principal del frontend."
-                    />
-                    {permission.some(perm => perm.name === 'admin.slides.create') && (
-                        <Link href={route('slides.create')}
-                            className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                        >
-                            Crear slide
-                        </Link>
-                    )}
-                </div>
-            }
-        >
-
-            <Breadcrumb items={items} />
+        <AuthenticatedLayout user={auth.user} permission={permission}>
+            {/* ... */}
+            <div className='flex justify-between items-center mb-6'>
+                <SectionHeader
+                    title="Lista de slides"
+                    subtitle="Aquí puedes ver la lista de slides principal del frontend."
+                />
+            </div>
 
             <Head title="Slide" />
 
-            <div className="">
-                <div className="max-w-7xl mx-auto ">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden ">
-                        <div className=" text-gray-900 dark:text-gray-100">
-                            <div className="relative overflow-x-auto">
-                                <DataTable
-                                    columns={columns}
-                                    data={slide}
-                                    routeEdit={'slides.edit'}
-                                    routeDestroy={'slides.destroy'}
-                                    editPermission={'admin.slides.edit'} // Pasa el permiso de editar
-                                    deletePermission={'admin.slides.delete'} // Pasa el permiso de eliminar
-                                    // downloadPdfPermission={'downloadPdfPermission'} // Pasa el permiso de descargar PDF
-                                    permissions={permission}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div className="max-w-7xl p-4">
+                <DataTable
+                    columns={columns}
+                    data={slide}
+                    permissions={permission}
+                />
             </div>
+
         </AuthenticatedLayout>
-    )
+    );
 }

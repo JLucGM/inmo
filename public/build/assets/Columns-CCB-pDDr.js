@@ -1,1 +1,0 @@
-import"./ToggleSwitch-Bk0YDBh7.js";import"./app-C8ZRnhkg.js";import"./floating-ui.dom-Dm5qA0Iy.js";import"./floating-ui.react-dom-lV2tVNx5.js";const e=[{header:"#id",accessorKey:"id"},{header:"Nombre",accessorKey:"name"}],m=e;export{m as default};

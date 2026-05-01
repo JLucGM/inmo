@@ -1,43 +1,44 @@
 import ContainerTitle from "@/Components/ContainerTitle";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
 
 export default function TypesPropertiesForm({ data, setData, errors }) {
-
     return (
-        <>
-            <ContainerTitle className='space-y-4'>
+        <ContainerTitle title="Datos principales" className="space-y-4">
+            <div>
+                <Label htmlFor="name">Nombre</Label>
+                <Input
+                    id="name"
+                    type="text"
+                    name="name"
+                    value={data.name}
+                    className="mt-1"
+                    autoFocus
+                    onChange={(e) => setData('name', e.target.value)}
+                />
+                {errors.name && (
+                    <Alert variant="destructive" className="mt-2 py-2">
+                        <AlertDescription>{errors.name}</AlertDescription>
+                    </Alert>
+                )}
+            </div>
 
-                <div>
-                    <InputLabel htmlFor="image" value="image" />
-                    <TextInput
-                        id="image"
-                        type="file"
-                        name="image"
-                        className="mt-1 block w-full"
-                        isFocused={true}
-                        onChange={(e) => setData('image', e.target.files[0])}
-                    />
-                    <InputError message={errors.image} className="mt-2" />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="name" value="Nombre" />
-                    <TextInput
-                        id="name"
-                        type="text"
-                        name="name"
-                        value={data.name}
-                        className="mt-1 block w-full"
-                        isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
-                    />
-                    <InputError message={errors.name} className="mt-2" />
-                </div>
-
-
-            </ContainerTitle>
-        </>
-    )
+            <div>
+                <Label htmlFor="image">Imagen</Label>
+                <Input
+                    id="image"
+                    type="file"
+                    name="image"
+                    className="mt-1"
+                    onChange={(e) => setData('image', e.target.files[0])}
+                />
+                {errors.image && (
+                    <Alert variant="destructive" className="mt-2 py-2">
+                        <AlertDescription>{errors.image}</AlertDescription>
+                    </Alert>
+                )}
+            </div>
+        </ContainerTitle>
+    );
 }
