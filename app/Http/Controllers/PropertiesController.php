@@ -35,9 +35,11 @@ class PropertiesController extends Controller
     /**
      * Display a listing of the resource.s
      */
-    public function index()
+    public function index(Request $request)
     {
-        $properties = Property::select('id', 'slug', 'name', 'price', 'identification', 'direction', 'status', 'country_id', 'state_id', 'city_id', 'phy_states_id', 'types_businesses_id', 'types_properties_id', 'user_id', 'created_at')
+        $statusFilter = $request->query('status');
+
+        $query = Property::select('id', 'slug', 'name', 'price', 'identification', 'direction', 'status', 'country_id', 'state_id', 'city_id', 'phy_states_id', 'types_businesses_id', 'types_properties_id', 'user_id', 'created_at')
             ->with([
                 'country:id,name',
                 'state:id,name',
@@ -46,10 +48,25 @@ class PropertiesController extends Controller
                 'typeBusiness:id,name',
                 'typeProperty:id,name',
                 'user:id,name'
-            ])
-            ->paginate(15);
+            ]);
 
-        return Inertia::render('Properties/Index', compact('properties'));
+        if ($statusFilter !== null && $statusFilter !== 'all') {
+            $query->where('status', $statusFilter);
+        }
+
+        $properties = $query->orderBy('created_at', 'desc')->paginate(15)->withQueryString();
+
+        $statuses = [
+            ['name' => 'Borrador', 'slug' => '0'],
+            ['name' => 'Activo', 'slug' => '1'],
+            ['name' => 'Vendido', 'slug' => '2'],
+        ];
+
+        return Inertia::render('Properties/Index', [
+            'properties' => $properties,
+            'statuses' => $statuses,
+            'statusFilter' => $statusFilter ?? 'all'
+        ]);
     }
 
     /**

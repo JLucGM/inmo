@@ -6,18 +6,18 @@ const columns = [
         header: "d",
         cell: ({ row }) => {
             // Obtener la primera imagen del array media
-            const firstImage = row.original.media && row.original.media.length > 0 
-                ? row.original.media[0].original_url 
+            const firstImage = row.original.media && row.original.media.length > 0
+                ? row.original.media[0].original_url
                 : null; // O puedes usar un placeholder como '/img/default.jpg'
 
             return (
                 <>
                     <div className="flex items-center">
                         {firstImage ? (
-                            <img 
-                                src={firstImage} 
-                                alt={`Imagen principal de ${row.original.name}`} 
-                                className='w-14 mx-auto rounded-lg' 
+                            <img
+                                src={firstImage}
+                                alt={`Imagen principal de ${row.original.name}`}
+                                className='w-14 mx-auto rounded-lg'
                                 loading="lazy"
                                 onError={(e) => { // Opcional: manejar errores de carga de imagen
                                     e.target.src = '/img/default.jpg'; // Placeholder si falla (ajusta la ruta)
@@ -63,14 +63,14 @@ const columns = [
         header: "Precio",
         accessorKey: "price",
     },
-    {
-        header: "Estado fisico",
-        accessorKey: "phy_state.name",
-    },
-    {
-        header: "Negocio",
-        accessorKey: "type_business.name",
-    },
+    // {
+    //     header: "Estado fisico",
+    //     accessorKey: "phy_state.name",
+    // },
+    // {
+    //     header: "Negocio",
+    //     accessorKey: "type_business.name",
+    // },
     {
         header: "Estado",
         accessorKey: "status",

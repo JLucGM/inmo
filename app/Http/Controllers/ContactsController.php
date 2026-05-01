@@ -34,11 +34,12 @@ class ContactsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
+        $statusFilter = $request->query('status');
 
-        $contacts = Contacts::select('id', 'slug', 'name', 'email', 'phone', 'user_id', 'country_id', 'state_id', 'city_id', 'types_contacts_id', 'status_contacts_id', 'origin_id', 'types_properties_id', 'created_at')
+        $query = Contacts::select('id', 'slug', 'name', 'email', 'phone', 'user_id', 'country_id', 'state_id', 'city_id', 'types_contacts_id', 'status_contacts_id', 'origin_id', 'types_properties_id', 'created_at')
             ->with([
                 'user:id,name',
                 'country:id,name',
@@ -49,11 +50,30 @@ class ContactsController extends Controller
                 'origin:id,name',
                 'typeproperty:id,name'
             ])
-            ->where('user_id', $user->id) // Filtra por user_id
-            ->orderBy('name', 'asc')
-            ->paginate(15);
+            ->where('user_id', $user->id);
 
-        return Inertia::render('Contacts/Index', compact('contacts'));
+        if ($statusFilter && $statusFilter !== 'all') {
+            $query->whereHas('statuscontact', function($q) use ($statusFilter) {
+                $q->where('slug', $statusFilter);
+            });
+        }
+
+        $contacts = $query->orderBy('name', 'asc')->paginate(15)->withQueryString();
+
+        $statuses = StatusContact::select('id', 'name', 'slug')->get();
+
+        // Obtener conteos para los badges
+        $newContactsCount = Contacts::where('user_id', $user->id)
+            ->whereHas('statuscontact', function($q) {
+                $q->where('slug', 'nuevo');
+            })->count();
+
+        return Inertia::render('Contacts/Index', [
+            'contacts' => $contacts,
+            'statuses' => $statuses,
+            'statusFilter' => $statusFilter ?? 'all',
+            'newContactsCount' => $newContactsCount
+        ]);
     }
 
     /**

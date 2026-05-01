@@ -1,10 +1,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import DataTable from '@/Components/DataTable';
 import SectionHeader from '@/Components/SectionHeader';
 import { Badge } from '@/Components/ui/badge';
 import { CalendarIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { DataTableRowActions } from '@/Components/DataTableRowActions';
+import { Tabs, TabsList, TabsTrigger } from '@/Components/ui/tabs';
 
 const columns = [
     {
@@ -86,7 +87,14 @@ const columns = [
     }
 ];
 
-export default function Index({ auth, tasks }) {
+export default function Index({ auth, tasks, statuses = [], statusFilter = 'all', newTasksCount = 0 }) {
+    const handleStatusChange = (value) => {
+        router.get(route('tasks.index'), 
+            { status: value }, 
+            { preserveState: true, replace: true }
+        );
+    };
+
     return (
         <AuthenticatedLayout user={auth.user} >
             <div className='flex justify-between items-center mb-6'>
@@ -98,11 +106,35 @@ export default function Index({ auth, tasks }) {
 
             <Head title="Tareas" />
 
-            <div className="max-w-7xl p-4">
+            <div className="max-w-7xl mx-auto p-4 space-y-6">
+                <Tabs value={statusFilter} onValueChange={handleStatusChange} className="w-full">
+                    <TabsList className="bg-transparent h-auto p-0 flex-wrap gap-2 border-b rounded-none w-full justify-start">
+                        <TabsTrigger 
+                            value="all" 
+                            className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-4 py-2"
+                        >
+                            Todos
+                        </TabsTrigger>
+                        {statuses.map((status) => (
+                            <TabsTrigger 
+                                key={status.id} 
+                                value={status.slug}
+                                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-4 py-2 gap-2"
+                            >
+                                {status.name}
+                                {status.slug === 'nuevo' && newTasksCount > 0 && (
+                                    <Badge variant="secondary" className="px-1.5 py-0 min-w-[1.25rem] h-5 justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-100 dark:bg-red-950 dark:text-red-400">
+                                        {newTasksCount}
+                                    </Badge>
+                                )}
+                            </TabsTrigger>
+                        ))}
+                    </TabsList>
+                </Tabs>
+
                 <DataTable
                     columns={columns}
                     data={tasks}
-                    
                 />
             </div>
         </AuthenticatedLayout>

@@ -27,10 +27,12 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        $tasks = Task::select('id', 'slug', 'name', 'description', 'start_time', 'end_time', 'contact_id', 'user_id', 'property_id', 'types_tasks_id', 'status_contacts_id', 'created_at')
+        $statusFilter = $request->query('status');
+
+        $query = Task::select('id', 'slug', 'name', 'description', 'start_time', 'end_time', 'contact_id', 'user_id', 'property_id', 'types_tasks_id', 'status_contacts_id', 'created_at')
             ->with([
                 'contact:id,name',
                 'user:id,name',
@@ -38,10 +40,30 @@ class TaskController extends Controller
                 'typeTask:id,name',
                 'statusContact:id,name'
             ])
-            ->where('user_id', $user->id)
-            ->paginate(15);
+            ->where('user_id', $user->id);
 
-        return Inertia::render('Tasks/Index', compact('tasks'));
+        if ($statusFilter && $statusFilter !== 'all') {
+            $query->whereHas('statusContact', function($q) use ($statusFilter) {
+                $q->where('slug', $statusFilter);
+            });
+        }
+
+        $tasks = $query->orderBy('created_at', 'desc')->paginate(15)->withQueryString();
+
+        $statuses = StatusContact::select('id', 'name', 'slug')->get();
+
+        // Obtener conteos para los badges
+        $newTasksCount = Task::where('user_id', $user->id)
+            ->whereHas('statusContact', function($q) {
+                $q->where('slug', 'nuevo');
+            })->count();
+
+        return Inertia::render('Tasks/Index', [
+            'tasks' => $tasks,
+            'statuses' => $statuses,
+            'statusFilter' => $statusFilter ?? 'all',
+            'newTasksCount' => $newTasksCount
+        ]);
     }
 
     /**
