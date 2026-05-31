@@ -177,40 +177,25 @@ h6 { font-size: 1rem;    line-height: 1.7; }
 
 /* Calendario (React Big Calendar) */
 .rbc-event {
-    background-color: rgba(0, 0, 0, 0) !important;
+    background-color: transparent !important;
     border: none !important;
-}
-
-.rbc-event.event-new {
-    background-color: #3b82f6 !important;
-    color: white !important;
-    padding: 5px !important;
-}
-
-.rbc-event.event-in-progress {
-    background-color: #f59e0b !important;
-    color: white !important;
-    padding: 5px !important;
-}
-
-.rbc-event.event-recovered {
-    background-color: #f97316 !important;
-    color: white !important;
-    padding: 5px !important;
-}
-
-.rbc-event.event-converted {
-    background-color: #22c55e !important;
-    color: white !important;
-    padding: 5px !important;
-}
-
-.rbc-event.event-lost {
-    background-color: #ef4444 !important;
-    color: white !important;
-    padding: 5px !important;
 }
 
 .rbc-today {
     background-color: rgba(0, 0, 0, 0) !important;
+}
+
+/* ─── Tabs height fix ───────────────────────────────────────────────────── */
+.tabs-content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+}
+.tabs-content-grid > [data-slot="tabs-content"] {
+    grid-row: 1;
+    grid-column: 1;
+}
+[data-slot="tabs-content"][hidden] {
+    display: block !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }

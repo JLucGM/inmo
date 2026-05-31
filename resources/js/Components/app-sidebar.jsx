@@ -54,10 +54,11 @@ export function AppSidebar({ ...props }) {
         title: "Propiedades",
         url: "#",
         icon: BuildingOfficeIcon,
-        isActive: route().current('properties.*'),
+        isActive: route().current('properties.*') || route().current('rentals.*'),
         items: [
           { title: "Lista de Propiedades", url: route('properties.index'), permission: 'admin.properties.index' },
           { title: "Crear Propiedades", url: route('properties.create'), permission: 'admin.properties.create' },
+          { title: "Rentas", url: route('rentals.index'), permission: 'admin.rentals.index' },
         ],
       },
       {

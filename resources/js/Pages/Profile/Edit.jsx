@@ -23,9 +23,9 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
         >
             <Head title="Mi Perfil" />
 
-            <div className="p-4 md:p-6 space-y-8 max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="p-6 bg-white dark:bg-gray-800 shadow-sm border dark:border-gray-700 rounded-3xl h-fit">
+            <div className="p-4 md:p-6 space-y-8">
+                <div className="grid grid-cols-1 gap-4">
+                    <div className="p-6  border dark:border-gray-700 rounded-3xl h-fit">
                         <UpdateProfileInformationForm
                             mustVerifyEmail={mustVerifyEmail}
                             status={status}
@@ -33,13 +33,13 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                     </div>
 
                     <div className="space-y-6">
-                        <div className="p-6 bg-white dark:bg-gray-800 shadow-sm border dark:border-gray-700 rounded-3xl">
+                        <div className="p-6  border dark:border-gray-700 rounded-3xl">
                             <UpdatePasswordForm />
                         </div>
 
-                        <div className="p-6 bg-white dark:bg-gray-900 shadow-sm border dark:border-red-900 border-dashed rounded-3xl opacity-90 hover:opacity-100 transition-opacity">
+                        {/* <div className="p-6  border dark:border-red-900  rounded-3xl ">
                             <DeleteUserForm />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

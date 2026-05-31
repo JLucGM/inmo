@@ -151,7 +151,9 @@ export default function Edit({ auth, property, countries, states, cities, typePr
                                             <Label htmlFor="price">Precio</Label>
                                             <Input
                                                 id="price"
-                                                type="number"
+                                                type="text"
+                                                inputMode="decimal"
+                                                pattern="[0-9]*\.?[0-9]*"
                                                 value={data.price}
                                                 onChange={(e) => setData('price', e.target.value)}
                                                 className="mt-1"
@@ -211,29 +213,29 @@ export default function Edit({ auth, property, countries, states, cities, typePr
                                     <div className="grid grid-cols-1 md:grid-cols-5 gap-4 pt-2">
                                         <div className="col-span-1">
                                             <Label htmlFor="bedrooms">Habitaciones</Label>
-                                            <Input id="bedrooms" type="number" value={data.bedrooms} onChange={(e) => setData('bedrooms', e.target.value)} className="mt-1" />
+                                            <Input id="bedrooms" type="text" inputMode="numeric" pattern="[0-9]*" value={data.bedrooms} onChange={(e) => setData('bedrooms', e.target.value)} className="mt-1" />
                                         </div>
                                         <div className="col-span-1">
                                             <Label htmlFor="bathrooms">Baños</Label>
-                                            <Input id="bathrooms" type="number" value={data.bathrooms} onChange={(e) => setData('bathrooms', e.target.value)} className="mt-1" />
+                                            <Input id="bathrooms" type="text" inputMode="numeric" pattern="[0-9]*" value={data.bathrooms} onChange={(e) => setData('bathrooms', e.target.value)} className="mt-1" />
                                         </div>
                                         <div className="col-span-1">
                                             <Label htmlFor="garages">Garajes</Label>
-                                            <Input id="garages" type="number" value={data.garages} onChange={(e) => setData('garages', e.target.value)} className="mt-1" />
+                                            <Input id="garages" type="text" inputMode="numeric" pattern="[0-9]*" value={data.garages} onChange={(e) => setData('garages', e.target.value)} className="mt-1" />
                                         </div>
                                         <div className="col-span-1">
                                             <Label htmlFor="builtMeters">M² constr.</Label>
-                                            <Input id="builtMeters" type="number" value={data.builtMeters} onChange={(e) => setData('builtMeters', e.target.value)} className="mt-1" />
+                                            <Input id="builtMeters" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={data.builtMeters} onChange={(e) => setData('builtMeters', e.target.value)} className="mt-1" />
                                         </div>
                                         <div className="col-span-1">
                                             <Label htmlFor="totalMeters">M² totales</Label>
-                                            <Input id="totalMeters" type="number" value={data.totalMeters} onChange={(e) => setData('totalMeters', e.target.value)} className="mt-1" />
+                                            <Input id="totalMeters" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={data.totalMeters} onChange={(e) => setData('totalMeters', e.target.value)} className="mt-1" />
                                         </div>
                                     </div>
 
                                     <div className="pt-2">
                                         <Label htmlFor="description">Descripción detallada</Label>
-                                        <div className="mt-1 rounded-md overflow-hidden bg-white dark:bg-gray-900 shadow-sm border dark:border-gray-800">
+                                        <div className="mt-1 overflow-hidden">
                                             <TextAreaRich
                                                 initialValue={data.description}
                                                 ref={textAreaRef}
@@ -248,9 +250,22 @@ export default function Edit({ auth, property, countries, states, cities, typePr
 
                             <ContainerTitle title="Galería de imágenes">
                                 <div>
-                                    <Label htmlFor="images" className="mb-2 block">Imágenes actuales</Label>
+                                    {/* <Label htmlFor="images" className="mb-2 block">Imágenes actuales</Label> */}
 
-                                    {currentMedia.length > 0 ? (
+                                    
+
+                                    <Label htmlFor="new_images">Añadir más imágenes</Label>
+                                    <Input
+                                        id="new_images"
+                                        type="file"
+                                        multiple
+                                        onChange={(e) => setData('images', Array.from(e.target.files))}
+                                        className="mt-2"
+                                        accept="image/*"
+                                    />
+                                    <p className="text-xs text-gray-500 mt-2">Deselecciona o selecciona las imágenes a continuación que acompañarán las existentes.</p>
+                                </div>
+                                {currentMedia.length > 0 ? (
                                         <div className="flex flex-wrap gap-4 mb-4">
                                             {currentMedia.map((media) => (
                                                 <div key={media.id} className="relative border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden group shadow-sm bg-white dark:bg-gray-800">
@@ -271,22 +286,8 @@ export default function Edit({ auth, property, countries, states, cities, typePr
                                             ))}
                                         </div>
                                     ) : (
-                                        <div className="bg-gray-50 dark:bg-gray-800 border border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-6 text-center mb-4">
-                                            <p className="text-gray-500 text-sm">No hay imágenes en la galería.</p>
-                                        </div>
+                                        null
                                     )}
-
-                                    <Label htmlFor="new_images">Añadir más imágenes</Label>
-                                    <Input
-                                        id="new_images"
-                                        type="file"
-                                        multiple
-                                        onChange={(e) => setData('images', Array.from(e.target.files))}
-                                        className="mt-2"
-                                        accept="image/*"
-                                    />
-                                    <p className="text-xs text-gray-500 mt-2">Deselecciona o selecciona las imágenes a continuación que acompañarán las existentes.</p>
-                                </div>
                             </ContainerTitle>
                         </div>
 

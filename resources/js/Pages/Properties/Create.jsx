@@ -111,7 +111,9 @@ export default function Create({ auth, typeProperties, typeBusinesses, countries
                                             <Label htmlFor="price">Precio</Label>
                                             <Input
                                                 id="price"
-                                                type="number"
+                                                type="text"
+                                                inputMode="decimal"
+                                                pattern="[0-9]*\.?[0-9]*"
                                                 value={data.price}
                                                 onChange={(e) => setData('price', e.target.value)}
                                                 className="mt-1"
@@ -171,29 +173,29 @@ export default function Create({ auth, typeProperties, typeBusinesses, countries
                                     <div className="grid grid-cols-1 md:grid-cols-5 gap-4 pt-2">
                                         <div className="col-span-1">
                                             <Label htmlFor="bedrooms">Habitaciones</Label>
-                                            <Input id="bedrooms" type="number" value={data.bedrooms} onChange={(e) => setData('bedrooms', e.target.value)} className="mt-1" />
+                                            <Input id="bedrooms" type="text" inputMode="numeric" pattern="[0-9]*" value={data.bedrooms} onChange={(e) => setData('bedrooms', e.target.value)} className="mt-1" />
                                         </div>
                                         <div className="col-span-1">
                                             <Label htmlFor="bathrooms">Baños</Label>
-                                            <Input id="bathrooms" type="number" value={data.bathrooms} onChange={(e) => setData('bathrooms', e.target.value)} className="mt-1" />
+                                            <Input id="bathrooms" type="text" inputMode="numeric" pattern="[0-9]*" value={data.bathrooms} onChange={(e) => setData('bathrooms', e.target.value)} className="mt-1" />
                                         </div>
                                         <div className="col-span-1">
                                             <Label htmlFor="garages">Garajes</Label>
-                                            <Input id="garages" type="number" value={data.garages} onChange={(e) => setData('garages', e.target.value)} className="mt-1" />
+                                            <Input id="garages" type="text" inputMode="numeric" pattern="[0-9]*" value={data.garages} onChange={(e) => setData('garages', e.target.value)} className="mt-1" />
                                         </div>
                                         <div className="col-span-1">
                                             <Label htmlFor="builtMeters">M² constr.</Label>
-                                            <Input id="builtMeters" type="number" value={data.builtMeters} onChange={(e) => setData('builtMeters', e.target.value)} className="mt-1" />
+                                            <Input id="builtMeters" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={data.builtMeters} onChange={(e) => setData('builtMeters', e.target.value)} className="mt-1" />
                                         </div>
                                         <div className="col-span-1">
                                             <Label htmlFor="totalMeters">M² totales</Label>
-                                            <Input id="totalMeters" type="number" value={data.totalMeters} onChange={(e) => setData('totalMeters', e.target.value)} className="mt-1" />
+                                            <Input id="totalMeters" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={data.totalMeters} onChange={(e) => setData('totalMeters', e.target.value)} className="mt-1" />
                                         </div>
                                     </div>
 
                                     <div className="pt-2">
                                         <Label htmlFor="description">Descripción detallada</Label>
-                                        <div className="mt-1 rounded-md overflow-hidden bg-white dark:bg-gray-900 shadow-sm border dark:border-gray-800">
+                                        <div className="mt-1 overflow-hidden">
                                             <TextAreaRich
                                                 initialValue={data.description}
                                                 ref={textAreaRef}

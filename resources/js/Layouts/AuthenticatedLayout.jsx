@@ -70,15 +70,40 @@ const routeBreadcrumbsConfig = [
          { title: 'Crear propiedad' },
       ],
    },
-   {
-      match: (r) => typeof r === 'string' && r.includes('properties') && r.includes('edit'),
-      crumbs: [
-         { title: 'Propiedades', url: route('properties.index') },
-         { title: 'Editar propiedad' },
-      ],
-   },
-   {
-      match: (r) => r === 'tasks.index',
+    {
+       match: (r) => typeof r === 'string' && r.includes('properties') && r.includes('edit'),
+       crumbs: [
+          { title: 'Propiedades', url: route('properties.index') },
+          { title: 'Editar propiedad' },
+       ],
+    },
+    {
+       match: (r) => r === 'rentals.index',
+       crumbs: [{ title: 'Rentas', url: route('rentals.index') }],
+    },
+    {
+       match: (r) => r === 'rentals.create',
+       crumbs: [
+          { title: 'Rentas', url: route('rentals.index') },
+          { title: 'Crear renta' },
+       ],
+    },
+    {
+       match: (r) => r === 'rentals.edit',
+       crumbs: [
+          { title: 'Rentas', url: route('rentals.index') },
+          { title: 'Editar renta' },
+       ],
+    },
+    {
+       match: (r) => r === 'rentals.show',
+       crumbs: [
+          { title: 'Rentas', url: route('rentals.index') },
+          { title: 'Ver renta' },
+       ],
+    },
+    {
+       match: (r) => r === 'tasks.index',
       crumbs: [{ title: 'CRM', url: route('tasks.index') }],
    },
    {
@@ -168,14 +193,20 @@ const createButtonConfig = [
       href: route('user.create'),
       permission: 'admin.user.create',
    },
-   {
-      match: (r) => typeof r === 'string' && r.includes('properties') && r.includes('index'),
-      label: 'Crear propiedad',
-      href: route('properties.create'),
-      permission: 'admin.properties.create',
-   },
-   {
-      match: (r) => r === 'tasks.index',
+    {
+       match: (r) => typeof r === 'string' && r.includes('properties') && r.includes('index'),
+       label: 'Crear propiedad',
+       href: route('properties.create'),
+       permission: 'admin.properties.create',
+    },
+    {
+       match: (r) => r === 'rentals.index',
+       label: 'Crear Renta',
+       href: route('rentals.create'),
+       permission: 'admin.rentals.create',
+    },
+    {
+       match: (r) => r === 'tasks.index',
       label: 'Crear tarea',
       href: route('tasks.create'),
       permission: 'admin.tasks.create',
@@ -453,54 +484,6 @@ export default function Authenticated({ user, header, children, breadcrumbs }) {
                      )}
                   </button>
 
-                  <DropdownMenu>
-                     <DropdownMenuTrigger
-                        render={
-                           <div
-                              role="button"
-                              tabIndex={0}
-                              className="flex items-center gap-2 rounded-md border border-border bg-background px-2 py-1 text-sm hover:bg-muted"
-                           >
-                              <UserIcon className="size-4" />
-                              <span className="hidden md:inline">{user.name}</span>
-                           </div>
-                        }
-                     />
-                     <DropdownMenuContent side="bottom" align="end" className="w-56">
-                        <DropdownMenuItem>
-                           <Link href={route('profile.edit')} className="w-full block px-2 py-1 text-sm">
-                              <BadgeCheckIcon className="mr-2 size-4 inline" />
-                              Perfil
-                           </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                           <button
-                              onClick={toggleDarkMode}
-                              className="w-full flex items-center px-2 py-1 text-sm"
-                              type="button"
-                           >
-                              {theme === 'light' ? (
-                                 <MoonIcon className="mr-2 size-4 inline" />
-                              ) : (
-                                 <SunIcon className="mr-2 size-4 inline" />
-                              )}
-                              {theme === 'light' ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro'}
-                           </button>
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                           <Link
-                              href={route('logout')}
-                              method="post"
-                              as="button"
-                              className="w-full block px-2 py-1 text-sm text-destructive"
-                           >
-                              <LogOutIcon className="mr-2 size-4 inline" />
-                              Cerrar sesión
-                           </Link>
-                        </DropdownMenuItem>
-                     </DropdownMenuContent>
-                  </DropdownMenu>
                </div>
             </header>
 

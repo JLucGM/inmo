@@ -97,16 +97,11 @@ export default function Index({ auth, tasks, statuses = [], statusFilter = 'all'
 
     return (
         <AuthenticatedLayout user={auth.user} >
-            <div className='flex justify-between items-center mb-6'>
-                <SectionHeader
-                    title="Tareas"
-                    subtitle="Gestiona las actividades, seguimientos y tareas programadas."
-                />
-            </div>
+                
 
             <Head title="Tareas" />
 
-            <div className="max-w-7xl mx-auto p-4 space-y-6">
+            <div className="p-4 space-y-6">
                 <Tabs value={statusFilter} onValueChange={handleStatusChange} className="w-full">
                     <TabsList className="bg-transparent h-auto p-0 flex-wrap gap-2 border-b rounded-none w-full justify-start">
                         <TabsTrigger 
@@ -123,7 +118,7 @@ export default function Index({ auth, tasks, statuses = [], statusFilter = 'all'
                             >
                                 {status.name}
                                 {status.slug === 'nuevo' && newTasksCount > 0 && (
-                                    <Badge variant="secondary" className="px-1.5 py-0 min-w-[1.25rem] h-5 justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-100 dark:bg-red-950 dark:text-red-400">
+                                    <Badge variant="secondary" className="px-1.5 py-0 min-w-5 h-5 justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-100 dark:bg-red-950 dark:text-red-400">
                                         {newTasksCount}
                                     </Badge>
                                 )}

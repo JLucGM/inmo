@@ -36,7 +36,7 @@ const GridItem = ({ item }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-xl"
+            className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent rounded-xl"
           >
             <div className="p-4 h-full flex flex-col justify-between">
               <div className="flex justify-start gap-3">

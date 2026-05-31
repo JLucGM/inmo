@@ -10,7 +10,7 @@ export default function PropertyDetails({ datas, amenities, setting }) {
   const amenitiesPreview = amenities.slice(0, 9)
 
   return (
-    <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+    <div className="py-10 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6">
       {/* Dirección */}
       <div>
         <h3 className="sr-only">Dirección</h3>
@@ -54,8 +54,8 @@ export default function PropertyDetails({ datas, amenities, setting }) {
       {/* Descripción */}
       <div className="mb-4">
         <h2 className="capitalize text-sm font-medium text-gray-900">Descripción</h2>
-        <div className=" space-y-6">
-          <div className="" dangerouslySetInnerHTML={{ __html: datas.description }} />
+        <div className="space-y-6 *:max-w-full [&_img]:max-w-full [&_img]:h-auto [&_table]:block [&_table]:overflow-x-auto [&_pre]:overflow-x-auto [&_iframe]:max-w-full" style={{ overflowWrap: 'break-word', wordBreak: 'break-word' }}>
+          <div dangerouslySetInnerHTML={{ __html: datas.description }} />
         </div>
       </div>
 
@@ -68,7 +68,7 @@ export default function PropertyDetails({ datas, amenities, setting }) {
               <div key={amenity.id} className="flex flex-col items-start text-slate-200 border-2 border-gray-500 rounded-xl p-4">
                 {amenity.icon_svg && (
                   <span
-                    className="mr-2 mb-2 flex-shrink-0"
+                    className="mr-2 mb-2 shrink-0"
                     dangerouslySetInnerHTML={{ __html: amenity.icon_svg }}
                   />
                 )}
@@ -79,7 +79,7 @@ export default function PropertyDetails({ datas, amenities, setting }) {
         </div>
         {/* Botón para abrir diálogo */}
         <div className="mt-4 flex items-center justify-end">
-          <Button className="flex items-center text-slate-200" color="alternative" pill onClick={() => setIsOpen(true)}>
+          <Button className="flex items-center text-slate-200" color="alternative" onClick={() => setIsOpen(true)}>
             <Squares2X2Icon className="h-6 w-6" /> Ver todas las características
           </Button>
         </div>
@@ -105,7 +105,7 @@ export default function PropertyDetails({ datas, amenities, setting }) {
                 <div key={amenity.id} className="flex items-center text-gray-600">
                   {amenity.icon_svg && (
                     <span
-                      className="mr-2 mb-2 flex-shrink-0"
+                      className="mr-2 mb-2 shrink-0"
                       dangerouslySetInnerHTML={{ __html: amenity.icon_svg }}
                     />
                   )}

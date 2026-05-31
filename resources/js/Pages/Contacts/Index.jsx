@@ -8,12 +8,12 @@ import { Tabs, TabsList, TabsTrigger } from '@/Components/ui/tabs';
 import { Badge } from '@/Components/ui/badge';
 
 const columns = [
-    {
-        accessorKey: 'id',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="#" />
-        ),
-    },
+    // {
+    //     accessorKey: 'id',
+    //     header: ({ column }) => (
+    //         <DataTableColumnHeader column={column} title="#" />
+    //     ),
+    // },
     {
         accessorKey: 'name',
         header: ({ column }) => (
@@ -52,13 +52,13 @@ const columns = [
         ),
         cell: ({ row }) => row.original.statuscontact?.name || '-'
     },
-    {
-        accessorKey: 'country.name',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="País" />
-        ),
-        cell: ({ row }) => row.original.country?.name || '-'
-    },
+    // {
+    //     accessorKey: 'country.name',
+    //     header: ({ column }) => (
+    //         <DataTableColumnHeader column={column} title="País" />
+    //     ),
+    //     cell: ({ row }) => row.original.country?.name || '-'
+    // },
     {
         id: 'actions',
         cell: ({ row, table }) => (
@@ -99,7 +99,7 @@ export default function Index({ auth, contacts, statuses = [], statusFilter = 'a
         >
             <Head className="capitalize" title="Lista de Contactos" />
 
-            <div className="max-w-7xl mx-auto p-4 space-y-6">
+            <div className="p-4 space-y-6">
                 <Tabs value={statusFilter} onValueChange={handleStatusChange} className="w-full">
                     <TabsList className="bg-transparent h-auto p-0 flex-wrap gap-2 border-b rounded-none w-full justify-start">
                         <TabsTrigger
@@ -116,7 +116,7 @@ export default function Index({ auth, contacts, statuses = [], statusFilter = 'a
                             >
                                 {status.name}
                                 {status.slug === 'nuevo' && newContactsCount > 0 && (
-                                    <Badge variant="secondary" className="px-1.5 py-0 min-w-[1.25rem] h-5 justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-100 dark:bg-red-950 dark:text-red-400">
+                                    <Badge variant="secondary" className="px-1.5 py-0 min-w-5 h-5 justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-100 dark:bg-red-950 dark:text-red-400">
                                         {newContactsCount}
                                     </Badge>
                                 )}

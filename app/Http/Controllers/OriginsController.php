@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Origins\StoreRequest;
+use App\Http\Requests\Origins\UpdateRequest;
 use App\Models\Origins;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class OriginsController extends Controller
@@ -39,11 +39,9 @@ class OriginsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $data = $request->only('name');
-
-        Origins::create($data);
+        Origins::create($request->validated());
 
         return to_route('origins.index');
     }
@@ -68,11 +66,9 @@ class OriginsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Origins $origins)
+    public function update(UpdateRequest $request, Origins $origins)
     {
-        $data = $request->only('name');
-
-        $origins->update($data);
+        $origins->update($request->validated());
 
         return to_route('origins.edit', $origins);
     }

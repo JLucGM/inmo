@@ -1,1 +1,0 @@
-import{j as e}from"./app-D_kCjt9Q.js";function a({title:r,subtitle:t}){return e.jsxs("div",{className:"mb-4 ms-4",children:[e.jsx("h5",{className:"font-semibold text-xl text-gray-600 dark:text-gray-400",children:r}),t&&e.jsx("p",{className:"text-sm text-gray-600 dark:text-gray-400",children:t})]})}export{a as S};

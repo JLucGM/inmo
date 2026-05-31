@@ -108,7 +108,10 @@ class SlideController extends Controller
         if ($request->hasFile('image')) {
             // Verificar si existe una imagen anterior y eliminarla
             if ($slide->image && $slide->image != asset('img/slides/default.jpg')) {
-                unlink(public_path('img/slides/' . basename($slide->image))); // Elimina la imagen anterior
+                $filePath = public_path('img/slides/' . basename($slide->image));
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
             }
 
             // Procesar la nueva imagen

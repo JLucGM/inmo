@@ -22,22 +22,10 @@ export default function Edit({ auth, categoryPost }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            
-            
-            header={
-                <div className='flex justify-between items-center'>
-                    <SectionHeader title="Actualizar Categoría" subtitle="Edita el nombre de la categoría." />
-                    <Link href={route('category-post.index')}
-                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >
-                        Volver
-                    </Link>
-                </div>
-            }
         >
             <Head title="Actualizar Categoría de Posts" />
 
-            <div className="max-w-3xl mx-auto p-4">
+            <div className="p-4">
                 {recentlySuccessful && (
                     <Alert className="mb-6 border-green-500 bg-green-50 text-green-800 dark:bg-green-950 dark:text-green-200">
                         <CheckCircleIcon className="size-4" />

@@ -6,12 +6,6 @@ import { DataTableRowActions } from '@/Components/DataTableRowActions';
 
 const columns = [
     {
-        accessorKey: 'id',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="#" />
-        ),
-    },
-    {
         accessorKey: 'name',
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Nombre" />
@@ -39,7 +33,7 @@ export default function Index({ auth, countries }) {
         <AuthenticatedLayout user={auth.user}  >
             <Head title="Países" />
 
-            <div className="max-w-7xl p-4">
+            <div className="p-4">
                 <DataTable
                     columns={columns}
                     data={countries}

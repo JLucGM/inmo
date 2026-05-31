@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Documents\StoreRequest;
+use App\Http\Requests\Documents\UpdateRequest;
 use App\Models\Contacts;
 use App\Models\Document;
 use App\Models\Property;
@@ -83,13 +84,9 @@ class DocumentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Document $document)
+    public function update(UpdateRequest $request, Document $document)
     {
-        $data = $request->only('name', 'body', 'status','contact_id',
-        'property_id',
-        'user_id');
-
-        $document->update($data);
+        $document->update($request->validated());
 
         return to_route('documents.edit', $document);
     }

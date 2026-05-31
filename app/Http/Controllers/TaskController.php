@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Tasks\StoreRequest;
+use App\Http\Requests\Tasks\UpdateRequest;
 use App\Models\Contacts;
 use App\Models\Property;
 use App\Models\StatusContact;
@@ -127,20 +128,9 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(UpdateRequest $request, Task $task)
     {
-        $data = $request->only(
-            'name',
-            'start_time',
-            'end_time',
-            'status_contacts_id',
-            'description',
-            'contact_id',
-            'types_tasks_id',
-            'property_id',
-        );
-
-        $task->update($data);
+        $task->update($request->validated());
 
         return to_route('tasks.edit', $task);
     }
@@ -156,7 +146,7 @@ class TaskController extends Controller
     public function calendary()
     {
         $user = Auth::user();
-        $tasks = Task::with('typeTask', 'statusContact')->where('user_id', $user->id)->get();
+        $tasks = Task::with('typeTask', 'statusContact', 'contact', 'property')->where('user_id', $user->id)->get();
 
         return Inertia::render('Tasks/Calendary', compact('tasks'));
     }

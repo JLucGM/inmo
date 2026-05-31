@@ -49,7 +49,7 @@ export function DataTableRowActions({
                     </Button>
                 }
             />
-            <DropdownMenuContent align="end" className="w-[160px]">
+            <DropdownMenuContent align="end" className="w-40">
                 {routeShow && (
                     <DropdownMenuItem
                         render={
@@ -93,6 +93,7 @@ export function DataTableRowActions({
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                             variant="destructive"
+                            nativeButton={true}
                             render={
                                 <Link
                                     href={route(routeDestroy, row.original)}

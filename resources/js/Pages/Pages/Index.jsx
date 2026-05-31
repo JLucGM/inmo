@@ -8,24 +8,20 @@ import { DataTableRowActions } from '@/Components/DataTableRowActions';
 
 const columns = [
     {
-        accessorKey: 'id',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="#id" />
-        ),
-        cell: ({ row }) => (
-            <div className="flex items-center gap-3">
-                <p className="w-4">{row.original.id}</p>
-                {row.original.image && (
-                    <img src={row.original.image} alt="page" className='w-14 rounded-md object-cover aspect-video' />
-                )}
-            </div>
-        )
-    },
-    {
         accessorKey: 'name',
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Nombre" />
         ),
+        cell: ({ row }) => (
+            <div className="flex items-center gap-3">
+                {row.original.image ? (
+                    <img src={row.original.image} alt="page" className='w-14 h-14 rounded-md object-cover aspect-square shrink-0' />
+                ) : (
+                    <div className="w-14 h-14 rounded-md flex items-center justify-center text-[10px] text-gray-500">Sin img</div>
+                )}
+                <span>{row.original.name}</span>
+            </div>
+        )
     },
     {
         accessorKey: 'status',
@@ -58,15 +54,10 @@ const columns = [
 
 export default function Index({ auth, page }) {
     return (
-        <AuthenticatedLayout user={auth.user}  header={
-            <SectionHeader
-                title="Páginas del Sitio"
-                subtitle="Gestiona las páginas estáticas y contenedores de información."
-            />
-        }>
+        <AuthenticatedLayout user={auth.user}>
             <Head title="Páginas del Sitio" />
 
-            <div className="max-w-7xl p-4">
+            <div className="p-4">
                 <DataTable
                     columns={columns}
                     data={page}

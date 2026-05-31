@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Settings\UpdateRequest;
 use App\Models\Currency;
 use App\Models\Setting;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class SettingController extends Controller
@@ -65,39 +64,9 @@ class SettingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Setting $setting)
+    public function update(UpdateRequest $request, Setting $setting)
     {
-        $data = $request->only(
-            'name',
-            'email',
-            'phone',
-            'direction',
-            'description',
-            'titleBlog',
-            'titleFaq',
-            'titleContact',
-            'titleAnunciar',
-            'titleTestimonials',
-            'descriptionBlog',
-            'descriptionFaq',
-            'descriptionContact',
-            'descriptionAnunciar',
-            'descriptionTestimonials',
-            'status_banner',
-            'status_products_list',
-            'status_info_section',
-            'status_testimonials',
-            'status_team',
-            'status_instagram_posts',
-            'instagram',
-            'token_instagram',
-            'titleInfoSection',
-            'descriptionInfoSection',
-            'titleTeamSection',
-            'descriptionTeamSection',
-
-            'currency_id'
-        );
+        $data = $request->validated();
 
         // Manejo del logo
         if ($request->hasFile('logo')) {

@@ -30,7 +30,7 @@ const TextAreaRich = forwardRef(({ initialValue = '', onChange, styles = {}, nam
                         ['clean']
                     ],
                 }}
-                className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-3xl shadow-sm"
+                className="mt-1 block w-full "
             />
             <input type="hidden" name={name} value={text} />
         </div>

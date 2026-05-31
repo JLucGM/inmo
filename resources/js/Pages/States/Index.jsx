@@ -5,23 +5,11 @@ import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
 import { DataTableRowActions } from '@/Components/DataTableRowActions';
 
 const columns = [
-    {
-        accessorKey: 'id',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="#" />
-        ),
-    },
-    {
+        {
         accessorKey: 'name',
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Nombre" />
         ),
-        expanded: (row) => (
-            <div className="text-sm">
-                <p><strong>Nombre:</strong> {row.original.name}</p>
-                <p><strong>País:</strong> {row.original.country?.name}</p>
-            </div>
-        )
     },
     {
         id: 'actions',

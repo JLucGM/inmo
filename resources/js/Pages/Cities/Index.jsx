@@ -6,12 +6,6 @@ import { DataTableRowActions } from '@/Components/DataTableRowActions';
 
 const columns = [
     {
-        accessorKey: 'id',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="#" />
-        ),
-    },
-    {
         accessorKey: 'name',
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Nombre" />

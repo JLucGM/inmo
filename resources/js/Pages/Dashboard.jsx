@@ -193,6 +193,7 @@ export default function Dashboard({ auth, contacts, properties, tasks, taskCount
                                     variant="outline"
                                     size="sm"
                                     className="w-full mt-2"
+                                    nativeButton={false}
                                     render={<Link href={route('tasks.index')}>Ver todo el calendario</Link>}
                                 />
                             </div>
@@ -238,6 +239,7 @@ export default function Dashboard({ auth, contacts, properties, tasks, taskCount
                                     <Button
                                         size="sm"
                                         variant="secondary"
+                                        nativeButton={false}
                                         render={<Link href={route('post.index')}>Ver consejos del blog</Link>}
                                     />
                                 </div>

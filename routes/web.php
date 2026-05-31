@@ -16,6 +16,7 @@ use App\Http\Controllers\PhyStatesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertiesController;
+use App\Http\Controllers\RentalController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SlideController;
@@ -214,9 +215,22 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
     Route::get('roles/create', [RoleController::class, 'create'])->name('roles.create');
     Route::post('roles', [RoleController::class, 'store'])->name('roles.store');
-    Route::get('roles/{roles}/edit', [RoleController::class, 'edit'])->name('roles.edit');
-    Route::post('roles/{roles}', [RoleController::class, 'update'])->name('roles.update');
-    Route::delete('roles/{roles}', [RoleController::class, 'destroy'])->name('roles.destroy');
+    Route::get('roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::post('roles/{role}', [RoleController::class, 'update'])->name('roles.update');
+    Route::delete('roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+
+    Route::get('rentals', [RentalController::class, 'index'])->name('rentals.index');
+    Route::get('rentals/create', [RentalController::class, 'create'])->name('rentals.create');
+    Route::post('rentals', [RentalController::class, 'store'])->name('rentals.store');
+    Route::get('rentals/{rental}', [RentalController::class, 'show'])->name('rentals.show');
+    Route::get('rentals/{rental}/edit', [RentalController::class, 'edit'])->name('rentals.edit');
+    Route::post('rentals/{rental}', [RentalController::class, 'update'])->name('rentals.update');
+    Route::delete('rentals/{rental}', [RentalController::class, 'destroy'])->name('rentals.destroy');
+    Route::post('rentals/{rental}/renew', [RentalController::class, 'renew'])->name('rentals.renew');
+    Route::post('rentals/{rental}/payments', [RentalController::class, 'storePayment'])->name('rentals.storePayment');
+    Route::post('rentals/{rental}/payments/{payment}/mark-paid', [RentalController::class, 'markPayment'])->name('rentals.markPayment');
+    Route::get('api/rentals/properties', [RentalController::class, 'getProperties'])->name('rentals.api.properties');
+    Route::get('api/rentals/contacts', [RentalController::class, 'getContacts'])->name('rentals.api.contacts');
 });
 
 Route::get('property/{property}', [FrontendController::class, 'frontendShow'])->name('property.show');

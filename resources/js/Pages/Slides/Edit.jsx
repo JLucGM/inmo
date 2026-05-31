@@ -115,7 +115,7 @@ export default function Edit({ auth, slide }) {
                         <div className="lg:col-span-1 space-y-6">
                             <ContainerTitle title="Datos secundarios">
                                 <div className="space-y-4">
-                                    <div className="flex flex-col items-center mb-4 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-800">
+                                    <div className="flex flex-col items-center mb-4 p-2  rounded-lg ">
                                         {slide.image?.endsWith('.mp4') || slide.image?.endsWith('.webm') || slide.image?.endsWith('.ogg') ? (
                                             <div className="w-full rounded-md overflow-hidden aspect-video relative">
                                                 <ReactPlayer
@@ -127,7 +127,7 @@ export default function Edit({ auth, slide }) {
                                                 />
                                             </div>
                                         ) : (
-                                            slide.image && <img src={slide.image} alt={slide.name} className='w-full max-w-[240px] rounded-md object-cover' />
+                                            slide.image && <img src={slide.image} alt={slide.name} className='w-40 max-w-60 rounded-md object-cover' />
                                         )}
                                     </div>
 

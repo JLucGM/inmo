@@ -26,7 +26,7 @@ const InstagramMedia = ({setting}) => {
                     @{setting.instagram}
                 </Link>
             </div>
-            <div className="grid lg:grid-flow-row-dense grid-cols-4 grid-rows-3 lg:grid-rows-2 gap-4 h-[140vh] md:h-screen-[-175]] max-h-[750px]">
+            <div className="grid lg:grid-flow-row-dense grid-cols-4 grid-rows-3 lg:grid-rows-2 gap-4 h-[140vh] md:h-screen-[-175]] max-h-187.5">
                 {media.length > 0 && (
                     <>
                         {/* Imagen principal ocupa 3 filas */}

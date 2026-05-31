@@ -7,7 +7,7 @@ export default function FrontedLayout({children , auth, setting, pages}) {
         <>
             <MegaMenu auth={auth} setting={setting} />
 
-            <main className=" mx-5 md:mx-18">
+            <main className="mt-22 mx-5 md:mx-18">
                 {children}
             </main>
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import SectionHeader from '@/Components/SectionHeader';
@@ -7,22 +7,12 @@ import BasicInformation from '@/Components/BasicInformation';
 import Demands from '@/Components/Demands';
 import { Button } from '@/Components/ui/button';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
-import { CheckCircleIcon, CubeTransparentIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import { Badge } from '@/Components/ui/badge';
 import PDFOpenButton from '@/Components/PDF/PDFOpenButton';
 import DataTable from '@/Components/DataTable';
 import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
 
-// Shadcn Dialog Components
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/Components/ui/dialog';
-
-// Headless UI used before for property preview fallback if it's reused
 import { Dialog as HeadlessDialog, DialogPanel as HeadlessDialogPanel, DialogTitle as HeadlessDialogTitle, DialogBackdrop as HeadlessDialogBackdrop } from '@headlessui/react';
 
 export default function Show({ auth, contact, properties, setting }) {
@@ -84,12 +74,9 @@ export default function Show({ auth, contact, properties, setting }) {
                 const isAssigned = contactProperties.find(cp => cp.property_id === property.id);
                 return (
                     <div className="flex justify-end items-center gap-2">
-                        <PDFOpenButton property={property} setting={setting} />
-
                         {isAssigned ? (
                             <Button
                                 variant="destructive"
-                                size="sm"
                                 onClick={() => handleDelete(property.id)}
                             >
                                 Remover
@@ -97,12 +84,12 @@ export default function Show({ auth, contact, properties, setting }) {
                         ) : (
                             <Button
                                 variant="default"
-                                size="sm"
                                 onClick={() => crossProperty(property.id)}
                             >
                                 Asignar
                             </Button>
                         )}
+                        <PDFOpenButton property={property} setting={setting} />
                     </div>
                 );
             }
@@ -131,11 +118,124 @@ export default function Show({ auth, contact, properties, setting }) {
             .catch((err) => console.error(err));
     };
 
+    const assignedIds = useMemo(
+        () => new Set(contactProperties.map(cp => cp.property_id)),
+        [contactProperties]
+    );
+
+    const matchesDemands = (property) => {
+        // Tipo de propiedad: coincidencia exacta (categórico)
+        if (contact.types_properties_id && property.types_properties_id !== contact.types_properties_id) return false;
+
+        // Precio: rango con 20% de tolerancia
+        const price = Number(property.price) || 0;
+        const minBudget = Number(contact.min_budget) || 0;
+        const maxBudget = Number(contact.max_budget) || 0;
+        if (minBudget && maxBudget) {
+            const tolerance = (maxBudget - minBudget) * 0.2;
+            if (price < minBudget - tolerance || price > maxBudget + tolerance) return false;
+        } else if (minBudget && price < minBudget * 0.8) return false;
+        else if (maxBudget && price > maxBudget * 1.2) return false;
+
+        // Habitaciones: ±1
+        const beds = Number(property.bedrooms) || 0;
+        const wantedBeds = Number(contact.bedrooms) || 0;
+        if (wantedBeds && (beds < wantedBeds - 1 || beds > wantedBeds + 1)) return false;
+
+        // Baños: ±1
+        const baths = Number(property.bathrooms) || 0;
+        const wantedBaths = Number(contact.bathrooms) || 0;
+        if (wantedBaths && (baths < wantedBaths - 1 || baths > wantedBaths + 1)) return false;
+
+        // Ubicación: jerárquico estricto (país → estado → ciudad)
+        if (contact.country_id && property.country_id !== contact.country_id) return false;
+        if (contact.state_id && property.state_id !== contact.state_id) return false;
+        if (contact.city_id && property.city_id !== contact.city_id) return false;
+
+        return true;
+    };
+
+    const sortedProperties = useMemo(() => {
+        const matching = [];
+        const others = [];
+        for (const prop of properties) {
+            if (assignedIds.has(prop.id)) continue;
+            if (matchesDemands(prop)) matching.push(prop);
+            else others.push(prop);
+        }
+        return [...matching, ...others];
+    }, [properties, contact, assignedIds]);
+
+    const matchColumn = {
+        id: 'match',
+        header: '',
+        cell: ({ row }) => {
+            const isMatching = matchesDemands(row.original);
+            return (
+                <div className="flex items-center justify-center">
+                    {isMatching && (
+                        <Badge className="bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800 text-xs whitespace-nowrap">
+                            Coincide
+                        </Badge>
+                    )}
+                </div>
+            );
+        }
+    };
+
+    const extendedColumns = [matchColumn, ...matchingColumns];
+
+    const assignedProperties = useMemo(() => {
+        return contactProperties
+            .map(cp => properties.find(p => p.id === cp.property_id))
+            .filter(Boolean);
+    }, [contactProperties, properties]);
+
+    const assignedColumns = [
+        {
+            accessorKey: 'name',
+            header: ({ column }) => (
+                <DataTableColumnHeader column={column} title="Propiedad" />
+            ),
+            cell: ({ row }) => (
+                <button
+                    type="button"
+                    onClick={() => {
+                        setSelectedProperty(row.original);
+                        setIsPreviewOpen(true);
+                    }}
+                    className="capitalize font-medium text-blue-600 dark:text-blue-400 hover:underline text-left"
+                >
+                    #{row.original.identification || row.original.id} - {row.original.name}
+                </button>
+            ),
+        },
+        // {
+        //     accessorKey: 'price',
+        //     header: ({ column }) => (
+        //         <DataTableColumnHeader column={column} title="Precio" />
+        //     ),
+        //     cell: ({ row }) => <span>${Number(row.original.price).toLocaleString()}</span>,
+        // },
+        {
+            id: 'actions',
+            header: () => <div className="text-right">Acción</div>,
+            cell: ({ row }) => (
+                <div className="flex justify-end gap-2">
+                    <PDFOpenButton property={row.original} setting={setting} />
+                    <Button variant="destructive" size="sm" onClick={() => handleDelete(row.original.id)}>
+                        Remover
+                    </Button>
+                </div>
+            ),
+        },
+    ];
+
     return (
         <AuthenticatedLayout
             user={auth.user}
-            
-            
+
+
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader
@@ -159,7 +259,7 @@ export default function Show({ auth, contact, properties, setting }) {
         >
             <Head className="capitalize" title={`Contacto: ${contact.name}`} />
 
-            <div className="max-w-7xl mx-auto p-4 space-y-6 flex flex-col items-center sm:items-stretch h-full">
+            <div className="p-4 space-y-4 flex flex-col items-center sm:items-stretch h-full">
                 {recentlySuccessful && (
                     <Alert className="border-green-500 bg-green-50 text-green-800 dark:bg-green-950 dark:text-green-200">
                         <CheckCircleIcon className="size-4" />
@@ -168,82 +268,55 @@ export default function Show({ auth, contact, properties, setting }) {
                 )}
 
                 {/* Main Two-Column Layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
-                    {/* Left Column: Info & Demands */}
-                    <div className="space-y-6 w-full">
-                        <ContainerTitle title="Información Básica">
-                            <BasicInformation selectedContact={contact} />
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full">
+                    <div className="col-span-full lg:col-span-2 space-y-4">
+                        <ContainerTitle
+                            title="Cruce de Propiedades"
+                            subtitle="Aquí puedes asignar los inmuebles ideales basados en las demandas del cliente."
+                        >
+                            <div className="flex flex-col gap-4">
+                                <DataTable
+                                    columns={extendedColumns}
+                                    data={sortedProperties}
+                                />
+                            </div>
+                        </ContainerTitle>
+
+                        <ContainerTitle
+                            title="Propiedades Asignadas"
+                            subtitle="Propiedades que han sido asignadas a este contacto."
+                        >
+                            {assignedProperties.length > 0 ? (
+                                <DataTable
+                                    columns={assignedColumns}
+                                    data={assignedProperties}
+                                />
+                            ) : (
+                                <p className="text-sm text-gray-500">Aún no hay propiedades asignadas a este contacto.</p>
+                            )}
                         </ContainerTitle>
                     </div>
 
-                    <div className="space-y-6 w-full">
-                        <ContainerTitle title="Demandas (Intereses)">
-                            <Demands selectedContact={contact} />
+                    <div className="space-y-6 w-full col-span-full lg:col-span-1">
+                        <ContainerTitle
+                            title="Información de Contacto"
+                            subtitle="Detalles completos del contacto."
+                        >
+                            <BasicInformation selectedContact={contact} />
                         </ContainerTitle>
 
-                        <ContainerTitle title="Cruce de Propiedades">
-                            <div className="flex flex-col gap-4">
-                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                                    Aquí puedes asignar los inmuebles ideales basados en las demandas del cliente.
-                                </p>
-
-                                <Dialog>
-                                    <DialogTrigger
-                                        nativeButton={true}
-                                        render={
-                                            <Button className="w-full flex items-center justify-center gap-2">
-                                                <CubeTransparentIcon className="size-5" />
-                                                Realizar Cruce de Propiedades
-                                            </Button>
-                                        }
-                                    />
-                                    <DialogContent className="max-w-[95vw] w-full max-h-[95vh] overflow-hidden flex flex-col">
-                                        <DialogHeader>
-                                            <DialogTitle>Cruzar Propiedades con Cliente</DialogTitle>
-                                            <DialogDescription>
-                                                Asigna y revisa las propiedades para "{contact.name}".
-                                            </DialogDescription>
-                                        </DialogHeader>
-
-                                        <div className="flex-1 overflow-y-auto mt-4 px-1">
-                                            <DataTable
-                                                columns={matchingColumns}
-                                                data={properties}
-                                            />
-                                        </div>
-                                    </DialogContent>
-                                </Dialog>
-
-                                {/* List the already crossed properties right here on the Show view for fast viewing */}
-                                <div className="mt-4 border-t pt-4 dark:border-gray-700">
-                                    <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">Propiedades Asignadas</h4>
-                                    {contactProperties.length > 0 ? (
-                                        <ul className="space-y-2">
-                                            {contactProperties.map((cp, index) => {
-                                                const matchedProp = properties.find(p => p.id === cp.property_id);
-                                                if (!matchedProp) return null;
-                                                return (
-                                                    <li key={`cp-${cp.id || index}`} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-md border text-sm">
-                                                        <span className="font-medium">#{matchedProp.identification || matchedProp.id} - {matchedProp.name}</span>
-                                                        <Button variant="ghost" size="sm" onClick={() => handleDelete(matchedProp.id)}>
-                                                            Remover
-                                                        </Button>
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
-                                    ) : (
-                                        <p className="text-sm text-gray-500">Aún no hay propiedades asignadas a este contacto.</p>
-                                    )}
-                                </div>
-                            </div>
+                        <ContainerTitle
+                            title="Demandas del Contacto"
+                            subtitle="Las necesidades y preferencias del contacto."
+                        >
+                            <Demands selectedContact={contact} />
                         </ContainerTitle>
                     </div>
                 </div>
             </div>
 
             {/* PREVIEW MODAL (Used the fallback headless UI to guarantee styles won't conflict with Shadcn's inner Dialogs) */}
-            <HeadlessDialog open={isPreviewOpen} onClose={() => setIsPreviewOpen(false)} className="relative z-[100]">
+            <HeadlessDialog open={isPreviewOpen} onClose={() => setIsPreviewOpen(false)} className="relative z-100">
                 <HeadlessDialogBackdrop className="fixed inset-0 bg-black/60 transition-opacity" />
                 <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
                     <HeadlessDialogPanel className="w-full max-w-4xl max-h-[85vh] overflow-y-auto space-y-4 border bg-white p-6 md:p-8 dark:border-gray-700 dark:bg-gray-900 shadow-2xl rounded-2xl">

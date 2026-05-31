@@ -1,46 +1,47 @@
+import { useState } from 'react';
 import Badge from '@/Components/Badge';
-
 import SectionHeader from '@/Components/SectionHeader';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import { Calendar, dayjsLocalizer } from 'react-big-calendar';
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+    DialogFooter,
+} from '@/Components/ui/dialog';
+import { Button } from '@/Components/ui/button';
 
 import "react-big-calendar/lib/css/react-big-calendar.css"
 
+const typeColors = {
+    'Evento': '#8b5cf6',
+    'Reunión': '#22c55e',
+    'Llamada': '#3b82f6',
+    'Correo electrónico': '#ec4899',
+    'Tarea': '#f59e0b',
+    'Recordatorio': '#06b6d4',
+    'Otro': '#6b7280',
+};
+
 export default function Index({ auth, tasks }) {
-
-    // console.log(tasks)
-    const items = [
-        {
-            name: 'Dashboard',
-            href: 'dashboard',
-            icon: {
-                path: 'M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z',
-            },
-        },
-        {
-            name: 'Calendario',
-            icon: {
-                path: 'M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z',
-            },
-        },
-    ];
-
     const localizer = dayjsLocalizer(dayjs);
+    const [selectedTask, setSelectedTask] = useState(null);
+    const [dialogOpen, setDialogOpen] = useState(false);
 
     const events = tasks.map(task => ({
         start: dayjs(task.start_time).toDate(),
         end: dayjs(task.end_time).toDate(),
-        title: task.name + ' - ' + task.type_task.name,
-        status: task.status_contact.name // Asegúrate de que este campo esté disponible
+        title: task.name + ' - ' + task.type_task?.name,
+        task,
     }));
 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            
-            
             header={
                 <div className='flex justify-between items-center'>
                     <SectionHeader
@@ -55,42 +56,93 @@ export default function Index({ auth, tasks }) {
                 </div>
             }
         >
-            
 
             <Head className="capitalize" title="Calendario" />
 
             <div className="">
-                <div className="max-w-7xl mx-auto ">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden ">
-                        <div className=" text-gray-900 dark:text-gray-100">
-
-                            <div className="relative overflow-x-auto">
-                                <Calendar
-                                    localizer={localizer}
-                                    events={events}
-                                    style={{
-                                        height: "95vh",
-                                        width: "70vw",
-                                    }}
-                                    components={{
-                                        event: ({ event }) => (
-                                            <div className="flex items-center">
-                                                <Badge
-                                                    className={`rbc-event event-${event.status.replace(/\s+/g, '-').toLowerCase()} p-2 rounded`} // Cambia el nombre de la clase según el estado
-
-                                                >
-                                                    {event.title}
-                                                </Badge>
-                                            </div>
-                                        )
-                                    }}
-                                />
-                            </div>
-
-                        </div>
-                    </div>
+                <div className="relative overflow-x-auto">
+                    <Calendar
+                        localizer={localizer}
+                        events={events}
+                        style={{
+                            height: "95vh",
+                            width: "100%",
+                        }}
+                        onSelectEvent={(event) => {
+                            setSelectedTask(event.task);
+                            setDialogOpen(true);
+                        }}
+                        eventPropGetter={(event) => {
+                            const color = typeColors[event.task.type_task?.name] || typeColors['Otro'];
+                            return {
+                                style: {
+                                    backgroundColor: color,
+                                    color: '#fff',
+                                    borderRadius: '9999px',
+                                    padding: '2px 8px',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    fontSize: '12px',
+                                    fontWeight: '700',
+                                    textTransform: 'uppercase',
+                                }
+                            };
+                        }}
+                    />
                 </div>
             </div>
+
+            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+                <DialogContent className="sm:max-w-125">
+                    <DialogHeader>
+                        <DialogTitle>{selectedTask?.name || 'Sin título'}</DialogTitle>
+                        <DialogDescription>
+                            {selectedTask?.description || 'Sin descripción'}
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-3 py-4">
+                        <div className="flex justify-between items-center">
+                            <span className="font-medium text-sm">Tipo:</span>
+                            <Badge
+                                style={{
+                                    backgroundColor: typeColors[selectedTask?.type_task?.name] || typeColors['Otro'],
+                                }}
+                            >
+                                {selectedTask?.type_task?.name || 'N/A'}
+                            </Badge>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="font-medium text-sm">Estado:</span>
+                            <span className="text-sm">{selectedTask?.status_contact?.name || 'N/A'}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="font-medium text-sm">Inicio:</span>
+                            <span className="text-sm">{selectedTask?.start_time ? dayjs(selectedTask.start_time).format('DD/MM/YYYY HH:mm') : 'N/A'}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="font-medium text-sm">Fin:</span>
+                            <span className="text-sm">{selectedTask?.end_time ? dayjs(selectedTask.end_time).format('DD/MM/YYYY HH:mm') : 'N/A'}</span>
+                        </div>
+                        {selectedTask?.contact && (
+                            <div className="flex justify-between">
+                                <span className="font-medium text-sm">Contacto:</span>
+                                <span className="text-sm text-blue-600 dark:text-blue-400">{selectedTask.contact.name}</span>
+                            </div>
+                        )}
+                        {selectedTask?.property && (
+                            <div className="flex justify-between">
+                                <span className="font-medium text-sm">Propiedad:</span>
+                                <span className="text-sm text-blue-600 dark:text-blue-400">{selectedTask.property.name}</span>
+                            </div>
+                        )}
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setDialogOpen(false)}>
+                            Cerrar
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </AuthenticatedLayout>
     )
 }

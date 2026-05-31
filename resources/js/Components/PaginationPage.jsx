@@ -1,30 +1,59 @@
-// Pagination.js
 import React from 'react';
+import { Link } from '@inertiajs/react';
 import ChevronLeft from "./Icon/ChevronLeft";
 import ChevronRight from "./Icon/ChevronRight";
 
-const PaginationPage = ({ currentPage, totalPages, onNext, onPrev }) => {
+const PaginationPage = ({ links, meta }) => {
+    if (!links || links.length < 3) return null;
+
+    const prevLink = links[0];
+    const nextLink = links[links.length - 1];
+    const pageLinks = links.slice(1, -1);
+
     return (
-        <div className="flex justify-end items-center mt-8">
-            <button
-                onClick={onPrev}
-                disabled={currentPage === 1}
-                className={`px-4 py-2 rounded ${currentPage === 1 ? ' text-slate-500' : ' text-black'}`}
-            >
-                <ChevronLeft className={'size-5'} />
-            </button>
+        <div className="flex justify-center items-center gap-1 mt-8">
+            {prevLink.url ? (
+                <Link href={prevLink.url} preserveState preserveScroll className="px-3 py-2 rounded text-gray-600 hover:text-black hover:bg-gray-100 transition-colors">
+                    <ChevronLeft className="size-5" />
+                </Link>
+            ) : (
+                <span className="px-3 py-2 rounded text-slate-400 cursor-not-allowed">
+                    <ChevronLeft className="size-5" />
+                </span>
+            )}
 
-            <span className="text-gray-700 mx-4">
-                Página {currentPage} de {totalPages}
-            </span>
+            {pageLinks.map((link, i) =>
+                link.url ? (
+                    <Link
+                        key={i}
+                        href={link.url}
+                        preserveState
+                        preserveScroll
+                        className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
+                            link.active
+                                ? 'bg-primary text-primary-foreground'
+                                : 'text-gray-600 hover:bg-gray-100'
+                        }`}>
+                        <span dangerouslySetInnerHTML={{ __html: link.label }} />
+                    </Link>
+                ) : (
+                    <span
+                        key={i}
+                        dangerouslySetInnerHTML={{ __html: link.label }}
+                        className="px-3 py-1.5 rounded text-sm text-gray-400"
+                    />
+                )
+            )}
 
-            <button
-                onClick={onNext}
-                disabled={currentPage === totalPages}
-                className={`px-4 py-2 rounded ${currentPage === totalPages ? ' text-slate-500' : ' text-black'}`}
-            >
-                <ChevronRight className={'size-5'} />
-            </button>
+            {nextLink.url ? (
+                <Link href={nextLink.url} preserveState preserveScroll className="px-3 py-2 rounded text-gray-600 hover:text-black hover:bg-gray-100 transition-colors">
+                    <ChevronRight className="size-5" />
+                </Link>
+            ) : (
+                <span className="px-3 py-2 rounded text-slate-400 cursor-not-allowed">
+                    <ChevronRight className="size-5" />
+                </span>
+            )}
         </div>
     );
 };

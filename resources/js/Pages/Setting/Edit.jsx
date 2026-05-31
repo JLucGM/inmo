@@ -71,7 +71,7 @@ export default function Edit({ auth, setting, currencies }) {
         >
             <Head className="capitalize" title="Configuraciones" />
 
-            <div className="max-w-7xl mx-auto p-4">
+            <div className=" p-4">
                 {recentlySuccessful && (
                     <Alert className="mb-6 border-green-500 bg-green-50 text-green-800 dark:bg-green-950 dark:text-green-200">
                         <CheckCircleIcon className="size-4" />
@@ -79,9 +79,10 @@ export default function Edit({ auth, setting, currencies }) {
                     </Alert>
                 )}
 
-                <form onSubmit={submit} className="bg-white dark:bg-gray-800 border dark:border-gray-700 shadow-sm rounded-xl p-4 md:p-6 text-gray-900 dark:text-gray-100">
-                    <Tabs orientation="vertical" className="flex flex-col md:flex-row gap-6" defaultValue="principales">
-                        <TabsList className="flex md:flex-col h-auto w-full md:w-64 items-start justify-start p-1 bg-gray-50 dark:bg-gray-900 border dark:border-gray-800 overflow-x-auto md:overflow-visible">
+                <form onSubmit={submit} className=" rounded-xl text-gray-900 dark:text-gray-100">
+                    <Tabs orientation="vertical" className=" gap-6" defaultValue="principales">
+
+                        <TabsList className="flex md:flex-col w-full md:w-64 items-start justify-start p-1 border dark:border-gray-800 overflow-x-auto md:overflow-visible">
                             <TabsTrigger value="principales" className="w-full text-left justify-start">Datos principales</TabsTrigger>
                             <TabsTrigger value="imagenes" className="w-full text-left justify-start">Imágenes / Logos</TabsTrigger>
                             <TabsTrigger value="frontend" className="w-full text-left justify-start">Configurar frontend</TabsTrigger>
@@ -94,7 +95,7 @@ export default function Edit({ auth, setting, currencies }) {
                             <TabsTrigger value="testimonios" className="w-full text-left justify-start">Testimonios</TabsTrigger>
                         </TabsList>
 
-                        <div className="flex-1 w-full min-w-0">
+                        <div className="flex-1 w-full min-w-0 h-screen">
                             
                             {/* Datos principales */}
                             <TabsContent value="principales" className="space-y-4 m-0">
@@ -137,10 +138,10 @@ export default function Edit({ auth, setting, currencies }) {
                             {/* Imágenes / Logos */}
                             <TabsContent value="imagenes" className="space-y-4 m-0">
                                 <ContainerTitle title="Identidad Visual de la Marca" className="grid grid-cols-1 gap-6">
-                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg bg-gray-50/50 dark:bg-gray-800/50">
+                                    <div className="flex flex-col md:flex-row gap-4 items-start p-4 border rounded-lg ">
                                         <div className="shrink-0">
                                             <Label className="block mb-2 text-center text-xs text-muted-foreground">Logo Actual</Label>
-                                            {setting.logo ? <img src={setting.logo} alt="Logo" className="w-32 h-32 object-contain bg-white rounded-md p-2 shadow-sm border" /> : <div className="w-32 h-32 bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-xs">Sin logo</div>}
+                                            {setting.logo ? <img src={setting.logo} alt="Logo" className="w-16 h-16 object-contain bg-white rounded-md p-2 shadow-sm border" /> : <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-xs">Sin logo</div>}
                                         </div>
                                         <div className="flex-1 w-full">
                                             <Label htmlFor="logo">Actualizar Logo Principal</Label>
@@ -149,10 +150,10 @@ export default function Edit({ auth, setting, currencies }) {
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg bg-gray-50/50 dark:bg-gray-800/50">
+                                    <div className="flex flex-col md:flex-row gap-4 items-start p-4 border rounded-lg ">
                                         <div className="shrink-0">
                                             <Label className="block mb-2 text-center text-xs text-muted-foreground">Logo Footer Actual</Label>
-                                            {setting.logo_footer ? <img src={setting.logo_footer} alt="Logo Footer" className="w-32 h-32 object-contain bg-slate-900 rounded-md p-2 shadow-sm border" /> : <div className="w-32 h-32 bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-xs">Sin logo</div>}
+                                            {setting.logo_footer ? <img src={setting.logo_footer} alt="Logo Footer" className="w-16 h-16 object-contain bg-slate-900 rounded-md p-2 shadow-sm border" /> : <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-xs">Sin logo</div>}
                                         </div>
                                         <div className="flex-1 w-full">
                                             <Label htmlFor="logo_footer">Actualizar Logo de Pie de Página</Label>
@@ -161,7 +162,7 @@ export default function Edit({ auth, setting, currencies }) {
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg bg-gray-50/50 dark:bg-gray-800/50">
+                                    <div className="flex flex-col md:flex-row gap-4 items-start p-4 border rounded-lg ">
                                         <div className="shrink-0">
                                             <Label className="block mb-2 text-center text-xs text-muted-foreground">Favicon Actual</Label>
                                             {setting.favicon ? <img src={setting.favicon} alt="Favicon" className="w-16 h-16 object-cover mx-auto bg-white rounded-md p-1 shadow-sm border" /> : <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-xs">N/A</div>}
@@ -179,7 +180,7 @@ export default function Edit({ auth, setting, currencies }) {
                             <TabsContent value="frontend" className="space-y-4 m-0">
                                 <ContainerTitle title="Visibilidad de Secciones Públicas">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm bg-white dark:bg-gray-800">
+                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 ">
                                             <div className="space-y-0.5">
                                                 <Label className="text-base font-medium">Banner Principal</Label>
                                                 <div className="text-sm text-muted-foreground">Muestra el slider/banner en la página de inicio.</div>
@@ -187,7 +188,7 @@ export default function Edit({ auth, setting, currencies }) {
                                             <Switch checked={data.status_banner === 1} onCheckedChange={val => setData('status_banner', val ? 1 : 0)} />
                                         </div>
 
-                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm bg-white dark:bg-gray-800">
+                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 ">
                                             <div className="space-y-0.5">
                                                 <Label className="text-base font-medium">Lista de Propiedades</Label>
                                                 <div className="text-sm text-muted-foreground">Muestra la cuadrícula de propiedades destacadas.</div>
@@ -195,7 +196,7 @@ export default function Edit({ auth, setting, currencies }) {
                                             <Switch checked={data.status_products_list === 1} onCheckedChange={val => setData('status_products_list', val ? 1 : 0)} />
                                         </div>
 
-                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm bg-white dark:bg-gray-800">
+                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 ">
                                             <div className="space-y-0.5">
                                                 <Label className="text-base font-medium">Sección de Información</Label>
                                                 <div className="text-sm text-muted-foreground">Muestra el contenido de "Quiénes Somos" o similares.</div>
@@ -203,7 +204,7 @@ export default function Edit({ auth, setting, currencies }) {
                                             <Switch checked={data.status_info_section === 1} onCheckedChange={val => setData('status_info_section', val ? 1 : 0)} />
                                         </div>
 
-                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm bg-white dark:bg-gray-800">
+                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 ">
                                             <div className="space-y-0.5">
                                                 <Label className="text-base font-medium">Testimonios</Label>
                                                 <div className="text-sm text-muted-foreground">Muestra las opiniones de los clientes.</div>
@@ -211,7 +212,7 @@ export default function Edit({ auth, setting, currencies }) {
                                             <Switch checked={data.status_testimonials === 1} onCheckedChange={val => setData('status_testimonials', val ? 1 : 0)} />
                                         </div>
 
-                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm bg-white dark:bg-gray-800">
+                                        <div className="flex flex-row items-center justify-between rounded-lg border p-4 ">
                                             <div className="space-y-0.5">
                                                 <Label className="text-base font-medium">Equipo de Trabajo</Label>
                                                 <div className="text-sm text-muted-foreground">Muestra a los agentes inmobiliarios.</div>
@@ -238,7 +239,7 @@ export default function Edit({ auth, setting, currencies }) {
 
                             <TabsContent value="faq" className="space-y-4 m-0">
                                 <ContainerTitle title="Personalización de Preguntas Frecuentes" className="space-y-4">
-                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg bg-gray-50/50 dark:bg-gray-800/50 mb-4">
+                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg  mb-4">
                                         <div className="shrink-0">
                                             <Label className="block mb-2 text-center text-xs text-muted-foreground">Portada Actual</Label>
                                             {setting.portadaFaq ? <img src={setting.portadaFaq} alt="FAQ" className="w-32 h-24 object-cover rounded-md shadow-sm border" /> : <div className="w-32 h-24 bg-gray-200 dark:bg-gray-700 rounded-md"></div>}
@@ -262,7 +263,7 @@ export default function Edit({ auth, setting, currencies }) {
 
                             <TabsContent value="contacto" className="space-y-4 m-0">
                                 <ContainerTitle title="Personalización de Página de Contacto" className="space-y-4">
-                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg bg-gray-50/50 dark:bg-gray-800/50 mb-4">
+                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg  mb-4">
                                         <div className="shrink-0">
                                             <Label className="block mb-2 text-center text-xs text-muted-foreground">Portada Actual</Label>
                                             {setting.portadaContact ? <img src={setting.portadaContact} alt="Contact" className="w-32 h-24 object-cover rounded-md shadow-sm border" /> : <div className="w-32 h-24 bg-gray-200 dark:bg-gray-700 rounded-md"></div>}
@@ -285,7 +286,7 @@ export default function Edit({ auth, setting, currencies }) {
 
                             <TabsContent value="anunciar" className="space-y-4 m-0">
                                 <ContainerTitle title="Personalización de Vender/Anunciar" className="space-y-4">
-                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg bg-gray-50/50 dark:bg-gray-800/50 mb-4">
+                                    <div className="flex flex-col md:flex-row gap-6 items-start p-4 border rounded-lg  mb-4">
                                         <div className="shrink-0">
                                             <Label className="block mb-2 text-center text-xs text-muted-foreground">Portada Actual</Label>
                                             {setting.portadaAnunciar ? <img src={setting.portadaAnunciar} alt="Anunciar" className="w-32 h-24 object-cover rounded-md shadow-sm border" /> : <div className="w-32 h-24 bg-gray-200 dark:bg-gray-700 rounded-md"></div>}
@@ -348,7 +349,7 @@ export default function Edit({ auth, setting, currencies }) {
                         </div>
                     </Tabs>
 
-                    <div className="flex justify-end pt-6 mt-6 border-t dark:border-gray-800">
+                    <div className="flex justify-end pt-6 mt-6">
                         <Button type="submit" size="lg" className="px-8">
                             Guardar configuración
                         </Button>

@@ -1,37 +1,45 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import DataTable from '@/Components/DataTable';
 import SectionHeader from '@/Components/SectionHeader';
-import { LinkIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { Badge } from '@/Components/ui/badge';
 import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
 import { DataTableRowActions } from '@/Components/DataTableRowActions';
-import { Button } from '@/Components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/Components/ui/tabs';
 
 const columns = [
     {
-        id: 'image',
-        header: '',
+        accessorKey: 'name',
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Nombre" />
+        ),
         cell: ({ row }) => {
             const firstImage = row.original.media && row.original.media.length > 0
                 ? row.original.media[0].original_url
                 : null;
             return (
-                <div className="flex items-center">
+                <div className="flex items-center gap-3">
                     {firstImage ? (
                         <img
                             src={firstImage}
                             alt={`Imagen de ${row.original.name}`}
-                            className="w-14 h-14 object-cover mx-auto rounded-lg shadow-sm"
+                            className="w-14 h-14 object-cover rounded-lg shadow-sm shrink-0"
                             loading="lazy"
                             onError={(e) => { e.target.src = '/img/default.jpg'; }}
                         />
                     ) : (
-                        <div className="w-14 h-14 mx-auto bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-[10px] text-gray-400 border border-gray-200 dark:border-gray-700">
+                        <div className="w-14 h-14 shrink-0 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-[10px] text-gray-400 border border-gray-200 dark:border-gray-700">
                             No img
                         </div>
                     )}
+                    <a
+                        href={route('property.show', row.original.slug)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline underline-offset-4"
+                    >
+                        {row.original.name}
+                    </a>
                 </div>
             );
         },
@@ -43,28 +51,6 @@ const columns = [
         ),
     },
     {
-        accessorKey: 'name',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Nombre" />
-        ),
-        expanded: (row) => (
-            <div className="ms-4 py-2 space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                <p><span className="font-semibold">Agente encargado:</span> {row.original.user?.name || '---'}</p>
-                <p><span className="font-semibold">Dirección:</span> {row.original.direction}, {row.original.city?.name || '-'}, {row.original.state?.name || '-'}, {row.original.country?.name || '-'}</p>
-                <div className="pt-2">
-                    <a
-                        href={route('property.show', row.original.slug)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-start text-blue-600 hover:text-blue-500 dark:text-blue-400 hover:underline underline-offset-4"
-                    >
-                        <LinkIcon className="w-4 h-4 me-1.5" /> Ver propiedad en sitio público
-                    </a>
-                </div>
-            </div>
-        ),
-    },
-    {
         accessorKey: 'price',
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Precio" />
@@ -72,32 +58,12 @@ const columns = [
         cell: ({ row }) => <span className="font-medium">${Number(row.original.price).toLocaleString()}</span>
     },
     {
-        accessorKey: 'country.name',
+        accessorKey: 'user.name',
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="País" />
+            <DataTableColumnHeader column={column} title="Agente" />
         ),
-        cell: ({ row }) => row.original.country?.name || '-'
+        cell: ({ row }) => <span>{row.original.user?.name || '---'}</span>
     },
-    // {
-    //     accessorKey: 'phyState.name',
-    //     header: ({ column }) => (
-    //         <DataTableColumnHeader column={column} title="Estado fisico" />
-    //     ),
-    //     cell: ({ row }) => (
-    //         <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/20 dark:text-blue-300 dark:border-blue-800">
-    //             {row.original.phyState?.name || 'N/A'}
-    //         </Badge>
-    //     )
-    // },
-    // {
-    //     accessorKey: 'typeBusiness.name',
-    //     header: ({ column }) => (
-    //         <DataTableColumnHeader column={column} title="Negocio" />
-    //     ),
-    //     cell: ({ row }) => (
-    //         <span className="text-gray-600 dark:text-gray-400">{row.original.typeBusiness?.name || 'N/A'}</span>
-    //     )
-    // },
     {
         accessorKey: 'status',
         header: ({ column }) => (
@@ -115,25 +81,14 @@ const columns = [
     {
         id: 'actions',
         cell: ({ row, table }) => (
-            <div className="flex items-center justify-end gap-2">
-                <Button
-                    variant="ghost"
-                    size="icon-sm"
-                    onClick={() => row.toggleExpanded()}
-                >
-                    {row.getIsExpanded()
-                        ? <MinusIcon className="size-4" />
-                        : <PlusIcon className="size-4" />}
-                </Button>
-                <DataTableRowActions
-                    row={row}
-                    routeEdit="properties.edit"
-                    routeDestroy="properties.destroy"
-                    editPermission="admin.properties.edit"
-                    deletePermission="admin.properties.delete"
-                    permissions={table.options.meta?.permissions}
-                />
-            </div>
+            <DataTableRowActions
+                row={row}
+                routeEdit="properties.edit"
+                routeDestroy="properties.destroy"
+                editPermission="admin.properties.edit"
+                deletePermission="admin.properties.delete"
+                permissions={table.options.meta?.permissions}
+            />
         ),
     },
 ];
@@ -158,7 +113,7 @@ export default function Index({ auth, properties, statuses = [], statusFilter = 
         >
             <Head title="Propiedades" />
 
-            <div className="max-w-7xl mx-auto p-4 space-y-6">
+            <div className=" p-4 space-y-6">
                 <Tabs value={statusFilter} onValueChange={handleStatusChange} className="w-full">
                     <TabsList className="bg-transparent h-auto p-0 flex-wrap gap-2 border-b rounded-none w-full justify-start">
                         <TabsTrigger

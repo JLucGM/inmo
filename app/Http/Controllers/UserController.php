@@ -7,10 +7,10 @@ use App\Http\Requests\Users\UpdateRequest;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class UserController extends Controller
 {
@@ -28,9 +28,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        $users = User::select('id', 'name', 'slug', 'email', 'created_at')->paginate(15);
+        $users = User::select('id', 'name', 'slug', 'email', 'phone', 'status', 'avatar', 'created_at')->paginate(15);
         $roles = Cache::remember('roles', 3600, function () {
             return Role::select('id', 'name')->get();
         });
@@ -41,7 +41,7 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
         $roles = Role::all();
 
@@ -57,16 +57,13 @@ class UserController extends Controller
 
         $data['password'] = bcrypt($request['password']);
 
-        // AGREGAR AVATAR
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
-            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
-            $image->move(public_path('img/profile'), $nombreImagen);
-
-            // Guardar la ruta completa del avatar
-            $data['avatar'] = asset('img/profile/' . $nombreImagen); // Guarda la URL completa
+            $nombreImagen = time() . '_' . $image->getClientOriginalName();
+            $image->storeAs('public/profile', $nombreImagen);
+            $data['avatar'] = Storage::url('profile/' . $nombreImagen);
         } else {
-            $data['avatar'] = asset('img/profile/default.jpg'); // Guarda la URL por defecto
+            $data['avatar'] = asset('img/profile/default.jpg');
         }
 
         $user = User::create($data); // Crear el nuevo usuario
@@ -90,7 +87,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(User $user): Response
     {
         $user->load('roles');
 
@@ -112,20 +109,17 @@ class UserController extends Controller
 
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
-            $nombreImagen = time() . '_' . $image->getClientOriginalName(); // Asegúrate de que el nombre sea único
-            $image->move(public_path('img/profile'), $nombreImagen);
+            $nombreImagen = time() . '_' . $image->getClientOriginalName();
+            $image->storeAs('public/profile', $nombreImagen);
 
-            // Guardar la ruta completa del avatar
-            $data['avatar'] = asset('img/profile/' . $nombreImagen); // Guarda la URL completa
-
-            // Eliminar la imagen existente si no es el por defecto
-            if ($user->avatar != 'default.jpg') {
-                // Eliminar la imagen existente
-                unlink(public_path('img/profile/' . basename($user->avatar)));
+            $oldAvatar = str_replace('/storage/', 'public/', $user->avatar);
+            if ($user->avatar && !str_contains($user->avatar, 'default.jpg') && Storage::exists($oldAvatar)) {
+                Storage::delete($oldAvatar);
             }
+
+            $data['avatar'] = Storage::url('profile/' . $nombreImagen);
         } else {
-            // Si no se sube una nueva imagen, conservar la existente
-            $data['avatar'] = $user->avatar; // Mantener la URL existente
+            $data['avatar'] = $user->avatar;
         }
 
         $user->update($data); // Actualizar el usuario con los nuevos datos
@@ -144,14 +138,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        // Verificar si el avatar existe y no es el default
-        if ($user->avatar && $user->avatar != asset('img/profile/default.jpg')) {
-            // Extraer el nombre del archivo de la URL completa
-            $nombreAvatar = basename($user->avatar);
-
-            // Verificar que el archivo exista antes de intentar eliminarlo
-            if (file_exists(public_path('img/profile/' . $nombreAvatar))) {
-                unlink(public_path('img/profile/' . $nombreAvatar));
+        if ($user->avatar && !str_contains($user->avatar, 'default.jpg')) {
+            $avatarPath = str_replace('/storage/', 'public/', $user->avatar);
+            if (Storage::exists($avatarPath)) {
+                Storage::delete($avatarPath);
             }
         }
 

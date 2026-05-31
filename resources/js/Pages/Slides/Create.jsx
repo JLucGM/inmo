@@ -1,6 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm, Link } from '@inertiajs/react';
-import SectionHeader from '@/Components/SectionHeader';
+import { Head, useForm } from '@inertiajs/react';
 import ContainerTitle from '@/Components/ContainerTitle';
 import CharacterCounter from '@/Components/CharacterCounter';
 import { Label } from '@/Components/ui/label';
@@ -42,22 +41,10 @@ export default function Create({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            
-            
-            header={
-                <div className='flex justify-between items-center'>
-                    <SectionHeader title="Crear slide" subtitle="Aquí puedes crear un nuevo slide para la aplicación." />
-                    <Link href={route('slides.index')}
-                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >
-                        Volver
-                    </Link>
-                </div>
-            }
         >
             <Head title="Crear slide" />
 
-            <div className="max-w-7xl mx-auto p-4">
+            <div className="p-4">
                 <form onSubmit={submit} className="space-y-6">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         {/* Datos principales */}

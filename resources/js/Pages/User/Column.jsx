@@ -4,22 +4,27 @@ import { DataTableColumnHeader } from '@/Components/DataTableColumnHeader';
 import { DataTableRowActions } from '@/Components/DataTableRowActions';
 
 const columns = [
-    {
-        accessorKey: "id",
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="#" />
-        ),
-        cell: ({ row }) => (
-            <div className="flex items-center">
-                <p className='me-2'>{row.original.id}</p>
-                <img src={`${row.original.avatar}`} alt={row.original.avatar} className='w-11 h-11 rounded-full object-cover' />
-            </div>
-        ),
-    },
+    
     {
         accessorKey: "name",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Nombre" />
+        ),
+        cell: ({ row }) => (
+            <div className="flex items-center gap-3">
+                {row.original.avatar ? (
+                    <img
+                        src={row.original.avatar}
+                        alt={row.original.name}
+                        className="w-11 h-11 rounded-full object-cover shrink-0"
+                    />
+                ) : (
+                    <div className="w-11 h-11 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xs text-gray-400 shrink-0">
+                        NA
+                    </div>
+                )}
+                <span>{row.original.name}</span>
+            </div>
         ),
     },
     {

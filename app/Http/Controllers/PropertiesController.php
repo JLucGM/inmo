@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Properties\StoreRequest;
+use App\Http\Requests\Properties\UpdateImagesRequest;
+use App\Http\Requests\Properties\UpdateRequest;
 use App\Models\Amenity;
 use App\Models\Cities;
 use App\Models\Countries;
@@ -14,12 +16,9 @@ use App\Models\TypesBusinesses;
 use App\Models\TypesProperties;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Log;
+use Inertia\Response;
 use Illuminate\Validation\Rule;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -35,12 +34,13 @@ class PropertiesController extends Controller
     /**
      * Display a listing of the resource.s
      */
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $statusFilter = $request->query('status');
 
         $query = Property::select('id', 'slug', 'name', 'price', 'identification', 'direction', 'status', 'country_id', 'state_id', 'city_id', 'phy_states_id', 'types_businesses_id', 'types_properties_id', 'user_id', 'created_at')
             ->with([
+                'media' => fn($q) => $q->where('collection_name', 'images'),
                 'country:id,name',
                 'state:id,name',
                 'city:id,name',
@@ -72,7 +72,7 @@ class PropertiesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
         $countries = Countries::all();
         $states = States::all();
@@ -163,7 +163,7 @@ class PropertiesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Property $property)
+    public function edit(Property $property): Response
     {
         $property->load(['media', 'amenities', 'country', 'state', 'city', 'phyState', 'typeProperty', 'typeBusiness']);
         $countries = Countries::all();
@@ -174,12 +174,6 @@ class PropertiesController extends Controller
         $users = User::all();
         $phyStates = PhyStates::all();
         $amenities = Amenity::all();
-
-        Log::info('Edit method: Property loaded with media and amenities', [
-            'property_id' => $property->id,
-            'media_count' => $property->media->count(),
-            'amenities_count' => $property->amenities->count(),
-        ]);
 
         return Inertia::render('Properties/Edit', compact(
             'property',
@@ -196,51 +190,9 @@ class PropertiesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Property $property)
+    public function update(UpdateRequest $request, Property $property)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'slug' => 'nullable|string|unique:properties,slug,' . $property->id,
-            'description' => 'nullable|string',
-            'identification' => 'nullable|string|max:255',
-            'bedrooms' => 'nullable|integer|min:0',
-            'bathrooms' => 'nullable|integer|min:0',
-            'totalMeters' => 'nullable|numeric|min:0',
-            'builtMeters' => 'nullable|numeric|min:0',
-            'garages' => 'nullable|integer|min:0',
-            'direction' => 'nullable|string|max:500',
-            'status' => ['required', Rule::in([0, 1, 2])],
-            'types_properties_id' => 'required|exists:types_properties,id',
-            'phy_states_id' => 'required|exists:phy_states,id',
-            'types_businesses_id' => 'required|exists:types_businesses,id',
-            'country_id' => 'required|exists:countries,id',
-            'state_id' => 'required|exists:states,id',
-            'city_id' => 'required|exists:cities,id',
-            'amenity' => 'nullable|array',
-            'amenity.*' => 'exists:amenities,id',
-        ]);
-
-        $data = $request->only([
-            'name',
-            'price',
-            'slug',
-            'description',
-            'identification',
-            'bedrooms',
-            'bathrooms',
-            'totalMeters',
-            'builtMeters',
-            'garages',
-            'direction',
-            'status',
-            'types_properties_id',
-            'phy_states_id',
-            'types_businesses_id',
-            'country_id',
-            'state_id',
-            'city_id',
-        ]);
+        $data = $request->validated();
 
         // Actualizar la propiedad
         $property->update($data);
@@ -274,11 +226,9 @@ class PropertiesController extends Controller
         return to_route('properties.edit', $property);
     }
 
-    public function updateImages(Request $request, Property $property)
+    public function updateImages(UpdateImagesRequest $request, Property $property)
     {
-        $request->validate([
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validación para múltiples imágenes
-        ]);
+        $request->validated();
         if ($request->hasFile('images')) {
             $images = $request->file('images');
             foreach ($images as $image) {

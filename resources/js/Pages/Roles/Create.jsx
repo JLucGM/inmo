@@ -29,21 +29,10 @@ export default function Create({ auth, permissions }) {
     return (
         <AuthenticatedLayout 
             user={auth.user} 
-            
-            header={
-                <div className='flex justify-between items-center'>
-                    <SectionHeader title="Crear rol" subtitle="Define un nuevo rol con permisos personalizados." />
-                    <Link href={route('roles.index')}
-                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >
-                        Volver
-                    </Link>
-                </div>
-            }
         >
             <Head title="Crear Rol" />
 
-            <div className="max-w-7xl mx-auto p-4">
+            <div className="p-4">
                 <form onSubmit={submit} className="space-y-6">
                     <ContainerTitle title="Datos del rol y Permisos" className="grid grid-cols-1 gap-6">
                         <div className="col-span-full max-w-lg">
@@ -64,10 +53,10 @@ export default function Create({ auth, permissions }) {
                         </div>
 
                         <div className="col-span-full mt-4">
-                            <Label className="mb-4 block text-base font-semibold border-b pb-2 dark:border-gray-800">Permisos asignados al rol</Label>
-                            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 bg-gray-50/50 dark:bg-gray-900/20 p-4 rounded-lg border border-gray-100 dark:border-gray-800">
+                            <Label className="mb-4 block text-base font-semibold border-b pb-2 ">Permisos asignados al rol</Label>
+                            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-4 rounded-lg border">
                                 {permissions?.map((perm) => (
-                                    <div key={perm.id} className="flex items-start gap-3 bg-white dark:bg-gray-800 p-2.5 rounded shadow-sm border border-gray-100 dark:border-gray-700">
+                                    <div key={perm.id} className="flex items-start gap-4 p-4 rounded-full border">
                                         <Checkbox
                                             id={`perm-${perm.id}`}
                                             checked={data.permissions.includes(perm.id)}

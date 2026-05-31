@@ -28,22 +28,10 @@ export default function Create({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            
-            
-            header={
-                <div className='flex justify-between items-center'>
-                    <SectionHeader title="Crear información web" subtitle="Añade una nueva entrada de información estática." />
-                    <Link href={route('info-web.index')}
-                        className="py-2.5 px-5 capitalize text-sm font-medium text-gray-900 bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    >
-                        Volver
-                    </Link>
-                </div>
-            }
         >
             <Head className="capitalize" title="Crear Información web" />
 
-            <div className="max-w-7xl mx-auto p-4">
+            <div className="p-4">
                 <form onSubmit={submit} className="space-y-6">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -64,8 +52,8 @@ export default function Create({ auth }) {
                                     </div>
 
                                     <div className="pt-2">
-                                        <Label htmlFor="text">Cuerpo / Texto</Label>
-                                        <div className="mt-1 rounded-md overflow-hidden bg-white dark:bg-gray-900 shadow-sm border dark:border-gray-800">
+                                        <Label htmlFor="text">Texto</Label>
+                                        <div className="mt-1  overflow-hidden">
                                             <TextAreaRich
                                                 initialValue={data.text}
                                                 ref={textAreaRef}

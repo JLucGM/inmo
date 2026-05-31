@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryPosts\StoreRequest;
+use App\Http\Requests\CategoryPosts\UpdateRequest;
 use App\Models\CategoryPost;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class CategoryPostController extends Controller
@@ -40,11 +40,9 @@ class CategoryPostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $data = $request->only('name');
-
-        CategoryPost::create($data);
+        CategoryPost::create($request->validated());
 
         return to_route('category-post.index');
     }
@@ -70,11 +68,9 @@ class CategoryPostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CategoryPost $categoryPost)
+    public function update(UpdateRequest $request, CategoryPost $categoryPost)
     {
-        $data = $request->only('name');
-
-        $categoryPost->update($data);
+        $categoryPost->update($request->validated());
 
         return to_route('category-post.edit', $categoryPost);
     }

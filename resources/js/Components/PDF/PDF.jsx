@@ -1,32 +1,25 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
 
-// Create styles
 const styles = StyleSheet.create({
     header: {
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
-        // height: 50,
         textAlign: 'center',
         fontSize: 14,
         fontWeight: 'bold',
         padding: 10,
-        // backgroundColor: '#E4E4E4', // Color de fondo del encabezado
     },
     page: {
-        marginTop: 10,
-        flexDirection: 'row',
-        // backgroundColor: '#E4E4E4',
-        height: '100%',
+        paddingTop: 30,
+        paddingBottom: 30,
     },
     section: {
         margin: 10,
         padding: 10,
         flexGrow: 1,
-        // border: 1,
-        // borderColor: "black",
         marginBottom: 20,
     },
     column: {
@@ -56,7 +49,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         position: 'absolute',
-        bottom: 0,
+        bottom: 10,
         left: 0,
         right: 0,
         height: 20,
@@ -65,9 +58,15 @@ const styles = StyleSheet.create({
     },
 });
 
+const SafeImage = ({ src, style }) => {
+    if (!src || typeof src !== 'string') return <View />;
+    return <Image src={src} style={style} />;
+};
+
 export default function PDF({ data, setting }) {
     if (!data) return null;
 
+    const logoUrl = setting?.logo || null;
     const mainImageUrl = data.media && data.media.length > 0 ? data.media[0].original_url : null;
 
     return (
@@ -76,11 +75,7 @@ export default function PDF({ data, setting }) {
                 <View style={styles.header}>
                     <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#6b6969', paddingBottom: 5 }}>
                         <View style={styles.column}>
-                            {setting?.logo ? (
-                                <Image src={setting.logo} style={{ width: 100 }} />
-                            ) : (
-                                <View />
-                            )}
+                            {logoUrl ? <SafeImage src={logoUrl} style={{ width: 100 }} /> : <View />}
                         </View>
                         <View style={styles.column}>
                              <Text style={{ fontSize: 10, textAlign: 'right' }}>Agente: {String(data.user?.name || 'N/A')}</Text>
@@ -93,7 +88,7 @@ export default function PDF({ data, setting }) {
                 <View style={{ marginTop: 60, padding: 20 }}>
                     <View style={styles.section}>
                         {mainImageUrl ? (
-                            <Image src={mainImageUrl} style={{ marginBottom: 15 }} />
+                            <SafeImage src={mainImageUrl} style={{ marginBottom: 15 }} />
                         ) : (
                             <Text style={styles.text}>No hay imagen disponible</Text>
                         )}
@@ -127,9 +122,9 @@ export default function PDF({ data, setting }) {
                                 {(data.amenities || []).map((amenity, index) => (
                                     <Text key={`amenity-${index}`} style={styles.text}>• {String(amenity.name)}</Text>
                                 ))}
-                                {(!data.amenities || data.amenities.length === 0) && (
+                                {!data.amenities || data.amenities.length === 0 ? (
                                     <Text style={styles.text}>No se especificaron comodidades.</Text>
-                                )}
+                                ) : null}
                             </View>
                         </View>
 
@@ -137,10 +132,10 @@ export default function PDF({ data, setting }) {
                             <Text style={styles.subtitle}>Galería:</Text>
                             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                                 {(data.media || []).map((mediaItem, index) => (
-                                    <Image
+                                    <SafeImage
                                         key={`media-${index}`}
                                         src={mediaItem.original_url}
-                                        style={{ width: '30%', height: 100, margin: 5, objectFit: 'cover' }}
+                                        style={{ width: 160, height: 100, margin: 5 }}
                                     />
                                 ))}
                             </View>

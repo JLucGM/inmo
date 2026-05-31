@@ -7,12 +7,6 @@ import { DataTableRowActions } from '@/Components/DataTableRowActions';
 
 const columns = [
     {
-        accessorKey: 'id',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="#" />
-        ),
-    },
-    {
         accessorKey: 'name',
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Nombre" />
@@ -44,17 +38,10 @@ export default function Index({ auth, categoryPost }) {
 
     return (
         <AuthenticatedLayout user={auth.user}  >
-            <div className='flex justify-between items-center mb-6'>
-                <SectionHeader
-                    title="Categorías de Publicaciones"
-                    subtitle="Gestiona las categorías de tus posts para el blog."
-                />
-
-            </div>
-
+           
             <Head title="Categorías de Publicaciones" />
 
-            <div className="max-w-7xl p-4">
+            <div className="p-4">
                 <DataTable
                     columns={columnsWithActions}
                     data={categoryPost}

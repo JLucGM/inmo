@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Posts\StoreRequest;
+use App\Http\Requests\Posts\UpdateRequest;
 use App\Models\CategoryPost;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -87,9 +88,9 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $posts)
+    public function update(UpdateRequest $request, Post $posts)
     {
-        $data = $request->only('name', 'content', 'status', 'extract', 'category_post_id');
+        $data = $request->validated();
         $data['user_id'] = Auth::id();
 
         if ($request->hasFile('image')) {

@@ -1,25 +1,24 @@
 import InfoSection from '@/Components/InfoSection';
 import ProductsList from '@/Components/ProductsLists';
-import SwiperCustom from '@/Components/SwiperCustom';
+import HeroCarousel from '@/Components/HeroCarousel';
 import FrontedLayout from '@/Layouts/FrontedLayout';
 import { Head, Link } from '@inertiajs/react';
-import { Autoplay } from 'swiper/modules';
 import TeamSection from '@/Components/TeamSection';
 import InstagramPosts from '@/Components/InstagramPosts';
 import AnimatedComponent from '@/Components/AnimatedComponent';
-import TestimonialSection from '@/Components/TestimonialSection'; // Nueva dimportación
-import TypePropertiesCarousel from '@/Components/TypePropertiesCarousel';
-import Masonary from '@/Components/Masonary';
+import TestimonialSection from '@/Components/TestimonialSection';
+import CardPost from '@/Components/CardPost';
 import HeaderSection from '@/Components/HeaderSection';
 import ContainerInfoContact from '@/Components/ConteinerInfoContact';
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselPrevious,
+    CarouselNext,
+} from '@/Components/ui/carousel';
 
 export default function Welcome({ auth, setting, slides, properties, infoweb, testimonials, user, pages, posts, typeProperties }) {
-
-  const postsForMasonry = posts.map(post => ({
-    id: post.id,
-    imageUrl: post.image,
-    title: post.name
-  }));
 
   return (
     <>
@@ -27,17 +26,16 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
         <Head title="Bienvenido" />
         {setting?.status_banner == 1 && (
           <AnimatedComponent>
-            <SwiperCustom
-              datas={slides}
-              image={'image'}
-              text={'text'}
-              name={'name'}
-              link={'link'}
-              autoplay={{
+            <HeroCarousel
+              slides={slides}
+              image="image"
+              name="name"
+              text="text"
+              link="link"
+              autoplayOpts={{
                 delay: 5000,
                 disableOnInteraction: false,
               }}
-              modules={[Autoplay]}
             />
           </AnimatedComponent>
         )}
@@ -57,7 +55,37 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
 
         {typeProperties && typeProperties.length > 0 && (
           <AnimatedComponent>
-            <TypePropertiesCarousel typeProperties={typeProperties} />
+            <div className="w-full py-12 md:py-20">
+              <div className="mx-auto max-w-7xl px-4">
+                <HeaderSection
+                  title="Tipos de Propiedades"
+                  description="Explora los diferentes tipos de propiedades disponibles."
+                />
+                <Carousel opts={{ align: 'start', loop: true }} className="w-full">
+                  <CarouselContent>
+                    {typeProperties.map((tp) => (
+                      <CarouselItem key={tp.id} className="basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4 pl-4">
+                        <Link href={route('typePropertiesList.show', { typeProperty: tp.slug })}>
+                          <div className="group relative h-72 overflow-hidden rounded-2xl shadow-md transition-shadow duration-300 hover:shadow-lg">
+                            <img
+                              src={tp.image}
+                              alt={tp.name}
+                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
+                            <div className="absolute bottom-0 left-0 right-0 p-5">
+                              <h3 className="text-xl font-bold text-white drop-shadow-sm">{tp.name}</h3>
+                            </div>
+                          </div>
+                        </Link>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious />
+                  <CarouselNext />
+                </Carousel>
+              </div>
+            </div>
           </AnimatedComponent>
         )}
 
@@ -87,15 +115,26 @@ export default function Welcome({ auth, setting, slides, properties, infoweb, te
           </AnimatedComponent>
         )}
 
-        {setting.status_instagram_posts == 1 && (
-          <AnimatedComponent>
-            <InstagramPosts setting={setting} />
-          </AnimatedComponent>
-        )}
-
         {posts && posts.length > 0 && (
-          <div className="my-10">
-            <Masonary items={postsForMasonry} />
+          <div className="my-20">
+            <div className="mx-auto max-w-7xl px-4">
+              <AnimatedComponent>
+                <HeaderSection
+                  title="Blog y Noticias"
+                  description="Mantente al día con las últimas noticias, consejos y tendencias del sector inmobiliario a través de nuestro blog."
+                />
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {posts.map((post) => (
+                    <CardPost key={post.id} data={post} />
+                  ))}
+                </div>
+                <div className="flex justify-center mt-10">
+                  <Link href={route('blog.show')} className="px-6 py-2.5 bg-white text-sm font-medium text-gray-700 border border-gray-200 rounded-full shadow-sm hover:bg-gray-50 hover:border-gray-300 transition-all">
+                    Ver todas las entradas
+                  </Link>
+                </div>
+              </AnimatedComponent>
+            </div>
           </div>
         )}
 

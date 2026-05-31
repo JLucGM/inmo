@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Faqs\StoreRequest;
+use App\Http\Requests\Faqs\UpdateRequest;
 use App\Models\Faqs;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class FaqsController extends Controller
@@ -39,11 +39,9 @@ class FaqsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $data = $request->only('name','content','status');
-
-        Faqs::create($data);
+        Faqs::create($request->validated());
 
         return to_route('faqs.index');
     }
@@ -68,11 +66,9 @@ class FaqsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Faqs $faqs)
+    public function update(UpdateRequest $request, Faqs $faqs)
     {
-        $data = $request->only('name','content','status');
-
-        $faqs->update($data);
+        $faqs->update($request->validated());
 
         return to_route('faqs.edit', $faqs);
     }

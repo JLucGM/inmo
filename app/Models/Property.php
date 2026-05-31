@@ -39,6 +39,13 @@ class Property extends Model implements HasMedia
         'city_id',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'price' => 'decimal:2',
+        ];
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -122,5 +129,10 @@ class Property extends Model implements HasMedia
     public function property()
     {
         return $this->belongsTo(Property::class, 'property_id');
+    }
+
+    public function rentals()
+    {
+        return $this->hasMany(Rental::class, 'property_id');
     }
 }

@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Roles\StoreRequest;
+use App\Http\Requests\Roles\UpdateRequest;
 use App\Models\Permission;
 use App\Models\Role;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-// use Spatie\Permission\Models\Role;
+use Inertia\Response;
 
 class RoleController extends Controller
 {
@@ -20,85 +19,57 @@ class RoleController extends Controller
         $this->middleware('can:admin.role.edit')->only('edit', 'update');
         $this->middleware('can:admin.role.delete')->only('destroy');
     }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index(): Response
     {
         $roles = Role::all();
 
         return Inertia::render('Roles/Index', compact('roles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(): Response
     {
         $permissions = Permission::all();
 
         return Inertia::render('Roles/Create', compact('permissions'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        // dd($request);
-        $data = $request->only('name', 'permissions');
+        $data = $request->validated();
 
         $role = Role::create($data);
 
         if (!empty($data['permissions'])) {
-
-            // dd($data['permissions']);
-            $role->syncPermissions($data['permissions']); // Asigna los permisos al rol
+            $role->syncPermissions($data['permissions']);
         }
 
         return to_route('roles.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Role $roles)
+    public function edit(Role $role): Response
     {
         $permissions = Permission::all();
-        $assignedPermissions = $roles->permissions()->pluck('id')->toArray();
+        $assignedPermissions = $role->permissions()->pluck('id')->toArray();
 
-        return Inertia::render('Roles/Edit', compact('roles', 'permissions', 'assignedPermissions'));
+        return Inertia::render('Roles/Edit', compact('role', 'permissions', 'assignedPermissions'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Role $roles)
+    public function update(UpdateRequest $request, Role $role)
     {
-        $data = $request->only('name');
+        $data = $request->validated();
 
-        $roles->update($data);
+        $role->update($data);
 
-        $roles->permissions()->sync($request->permissions); // Esto actualizará los permisos asociados al rol
+        if (!empty($data['permissions'])) {
+            $role->syncPermissions($data['permissions']);
+        }
 
-
-        return to_route('roles.edit', $roles);
+        return to_route('roles.edit', $role);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Role $roles)
+    public function destroy(Role $role)
     {
-        // dd($roles);
-        $roles->delete();
+        $role->delete();
     }
 }

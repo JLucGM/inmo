@@ -7,13 +7,6 @@ import { DataTableRowActions } from '@/Components/DataTableRowActions';
 
 const columns = [
     {
-        accessorKey: 'id',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="#" />
-        ),
-        cell: ({ row }) => <p className="w-4">{row.original.id}</p>
-    },
-    {
         accessorKey: 'name',
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Nombre del rol" />
@@ -40,18 +33,10 @@ export default function Index({ auth, roles }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            
-            
-            header={
-                <SectionHeader
-                    title="Roles del sistema"
-                    subtitle="Añade, edita y gestiona los roles disponibles para los usuarios."
-                />
-            }
         >
             <Head title="Roles" />
 
-            <div className="max-w-7xl p-4">
+            <div className="p-4">
                 <DataTable
                     columns={columns}
                     data={roles}

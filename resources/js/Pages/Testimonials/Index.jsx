@@ -7,24 +7,20 @@ import { DataTableRowActions } from '@/Components/DataTableRowActions';
 
 const columns = [
     {
-        accessorKey: 'id',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="#id" />
-        ),
-        cell: ({ row }) => (
-            <div className="flex items-center gap-3">
-                <p className="w-4">{row.original.id}</p>
-                {row.original.avatar && (
-                    <img src={row.original.avatar} alt="avatar" className='w-12 h-12 rounded-full object-cover' />
-                )}
-            </div>
-        )
-    },
-    {
         accessorKey: 'name',
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Nombre" />
         ),
+        cell: ({ row }) => (
+            <div className="flex items-center gap-3">
+                {row.original.avatar ? (
+                    <img src={row.original.avatar} alt="avatar" className='w-12 h-12 rounded-full object-cover shrink-0' />
+                ) : (
+                    <div className="w-14 h-14 rounded-full shrink-0 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-[10px] text-gray-500">Sin img</div>
+                )}
+                <span>{row.original.name}</span>
+            </div>
+        )
     },
     {
         id: 'actions',
@@ -44,11 +40,7 @@ const columns = [
 export default function Index({ auth, testimonial }) {
     return (
         <AuthenticatedLayout user={auth.user} >
-            <SectionHeader
-                title="Testimonios"
-                subtitle="Gestiona los testimonios y opiniones de los clientes."
-            />
-
+                       
             <Head title="Testimonios" />
 
             <div className="max-w-7xl p-4">

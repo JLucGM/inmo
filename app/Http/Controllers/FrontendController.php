@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Frontend\StoreContactRequest;
 use App\Models\Cities;
 use App\Models\ContactProperty;
 use App\Models\Contacts;
@@ -20,15 +21,31 @@ use App\Models\TypesBusinesses;
 use App\Models\TypesProperties;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class FrontendController extends Controller
 {
-    public function welcome()
+    private function getSetting()
     {
-        $setting = Setting::with('currency')->first();
+        return Cache::remember('frontend_setting', 3600, function () {
+            return Setting::with('currency')->first();
+        });
+    }
+
+    private function getActivePages()
+    {
+        return Cache::remember('frontend_pages', 3600, function () {
+            return Page::where('status', '1')->get();
+        });
+    }
+
+    public function welcome(): Response
+    {
+        $setting = $this->getSetting();
         $slides = Slide::where('status', '1')->get();
-        $pages = Page::where('status', '1')->get();
+        $pages = $this->getActivePages();
         $properties = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'user', 'media')->where('status', '1')->take(8)->get();
         $typeProperties = TypesProperties::all();
         $infoweb = Infoweb::take(12)->get();
@@ -43,89 +60,71 @@ class FrontendController extends Controller
         return Inertia::render('Welcome', compact('setting', 'slides', 'properties', 'posts', 'infoweb', 'testimonials', 'user', 'pages', 'typeProperties'));
     }
 
-    public function frontendShow(Property $property)
+    public function frontendShow(Property $property): Response
     {
         $property = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'user', 'media')->find($property->id);
-        $setting = Setting::with('currency')->first();
+        $setting = $this->getSetting();
         $propertyAmenities = $property->amenities;
-        $pages = Page::all();
-        //  dd('Frontend/Property');
+        $pages = $this->getActivePages();
         return Inertia::render('Frontend/Property', compact('property', 'setting', 'propertyAmenities', 'pages'));
     }
 
 
-    public function blog()
+    public function blog(): Response
     {
-        $setting = Setting::with('currency')->first();
+        $setting = $this->getSetting();
         $posts = Post::with('categoryPost', 'user')->where('status', 1)->get();
-        $pages = Page::all();
+        $pages = $this->getActivePages();
 
         return Inertia::render('Frontend/Blog', compact('setting', 'posts', 'pages'));
     }
 
-    public function postsShow($slug)
+    public function postsShow($slug): Response
     {
-        $posts = Post::with('categoryPost', 'user')->where('slug', $slug)->firstOrFail(); // Esto lanzará un 404 si no se encuentra el post
-        $setting = Setting::with('currency')->first();
-        $pages = Page::all();
-
-        // dd($posts);
-        // $posts = Post::with('categoryPost', 'user')->where('status', 1)->get();
+        $posts = Post::with('categoryPost', 'user')->where('slug', $slug)->firstOrFail();
+        $setting = $this->getSetting();
+        $pages = $this->getActivePages();
 
         return Inertia::render('Frontend/PostShow', compact('setting', 'posts', 'pages'));
     }
 
 
-    public function faqs()
+    public function faqs(): Response
     {
-        $setting = Setting::with('currency')->first();
+        $setting = $this->getSetting();
         $faqs = Faqs::all();
-        $pages = Page::all();
+        $pages = $this->getActivePages();
 
         return Inertia::render('Frontend/Faqs', compact('setting', 'faqs', 'pages'));
     }
 
-    public function ContactPage()
+    public function ContactPage(): Response
     {
-        $setting = Setting::with('currency')->first();
-        $pages = Page::all();
+        $setting = $this->getSetting();
+        $pages = $this->getActivePages();
 
         return Inertia::render('Frontend/Contact', compact('setting', 'pages'));
     }
 
-    public function pagesShow($slug)
+    public function pagesShow($slug): Response
     {
-        $page = Page::where('slug', $slug)->firstOrFail(); // Esto lanzará un 404 si no se encuentra el post
-        $pages = Page::all(); // Esto lanzará un 404 si no se encuentra el post
-
-        // dd($pages);
-        $setting = Setting::with('currency')->first();
+        $page = Page::where('slug', $slug)->firstOrFail();
+        $pages = $this->getActivePages();
+        $setting = $this->getSetting();
 
         return Inertia::render('Frontend/Pages', compact('setting', 'pages', 'page'));
     }
 
-    public function storeContactPages(Request $request)
+    public function storeContactPages(StoreContactRequest $request)
     {
-        $data = $request->only(
-            'name',
-            'email',
-            'phone',
-            'description',
-            'types_contacts_id',
-            'types_properties_id',
-            'status_contacts_id',
-            'origin_id',
-            'country_id',
-            'state_id',
-            'city_id',
-        );
+        $data = $request->validated();
 
-        $randomUser  = User::whereHas('roles', function ($query) {
+        $randomUser = User::whereHas('roles', function ($query) {
             $query->where('name', 'agente');
         })->inRandomOrder()->first();
 
         if (!$randomUser) {
-            throw new \Exception('No se puede crear el contacto: No existen usuarios con rol agente.');
+            return back()->withErrors(['error' => 'No se puede crear el contacto: No existen usuarios con rol agente.']);
         }
 
         $data['user_id'] = $randomUser->id;
@@ -133,39 +132,25 @@ class FrontendController extends Controller
         Contacts::create($data);
     }
 
-    public function storeContact(Request $request)
+    public function storeContact(StoreContactRequest $request)
     {
         $property = $request->input('property_id');
-        $data = $request->only(
-            'name',
-            'email',
-            'phone',
-            'description',
-            'types_contacts_id',
-            'types_properties_id',
-            'status_contacts_id',
-            'origin_id',
-            'user_id',
-            'country_id',
-            'state_id',
-            'city_id',
-        );
+        $data = $request->validated();
 
-        // Buscar contacto existente por email
-        $contact = Contacts::where('email', $data['email'])->first();
+        $contact = null;
+        if (!empty($data['identificación_contact'])) {
+            $contact = Contacts::where('identificación_contact', $data['identificación_contact'])->first();
+        }
 
         if (!$contact) {
-            // No existe, crear nuevo contacto
             $contact = Contacts::create($data);
         }
 
-        // Verificar si ya existe la relación para evitar duplicados
         $existsRelation = ContactProperty::where('contact_id', $contact->id)
             ->where('property_id', $property)
             ->exists();
 
         if (!$existsRelation) {
-            // Crear la relación solo si no existe
             ContactProperty::create([
                 'contact_id' => $contact->id,
                 'property_id' => $property,
@@ -174,35 +159,105 @@ class FrontendController extends Controller
     }
 
 
-    public function propertiesList()
+    public function propertiesList(Request $request): Response
     {
-        $pages = Page::all();
-        $setting = Setting::with('currency')->first();
-        $properties = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'typeProperty', 'user', 'media')->where('status', '1')->get();
+        $setting = $this->getSetting();
+        $pages = $this->getActivePages();
+
+        $query = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'typeProperty', 'user', 'media')
+            ->where('status', '1');
+
+        if ($request->filled('typeProperty')) {
+            $model = TypesProperties::where('slug', $request->input('typeProperty'))->first();
+            if ($model) $query->where('types_properties_id', $model->id);
+        }
+        if ($request->filled('minPrice')) {
+            $query->where('price', '>=', $request->float('minPrice'));
+        }
+        if ($request->filled('maxPrice')) {
+            $query->where('price', '<=', $request->float('maxPrice'));
+        }
+        if ($request->filled('phyState')) {
+            $model = PhyStates::where('slug', $request->input('phyState'))->first();
+            if ($model) $query->where('phy_states_id', $model->id);
+        }
+        if ($request->filled('typeBusiness')) {
+            $model = TypesBusinesses::where('slug', $request->input('typeBusiness'))->first();
+            if ($model) $query->where('types_businesses_id', $model->id);
+        }
+        if ($request->filled('country')) {
+            $model = Countries::where('slug', $request->input('country'))->first();
+            if ($model) $query->where('countries_id', $model->id);
+        }
+        if ($request->filled('state')) {
+            $model = States::where('slug', $request->input('state'))->first();
+            if ($model) $query->where('states_id', $model->id);
+        }
+        if ($request->filled('city')) {
+            $model = Cities::where('slug', $request->input('city'))->first();
+            if ($model) $query->where('cities_id', $model->id);
+        }
+
+        $properties = $query->paginate(12)->withQueryString();
+
         $countries = Countries::all();
         $states = States::all();
         $cities = Cities::all();
         $phyStates = PhyStates::all();
         $typeBusinesses = TypesBusinesses::all();
-        $typeProperties = TypesProperties::all(); // Asegúrate de que este modelo exista y esté relacionado
-        // dd('Frontend/PropertiesList');
-        return Inertia::render('Frontend/PropertiesList', compact('setting', 'pages', 'properties', 'countries', 'states', 'cities', 'phyStates', 'typeBusinesses', 'typeProperties'));
+        $typeProperties = TypesProperties::all();
+        $filters = $request->only(['typeProperty', 'minPrice', 'maxPrice', 'phyState', 'typeBusiness', 'country', 'state', 'city']);
+
+        return Inertia::render('Frontend/PropertiesList', compact(
+            'setting', 'pages', 'properties', 'countries', 'states', 'cities',
+            'phyStates', 'typeBusinesses', 'typeProperties', 'filters'
+        ));
     }
 
-    public function typePropertiesList($slug)
+    public function typePropertiesList($slug, Request $request): Response
     {
-        $pages = Page::all();
-        $setting = Setting::with('currency')->first();
+        $setting = $this->getSetting();
+        $pages = $this->getActivePages();
 
         $typeProperty = TypesProperties::where('slug', $slug)->firstOrFail();
 
-        $properties = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'typeProperty', 'user', 'media')
+        $query = Property::with('country', 'state', 'city', 'phyState', 'typeBusiness', 'typeProperty', 'user', 'media')
             ->where('status', '1')
-            ->where('types_properties_id', $typeProperty->id)
-            ->get();
+            ->where('types_properties_id', $typeProperty->id);
 
-        // Pasar filtro para que React lo use
-        $filters = ['typeProperty' => $typeProperty->id];
+        if ($request->filled('minPrice')) {
+            $query->where('price', '>=', $request->float('minPrice'));
+        }
+        if ($request->filled('maxPrice')) {
+            $query->where('price', '<=', $request->float('maxPrice'));
+        }
+        if ($request->filled('phyState')) {
+            $model = PhyStates::where('slug', $request->input('phyState'))->first();
+            if ($model) $query->where('phy_states_id', $model->id);
+        }
+        if ($request->filled('typeBusiness')) {
+            $model = TypesBusinesses::where('slug', $request->input('typeBusiness'))->first();
+            if ($model) $query->where('types_businesses_id', $model->id);
+        }
+        if ($request->filled('country')) {
+            $model = Countries::where('slug', $request->input('country'))->first();
+            if ($model) $query->where('countries_id', $model->id);
+        }
+        if ($request->filled('state')) {
+            $model = States::where('slug', $request->input('state'))->first();
+            if ($model) $query->where('states_id', $model->id);
+        }
+        if ($request->filled('city')) {
+            $model = Cities::where('slug', $request->input('city'))->first();
+            if ($model) $query->where('cities_id', $model->id);
+        }
+
+        $properties = $query->paginate(12)->withQueryString();
+
+        $filters = array_merge(
+            $request->only(['minPrice', 'maxPrice', 'phyState', 'typeBusiness', 'country', 'state', 'city']),
+            ['typeProperty' => $typeProperty->slug]
+        );
 
         $countries = Countries::all();
         $states = States::all();
@@ -212,16 +267,8 @@ class FrontendController extends Controller
         $typeProperties = TypesProperties::all();
 
         return Inertia::render('Frontend/PropertiesList', compact(
-            'setting',
-            'pages',
-            'properties',
-            'countries',
-            'states',
-            'cities',
-            'phyStates',
-            'typeBusinesses',
-            'typeProperties',
-            'filters'
+            'setting', 'pages', 'properties', 'countries', 'states', 'cities',
+            'phyStates', 'typeBusinesses', 'typeProperties', 'filters'
         ));
     }
 }

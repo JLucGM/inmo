@@ -87,7 +87,7 @@ export default function SwiperCustom({ datas, image, link = "", text, name, chil
                 return (
                     <SwiperSlide
                         key={data.id}
-                        className="bg-center bg-repeat bg-cover rounded-3xl relative content-center"
+                        className="bg-center bg-repeat bg-cover rounded-3xl relative content-center "
                         style={{
                             backgroundImage: `url(${data[image]})`,
                             height: '42rem',

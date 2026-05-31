@@ -31,7 +31,7 @@ export default function MegaMenu({ auth, setting }) {
             "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
             isScrolled 
                 ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm py-2" 
-                : "bg-white dark:bg-gray-950 py-4"
+                : " py-4"
         )}>
             <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
                 <div className="flex lg:flex-1">
@@ -81,12 +81,14 @@ export default function MegaMenu({ auth, setting }) {
                         <Button
                             variant="outline"
                             size="sm"
+                            nativeButton={false}
                             render={<Link href={route('dashboard')}>Dashboard</Link>}
                             className="rounded-full px-6"
                         />
                     ) : (
                         <Button
                             size="sm"
+                            nativeButton={false}
                             render={
                                 <Link href={route('login')}>
                                     <UserIcon className="size-4 mr-2" />

@@ -9,12 +9,14 @@ import { Button } from '@/Components/ui/button';
 import PropertyDetails from './PropertyDetails';
 import PropertyGallery from './PropertyGallery';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import PropertyMapView from './PropertyMapView';
 
 export default function PropertySection({ datas, amenities, setting }) {
   const initialValues = {
     name: "",
     email: "",
     phone: "",
+    identificación_contact: "",
     description: "",
     status_contacts_id: 1,
     types_contacts_id: 1,
@@ -90,86 +92,114 @@ export default function PropertySection({ datas, amenities, setting }) {
                 {setting?.currency?.symbol || '$'}{new Intl.NumberFormat().format(datas?.price || 0)}
               </p>
             </div>
+
+            <div className="col-span-full">
+              <PropertyDetails datas={datas} amenities={finalAmenities} setting={setting} />
+            </div>
+
           </div>
 
           <div className="lg:col-span-1">
             <div className="sticky top-10 border dark:border-gray-800 p-6 rounded-3xl bg-gray-50/50 dark:bg-gray-900/50 backdrop-blur-sm">
-                <header className="mb-6 text-center">
-                    <div className="relative inline-block mb-3">
-                        <img 
-                            src={datas?.user?.avatar || '/img/default-avatar.jpg'} 
-                            alt={datas?.user?.name || 'Agente'} 
-                            className="w-24 h-24 rounded-full object-cover border-4 border-white dark:border-gray-800 shadow-md ring-2 ring-blue-500/20" 
-                            onError={(e) => { e.target.src = '/img/default-avatar.jpg'; }}
-                        />
-                    </div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white italic">{datas?.user?.name || 'Agente no asignado'}</h3>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Agente Inmobiliario</p>
-                </header>
+              <header className="mb-6 text-center">
+                <div className="relative inline-block mb-3">
+                  <img
+                    src={datas?.user?.avatar || '/img/default-avatar.jpg'}
+                    alt={datas?.user?.name || 'Agente'}
+                    className="w-24 h-24 rounded-full object-cover border-4 border-white dark:border-gray-800 shadow-md ring-2 ring-blue-500/20"
+                    onError={(e) => { e.target.src = '/img/default-avatar.jpg'; }}
+                  />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white italic">{datas?.user?.name || 'Agente no asignado'}</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Agente Inmobiliario</p>
+              </header>
 
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-4 uppercase tracking-wider">Contactar ahora</h4>
-                
-                <form onSubmit={submit} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-xs">Nombre</Label>
-                    <Input
-                      id="name"
-                      value={data.name}
-                      onChange={(e) => setData('name', e.target.value)}
-                      placeholder="Tu nombre"
-                      required
-                      className="bg-white dark:bg-gray-800"
-                    />
-                    {errors.name && <p className="text-[10px] text-red-500">{errors.name}</p>}
-                  </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-xs">Correo electrónico</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={data.email}
-                      onChange={(e) => setData('email', e.target.value)}
-                      placeholder="correo@ejemplo.com"
-                      required
-                      className="bg-white dark:bg-gray-800"
-                    />
-                    {errors.email && <p className="text-[10px] text-red-500">{errors.email}</p>}
-                  </div>
+              <form onSubmit={submit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-xs">Nombre</Label>
+                  <Input
+                    id="name"
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
+                    placeholder="Tu nombre"
+                    required
+                    className="bg-white dark:bg-gray-800"
+                  />
+                  {errors.name && <p className="text-[10px] text-red-500">{errors.name}</p>}
+                </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-xs">Teléfono</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      value={data.phone}
-                      onChange={(e) => setData('phone', e.target.value)}
-                      placeholder="+1 234 567"
-                      className="bg-white dark:bg-gray-800"
-                    />
-                    {errors.phone && <p className="text-[10px] text-red-500">{errors.phone}</p>}
-                  </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-xs">Correo electrónico</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={data.email}
+                    onChange={(e) => setData('email', e.target.value)}
+                    placeholder="correo@ejemplo.com"
+                    required
+                    className="bg-white dark:bg-gray-800"
+                  />
+                  {errors.email && <p className="text-[10px] text-red-500">{errors.email}</p>}
+                </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="description" className="text-xs">Mensaje</Label>
-                    <Textarea
-                      id="description"
-                      value={data.description}
-                      onChange={(e) => setData('description', e.target.value)}
-                      placeholder="Estoy interesado en esta propiedad..."
-                      className="min-h-[100px] bg-white dark:bg-gray-800"
-                    />
-                    {errors.description && <p className="text-[10px] text-red-500">{errors.description}</p>}
-                  </div>
+                <div className="space-y-2">
+                  <Label htmlFor="phone" className="text-xs">Teléfono</Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={data.phone}
+                    onChange={(e) => setData('phone', e.target.value)}
+                    placeholder="+1 234 567"
+                    className="bg-white dark:bg-gray-800"
+                  />
+                  {errors.phone && <p className="text-[10px] text-red-500">{errors.phone}</p>}
+                </div>
 
-                  <Button className="w-full pt-2" disabled={processing} type="submit">
-                    {processing ? 'Enviando...' : 'Enviar consulta'}
-                  </Button>
-                </form>
+                <div className="space-y-2">
+                  <Label htmlFor="identificación_contact" className="text-xs">Cédula de identidad</Label>
+                  <Input
+                    id="identificación_contact"
+                    value={data.identificación_contact}
+                    onChange={(e) => setData('identificación_contact', e.target.value)}
+                    placeholder="V-12345678"
+                    className="bg-white dark:bg-gray-800"
+                  />
+                  {errors.identificación_contact && <p className="text-[10px] text-red-500">{errors.identificación_contact}</p>}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="description" className="text-xs">Mensaje</Label>
+                  <Textarea
+                    id="description"
+                    value={data.description}
+                    onChange={(e) => setData('description', e.target.value)}
+                    placeholder="Estoy interesado en esta propiedad..."
+                    className="min-h-25 bg-white dark:bg-gray-800"
+                  />
+                  {errors.description && <p className="text-[10px] text-red-500">{errors.description}</p>}
+                </div>
+
+                <Button className="w-full" disabled={processing} type="submit">
+                  {processing ? 'Enviando...' : 'Enviar consulta'}
+                </Button>
+              </form>
             </div>
           </div>
 
-          <PropertyDetails datas={datas} amenities={finalAmenities} setting={setting} />
+
+          {datas?.coordinate && (() => {
+            const coords = datas.coordinate.split(',').map(s => parseFloat(s.trim()));
+            if (coords.length !== 2 || isNaN(coords[0]) || isNaN(coords[1])) return null;
+            return (
+              <div className="lg:col-span-3 mt-8">
+                <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Ubicación</h3>
+                <div className="h-100">
+                  <PropertyMapView coordinate={datas.coordinate} />
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </div>
     </div>

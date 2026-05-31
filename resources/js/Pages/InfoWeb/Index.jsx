@@ -7,26 +7,20 @@ import { DataTableRowActions } from '@/Components/DataTableRowActions';
 
 const columns = [
     {
-        accessorKey: 'id',
+        accessorKey: 'name',
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="#id" />
+            <DataTableColumnHeader column={column} title="Nombre" />
         ),
         cell: ({ row }) => (
-            <div className="flex items-center space-x-3">
-                <p className="w-5 text-gray-500">{row.original.id}</p>
+            <div className="flex items-center gap-3">
                 {row.original.image ? (
                     <img src={row.original.image} alt={row.original.name} className="w-12 h-12 rounded-lg object-cover border border-gray-100 dark:border-gray-800" loading="lazy" />
                 ) : (
-                    <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-[10px] text-gray-400">Sin img</div>
+                    <div className="w-12 h-12 shrink-0 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center text-[10px] text-gray-500">Sin img</div>
                 )}
+                <span>{row.original.name}</span>
             </div>
         )
-    },
-    {
-        accessorKey: 'name',
-        header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="Nombre de la entrada" />
-        ),
     },
     {
         id: 'actions',
@@ -47,17 +41,10 @@ export default function Index({ auth, infoweb }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            
-            header={
-                <SectionHeader
-                    title="Información web"
-                    subtitle="Administra la información estática mostrada en la página web."
-                />
-            }
         >
             <Head title="Información web" />
 
-            <div className="max-w-7xl p-4">
+            <div className="p-4">
                 <DataTable
                     columns={columns}
                     data={infoweb}
